@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category: Magento
+ * @package: Perficient/Base
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+  * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Asset\Minification">
+        <plugin name="my-exclude-Extension" type="Perficient\Base\Plugin\ExcludeFilesFromMinification" />
+    </type>
+    <preference for="Magento\Framework\View\Element\Html\Date"
+                type="Perficient\Base\Helper\Element\Html\Date"/>
+</config>

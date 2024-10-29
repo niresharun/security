@@ -1,0 +1,33 @@
+<?php
+/**
+ *
+ * This file used to remove title
+ *
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Checkout remove title
+ */
+
+
+/** @var $block \Magento\Checkout\Block\Onepage\Link */
+?>
+<?php if ($block->isPossibleOnepageCheckout()) :?>
+    <button type="button"
+            data-role="proceed-to-checkout"
+            data-mage-init='{
+                "Magento_Checkout/js/proceed-to-checkout":{
+                    "checkoutUrl":"<?= $block->escapeJs($block->escapeUrl($block->getCheckoutUrl())) ?>"
+                }
+            }'
+            class="action primary checkout<?= ($block->isDisabled()) ? ' disabled' : '' ?>"
+        <?php if ($block->isDisabled()) :?>
+            disabled="disabled"
+        <?php endif; ?>>
+        <span><?= $block->escapeHtml(__('Proceed to Checkout')) ?></span>
+    </button>
+<?php endif?>

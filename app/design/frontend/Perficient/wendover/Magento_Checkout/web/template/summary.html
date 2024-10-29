@@ -1,0 +1,15 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+    <span class="title">Order Summary</span>
+    <!-- ko if: getLeadTime -->
+    <span class="lead_time" data-bind="text: getLeadTime"></span>
+    <!-- /ko -->
+    <!-- ko foreach: elems() -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>

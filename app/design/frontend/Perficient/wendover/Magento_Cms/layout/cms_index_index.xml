@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Remove Amasty_CSS from Homepage resources -->
+        <remove src="Magento_Theme::css/form-builder.css" />
+        <remove src="Magento_Theme::css/form-render.css" />
+        <remove src="Magento_Theme::css/google-map.css" />
+        <remove src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <remove src="DCKAP_Productimize::css/owl.carousel.css"/>
+        <remove src="DCKAP_Productimize::css/productimizecustom.css"/>
+        <remove src="DCKAP_Productimize::css/selectric.css"/>
+    </head>
+    <body/>
+</page>

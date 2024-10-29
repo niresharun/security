@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+* ViewInRoom System Config.
+* @category: Magento
+* @package: Perficient/ViewInRoom
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Rohit Bhasarkar <rohit.bhasarkar@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_ViewInRoom
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="productimize" translate="label" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="view_setting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>View in Settings</label>
+                <field id="lifestyle_path" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Path for View in Setting</label>
+                    <comment>Lifestyle full path (Eg: 1/2/478/491).</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

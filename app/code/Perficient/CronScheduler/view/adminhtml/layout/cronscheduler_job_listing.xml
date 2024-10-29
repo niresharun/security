@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Perficient\CronScheduler\Block\Adminhtml\Job\Listing\Actions"
+                   name="cronscheduler_job_listing_actions"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="cronscheduler_job_listing"/>
+        </referenceContainer>
+    </body>
+</page>

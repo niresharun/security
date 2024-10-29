@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Captcha Config.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Trupti Bobde <trupti.bobde@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <recaptcha_frontend>
+            <type_for>
+                <company_create/>
+            </type_for>
+        </recaptcha_frontend>
+        <restrictcustomer>
+            <cartcheckout>
+                <is_enabled>1</is_enabled>
+                <redirect_to>company/accessdenied</redirect_to>
+            </cartcheckout>
+        </restrictcustomer>
+    </default>
+</config>

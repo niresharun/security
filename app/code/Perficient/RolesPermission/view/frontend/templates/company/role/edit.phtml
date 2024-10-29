@@ -1,0 +1,91 @@
+<?php
+/**
+ * Override roles permission form
+ *
+ * @category: Perficient's Modules
+ * @package: Perficient\RolesPermission
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@Perficient.com>
+ * @keywords: Override roles permission form
+ */
+
+/** @var $block \Magento\Company\Block\Company\Role\Edit */
+/** @var $escaper \Magento\Framework\Escaper */
+
+$role = $block->getRole();
+?>
+
+<form class="form form-edit-role" method="post" id="role-edit-form"
+      action="<?= $block->escapeUrl($block->getUrl('*/*/editPost', ['id' => $role->getId()])) ?>"
+      data-mage-init='{"validation":{}}'>
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $escaper->escapeHtmlAttr(__('Role Information')) ?></span></legend>
+        <div class="field role-name _required">
+            <label class="label" for="role_name">
+                <span><?= $escaper->escapeHtmlAttr(__('Role Name')) ?></span>
+            </label>
+            <div class="control">
+                <?php if($role->getId()): ?>
+                    <label class="label" for="role_name">
+                        <?= $role->getRoleName(); ?>
+                    </label>
+                    <input type="hidden" name="role_name" id="role_name"
+                           value="<?= $escaper->escapeHtmlAttr($role->getRoleName()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Role Name')) ?>"
+                           data-async-is-valid="true"
+                           data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                            "name": "company_role_name",
+                            "validateUrl": "<?= $block->escapeUrl($block->getUrl('company/role/validate')) ?>"
+                       }}'
+                           data-validate="{required:true, 'validate-async-company-role-name': true}"
+                           class="input-text" readonly>
+
+                <?php else: ?>
+                <input type="text" name="role_name" id="role_name"
+                       value="<?= $escaper->escapeHtmlAttr($role->getRoleName()) ?>"
+                       title="<?= $escaper->escapeHtmlAttr(__('Role Name')) ?>"
+                       data-async-is-valid="true"
+                       data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                            "name": "company_role_name",
+                            "validateUrl": "<?= $block->escapeUrl($block->getUrl('company/role/validate')) ?>"
+                       }}'
+                       data-validate="{required:true, 'validate-async-company-role-name': true}"
+                       class="input-text" readonly>
+                <?php endif; ?>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $escaper->escapeHtmlAttr(__('Role Permissions')) ?></span></legend>
+        <div class="box-actions">
+            <button class="action expand" data-action="expand-tree" type="button">
+                <span><?= $escaper->escapeHtmlAttr(__('Expand All')) ?></span>
+            </button>
+            <button class="action expand" data-action="collapse-tree" type="button">
+                <span><?= $escaper->escapeHtmlAttr(__('Collapse All')) ?></span>
+            </button>
+        </div>
+        <?php
+        // This is a temporary solution for backward compatibility because we cannot modify block public api methods
+        // Modify getTreeJsOptions methods in minor version for it to return array without roleTree key
+        $treeJsOptions = $block->getTreeJsOptions();
+        $treeOptions = $treeJsOptions['roleTree'];
+        ?>
+        <div class="tree x-tree" id="role-tree" data-role="role-tree"
+             data-mage-init='{"roleTree":<?= /* @noEscape */ $block->getJsonHelper()->jsonEncode($treeOptions)?>}'>
+        </div>
+        <input type="hidden" name="role_permissions" />
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save Role')) ?>">
+                <span><?= $escaper->escapeHtmlAttr(__('Save Role')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>

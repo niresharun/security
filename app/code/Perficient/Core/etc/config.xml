@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Perficient_Core
+ *
+ * @category: PHP
+ * @copyright: Copyright © 2018 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suraj.Jaiswal<suraj.jaiswal@perficient.com>
+ * @project: Wendover
+ * @keywords: Core Module
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <general>
+            <form_key_validation>
+                <disable>0</disable>
+            </form_key_validation>
+        </general>
+    </default>
+</config>

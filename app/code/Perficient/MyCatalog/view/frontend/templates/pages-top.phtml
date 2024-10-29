@@ -1,0 +1,108 @@
+<?php
+/**
+ * File to create left bar.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+
+<div id="wendover_select_menu" class="mycatalog-top-section">
+    <div id="top-items" class="top-item-block">
+        <ul>
+            <li class="top-back-li">
+                <div tabindex="0" role="button" id="top-back" onclick="top.location = '<?= $block->getUrl('mycatalog', ['_secure' => 1])?>';">
+                    <?= __('BACK'); ?>
+                </div>
+            </li>
+            <li class="catalog-name-li">
+                <span class="catalog-name"><?= $escaper->escapeHtml($this->getCatalogName());?></span>
+            </li>
+            <li class="price-multiplier-li">
+                <div class="price-multiplier">
+                    <div class="price-multiplier-edit">
+                        <a href="#" id="price_multiplier_option" role="button" tabindex="0" aria-expanded="false">
+                            <span><?= __('Price Multiplier'); ?></span><div class="price-arrow"></div>
+                        </a>
+                        <span class="price-multiplier-change"></span>
+                    </div>
+                    <div class="price-dialog">
+                        <?php echo $this->getLayout()
+                            ->createBlock("Perficient\PriceMultiplier\Block\MyCatalog\Multiplier")
+                            ->setData('reload', true)
+                            ->setTemplate("Perficient_PriceMultiplier::account/mycatalog/multiplier.phtml")
+                            ->toHtml() ?>
+                        <div class="price-buttons">
+                            <button class="cancel-price action primary"><?= __('Cancel'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="clear"></div>
+        <hr/>
+        <ul class="top-slider-container">
+            <li class="left">
+                <div id="submenu-wrapper">
+                    <button id="catalog_action_button" aria-expanded="false" class="action primary"><?= __('Action'); ?></button>
+                    <ul id="top-submenu" rel="">
+                        <li class="level1 nav-1-2 second"><a href="#" class="email-catalog" data-id="<?= $this->getRequest()->getParam('catalog_id') ?>" data-url="<?= $this->getUrl('mycatalog/index/email', ['catalog_id' => $this->getRequest()->getParam('catalog_id'), '_secure' => 1]) ?>"><span><?= __('Email'); ?></span></a></li>
+                        <li class="level1 nav-1-1 first"><a href="javascript:void(0);" id="create_pdf_action"><span><?= __('Create PDF'); ?></span></a></li>
+                        <li class="level1 nav-1-2 third"><a href="#" class="delete-catalog"data-url="<?= $this->getUrl('mycatalog/index/deleteCatalog', ['_secure' => 1, 'catalog_id' => $this->getRequest()->getParam('catalog_id')]) ?>"><span><?= __('Delete Catalog'); ?></span></a></li>
+                    </ul>
+                </div>
+                <button class="action primary" onclick="top.location='<?= $block->getUrl('mycatalog/index/edit', ['catalog_id' => $this->getRequest()->getParam('catalog_id'), '_secure' => 1]) ?>'"><?= __('Edit Cover'); ?></button>
+            </li>
+            <li class="center">
+                <div class="jcarousel-skin-tango">
+                    <div class="jcarousel-container jcarousel-wrapper jcarousel-container-horizontal" style="position: relative; display: block;">
+                        <div class="jcarousel-prev jcarousel-prev-horizontal" tabindex="0" aria-label="Previous" style="display: block;"></div>
+                        <div id="wendover_header" class="jcarousel-clip jcarousel-clip-horizontal jcarousel wendover_carousel">
+                            <ul class="wendover_page_thumbnails sortable jcarousel-list jcarousel-list-horizontal" aria-live="polite">
+
+                                <li class="cover">
+                                    <a class="template-page-type" data-id="front">
+                                        <img tabindex="0" src="<?= $block->getViewFileUrl('Perficient_MyCatalog/images/front-page.png'); ?>" alt="Front Cover" class="wendover_page_thumb " />
+                                        <div>&nbsp;</div>
+                                    </a>
+                                </li>
+
+                                <?php
+                                for ($i = 1; $i <= $block->getPageNumber(); $i++): ?>
+                                    <li class="sort-item jcarousel-item jcarousel-item-horizontal jcarousel-item-<?= $i ?> jcarousel-item-<?= $i ?>-horizontal" id="th_<?= $i ?>" jcarouselindex="<?= $i ?>" style="float: left; list-style: none;" aria-current="false">
+                                        <a href="javascript:void(0)" class="template-page-type" data-id="<?= $i ?>">
+                                            <img tabindex="0" role="button" src="<?= $block->getViewFileUrl('Perficient_MyCatalog/images/page'. $block->getPageTemplate($i) . '.png'); ?>" class="wendover_page_thumb" alt="Cover Page <?= $i ?>">
+                                            <div aria-hidden="true"><?php echo $i ?></div>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
+
+                                <li class="cover backpage jcarousel-item-backpage">
+                                    <a class="template-page-type" data-id="back">
+                                        <img tabindex="0" src="<?= $block->getViewFileUrl('Perficient_MyCatalog/images/back-page.png'); ?>" alt="Back Cover" class="wendover_page_thumb" />
+                                        <div>&nbsp;</div></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="jcarousel-next jcarousel-next-horizontal" tabindex="-1" aria-label="Next" style="display: block;"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="right">
+                <button class="action primary" id="catalog_pricing_button"><?= __('Hide Pricing'); ?></button>
+                <button class="action primary" id="catalog_save"><?= __('Save'); ?></button>
+                <input id="price_on" type="hidden" value="1"/>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>

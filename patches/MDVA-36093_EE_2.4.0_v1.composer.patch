@@ -1,0 +1,222 @@
+diff --git a/vendor/magento/module-multiple-wishlist/Helper/Data.php b/vendor/magento/module-multiple-wishlist/Helper/Data.php
+index 1f6d92fd162..98680e00b17 100644
+--- a/vendor/magento/module-multiple-wishlist/Helper/Data.php
++++ b/vendor/magento/module-multiple-wishlist/Helper/Data.php
+@@ -5,6 +5,24 @@
+  */
+ namespace Magento\MultipleWishlist\Helper;
+ 
++use Magento\Catalog\Api\ProductRepositoryInterface;
++use Magento\Customer\Helper\View;
++use Magento\Customer\Model\Session;
++use Magento\Framework\App\Helper\Context;
++use Magento\Framework\Data\Helper\PostHelper;
++use Magento\Framework\Exception\LocalizedException;
++use Magento\Framework\Exception\NoSuchEntityException;
++use Magento\Framework\Registry;
++use Magento\Store\Model\ScopeInterface;
++use Magento\Store\Model\StoreManagerInterface;
++use Magento\Wishlist\Controller\WishlistProviderInterface;
++use Magento\Wishlist\Model\ResourceModel\Item\Collection;
++use Magento\Wishlist\Model\ResourceModel\Wishlist\CollectionFactory;
++use Magento\Wishlist\Model\Wishlist;
++use Magento\Wishlist\Model\WishlistFactory;
++use Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory as WishlistItemCollection;
++use Magento\Wishlist\Model\ResourceModel\Wishlist\Collection as WishlistCollection;
++
+ /**
+  * Multiple wishlist helper
+  *
+@@ -23,43 +41,43 @@ class Data extends \Magento\Wishlist\Helper\Data
+     /**
+      * Item collection factory
+      *
+-     * @var \Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory
++     * @var WishlistItemCollection
+      */
+     protected $_itemCollectionFactory;
+ 
+     /**
+      * Wishlist collection factory
+      *
+-     * @var \Magento\Wishlist\Model\ResourceModel\Wishlist\CollectionFactory
++     * @var CollectionFactory
+      */
+     protected $_wishlistCollectionFactory;
+ 
+     /**
+-     * @param \Magento\Framework\App\Helper\Context $context
+-     * @param \Magento\Framework\Registry $coreRegistry
+-     * @param \Magento\Customer\Model\Session $customerSession
+-     * @param \Magento\Wishlist\Model\WishlistFactory $wishlistFactory
+-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+-     * @param \Magento\Framework\Data\Helper\PostHelper $postDataHelper
+-     * @param \Magento\Customer\Helper\View $customerViewHelper
+-     * @param \Magento\Wishlist\Controller\WishlistProviderInterface $wishlistProvider
+-     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+-     * @param \Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory $itemCollectionFactory
+-     * @param \Magento\Wishlist\Model\ResourceModel\Wishlist\CollectionFactory $wishlistCollectionFactory
++     * @param Context $context
++     * @param Registry $coreRegistry
++     * @param Session $customerSession
++     * @param WishlistFactory $wishlistFactory
++     * @param StoreManagerInterface $storeManager
++     * @param PostHelper $postDataHelper
++     * @param View $customerViewHelper
++     * @param WishlistProviderInterface $wishlistProvider
++     * @param ProductRepositoryInterface $productRepository
++     * @param WishlistItemCollection $itemCollectionFactory
++     * @param CollectionFactory $wishlistCollectionFactory
+      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+      */
+     public function __construct(
+-        \Magento\Framework\App\Helper\Context $context,
+-        \Magento\Framework\Registry $coreRegistry,
+-        \Magento\Customer\Model\Session $customerSession,
+-        \Magento\Wishlist\Model\WishlistFactory $wishlistFactory,
+-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+-        \Magento\Framework\Data\Helper\PostHelper $postDataHelper,
+-        \Magento\Customer\Helper\View $customerViewHelper,
+-        \Magento\Wishlist\Controller\WishlistProviderInterface $wishlistProvider,
+-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+-        \Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory $itemCollectionFactory,
+-        \Magento\Wishlist\Model\ResourceModel\Wishlist\CollectionFactory $wishlistCollectionFactory
++        Context $context,
++        Registry $coreRegistry,
++        Session $customerSession,
++        WishlistFactory $wishlistFactory,
++        StoreManagerInterface $storeManager,
++        PostHelper $postDataHelper,
++        View $customerViewHelper,
++        WishlistProviderInterface $wishlistProvider,
++        ProductRepositoryInterface $productRepository,
++        WishlistItemCollection $itemCollectionFactory,
++        CollectionFactory $wishlistCollectionFactory
+     ) {
+         $this->_itemCollectionFactory = $itemCollectionFactory;
+         $this->_wishlistCollectionFactory = $wishlistCollectionFactory;
+@@ -79,7 +97,8 @@ class Data extends \Magento\Wishlist\Helper\Data
+     /**
+      * Create wishlist item collection
+      *
+-     * @return \Magento\Wishlist\Model\ResourceModel\Item\Collection
++     * @return Collection
++     * @throws LocalizedException
+      */
+     protected function _createWishlistItemCollection()
+     {
+@@ -102,21 +121,22 @@ class Data extends \Magento\Wishlist\Helper\Data
+     public function isMultipleEnabled()
+     {
+         return $this->_moduleManager->isOutputEnabled($this->_getModuleName()) && $this->scopeConfig->getValue(
+-            'wishlist/general/active',
+-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+-        ) && $this->scopeConfig->getValue(
+-            'wishlist/general/multiple_enabled',
+-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+-        );
++                'wishlist/general/active',
++                ScopeInterface::SCOPE_STORE
++            ) && $this->scopeConfig->getValue(
++                'wishlist/general/multiple_enabled',
++                ScopeInterface::SCOPE_STORE
++            );
+     }
+ 
+     /**
+      * Check whether given wishlist is default for it's customer
+      *
+-     * @param \Magento\Wishlist\Model\Wishlist $wishlist
++     * @param Wishlist $wishlist
+      * @return bool
++     * @throws LocalizedException
+      */
+-    public function isWishlistDefault(\Magento\Wishlist\Model\Wishlist $wishlist)
++    public function isWishlistDefault(Wishlist $wishlist)
+     {
+         return $this->getDefaultWishlist($wishlist->getCustomerId())->getId() == $wishlist->getId();
+     }
+@@ -124,8 +144,8 @@ class Data extends \Magento\Wishlist\Helper\Data
+     /**
+      * Retrieve customer's default wishlist
+      *
+-     * @param int $customerId
+-     * @return \Magento\Wishlist\Model\Wishlist
++     * @param  $customerId
++     * @return Wishlist
+      */
+     public function getDefaultWishlist($customerId = null)
+     {
+@@ -148,17 +168,17 @@ class Data extends \Magento\Wishlist\Helper\Data
+     {
+         return $this->scopeConfig->getValue(
+             'wishlist/general/multiple_wishlist_number',
+-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
++            ScopeInterface::SCOPE_STORE
+         );
+     }
+ 
+     /**
+      * Check whether given wishlist collection size exceeds wishlist limit
+      *
+-     * @param \Magento\Wishlist\Model\ResourceModel\Wishlist\Collection $wishlistList
++     * @param WishlistCollection $wishlistList
+      * @return bool
+      */
+-    public function isWishlistLimitReached(\Magento\Wishlist\Model\ResourceModel\Wishlist\Collection $wishlistList)
++    public function isWishlistLimitReached(WishlistCollection $wishlistList)
+     {
+         return count($wishlistList) >= $this->getWishlistLimit();
+     }
+@@ -166,8 +186,9 @@ class Data extends \Magento\Wishlist\Helper\Data
+     /**
+      * Retrieve Wishlist collection by customer id
+      *
+-     * @param int $customerId
+-     * @return \Magento\Wishlist\Model\ResourceModel\Wishlist\Collection
++     * @param  $customerId
++     * @return WishlistCollection
++     * @throws LocalizedException
+      */
+     public function getCustomerWishlists($customerId = null)
+     {
+@@ -176,7 +197,7 @@ class Data extends \Magento\Wishlist\Helper\Data
+         }
+         $wishlistsByCustomer = $this->_coreRegistry->registry('wishlists_by_customer');
+         if (!isset($wishlistsByCustomer[$customerId])) {
+-            /** @var \Magento\Wishlist\Model\ResourceModel\Wishlist\Collection $collection */
++            /** @var WishlistCollection $collection */
+             $collection = $this->_wishlistCollectionFactory->create();
+             $collection->filterByCustomerId($customerId);
+             if ($customerId && !$collection->getItems()) {
+@@ -193,7 +214,8 @@ class Data extends \Magento\Wishlist\Helper\Data
+      * Create new wishlist
+      *
+      * @param int $customerId
+-     * @return \Magento\Wishlist\Model\Wishlist
++     * @return Wishlist
++     * @throws LocalizedException
+      */
+     protected function addWishlist($customerId)
+     {
+@@ -207,15 +229,16 @@ class Data extends \Magento\Wishlist\Helper\Data
+     /**
+      * Retrieve number of wishlist items in given wishlist
+      *
+-     * @param \Magento\Wishlist\Model\Wishlist $wishlist
++     * @param Wishlist $wishlist
+      * @return int
++     * @throws NoSuchEntityException
+      */
+-    public function getWishlistItemCount(\Magento\Wishlist\Model\Wishlist $wishlist)
++    public function getWishlistItemCount(Wishlist $wishlist)
+     {
+-        $collection = $wishlist->getItemCollection();
++        $collection = $wishlist->getItemCollection()->setInStockFilter(true);
+         if ($this->scopeConfig->getValue(
+             self::XML_PATH_WISHLIST_LINK_USE_QTY,
+-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
++            ScopeInterface::SCOPE_STORE
+         )
+         ) {
+             $count = $collection->getItemsQty();

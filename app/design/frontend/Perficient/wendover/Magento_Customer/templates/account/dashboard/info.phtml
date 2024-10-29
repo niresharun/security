@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<div class="block block-dashboard-info">
+    <div class="block-title"><h2 class="heading-l2"><?= $block->escapeHtml(__('Account Information')) ?></h2></div>
+    <div class="block-content">
+        <div class="box box-information box-info-contents">
+            <h3 class="box-title heading-l3">
+                <span><?= $block->escapeHtml(__('Contact Information')) ?></span>
+            </h3>
+            <div class="box-content">
+                <p>
+                   <strong> <?= $block->escapeHtml($block->getName()) ?></strong><br>
+                    <?= $block->escapeHtml($block->getCustomer()->getEmail()) ?><br>
+                    <?= $block->getChildHtml('company_name_customer_info'); ?>
+                </p>
+                <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+            </div>
+            <div class="box-actions">
+                <a aria-label="<?= $block->escapeHtml(__('Edit Contact Information')) ?>" class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                </a>
+                <a href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>" class="action change-password">
+                    <?= $block->escapeHtml(__('Change Password')) ?>
+                </a>
+            </div>
+        </div>
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="box box-newsletter">
+                <h3 class="box-title heading-l3">
+                    <span><?= $block->escapeHtml(__('Newsletter Subscriptions')) ?></span>
+                </h3>
+                <div class="box-content">
+                    <p>
+                        <?php if ($block->getIsSubscribed()): ?>
+                            <?= $block->escapeHtml(__('You are subscribed to "General Subscription".')) ?>
+                        <?php else: ?>
+                            <?= $block->escapeHtml(__('You aren\'t subscribed to our newsletter.')) ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="box-actions">
+                    <a aria-label="<?= $block->escapeHtml(__('Edit Newsletter Subscriptions')) ?>" class="action edit" href="<?= $block->escapeUrl($block->getUrl('newsletter/manage')) ?>">
+                        <span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?= $block->getChildHtml('additional_blocks'); ?>
+    </div>
+</div>

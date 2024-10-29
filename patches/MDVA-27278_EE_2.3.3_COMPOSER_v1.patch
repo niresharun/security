@@ -1,0 +1,13 @@
+diff --git a/vendor/magento/module-google-tag-manager/view/frontend/web/js/actions/checkout.js b/vendor/magento/module-google-tag-manager/view/frontend/web/js/actions/checkout.js
+index 1dd51febcc8..7035350fe32 100644
+--- a/vendor/magento/module-google-tag-manager/view/frontend/web/js/actions/checkout.js
++++ b/vendor/magento/module-google-tag-manager/view/frontend/web/js/actions/checkout.js
+@@ -66,7 +66,7 @@ define([
+                 }
+             },
+             subscription = payment.prototype.isVisible.subscribe(function (value) {
+-                if (value) {
++                if (value && window.dataLayer) {
+                     notify(data.cart, events.payment.index, events.payment.desctiption);
+                     subscription.dispose();
+                 }

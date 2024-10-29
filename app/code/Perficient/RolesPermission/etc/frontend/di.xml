@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * DI to override class functions
+ *
+ * @category: Perficient's Modules
+ * @package: Perficient\RolesPermission
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@Perficient.com>
+ * @keywords: Override class functions
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Controller\Role\EditPost">
+        <plugin name="rolesPermissionUpdatePlugin" type="Perficient\RolesPermission\Plugin\Company\Controller\Role\EditPostPlugin"/>
+    </type>
+    <type name="Magento\Company\Controller\AbstractAction">
+        <plugin name="rolesAccessRestrictionPlugin" type="Perficient\RolesPermission\Plugin\Company\Controller\AbstractActionPlugin"/>
+    </type>
+    <type name="Magento\Customer\Model\Authorization\CustomerSessionUserContext">
+        <plugin name="customerSessionUserIdPlugin" type="Perficient\RolesPermission\Plugin\Customer\Model\Authorization\CustomerSessionContextPlugin"/>
+    </type>
+    <preference for="Magento\Company\Block\Link\Current" type="Perficient\RolesPermission\Block\Company\Link\Current"/>
+</config>

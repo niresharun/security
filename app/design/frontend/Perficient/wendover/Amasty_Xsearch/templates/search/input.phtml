@@ -1,0 +1,53 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Advanced Search Base for Magento 2
+ */
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<section class="amsearch-input-wrapper"
+         data-bind="
+            css: {
+                '-dynamic-width': data.isDynamicWidth,
+                '-match': $data.readyForSearch(),
+                '-typed': inputValue && inputValue().length
+            }">
+    <input type="text"
+           name="q"
+           placeholder="<?= $escaper->escapeHtmlAttr(__('Enter at least 3 characters to begin your search')) ?>"
+           class="amsearch-input"
+           maxlength="128"
+           role="combobox"
+           aria-haspopup="false"
+           aria-autocomplete="both"
+           autocomplete="off"
+           aria-expanded="false"
+           data-amsearch-block="input"
+           enterkeyhint="search"
+           data-bind="
+                afterRender: initInputValue,
+                hasFocus: focused,
+                value: inputValue,
+                event: {
+                    keypress: onEnter
+                },
+                valueUpdate: 'input'">
+
+    <button class="action search amsearch-button -loupe -clear -icon -disabled"
+            data-bind="
+                event: {
+                    click: search
+                },
+                css: {
+                    '-disabled': !$data.match()
+                },
+                attr: {
+                    title: $t('Search')
+                }">
+    </button>
+</section>

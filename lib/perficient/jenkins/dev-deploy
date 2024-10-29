@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    environment {
+        DEPLOY_ENV = 'dev'
+        DEPLOY_HOST = '52.188.10.171'
+        DEPLOY_USER = 'zdeploy'
+        DOCKER_TEMPLATE = 'wacontainerreg.azurecr.io/wendoverdevweb_v1'
+        DOCKER_TAG = 'wacontainerreg.azurecr.io/wendoverdevweb_latest'
+        DOCKER_BUILD = 'wendover-art-dev-build'
+        DOCKER_CONTAINER = 'wendoverm2dev'
+        DOCKER_COMPOSE_FILE = '/data/www/wendoverdev/docker-compose.yml';
+        JENKINS_JOB = 'dev-deploy'
+    }
+    stages {
+        stage('Prepare') {
+            steps {
+                script {
+                    env.DEPLOY_BRANCH = input message: 'Specify branch or tag to deploy:', parameters: [string(defaultValue: 'origin/master', description: 'for example: origin/release/sprint-1', name: '')]
+                    currentBuild.displayName = "#" + currentBuild.number + ' ' + env.DEPLOY_BRANCH
+                }
+                sh "git reset --hard ${env.DEPLOY_BRANCH}"
+                sh "chmod 755 ./lib/perficient/jenkins/scripts/docker-deploy/*.sh"
+                withCredentials([
+                    string(credentialsId: 'DKRDOMAIN', variable: 'DKRDOMAIN'),
+                    string(credentialsId: 'USR', variable: 'USR'),
+                    string(credentialsId: 'PASS', variable: 'PASS')
+                ]) {
+                    sh "./lib/perficient/jenkins/scripts/docker-deploy/prepare.sh $DKRDOMAIN $USR $PASS $DOCKER_TEMPLATE $DOCKER_BUILD"
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "./lib/perficient/jenkins/scripts/docker-deploy/build.sh $DOCKER_BUILD $WORKSPACE $DOCKER_TAG"
+            }
+        }
+		stage('Deploy') {
+            steps {
+				sh "./lib/perficient/jenkins/scripts/docker-deploy/deploy.sh $DEPLOY_HOST $DEPLOY_USER $DOCKER_CONTAINER $DOCKER_TAG $DOCKER_COMPOSE_FILE"
+			}
+        }
+    }
+}

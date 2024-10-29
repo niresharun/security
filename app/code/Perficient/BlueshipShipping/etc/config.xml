@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Blueship Shipping Configuration
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Blueship Shipping
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <blueship>
+                <model>Perficient\BlueshipShipping\Model\Carrier</model>
+                <active>1</active>
+                <service_mode>sandbox</service_mode>
+                <api_url>https://integration.myblueship.com/api/v1/quote</api_url>
+                <client_id>WendoverTESTWebSvcUser</client_id>
+                <secret_key>pXTMm0nOjbplVzlRSeaAWtZMQzc74ovf</secret_key>
+                <mode>LTL</mode>
+                <name>BlueShip</name>
+                <allowed_carriers>ODFL,SAIA,FWRA,SEFL,CNWY,EXLA,SCTP</allowed_carriers>
+                <business_unit>WENDOVERTEST</business_unit>
+                <title>Best Available Rates</title>
+                <time_out_limit>60</time_out_limit>
+                <sallowspecific>0</sallowspecific>
+                <specificerrmsg>Call for Quote</specificerrmsg>
+                <handling_charges>0</handling_charges>
+                <carrier_name>Ship BlueGrace/LTL</carrier_name>
+            </blueship>
+        </carriers>
+    </default>
+</config>

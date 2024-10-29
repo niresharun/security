@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Override grid actions
+ *
+ * @category: Perficient's Modules
+ * @package: Perficient\RolesPermission
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@Perficient.com>
+ * @keywords: Override grid actions
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="role_columns" component="uiB2bListing">
+        <actionsColumn name="actions" class="Perficient\RolesPermission\Ui\Component\Listing\Role\Column\ActionsEdit" component="Magento_Company/js/users/grid/columns/actions">
+            <settings>
+                <fieldClass>
+                    <class name="col actions">true</class>
+                </fieldClass>
+                <label>Actions</label>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

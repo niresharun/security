@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs.
+ * Send email template
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template
+            id="perficient_mycatalog_email_template"
+            label="Send Catalog Email"
+            file="email_catalog.html"
+            type="html"
+            module="Perficient_MyCatalog"
+            area="frontend"
+    />
+    <template
+            id="perficient_mycatalog_email_template_attachment"
+            label="Send Catalog Email1"
+            file="email_catalog_attachment.html"
+            type="html"
+            module="Perficient_MyCatalog"
+            area="frontend"
+    />
+
+
+</config>

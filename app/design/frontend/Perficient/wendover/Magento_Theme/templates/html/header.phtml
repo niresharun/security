@@ -1,0 +1,58 @@
+<?php
+/**
+ *
+ * This file used to add ID
+ *
+ * @category: Magento
+ * @package: Perficient/Theme
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Theme
+ */
+
+/**
+ * @var \Magento\Theme\Block\Html\Header $block
+ */
+$welcomeMessage = $block->getWelcome();
+$persistenHelper = $this->helper('Perficient\Persistent\Helper\Data');
+$viewModel = $block->getData('view_model');
+?>
+<?php if ($block->getShowPart() == 'welcome') : ?>
+    <li class="authorization-link">
+            <a href="<?= ($viewModel->isCustomerLoggedIn())?$block->getPathURL('customer/account'):
+                $block->getPathURL('representative/rep/index') ?>">
+                <?= $block->escapeHtml(__('FIND YOUR REP')) ?>
+            </a>
+    </li>
+    <li class="greet welcome" data-bind="scope: 'customer'">
+        <!-- ko if: customer().fullname  -->
+        <span id="greeting" class="logged-in"
+              data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1!', '%1')) ?>').replace('%1', customer().fullname),
+                 css: {'loggedin-icon': customer().fullname} ">
+        </span>
+        <!-- /ko -->
+        <!-- ko ifnot: customer().fullname  -->
+        <?php if($viewModel->isCustomerLoggedIn()): ?>
+            <?= $block->getBlockHtml('header.additional') ?>
+        <?php endif; ?>
+        <!-- /ko -->
+    </li>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+<?php elseif ($block->getShowPart() == 'other') :?>
+    <?= $block->getChildHtml() ?>
+<?php endif ?>

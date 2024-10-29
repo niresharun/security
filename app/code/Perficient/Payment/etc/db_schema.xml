@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Payment
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar
+ * @project: Wendover
+ * @keywords: Module Perficient_Payment
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="decimal" name="payment_method_fee" scale="4" precision="20" nullable="true" comment="Payment Method Fee"/>
+        <column xsi:type="decimal" name="payment_method_fee_invoiced" scale="4" precision="20" nullable="true" comment="Payment Method Fee Invoiced"/>
+        <column xsi:type="decimal" name="payment_method_fee_refunded" scale="4" precision="20" nullable="true" comment="Payment Method Fee Refunded"/>
+    </table>
+
+    <table name="sales_invoice">
+        <column xsi:type="decimal" name="payment_method_fee" scale="4" precision="20" nullable="true" comment="Payment Method Fee"/>
+    </table>
+
+    <table name="sales_creditmemo">
+        <column xsi:type="decimal" name="payment_method_fee" scale="4" precision="20" nullable="true" comment="Payment Method Fee"/>
+    </table>
+
+    <table name="quote">
+        <column xsi:type="decimal" name="payment_method_fee" scale="4" precision="20" nullable="true" comment="Payment Method Fee"/>
+    </table>
+
+    <table name="quote_address">
+        <column xsi:type="decimal" name="payment_method_fee" scale="4" precision="20" nullable="true" comment="Payment Method Fee"/>
+    </table>
+</schema>

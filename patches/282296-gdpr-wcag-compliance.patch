@@ -1,0 +1,10 @@
+diff --git a/view/frontend/web/template/checkout/gdpr-consent.html b/view/frontend/web/template/checkout/gdpr-consent.html
+--- a/view/frontend/web/template/checkout/gdpr-consent.html
++++ b/view/frontend/web/template/checkout/gdpr-consent.html
+@@ -15,5 +15,5 @@
+     </div>
+ </div>
+ <!-- /ko -->
+-<input hidden name="am-gdpr-checkboxes-from" data-bind="attr: {'value': metaInfo.where}">
++<input type="hidden" name="am-gdpr-checkboxes-from" data-bind="attr: {'value': metaInfo.where}">
+ <!-- /ko -->

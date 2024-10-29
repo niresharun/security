@@ -1,0 +1,47 @@
+<?php
+/**
+ * RequisitionList Converted to Market Scans with project specific configurations
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sachin Badase <sachin.badase@perficient.com>
+ * @project: Wendover
+ * @keywords:  Module Perficient_RequisitionList
+ */
+?>
+
+<div class="actions-toolbar requisition-view-buttons" data-mage-init='{"requisitionActions":{ }}'>
+    <div class="primary">
+        <?php if ($block->getItemCount()) : ?>
+            <!-- ko scope: 'requisition.list.items.massaction.addtocart' -->
+            <button type="button"
+                    class="action primary disabled"
+                    data-bind="
+                    css: {
+                        disabled: !isEnable()
+                    },
+                    click: applyAction.bind($data, {
+                        requisition_id: '<?= (int)$block->getRequest()->getParam('requisition_id') ?>'
+                    })"
+                    data-mobile-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>">
+                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+            </button>
+            <!-- /ko -->
+            <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "requisition.list.items.massaction.addtocart": {
+                                "component": "Magento_RequisitionList/js/requisition/items/grid/massaction/add-to-cart",
+                                "selectProvider": "requisition.item.grid.selection.provider",
+                                "hasConfirm": true,
+                                "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/addToCart')) ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <?php endif ?>
+    </div>
+</div>

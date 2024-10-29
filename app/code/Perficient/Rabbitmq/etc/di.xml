@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq inventory update
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="publish-message" xsi:type="object">
+                    Perficient\Rabbitmq\Console\MessagePublishCommand
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Perficient\Rabbitmq\Api\Data\BaseCostInterface"
+                type="Perficient\Rabbitmq\Model\BaseCost"/>
+    <preference for="Perficient\Rabbitmq\Api\BaseCostRepositoryInterface"
+                type="Perficient\Rabbitmq\Model\BaseCostRepository"/>
+    <preference for="Perficient\Rabbitmq\Api\Data\FrameTreatmentInterface"
+                type="Perficient\Rabbitmq\Model\FrameTreatment"/>
+    <preference for="Perficient\Rabbitmq\Api\FrameTreatmentRepositoryInterface"
+                type="Perficient\Rabbitmq\Model\FrameTreatmentRepository"/>
+    <preference for="Perficient\Rabbitmq\Api\Data\MediaInterface"
+                type="Perficient\Rabbitmq\Model\Media"/>
+    <preference for="Perficient\Rabbitmq\Api\MediaRepositoryInterface"
+                type="Perficient\Rabbitmq\Model\MediaRepository"/>
+    <preference for="Perficient\Rabbitmq\Api\Data\MediaTreatmentInterface"
+                type="Perficient\Rabbitmq\Model\MediaTreatment"/>
+    <preference for="Perficient\Rabbitmq\Api\MediaTreatmentRepositoryInterface"
+                type="Perficient\Rabbitmq\Model\MediaTreatmentRepository"/>
+    <preference for="Perficient\Rabbitmq\Api\Data\TreatmentInterface"
+                type="Perficient\Rabbitmq\Model\Treatment"/>
+    <preference for="Perficient\Rabbitmq\Api\TreatmentRepositoryInterface"
+                type="Perficient\Rabbitmq\Model\TreatmentRepository"/>
+    <type name="Magento\Sales\Helper\Reorder">
+        <plugin name="perficient_sales_reorder_helper" type="Perficient\Rabbitmq\Plugin\Sales\Helper\ReorderPlugin" />
+    </type>
+    <!-- Use to remove slashes from rabbitmq response messages -->
+    <!--type name="Magento\Framework\MessageQueue\MessageEncoder">
+        <plugin name="message_encoder" type="Perficient\Rabbitmq\Plugin\MessageEncoder" />
+    </type-->
+</config>

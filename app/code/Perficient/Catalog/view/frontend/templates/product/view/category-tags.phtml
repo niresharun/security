@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Product list template
+ *
+ *
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+<?php
+$_product = $block->getProduct();
+$viewModel = $block->getData('viewModel');
+
+$categories = $viewModel->getProductCategories($_product->getCategoryIds());
+if (!empty($categories)) :
+    ?>
+    <div class="tags">
+       <span class="label"><?= $escaper->escapeHtml(__('Tags: ')) ?></span>
+        <span>
+            <?php
+            $tagArray = array();
+            foreach ($categories as $category) {
+                if ($category->getIsActive()) {
+                    $tagArray[] .= '<a href="' . $category->getUrl() . '">' . $category->getName() . '</a>';
+                }
+            }
+            echo implode(', ', $tagArray);
+            ?>
+        </span>
+    </div>
+<?php endif; ?>

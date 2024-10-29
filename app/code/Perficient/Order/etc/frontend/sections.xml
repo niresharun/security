@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Added to handle product surcharge if minimum order amount not met by customer
+* @category: Magento
+* @package: Perficient/Order
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Order
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="mycheckout/product/addtocollection">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/search/addtocart">
+        <section name="custom_section"/>
+    </action>
+    <action name="quickorder/sku/uploadFile/">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer/ajax/login">
+        <section name="custom_section"/>
+    </action>
+    <action name="sales/order/reorder">
+        <section name="custom_section"/>
+    </action>
+    <action name="stores/store/switch">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer/account/logout">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer/account/editPost">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/index/cart">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/index/fromcart">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/index/allcart">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/shared/allcart">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlist/shared/cart">
+        <section name="custom_section"/>
+    </action>
+    <action name="giftregistry/index/cart">
+        <section name="custom_section"/>
+    </action>
+    <action name="giftregistry/view/addToCart">
+        <section name="custom_section"/>
+    </action>
+    <action name="requisition_list/item/addToCart">
+        <section name="custom_section"/>
+    </action>
+    <action name="multishipping/checkout/overviewPost">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer_order/cart/updateFailedItemOptions">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/updateFailedItemOptions">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer_order/cart/advancedAdd">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/advancedAdd">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/removeAllFailed">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer_order/cart/addFailedItems">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/addFailedItems">
+        <section name="custom_section"/>
+    </action>
+    <action name="customer_order/sku/uploadFile">
+        <section name="custom_section"/>
+    </action>
+    <action name="rest/*/V1/carts/*/po-payment-information">
+        <section name="custom_section"/>
+    </action>
+    <action name="purchaseorder/purchaseorder/success">
+        <section name="custom_section"/>
+    </action>
+    <action name="sales/guest/reorder">
+        <section name="custom_section"/>
+    </action>
+    <action name="sales/order/reorder">
+        <section name="custom_section"/>
+    </action>
+    <action name="pricemultiplier/index/save">
+        <section name="custom_section"/>
+    </action>
+    <action name="paypal/express/placeOrder">
+        <section name="custom_section"/>
+    </action>
+    <action name="paypal/payflowexpress/placeOrder">
+        <section name="custom_section"/>
+    </action>
+    <action name="paypal/express/onAuthorization">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/add">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/delete">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/updatePost">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/updateItemOptions">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/couponPost">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/estimatePost">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/cart/estimateUpdatePost">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/onepage/saveOrder">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/sidebar/removeItem">
+        <section name="custom_section"/>
+    </action>
+    <action name="checkout/sidebar/updateItemQty">
+        <section name="custom_section"/>
+    </action>
+    <action name="rest/*/V1/carts/*/payment-information">
+        <section name="custom_section"/>
+    </action>
+    <action name="rest/*/V1/guest-carts/*/payment-information">
+        <section name="custom_section"/>
+    </action>
+    <action name="rest/*/V1/guest-carts/*/selected-payment-method">
+        <section name="custom_section"/>
+    </action>
+    <action name="rest/*/V1/carts/*/selected-payment-method">
+        <section name="custom_section"/>
+    </action>
+    <action name="wishlistset/product/addtocart">
+        <section name="custom_section"/>
+    </action>
+</config>

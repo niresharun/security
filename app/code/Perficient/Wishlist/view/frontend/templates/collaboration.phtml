@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Perficient\Wishlist\Block\Customer\Collaboration $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<form class="form wishlist share"
+      action="<?= $escaper->escapeUrl($block->getSendUrl()) ?>"
+      id="form-validate"
+      method="post"
+      data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="legend no-display"><span><?= $escaper->escapeHtml(__('Collaboration Information')) ?></span></legend>
+        <h2 class="legend"><span><?= $escaper->escapeHtml(__('Collaboration Information')) ?></span></h2>
+        <div class="field emails required">
+            <label class="label" for="email_address"><span><?= $escaper->escapeHtml(__('Email addresses, separated by commas')) ?></span></label>
+            <div class="control">
+                <textarea name="emails" cols="60" rows="5" id="email_address" data-validate="{required:true,'validate-emails':true}"><?= /* @noEscape */ $block->getEnteredData('emails') ?></textarea>
+            </div>
+        </div>
+        <div class="field text">
+            <label class="label" for="message"><span><?= $escaper->escapeHtml(__('Message')) ?></span></label>
+            <div class="control">
+                <textarea id="message" name="message" cols="60" rows="5"><?= /* @noEscape */ $block->getEnteredData('message') ?></textarea>
+            </div>
+        </div>
+        <?php if ($block->isRssAllow()) : ?>
+            <div class="field choice rss">
+                <input type="checkbox" name="rss_url" id="rss_url" value="1" title="<?= $escaper->escapeHtmlAttr(__('Check here to link an RSS feed to your Wish List.')) ?>" class="checkbox">
+                <label class="label" for="rss_url">
+                    <span>
+                        <?= $escaper->escapeHtml(__('Check here to link an RSS feed to your Wish List.')) ?>
+                    </span>
+                </label>
+            </div>
+        <?php endif; ?>
+    </fieldset>
+    <?= $block->getChildHtml('captcha'); ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary">
+                <span><?= $escaper->escapeHtml(__('Collaborate')) ?></span>
+            </button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"><span><?= $escaper->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</form>

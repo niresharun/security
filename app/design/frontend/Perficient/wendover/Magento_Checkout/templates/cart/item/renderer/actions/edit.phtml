@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit */
+$item = $block->getItem();
+$product = $item->getProduct();
+$infoBuyRequest  = $item->getOptionByCode('info_buyRequest');
+$catalogHelper = $this->helper('Perficient\Catalog\Helper\Data');
+$quickShipProduct = $catalogHelper->getIsQuickShipProduct($infoBuyRequest);
+?>
+<?php if ($block->isProductVisibleInSiteVisibility() && !$quickShipProduct) :?>
+    <a class="action action-edit"
+       href="<?= $block->escapeUrl($block->getConfigureUrl()) ?>"
+       aria-label="<?= $block->escapeHtml(__('Edit item')) ?> <?= $block->escapeHtml($product->getName()) ?>">
+        <span><?= $block->escapeHtml(__('Edit')) ?></span>
+    </a>
+<?php endif ?>

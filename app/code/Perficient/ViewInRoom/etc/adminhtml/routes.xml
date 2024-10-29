@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Tahir Aziz <tahir.aziz@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_ViewInRoom
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="viewinroom" frontName="viewinroom">
+            <module name="Perficient_ViewInRoom" before="Magento_Backend" />
+        </route>
+    </router>
+</config>

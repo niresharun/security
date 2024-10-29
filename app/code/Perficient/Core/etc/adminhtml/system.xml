@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Perficient_Core
+ *
+ * @category: PHP
+ * @copyright: Copyright © 2018 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Kartikey.Pali<kartikey.pali@perficient.com>
+ * @project: Wendover
+ * @keywords: Core Module
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="general">
+            <group id="form_key_validation" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Form Key Validation</label>
+                <field id="disable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disable Form Key Validation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Do not change this to "Yes" unless load testing need to be perform</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Add new link to account navigation
+* @category: Magento
+* @package: Perficient/Wishlist
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Divya Sree<divya.sree@perficient.com>
+* @keywords: Module Perficient_Wishlist
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="wishlist_behaviour">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Perficient_Wishlist::wishlist/behaviour.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

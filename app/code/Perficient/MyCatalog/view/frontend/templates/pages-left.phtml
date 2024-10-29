@@ -1,0 +1,37 @@
+<?php
+/**
+ * File to create left bar.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+
+<ul style="overflow: hidden; display: block;">
+    <?php for ($i = 1; $i <= 8; $i++): ?>
+        <li>
+            <div class="dd-option">
+                <input class="dd-option-value" id="layout-page-<?= $i; ?>" type="hidden" value="<?= $i; ?>">
+                <img
+                        class="dd-option-image dd-option-template-image"
+                        data-id="<?= $i; ?>"
+                        tabindex="0"
+                        role="button"
+                        src="<?= $block->getViewFileUrl('Perficient_MyCatalog/images/' . $i . '.png') ?>"
+                        alt="<?= $block->escapeHtml(__('Layout Page ')) ?> <?= $i; ?>"
+                        id="layout_page_<?= $i; ?>"
+                />
+                <label class="dd-option-text no-label" aria-hidden="true" for="layout-page-<?= $i; ?>" style="line-height: 40px;"><?= $block->escapeHtml(__('Layout Page')) ?><?= $i; ?></label>
+            </div>
+        </li>
+    <?php endfor; ?>
+</ul>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Max items in shopping cart default configurations
+* @category: Magento
+* @package: Perficient/Checkout
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Amin Akhtar
+* @project: Wendover
+* @keywords: Module Perficient_Checkout
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="checkout">
+            <group id="cart" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="max_items_in_cart" translate="label" type="text" sortOrder="111"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Items In Shopping Cart</label>
+                    <comment>Numbers of items that can be added to cart.</comment>
+                </field>
+                <field id="max_items_in_cart_message" translate="label" type="text" sortOrder="112"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Items In Shopping Cart Message</label>
+                    <comment>Message to show when cart have more than max items.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

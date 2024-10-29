@@ -1,0 +1,14 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<ul class="opc-progress-bar">
+    <!-- ko foreach: { data: steps().sort(sortItems), as: 'item' } -->
+        <li class="opc-progress-bar-item" data-bind="attr: item.isVisible() ? {'aria-current':'true'} : ($parent.isProcessed(item) ? {'aria-current':'false'} : {'aria-current':'false'}),
+        ,css: item.isVisible() ? '_active' : ($parent.isProcessed(item) ? '_complete' : '')">
+            <span data-bind="i18n: item.title, click: $parent.navigateTo, attr: item.isVisible() ? {'role':'none'} : ($parent.isProcessed(item) ? {'role':'none'} : {'role':'none'})"></span>
+        </li>
+    <!-- /ko -->
+</ul>

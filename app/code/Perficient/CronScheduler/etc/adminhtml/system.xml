@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Define System Configuration for the Cron Settings
+ *
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="system">
+            <group id="cron_scheduler" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="17">
+                <label>Perficient Cron Scheduler</label>
+                <field id="disabled_crons" translate="label" type="text" sortOrder="10" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>Disabled Cron Tasks</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

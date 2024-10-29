@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wendover_ReportImages::missing_images" title="Product Missing Images Feature" translate="title"
+             module="Wendover_ReportImages" sortOrder="100" parent="Magento_Catalog::catalog"
+             resource="Magento_Catalog::catalog_products"/>
+
+        <add id="Wendover_ReportImages::manage" title="Product Missing Images" translate="title"
+             module="Wendover_ReportImages" sortOrder="30" parent="Wendover_ReportImages::missing_images"
+             resource="Magento_Catalog::catalog_products" action="missingimages/index/index"/>
+    </menu>
+</config>

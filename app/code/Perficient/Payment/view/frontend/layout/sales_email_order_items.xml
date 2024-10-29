@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Payment
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar
+ * @project: Wendover
+ * @keywords: Module Perficient_Payment
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="order_totals">
+            <block class="Perficient\Payment\Block\Sales\Totals" name="payment_method_fee" as="payment_method_fee"/>
+        </referenceBlock>
+    </body>
+</page>

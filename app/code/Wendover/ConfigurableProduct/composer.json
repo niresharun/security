@@ -1,0 +1,23 @@
+{
+  "name": "wendover/module-configurable-product",
+  "version": "1.0.0",
+  "description": "Implement configurable mirror products",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-configurable-product": "100.4.*",
+    "magento/module-swatches": "100.4.*",
+    "magento/module-catalog": "104.0.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Wendover\\ConfigurableProduct\\": ""
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <design>
+            <head translate="default_description">
+                <default_title>Wendover Art Group</default_title>
+                <default_keywords>Art, Interior Design, Hospitality, Healthcare, Magento, Varien, E-commerce</default_keywords>
+            </head>
+        </design>
+    </default>
+</config>

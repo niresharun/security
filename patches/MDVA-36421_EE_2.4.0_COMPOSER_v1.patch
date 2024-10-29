@@ -1,0 +1,33 @@
+diff --git a/vendor/magento/module-company/Model/CountryInformationProvider.php b/vendor/magento/module-company/Model/CountryInformationProvider.php
+index 5368fe39ac..3c38733ba1 100644
+--- a/vendor/magento/module-company/Model/CountryInformationProvider.php
++++ b/vendor/magento/module-company/Model/CountryInformationProvider.php
+@@ -88,10 +88,12 @@ class CountryInformationProvider
+ 
+         if ($countries) {
+             foreach ($countries as $country) {
+-                $this->countriesList[$country->getFullNameLocale()] = $country->getId();
++                if (!empty($country->getFullNameLocale())) {
++                    $this->countriesList[$country->getFullNameLocale()] = $country->getId();
+ 
+-                if ($country->getAvailableRegions()) {
+-                    $this->regionsList[$country->getId()] = $this->getRegionsData($country);
++                    if ($country->getAvailableRegions()) {
++                        $this->regionsList[$country->getId()] = $this->getRegionsData($country);
++                    }
+                 }
+             }
+         }
+diff --git a/vendor/magento/module-company/view/frontend/templates/company/account/create.phtml b/vendor/magento/module-company/view/frontend/templates/company/account/create.phtml
+index 6c029b769e..7cdf387686 100644
+--- a/vendor/magento/module-company/view/frontend/templates/company/account/create.phtml
++++ b/vendor/magento/module-company/view/frontend/templates/company/account/create.phtml
+@@ -131,7 +131,7 @@ use Magento\Framework\View\Helper\SecureHtmlRenderer;
+                         class="select"
+                         title="<?= $block->escapeHtmlAttr(__('Country')) ?>"
+                         data-validate="{required:true}">
+-                    <option value=""></option>
++                    <option value=""><?= $block->escapeHtml(__('Please select an option.')) ?></option>
+                     <?php $countries = $block->getCountriesList(); ?>
+                     <?php foreach ($countries as $countryCode => $country): ?>
+                         <option value="<?= $block->escapeHtmlAttr($countryCode) ?>"

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Custom Product Image
+* @category: Magento
+* @package: Perficient/Catalog
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Hiral Jain <hiral.jain@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Catalog
+*/
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="perficient_custom_product_images" resource="default" comment="Custom Product Image">
+        <column xsi:type="int" name="custom_product_image_id" padding="10" unsigned="true" nullable="false"
+                identity="true" comment="Custom Product Image Id"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="255" comment="sku"/>
+        <column xsi:type="varchar" name="image" nullable="false" length="255" comment="image"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" comment="type"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="custom_product_image_id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is used to enable the lead time notifications module.
+ *
+ * @category: Magento
+ * @package: Perficient/LeadTime
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suraj Jaiswal <suraj.jaiswal@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_LeadTime LeadTime CMS Block
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="lead_time">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

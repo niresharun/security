@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Inventory for Quick Ship
+ * @category: Magento
+ * @package: Perficient/QuickShip
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_QuickShip
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_QuickShip::perficient_quickship"
+             title="Quick Ship"
+             module="Perficient_QuickShip"
+             sortOrder="60"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_QuickShip"
+             resource="Perficient_QuickShip::perficient_quickship"/>
+        <add id="Perficient_QuickShip::perficient_quickship_settings"
+             title="Quick Ship Settings"
+             module="Perficient_QuickShip"
+             sortOrder="70"
+             parent="Perficient_QuickShip::perficient_quickship"
+             action="adminhtml/system_config/edit/section/quickship"
+             resource="Perficient_QuickShip::perficient_quickship_settings"/>
+    </menu>
+</config>

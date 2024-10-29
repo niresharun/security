@@ -1,0 +1,264 @@
+<?php
+/**
+ * This module is used by employee who can add/update his personal information which needs to display his customers
+ * @category: Magento
+ * @package: Perficient/MyDisplayInformation
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyDisplayInformation
+ */
+$customerMyDisplayInformationData = $this->getCustomerMyDisplayInformationData();
+$countryList = $block->getCountries();
+$regionList = $block->getRegion();
+?>
+<form class="form retuns my-display-information"
+      action="<?= $block->getUrl('mydisplayinformation/index/save'); ?>"
+      id="return-form"
+      method="post"
+      data-hasrequired="<?php /* @escapeNotVerified */
+      echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset info">
+        <legend class="legend no-display"><span><?php /* @escapeNotVerified */
+                echo __('Company Name In Global Header') ?></span></legend>
+        <h2 class="legend heading-l2"><span><?php /* @escapeNotVerified */
+                echo __('Company Name In Global Header') ?></span></h2>
+        <!--<a href="#" id="header_preview" aria-label="Preview opens in a  new window"> Preview </a>-->
+        <button formaction="<?= $block->getUrl().'?preview=self'; ?>" formtarget="_blank" type="submit" class="preview-buttons">
+            <?php echo __('Preview'); ?>
+        </button>
+        <input name="preview" id="preview" value="self" type="hidden"/>
+        <input name="text_state" id="state_in" value="<?php echo $customerMyDisplayInformationData['state'] ?>"
+               type="hidden"/>
+        <input name="country" id="country_in" value="<?php echo $customerMyDisplayInformationData['country'] ?>"
+               type="hidden"/>
+        <input name="user_id" id="user_id" value="<?php echo $customerMyDisplayInformationData['user_id'] ?>"
+               type="hidden"/>
+        <input name="mydisplayinformation_id" id="mydisplayinformation_id"
+               value="<?php echo $customerMyDisplayInformationData['mydisplayinformation_id'] ?>" type="hidden"/>
+        <div class="field company_name">
+            <label class="label" for="company_name"><span><?php /* @escapeNotVerified */
+                    echo __('Company Name') ?></span></label>
+            <div class="control">
+                <input name="company_name" id="company_name" autocomplete="organization"
+                       value="<?php echo $customerMyDisplayInformationData['company_name'] ?>" class="input-text"
+                       type="text">
+            </div>  </div>
+        <legend class="legend no-display" ><span><?php /* @escapeNotVerified */
+                echo __('Contact Information in Global Footer') ?></span></legend>
+        <h2 class="legend heading-l2"><span><?php /* @escapeNotVerified */
+                echo __('Contact Information in Global Footer') ?></span></h2>
+<!--        <a href="#" id="footer_preview" aria-label="Preview opens in a new window"> Preview </a>-->
+        <button formaction="<?= $block->getUrl().'?preview=self'; ?>" formtarget="_blank" type="submit" class="preview-buttons">
+            <?php echo __('Preview'); ?>
+        </button>
+        <div class="field contact_name">
+            <label class="label" for="contact_name"><span><?php /* @escapeNotVerified */
+                    echo __('Contact Name') ?></span></label>
+            <div class="control">
+                <input name="contact_name" id="contact_name" autocomplete="given-name"
+                       value="<?php echo $customerMyDisplayInformationData['contact_name'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field phone_number">
+            <label class="label" for="phone_number"><span><?php /* @escapeNotVerified */
+                    echo __('Phone') ?></span></label>
+            <div class="control">
+                <input name="phone_number" id="phone_number" autocomplete="tel"
+                       value="<?php echo $customerMyDisplayInformationData['phone_number'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field street_line_1 ">
+            <label class="label" for="street_line_1"><span><?php /* @escapeNotVerified */
+                    echo __('Street Address') ?></span></label>
+            <div class="control">
+                <input name="street_line_1" id="street_line_1"  autocomplete="address-line1"
+                       value="<?php echo $customerMyDisplayInformationData['street_line_1'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field street_line_2 ">
+            <label class="label address-label no-label" for="street_line_2"><span><?php /* @escapeNotVerified */
+                    echo __('Street Address 2') ?></span></label>
+            <div class="control">
+                <input name="street_line_2" id="street_line_2"  autocomplete="address-line2"
+                       value="<?php echo $customerMyDisplayInformationData['street_line_2'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field city ">
+            <label class="label" for="city"><span><?php /* @escapeNotVerified */
+                    echo __('City') ?></span></label>
+            <div class="control">
+                <input name="city" id="city" autocomplete="address-level2"
+                       value="<?php echo $customerMyDisplayInformationData['city'] ?>" class="input-text" type="text"
+                >
+            </div>
+        </div>
+        <div class="field country">
+            <label class="label" for="country"><span><?php /* @escapeNotVerified */
+                    echo __('Country') ?></span></label>
+            <div class="control">
+                <?php echo $countryList ?>
+            </div>
+        </div>
+        <div class="field region">
+            <label class="label" for="state"><span><?php /* @escapeNotVerified */
+                    echo __('State/Province') ?></span></label>
+            <div class="control">
+                <?php echo $regionList ?>
+            </div>
+        </div>
+        <div class="field states" style="display:none">
+            <label class="label" for="states"><span><?php /* @escapeNotVerified */
+                    echo __('State/Province') ?></span></label>
+            <div class="control">
+                <input name="state" autocomplete="address-level1" id="states" class="input-text" type="text" value="<?php echo $customerMyDisplayInformationData['state'] ?>" />
+            </div>
+        </div>
+        <div class="field zip ">
+            <label class="label" for="zip"><span><?php /* @escapeNotVerified */
+                    echo __('Zip/Postal Code') ?></span></label>
+            <div class="control">
+                <input name="zip" id="zip" autocomplete="postal-code" value="<?php echo $customerMyDisplayInformationData['zip'] ?>"
+                       class="input-text" type="text"
+                >
+            </div>
+        </div>
+        <div class="field fax_number ">
+            <label class="label" for="fax_number"><span><?php /* @escapeNotVerified */
+                    echo __('Fax') ?></span></label>
+            <div class="control">
+                <input name="fax_number"  autocomplete="on" id="fax_number"
+                       value="<?php echo $customerMyDisplayInformationData['fax_number'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field mobile_number ">
+            <label class="label" for="mobile_number"><span><?php /* @escapeNotVerified */
+                    echo __('Mobile') ?></span></label>
+            <div class="control">
+                <input name="mobile_number" id="mobile_number" autocomplete="on"
+                       value="<?php echo $customerMyDisplayInformationData['mobile_number'] ?>" class="input-text"
+                       type="text">
+            </div>
+        </div>
+        <div class="field email_address ">
+            <label class="label" for="email_address"><span><?php /* @escapeNotVerified */
+                    echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="email_address" autocomplete="email" id="email_address"
+                       value="<?php echo $customerMyDisplayInformationData['email_address'] ?>" class="input-text"
+                       type="text"
+                >
+            </div>
+        </div>
+        <legend class="legend no-display"><span><?php /* @escapeNotVerified */
+                echo __('Welcome Message on the Home Page') ?></span></legend>
+        <h2 class="legend heading-l2"><span><?php /* @escapeNotVerified */
+                echo __('Welcome Message on the Home Page') ?></span></h2>
+<!--        <a href="#" id="body_preview"> Preview </a>-->
+            <button formaction="<?= $block->getUrl().'?preview=self'; ?>" formtarget="_blank" type="submit" class="preview-buttons">
+                <?php echo __('Preview'); ?>
+            </button>
+
+        <div class="field welcome_message_on_the_homepage ">
+            <label class="label" for="welcome_message_on_the_homepage"><span><?php /* @escapeNotVerified */
+                    echo __('Message') ?></span></label>
+            <div class="control">
+                <textarea id="welcome_message_on_the_homepage" name="welcome_message_on_the_homepage" rows="4"
+                          cols="50"><?php echo $customerMyDisplayInformationData['welcome_message_on_the_homepage'] ?></textarea>
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" ><span><?= $block->
+                        escapeHtmlAttr(__('Save')) ?></span></button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script>
+    require(['jquery'], function (jQuery) {
+        jQuery(document).ready(function () {
+            <?php
+            if(!empty($customerMyDisplayInformationData['country'])){
+            ?>
+            jQuery('select[name="country_id"]').find('option:contains("<?php echo $customerMyDisplayInformationData['country'] ?>")').attr("selected", true);
+            var param = 'country=' + jQuery('#country').val();
+            jQuery.ajax({
+                showLoader: true,
+                url: '<?php /* @escapeNotVerified */ echo $block->getCountryAction(); ?>',
+                data: param,
+                type: "GET",
+                dataType: 'json'
+            }).done(function (data) {
+                jQuery('#state').empty();
+                if (data.value == '') {
+                    jQuery('.field.states').show();
+                    jQuery('.field.region').hide();
+                }
+                else {
+                    jQuery('#state').append(data.value);
+                    jQuery('.field.states').hide();
+                    jQuery('.field.region').show();
+                    jQuery('select[name="region"]').find('option:contains("<?php echo $customerMyDisplayInformationData['state'] ?>")').attr("selected", true);
+                }
+            });
+            <?php
+            }
+            ?>
+            var selectedCountry = '';
+            if (jQuery('#country option:selected').val()) {
+                selectedCountry = jQuery('#country option:selected').text();
+            }
+            jQuery('#country_in').val(selectedCountry);
+        });
+        jQuery(document).on('change', '#country', function () {
+            var param = 'country=' + jQuery('#country').val();
+            jQuery.ajax({
+                showLoader: true,
+                url: '<?php /* @escapeNotVerified */ echo $block->getCountryAction(); ?>',
+                data: param,
+                type: "GET",
+                dataType: 'json'
+            }).done(function (data) {
+                jQuery('#state').empty();
+                if (data.value == '') {
+                    jQuery('.field.states').show();
+                    jQuery('.field.region').hide();
+                }
+                else {
+                    jQuery('#state').append(data.value);
+                    jQuery('.field.states').hide();
+                    jQuery('.field.region').show();
+                }
+            });
+            var selectedCountry = '';
+            if (jQuery('#country option:selected').val()) {
+                selectedCountry = jQuery('#country option:selected').text();
+            }
+            jQuery('#country_in').val(selectedCountry);
+            jQuery('#state_in').val('');
+        });
+        jQuery(document).on('change', '#state', function () {
+            var selectedState = '';
+            if (jQuery('#state option:selected').val()) {
+                selectedState = jQuery('#state option:selected').text();
+            }
+            jQuery('#state_in').val(selectedState);
+        });
+        jQuery(document).on('keyup', '#states', function () {
+            var selectedState = '';
+            if (jQuery(this).val()) {
+                selectedState = jQuery(this).val();
+            }
+            jQuery('#state_in').val(selectedState);
+        });
+    });
+</script>

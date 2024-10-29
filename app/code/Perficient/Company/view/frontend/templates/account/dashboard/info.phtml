@@ -1,0 +1,85 @@
+<?php
+/**
+ * Wendover Custom attributes
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Company
+ */
+/** @var \Perficient\Company\Block\Account\Dashboard\DashboardInfo $block */
+?>
+<?php
+$camContact = $block->getCamContact();
+$camContactDetail = $camContact->getData('cam');
+$camname = $camContactDetail['name'];
+$camphone = $camContactDetail['phone'];
+$camemail = $camContactDetail['email'];
+
+$customerRole = $block->getCurrentUserRole();
+$checkValue = explode(' ',$block::CUSTOMER_CUSTOMER);
+
+$explodedArr=explode(' ',$customerRole);
+if(strcmp(end($explodedArr),end($checkValue))){
+?>
+<?php if(!empty($camname) || !empty($camphone) || !empty($camemail)): ?>
+    <div class="box box-cam">
+        <strong class="box-title">
+            <span><?= $block->escapeHtml(__('Wendover Customer Account Manager')) ?></span>
+        </strong>
+        <div class="box-content">
+            <?php if(!empty($camname)): ?>
+                <p>
+                    <?= $block->escapeHtml($camname) ?><br>
+                </p>
+            <?php endif; ?>
+            <?php if(!empty($camemail)): ?>
+                <p>
+                    <?= $block->escapeHtml($camemail) ?><br>
+                </p>
+            <?php endif; ?>
+            <?php if(!empty($camphone)): ?>
+                <p>
+                    <?= $block->escapeHtml($camphone) ?><br>
+                </p>
+            <?php endif; ?>
+        </div>
+        <div class="box-actions"></div>
+    </div>
+<?php endif; ?>
+<?php
+$salesContact = $block->getSalesRepresentativeContact();
+$salesContactDetail = $salesContact->getData('salesrep');
+$salesrepname = $salesContactDetail['name'];
+$salesrepphone = $salesContactDetail['phone'];
+$salesrepemail = $salesContactDetail['email'];
+?>
+<?php if(!empty($salesrepname) || !empty($salesrepphone) || !empty($salesrepemail)): ?>
+    <div class="box box-sales-rep">
+        <strong class="box-title">
+            <span><?= $block->escapeHtml(__('Wendover Sales Rep')) ?></span>
+        </strong>
+        <div class="box-content">
+            <?php if(!empty($salesrepname)): ?>
+            <p>
+                <?= $block->escapeHtml($salesrepname) ?><br>
+            </p>
+            <?php endif; ?>
+            <?php if(!empty($salesrepemail)): ?>
+            <p>
+                <?= $block->escapeHtml($salesrepemail) ?><br>
+            </p>
+            <?php endif; ?>
+            <?php if(!empty($salesrepphone)): ?>
+                <p>
+                    <?= $block->escapeHtml($salesrepphone) ?><br>
+                </p>
+            <?php endif; ?>
+        </div>
+        <div class="box-actions"></div>
+    </div>
+<?php endif; ?>
+<?php }?>

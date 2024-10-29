@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Inventory for Quick Ship
+ * @category: Magento
+ * @package: Perficient/QuickShip
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_QuickShip
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <quickship>
+            <general>
+                <quick_ship_category_name>Quick Ship</quick_ship_category_name>
+                <quick_ship_category_id>99999</quick_ship_category_id>
+                <add_to_cart_regular_restrict_message>Cannot begin a Quick Ship order because you already have standard lead-time items in your cart.  Please complete your standard lead-time order before starting a Quick Ship order.</add_to_cart_regular_restrict_message>
+                <add_to_cart_restrict_message>Cannot begin a standard lead-time order because you already have Quick Ship items in your cart.  Please complete your Quick Ship order first before starting a standard lead-time order.</add_to_cart_restrict_message>
+                <quickship_qty_restrict_message>Cannot begin a Quick Ship order because qty for quick ship is exhausted. </quickship_qty_restrict_message>
+                <quickship_over_purchase_restrict_message>Available qty for quickship product is %s.</quickship_over_purchase_restrict_message>
+            </general>
+        </quickship>
+    </default>
+</config>

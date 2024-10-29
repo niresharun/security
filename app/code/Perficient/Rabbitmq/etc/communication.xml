@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq inventory update
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <topic name="error.erp.catalog.inventory.update" request="string"/>
+    <topic name="error.erp.base.cost.create.update" request="string"/>
+    <topic name="error.erp.catalog.product.create.update" request="string"/>
+    <topic name="error.erp.media.treatment.create.update" request="string"/>
+    <topic name="error.erp.media.flat.table.create.update" request="string"/>
+    <topic name="error.erp.treatment.flat.table.create.update" request="string"/>
+    <topic name="error.erp.frame.treatment.flat.table.create.update" request="string"/>
+    <topic name="error.erp.media.treatment.flat.table.create.update" request="string"/>
+    <topic name="error.erp.order.create.update" request="string"/>
+    <topic name="error.magento.sales.order.create" request="string"/>
+    <topic name="error.erp.invoice.shipment.create.update" request="string"/>
+    <topic name="error.magento.company.update" request="string"/>
+    <topic name="error.erp.company.update" request="string"/>
+    <topic name="error.invoice.success.failure" request="string"/>
+    <topic name="erp.catalog.inventory.update" request="string"/>
+    <topic name="erp.catalog.product.create.update" request="string"/>
+    <topic name="erp.base.cost.create.update" request="string"/>
+    <topic name="erp.media.treatment.create.update" request="string"/>
+    <topic name="erp.media.flat.table.create.update" request="string"/>
+    <topic name="erp.treatment.flat.table.create.update" request="string"/>
+    <topic name="erp.frame.treatment.flat.table.create.update" request="string"/>
+    <topic name="erp.media.treatment.flat.table.create.update" request="string"/>
+    <!-- Create order from Syspro to Magento -->
+    <topic name="erp.order.create.update" request="string"/>
+	 <!-- Order data create from Magento to SysPro -->
+    <topic name="magento.sales.order.create" request="string"/>
+    <!-- Order Invoice/Shipment Data from SysPro to Magento -->
+    <topic name="erp.invoice.shipment.create.update" request="string"/>
+
+    <!-- Company Data from Magento to SysPro -->
+    <topic name="magento.company.update" request="string"/>
+    <!-- Company Data from SysPro to Magento -->
+    <topic name="erp.company.update" request="string"/>
+
+    <!-- Invoice success/failure message from Magento to SysPro -->
+    <topic name="invoice.success.failure" request="string"/>
+
+    <!-- CreditMemo success/failure message from Magento to SysPro -->
+    <topic name="creditmemo.success.failure" request="string"/>
+</config>

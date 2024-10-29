@@ -1,0 +1,140 @@
+{
+    "media": {
+        "column": {
+            "media_id": true,
+            "sku": true,
+            "base_cost_media": true,
+            "display_name": true,
+            "display_to_customer": true,
+            "min_image_size_short": true,
+            "min_image_size_long": true,
+            "max_image_size_short": true,
+            "max_image_size_long": true,
+            "updated_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MEDIA_SKU": true
+        }
+    },
+    "treatment": {
+        "column": {
+            "treatment_id": true,
+            "treatment_sku": true,
+            "base_cost_treatment": true,
+            "display_name": true,
+            "requires_top_mat": true,
+            "requires_bottom_mat": true,
+            "requires_liner": true,
+            "min_glass_size_short": true,
+            "min_glass_size_long": true,
+            "max_glass_size_short": true,
+            "max_glass_size_long": true,
+            "min_rabbet_depth": true,
+            "image_edge_treatment": true,
+            "new_top_mat_size_left": true,
+            "new_top_mat_size_top": true,
+            "new_top_mat_size_right": true,
+            "new_top_mat_size_bottom": true,
+            "new_bottom_mat_size_left": true,
+            "new_bottom_mat_size_top": true,
+            "new_bottom_mat_size_right": true,
+            "new_bottom_mat_size_bottom": true,
+            "liner_rabbet_depth_check": true,
+            "updated_at": true,
+            "status": true,
+            "liner_depth_check": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "TREATMENT_TREATMENT_SKU": true
+        }
+    },
+    "media_treatment": {
+        "column": {
+            "media_treatment_id": true,
+            "media_sku": true,
+            "treatment_sku": true,
+            "display_to_customer": true,
+            "updated_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "frame_treatment": {
+        "column": {
+            "frame_treatment_id": true,
+            "treatment_sku": true,
+            "frame_type": true,
+            "updated_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "base_cost": {
+        "column": {
+            "base_cost_id": true,
+            "base_cost_media": true,
+            "base_cost_treatment": true,
+            "glass_size_short": true,
+            "glass_size_long": true,
+            "base_cost": true,
+            "updated_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "has_dummy_product": true,
+            "web_company_id": true,
+            "syspro_salesrep_id": true,
+            "syspro_order_entry_date": true,
+            "requested_delivery_date": true,
+            "expected_ship_date": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "avatax_nsavtx": true,
+            "avatax_entusecodlin": true,
+            "avatax_nstkwh": true,
+            "avatax_mscavx": true
+        }
+    },
+    "sales_shipment": {
+        "column": {
+            "carton_count": true,
+            "pallet_count": true,
+            "shipment_weight": true,
+            "shipper_number": true
+        }
+    },
+    "sales_invoice": {
+        "column": {
+            "invoice_amount": true,
+            "balance_due": true
+        }
+    },
+    "quote": {
+        "column": {
+            "syspro_order_id": true,
+            "syspro_customer_id": true,
+            "syspro_salesrep": true,
+            "customer_due_date": true,
+            "has_dummy_product": true,
+            "web_company_id": true,
+            "syspro_salesrep_id": true,
+            "syspro_order_entry_date": true,
+            "requested_delivery_date": true,
+            "expected_ship_date": true
+        }
+    }
+}

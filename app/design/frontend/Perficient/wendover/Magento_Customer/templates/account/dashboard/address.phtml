@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+$companyHelper = $this->helper(\Perficient\Company\Helper\Data::class);
+$isCustomer = $companyHelper->isCustomerCustomer();
+if(!$isCustomer):
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <h2 class="heading-l2"><?= $block->escapeHtml(__('Address')) ?></h2>
+        <a class="action edit" href="<?= $block->escapeUrl($block->getAddressBookUrl()) ?>"><span><?= $block->escapeHtml(__('Manage Addresses')) ?></span></a>
+    </div>
+    <div class="block-content">
+        <div class="box box-billing-address">
+            <h3 class="box-title heading-l3">
+                <span><?= $block->escapeHtml(__('Default Billing Address')) ?></span>
+            </h3>
+            <div class="box-content">
+                <address>
+                    <?= strip_tags($block->getPrimaryBillingAddressHtml(),"<br>") ?>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryBillingAddressEditUrl()) ?>" data-ui-id="default-billing-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+            </div>
+        </div>
+        <div class="box box-shipping-address">
+            <h3 class="box-title heading-l3">
+                <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+            </h3>
+            <div class="box-content">
+                <address>
+                    <?= strip_tags($block->getPrimaryShippingAddressHtml(),"<br>") ?>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryShippingAddressEditUrl()) ?>" data-ui-id="default-shipping-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

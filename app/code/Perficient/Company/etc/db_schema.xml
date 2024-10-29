@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Custom Fields.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="company" resource="default" engine="innodb" comment="Company Table">
+        <column xsi:type="varchar" name="newsletter" nullable="true" length="255" comment="Newsletter Opt In"/>
+        <column xsi:type="varchar" name="is_dba" nullable="true" length="255" comment="DBA Available"/>
+        <column xsi:type="varchar" name="first_name" nullable="true" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="last_name" nullable="true" length="255" comment="Last Name"/>
+        <column xsi:type="varchar" name="dba_name" nullable="true" length="255" comment="DBA Name"/>
+        <column xsi:type="varchar" name="resale_certificate_number" nullable="true" length="255"
+                comment="Resale Certificate Number"/>
+        <column xsi:type="varchar" name="website_address" nullable="true" length="255" comment="Website Address"/>
+        <column xsi:type="varchar" name="social_media_site" nullable="true" length="255" comment="Social Media Site"/>
+        <column xsi:type="varchar" name="business_info" nullable="true" length="255" comment="Business Type"
+                disabled="true"/>
+        <column xsi:type="varchar" name="business_type" nullable="true" length="255" comment="Business Type"/>
+        <column xsi:type="varchar" name="no_of_stores" nullable="true" length="255" comment="Number of Stores"/>
+        <column xsi:type="varchar" name="sq_ft_per_store" nullable="true" length="255"
+                comment="Square Footage per Store"/>
+        <column xsi:type="varchar" name="type_of_projects_residential" nullable="true" length="255"
+                comment="Types of Projects" disabled="true"/>
+        <column xsi:type="varchar" name="type_of_projects_commercial" nullable="true" length="255"
+                comment="Types of Projects" disabled="true"/>
+        <column xsi:type="varchar" name="type_of_projects" nullable="true" length="255"
+                comment="Types of Projects"/>
+        <column xsi:type="varchar" name="no_of_jobs_per_year" nullable="true"
+                comment="Number of Jobs per Year"/>
+        <column xsi:type="varchar" name="discount_rate" nullable="true" length="255" comment="Discount Rate"/>
+        <column xsi:type="varchar" name="discount_markup" nullable="true" length="255" comment="Discount Markup"/>
+        <column xsi:type="varchar" name="discount_application_type" nullable="true" length="255"
+                comment="Discount Application Type"/>
+        <column xsi:type="varchar" name="discount_value" nullable="true" length="255" comment="Discount Value"/>
+        <column xsi:type="varchar" name="syspro_customer_id" nullable="true" length="255" comment="Syspro Customer Id"/>
+        <!--Start fix for WENDOVER-529 parent WENDOVER-501 where company name and street not taking more than 40 char-->
+        <column xsi:type="varchar" name="company_name" nullable="true" length="50" comment="Company Name"/>
+        <column xsi:type="varchar" name="street" nullable="true" length="81" comment="Street"/>
+        <!--End fix for WENDOVER-529 parent WENDOVER-501-->
+    </table>
+</schema>

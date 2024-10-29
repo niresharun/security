@@ -1,0 +1,9 @@
+<?php
+/**@var Wendover\Checkout\ViewModel\ShippingMessage $viewModel*/
+$viewModel = $block->getData('view_model');
+?>
+<div hidden>
+    <div id="shipping-message-modal">
+        <?= $viewModel->getShippingPopup()?>
+    </div>
+</div>

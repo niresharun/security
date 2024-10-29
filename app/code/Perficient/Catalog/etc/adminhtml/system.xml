@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="catalog" translate="label" sortOrder="200">
+            <label>Catalog</label>
+        </tab>
+        <section id="perficient_bulk_upload" translate="label" type="text" sortOrder="40" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Bulk Image Cron Scheduler</label>
+            <tab>catalog</tab>
+            <resource>Magento_Catalog::config_catalog</resource>
+            <group id="cron_setup" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Cron Expression Setting</label>
+                <field id="bulk_upload_enable" translate="label comment" type="select" sortOrder="1" showInDefault="1"
+                       canRestore="1">
+                    <label>Enable</label>
+                    <backend_model>Magento\Catalog\Model\Indexer\Product\Flat\System\Config\Mode</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="bulk_upload" translate="label comment" type="select" sortOrder="2" showInDefault="1"
+                       canRestore="1">
+                    <label>Expression</label>
+                    <source_model>Perficient\Catalog\Model\Config\Source\ListMode</source_model>
+                    <backend_model>Perficient\Catalog\Model\Cron\BulkImport</backend_model>
+                    <comment>Set up scheduler for cron to bulk product image upload</comment>
+                    <depends>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="week_day" translate="label comment" type="select" sortOrder="3" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Week Day</label>
+                    <source_model>Perficient\Catalog\Model\Config\Source\Weekdays</source_model>
+                    <depends>
+                        <field id="bulk_upload">W</field>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="month_day" translate="label comment" type="select" sortOrder="4" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Day of Month</label>
+                    <comment>Month day value in integer from 1-31</comment>
+                    <source_model>Perficient\Catalog\Model\Config\Source\MonthDate</source_model>
+                    <depends>
+                        <field id="bulk_upload">M</field>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="time" translate="label" type="time" sortOrder="5" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Start Time</label>
+                    <depends>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="endtime" translate="label" type="time" sortOrder="6" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>End Time</label>
+                    <depends>
+                        <field id="bulk_upload" separator=",">5M,10M,15M,30,1H,2H,4H,6H,8H</field>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="cron_notification_enable" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" canRestore="1">
+                    <label>Email Notification</label>
+                    <backend_model>Magento\Catalog\Model\Indexer\Product\Flat\System\Config\Mode</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="perficient_bulk_upload/cron_setup/bulk_upload_enable">1</field>
+                    </depends>
+                </field>
+                <field id="name" translate="label name" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Name</label>
+                    <depends>
+                        <field id="perficient_bulk_upload/cron_setup/cron_notification_enable">1</field>
+                    </depends>
+                </field>
+                <field id="email" translate="label email" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Email</label>
+                    <depends>
+                        <field id="perficient_bulk_upload/cron_setup/cron_notification_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module to customize customer related features
+ *
+ * @category: PHP
+ * @package: Perficient/Customer
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suraj Jaiswal <suraj.jaiswal@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Customer
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Please Provide Missing Required Details</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   ifconfig="company/general/allow_company_registration"
+                   template="Magento_Theme::template.phtml"
+                   name="company.account.create.wrapper" cacheable="false">
+                <block class="Perficient\Customer\Block\RequiredDetails" name="customer_required_details"
+                       ifconfig="btob/website_configuration/company_active"
+                       template="Perficient_Customer::form/requireddetails.phtml" cacheable="false">
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,70 @@
+<?php
+$actionUrl = $block->getActionUrl();
+$confUrl = $block->getConfUrl();
+?>
+<div id="img_success_message" class="message message-notice" style="display: none">
+    <div data-ui-id="messages-message-success" id="img_upload_success_msg">
+        <?php /* @escapeNotVerified */ echo __('The bulk image import is in progress and will be finished in couple of minutes.') ?>
+    </div>
+</div>
+<br />
+<form class="form" action="<?= $actionUrl; ?>" method="post" id="img_form">
+	<input name="form_key" type="hidden" value="<?=$block->getFormKey()?>">
+
+        <div class="field required">
+            <label for="image_type" class="label">
+                <span><?php /* @escapeNotVerified */ echo __('The path must be inside of:') ?></span>
+            </label><br><br>
+            <label for="image_type" class="label" style="color: red;">
+                Please make sure the Bulk Image Import Cron is disabled (Stores -> Configuration -> Catalog -> Bulk Image Cron Scheduler) if we need to execute import process manually by hitting below Import button.
+                <br>
+                Please Import ONE video per product and the filesize should be less than 2MB.
+            </label>
+            <br><br>
+            <div class="control">
+            	<select name="image_type" id="image_type" required="" />
+				    <option value="art/cropped">pub/media/import/wendoverimages/</option>
+			<!-- 	    <option value="frames/double_corner">frames/double_corner</option>
+				    <option value="frames/renderer_corner">frames/renderer_corner</option>
+                    <option value='art/base'>art/base</option>
+				    <option value="frames/renderer_length">frames/renderer_length</option>
+				    <option value="frames/specifications">frames/specifications</option>
+				    <option value="mats/base">mats/base</option>
+				    <option value="swatches">swatches</option> -->
+				</select>
+            </div>
+        </div>
+        <br>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="button" id="btn_img_upload" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>">
+                    <span><?php /* @escapeNotVerified */ echo __('Import') ?></span>
+                </button>
+            </div>
+        </div>
+</form>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        'use strict';
+        $('#btn_img_upload').on('click', function () {
+            $.ajax({
+                url: "<?= $actionUrl ?>",
+                data: $('#img_form').serialize(),
+                dataType: 'json',
+                type: "POST",
+                context: $('body'),
+                beforeSend: function() {
+                    $('#img_success_message').removeClass('message-success').addClass('message-notice');
+                    $('body').trigger('processStart');
+                    setTimeout(function() {
+                        $('#img_success_message').show();
+                        $('body').trigger('processStop');
+                    }, 5000);
+                }
+            });
+        });
+    });
+</script>

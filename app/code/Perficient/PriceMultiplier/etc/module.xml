@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Custom Module for price multiplier
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: price multiplier
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_PriceMultiplier" setup_version="2.0.0">
+        <sequence>
+            <module name="Magento_Catalog"/>
+            <module name="Perficient_Company"/>
+            <module name="Perficient_Productimize"/>
+            <module name="Perficient_MyCatalog"/>
+        </sequence>
+    </module>
+</config>

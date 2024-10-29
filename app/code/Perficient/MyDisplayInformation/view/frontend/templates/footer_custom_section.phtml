@@ -1,0 +1,39 @@
+<?php
+/**
+ * This module is used by employee who can add/update his personal information which needs to display his customers
+ * @category: Magento
+ * @package: Perficient/MyDisplayInformation
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyDisplayInformation
+ */
+?>
+<div id="footer_mydisplay_info" class="mydisplayinformation_footer_section" data-bind="scope: 'footer_section'">
+    <div data-bind="html: customsection().footer_mydisplayinformation"></div>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "footer_section": {
+                    "component": "Perficient_MyDisplayInformation/js/section"
+                }
+            }
+        }
+    }
+}
+</script>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            if($('.footer_mydisplay_info_preview').length){
+                var footerContent = $('.footer_mydisplay_info_preview').html();
+                $('#footer_mydisplay_info').html(footerContent);
+            }
+        });
+    });
+</script>

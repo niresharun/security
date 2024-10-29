@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq inventory update
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue_publisher.xsd">
+    <publisher topic="erp.catalog.inventory.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.catalog.inventory.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.catalog.product.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.catalog.product.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.base.cost.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.base.cost.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.media.treatment.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.media.treatment.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.media.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.media.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.frame.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.frame.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="erp.media.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.media.treatment.flat.table.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <!-- Publisher to create order from Syspro to Magento -->
+    <publisher topic="erp.order.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.order.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <!-- Order create from Magento to SysPro -->
+    <publisher topic="magento.sales.order.create">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+    <publisher topic="error.magento.sales.order.create">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+    <!-- SysPro to Magento Invoice/Shipment Data -->
+    <publisher topic="erp.invoice.shipment.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.invoice.shipment.create.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <!-- SysPro to Magento Company Data -->
+    <publisher topic="erp.company.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <publisher topic="error.erp.company.update">
+        <connection name="amqp" exchange="SysPro"/>
+    </publisher>
+    <!-- Magento to SysPro Company Data -->
+    <publisher topic="magento.company.update">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+    <publisher topic="error.magento.company.update">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+    <!-- Invoice success/failure message from Magento to SysPro -->
+    <publisher topic="invoice.success.failure">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+    <publisher topic="error.invoice.success.failure">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+
+    <!-- CreditMemo success/failure message from Magento to SysPro -->
+    <publisher topic="creditmemo.success.failure">
+        <connection name="amqp" exchange="Magento"/>
+    </publisher>
+</config>

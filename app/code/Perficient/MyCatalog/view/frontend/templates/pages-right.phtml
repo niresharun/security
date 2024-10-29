@@ -1,0 +1,67 @@
+<?php
+/**
+ * File to create left bar.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+
+$urlKey = "create-catalog-help";
+$cmsPageObj = $block->getCmsPageDetails($urlKey);
+if (count($cmsPageObj) > 0) {
+    foreach ($cmsPageObj as $key => $value) {
+        ?>
+        <div id="popup-modal-help" style="display:none;">
+            <?php echo $value->getContent(); ?>
+        </div>
+        <?php break;
+    }
+}
+?>
+<ul class="wendover_template_buttons">
+    <li>
+        <button class="right_menu help-button" id="catalog_help_button"><?= __('Help'); ?></button>
+    </li>
+    <li>
+        <button class="right_menu addpage-button" id="catalog_addpage_button"><?= __('Add Page'); ?></button>
+    </li>
+    <li>
+        <button class="right_menu delete-button" id="catalog_delete_button"
+                onclick="return false;"><?= __('Delete Page'); ?></button>
+    </li>
+</ul>
+<script>
+    require(
+        [
+            'jquery',
+            'jquery/ui',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function (
+            $,
+            modal
+        ) {
+            $(document).ready(function () {
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true
+
+                };
+                $("#catalog_help_button").on('click', function () {
+                    $("#popup-modal-help").modal(options).modal('openModal');
+                });
+            });
+        }
+    );
+</script>
+

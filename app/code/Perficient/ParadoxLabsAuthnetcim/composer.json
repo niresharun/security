@@ -1,0 +1,21 @@
+{
+  "name": "perficient/module-paradoxlabsauthnetcim",
+  "description": "ParadoxLabs Authnetcim to change eCheckType form WEB to PPD for savings and checking Account Type",
+  "keywords": ["payment", "authorize.net", "tokenization"],
+  "require": {
+    "paradoxlabs/tokenbase": "~4.3.1"
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "time": "2020-08-05",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Perficient\\ParadoxLabsAuthnetcim\\": ""
+    }
+  }
+}

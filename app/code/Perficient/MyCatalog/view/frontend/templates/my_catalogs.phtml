@@ -1,0 +1,238 @@
+<?php
+/**
+ * @var $block \Perficient\MyCatalog\Block\MyCatalog
+ * @var $wendover_model \Wendover\Catalog\ViewModel\WendoverViewModel
+ */
+?>
+<?php
+$action = $block->getActionData();
+$myCatalogs = $block->getMyCatalogs();
+$galleryList = $block->getGalleryNamesLists();
+$mySharedCatalogs = $block->getMySharedCatalogs();
+
+// Check if customer is able to see the my catalog listing/button or not.
+$isAllowedMyCatalog = $block->isAllowMyCatalog();
+$wendover_model = $block->getData('wendover_model');
+?>
+<div class="mycatalog-grid">
+    <?php if ($isAllowedMyCatalog): ?>
+        <button id="createnew-catalog" data-toggle="modal" class="action primary create-new-catalog">
+            <span><?= /* @escapeNotVerified */
+                __('Create New Catalog') ?></span>
+        </button>
+
+        <div class="catalog-popup" id="catalog-popup" style="display: none;">
+            <div class="modal-inner-content">
+                <h2><?= __('Create New Catalog'); ?></h2>
+                <p><?= __('Which project will this catalog belong to?'); ?></p>
+                <?php if ($galleryList): ?>
+                    <ul>
+                        <?php
+                        $i = 0;
+                        foreach ($galleryList as $gallery): ?>
+                            <?php if (strtolower($gallery['name']) != strtolower('MY FAVORITES')) { ?>
+                                <li>
+                                    <a href="#"
+                                       class="<?php echo($i == 0 ? 'active-gallery' : ''); ?> gallery-list-item"
+                                       data-href="<?= $block->getUrl('mycatalog/index/edit/', ['wishlist_id' => $gallery['wishlist_id']]); ?>">
+                                        <?= $gallery['name']; ?>
+                                    </a>
+                                </li>
+                                <?php
+                                $i++;
+                            }
+                            ?>
+                            <?php
+
+                        endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <?php if (count($myCatalogs)): ?>
+            <div id="email-catalog-modal" style="display: none">
+                <form id="email_catalog_form" name="email_catalog_form" method="POST"
+                      action="<?= $block->getUrl('*/*/*'); ?>" data-mage-init='{"validation":{}}'>
+                    <input name="form_key" type="hidden" value="<?= /* @noEscape */
+                    $block->getFormKey() ?>"/>
+                    <div class="form">
+                        <div class="field recipient">
+                            <label class="label hide" for="recipient">
+                                <span><?= /* @escapeNotVerified */
+                                    __('Recipient'); ?>:<span>*</span></span>
+                            </label>
+                            <input name="recipient"
+                                   id="recipient"
+                                   type="email"
+                                   class="required"
+                                   autocomplete="email"
+                                   data-validate="{required:true, 'validate-email':true}"
+                                   placeholder="<?= /* @escapeNotVerified */
+                                   __('recipient') ?>"
+                                   value=""/>
+                        </div>
+                        <br role="presentation"/>
+
+                        <div class="field message">
+                            <label class="label hide" for="message">
+                                <span><?= /* @escapeNotVerified */
+                                    __('Message'); ?>:</span>
+                            </label>
+                            <textarea name="message" id="message" placeholder="<?= /* @escapeNotVerified */
+                            __('message') ?>"></textarea>
+                        </div>
+                        <br role="presentation"/>
+                    </div>
+
+                    <div class="action">
+                        <button class="action primary" type="button" value="cancel" name="cancel" id="cancel_email">
+                            <span><?= /* @escapeNotVerified */
+                                __('Cancel') ?></span>
+                        </button>
+                        <button class="action primary" id="send_email" type="button" value="continue" name="send">
+                            <span><?= /* @escapeNotVerified */
+                                __('Send Email') ?></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <table class="projects_table sortable">
+                <thead>
+                <th class="sorttable_nosort"><?= __('Name'); ?></th>
+                <th id="projects_table_sort"><?= __('Created'); ?></th>
+                <th class="sorttable_nosort no-label"><?= __('Edit'); ?></th>
+                <th class="sorttable_nosort no-label"><?= __('Delete'); ?></th>
+                <th class="sorttable_nosort no-label"><?= __('Download'); ?></th>
+                <th class="sorttable_nosort no-label"><?= __('Email'); ?></th>
+                </thead>
+                <tbody>
+                <?php foreach ($myCatalogs as $list): ?>
+                    <?php $key = $list->getCatalogId(); ?>
+                    <?php
+                    $projectName = $list->getProjectName();
+                    if (empty($projectName)) {
+                        $projectName = 'Wish List';
+                    }
+                    ?>
+                    <tr>
+                        <td data-th="<?= __('Name'); ?>">
+                            <a href="<?= $block->getUrl('mycatalog/index/pages', ['_secure' => 1, 'catalog_id' => $key]) ?>">
+                                <?= $escaper->escapeHtml($list->getCatalogTitle()) ?>
+                            </a>
+                            <p><?= __('Project: '); ?> <?= $escaper->escapeHtml($projectName) ?></p>
+                        </td>
+                        <td data-th="<?= __('Date Created'); ?>"><?= $block->getFormattedDate($list->getCreatedAt()) ?>
+                            <br role="presentation"/><?= $block->getFormattedTime($list->getCreatedAt()) ?></td>
+
+                        <td class="action">
+                            <a aria-label="Edit Catalog <?= $escaper->escapeHtml($list->getCatalogTitle()) ?>"
+                               href="<?= $block->getUrl('mycatalog/index/edit', ['catalog_id' => $key, '_secure' => 1]) ?>"><?= __('Edit'); ?></a>
+                        </td>
+                        <td class="action"><a
+                                    aria-label="Delete <?= $escaper->escapeHtml($list->getCatalogTitle()) ?> Catalog"
+                                    href="#" class="delete-catalog" data-id="<?= $key ?>"
+                                    data-url="<?= $block->getUrl('mycatalog/index/deleteCatalog', ['_secure' => 1, 'catalog_id' => $key]) ?>"><?= __('Delete'); ?></a>
+                        </td>
+                        <td class="action"><a
+                                    aria-label="Download <?php /*= $escaper->escapeHtml($list->getCatalogTitle()) */?> Catalog" class="download"
+                                    href="<?= $this->getUrl('mycatalog/index/pdf', ['catalog_id' => $key, 'download' => 1, '_secure' => 1]) ?>"><?= __('Download'); ?></a>
+                        </td>
+                        <td class="action">
+                            <a aria-label="Email <?= $escaper->escapeHtml($list->getCatalogTitle()) ?> Catalog" href="#"
+                               class="email-catalog" data-id="<?= $key ?>"
+                               data-url="<?= $block->getUrl('mycatalog/index/email', ['catalog_id' => $key, '_secure' => 1]) ?>"><?= __('Email'); ?></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <div class="message info empty"><span><?= /* @escapeNotVerified */
+                    __('No catalogs found.') ?></span></div>
+        <?php endif; ?>
+    <?php endif; ?>
+<!--shared catalog conditions-->
+    <?php if (count($mySharedCatalogs)): ?>
+        <br>
+        <h2><?php echo __("Shared Catalogs")?></h2>
+        <br role="presentation" />
+        <table class="shared_projects_table sortable">
+            <thead>
+            <th class="sorttable_nosort"><?= __('Catalog Name'); ?></th>
+            <th class="sorttable_nosort"><?= __('Date Shared'); ?></th>
+            <th id="projects_table_sort"><?= __('Shared By'); ?></th>
+            <!--<th class="sorttable_nosort no-label"><?php /*= __('Download'); */?></th>-->
+            </thead>
+            <tbody>
+            <?php foreach ($mySharedCatalogs as $list): ?>
+                <?php $key = $list->getCatalogId(); ?>
+                <tr>
+                    <td>
+                        <?= $escaper->escapeHtml($list->getCatalogTitle()) ?>
+                        <p>
+                            <?php
+                            $projectName = $list->getProjectName();
+                            if (empty($projectName)) {
+                                $projectName = 'Wish List';
+                            }
+                            ?>
+                            <?= __('Project: '); ?> <?= $escaper->escapeHtml($projectName) ?>
+                        </p>
+                    </td>
+                    <td>
+                        <?= $escaper->escapeHtml($block->getFormattedDate($list->getShareDate())) ?>
+                    </td>
+                    <td>
+                        <?= $escaper->escapeHtml($list->getSharedByEmail()) ?>
+                    </td>
+                    <td><a class="download"
+                           href="<?= $block->getUrl('mycatalog/index/pdf', ['catalog_id' => $key, 'download' => 1, 'shared' => 1, '_secure' => 1]) ?>"><?= __('Download'); ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php elseif (!$isAllowedMyCatalog): ?>
+        <div class="message info empty"><span><?= /* @escapeNotVerified */
+                __('No shared catalogs found.') ?></span></div>
+    <?php endif; ?>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "wendoverJS": {}
+    }
+}
+
+</script>
+<script>
+    require(['jquery', 'mage/translate', 'Magento_Ui/js/modal/modal', 'domReady!'], function ($, $t, modal) {
+        var action = '<?php echo $action; ?>';
+        let options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: $t('Send Email'),
+            buttons: []
+        };
+        let emailForm = $('#email_catalog_form');
+
+        if ($('#email_catalog_form').length > 0) {
+            let popup = modal(options, $('#email-catalog-modal'));
+
+            $("#cancel_email").on('click', function () {
+                $('#email_catalog_form').validation('clearError');
+                popup.closeModal();
+            });
+        }
+        $(document).ready(function () {
+            if(action == 'create') {
+                setTimeout(function(){
+                    $('#createnew-catalog.create-new-catalog').click();
+                }, 1000);
+            }
+        });
+    });
+</script>

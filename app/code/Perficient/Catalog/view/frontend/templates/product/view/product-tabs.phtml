@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Product list template
+ *
+ *
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+<?php
+$_product = $block->getProduct();
+$longDescription = $block->stripTags($_product->getDescription());
+
+if (!empty($_product->getShortDescription()) || !empty($block->stripTags($_product->getDescription()))):
+?>
+
+<div class="product info detailed">
+    <div class="product data items" role="tablist" data-mage-init='{"mage/tabs": {"openedState": "active"}}'>
+        <?php if ($_product->getShortDescription()): ?>
+            <div class="data item title" tabindex="0" id="tab-label-short-description" aria-controls="short-description"
+                 data-role="collapsible" role="tab">
+                <a id="tab-label-short-descriptions" class="data switch" tabindex="-1" data-toggle="trigger"
+                   href="#short-description"><?= $escaper->escapeHtml(__('Short Description')) ?></a>
+            </div>
+            <div id="short-description" class="data item content" role="tabpanel"
+                 aria-labelledby="tab-label-short-description" data-role="content">
+                <?= $_product->getShortDescription() ?>
+            </div>
+        <?php endif; ?>
+        <?php if (!empty($block->stripTags($_product->getDescription()))): ?>
+            <div class="data item title" tabindex="0" id="tab-label-long-description" aria-controls="long-description"
+                 data-role="collapsible" role="tab">
+                <a id="tab-label-long-descriptions" class="data switch" tabindex="-1" data-toggle="trigger"
+                   href="#long-description"><?= $escaper->escapeHtml(__('Long Description')) ?></a>
+            </div>
+            <div id="long-description" class="data item content" role="tabpanel"
+                 aria-labelledby="tab-label-long-description" data-role="content">
+                <?= htmlspecialchars_decode($longDescription) ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php endif; ?>
+

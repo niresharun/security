@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Catalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar
+ * @project: Wendover
+ * @keywords: Module Perficient_Catalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="checkstock" frontName="checkstock">
+            <module name="Perficient_Catalog"/>
+        </route>
+    </router>
+</config>

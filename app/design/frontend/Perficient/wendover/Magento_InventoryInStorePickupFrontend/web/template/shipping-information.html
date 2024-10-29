@@ -1,0 +1,47 @@
+<!--
+/**
+ *
+ * This file used to changes in search list page
+ *
+ * @category: Magento
+ * @package: Perficient/Multiple Inventory In Store Pickup Frontend
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.athi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Inventory In Store Pickup Frontend
+ */
+
+-->
+
+<!-- ko if: (isVisible()) -->
+<div class="shipping-information">
+    <!-- ko if: (!isStorePickup()) -->
+    <div class="ship-to">
+        <div class="shipping-information-title">
+            <span data-bind="i18n: 'Shipping Address'"></span>
+            <button class="action action-edit" data-bind="click: back">
+                <span data-bind="i18n: 'edit'"></span>
+            </button>
+        </div>
+        <div class="shipping-information-content">
+            <!-- ko foreach: getRegion('ship-to') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+    </div>
+    <!--/ko-->
+    <div class="ship-via"  data-bind="css: isHideFlatRate() == 1 ? 'hide-shipping-method' : '' ">
+        <div class="shipping-information-title">
+            <span data-bind="i18n: 'Shipping Method'"></span>
+            <button class="action action-edit" data-bind="click: backToShippingMethod">
+                <span data-bind="i18n: 'edit'"></span>
+            </button>
+        </div>
+        <div class="shipping-information-content">
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+        </div>
+    </div>
+</div>
+<!--/ko-->

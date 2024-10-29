@@ -1,0 +1,6 @@
+<!-- ko if: ($col.getLabel($row()) == "enabled") -->
+<span class='grid-severity-notice'><!-- ko i18n: 'Enabled' --><!-- /ko --></span>
+<!--/ko-->
+<!-- ko if: ($col.getLabel($row()) == "disabled") -->
+<span class='grid-severity-major'><!-- ko i18n: 'Disabled' --><!-- /ko --></span>
+<!--/ko-->

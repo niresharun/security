@@ -1,0 +1,66 @@
+<?php
+/**
+ * File to create/update artwork catalog.
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$templateData = $this->getData('templateData');
+$images = $templateData['images'];
+$data = $templateData['data'];
+$page = $templateData['page'];
+?>
+<!--  Two quarters on left and half tall on right -->
+
+<div class="wendover_template_canvas wendover_template6">
+	<div class="page_number">Page <?php echo $page; ?></div>
+
+    <div class="misc-organizer">
+        <div class="dropspot dropspot_number_1">
+            <div class="img-holder" id="<?= uniqid(); ?>" rel="1">
+                <?php if (isset($data['dropspot_1']['item_id']) ) :?>
+                    <?php $_pId = $data['dropspot_1']['item_id']; ?>
+                    <img src="<?php echo $block->getImage($_pId, $images, true); ?>" class="art-img <?php echo $_pId; ?> dropspot-size-type-1" alt="<?php echo $_pId; ?>" />
+                <?php endif; ?>
+            </div>
+            <div class="dropspot_number dropspot_number_1"><?php if (isset($data['dropspot_1']['item_id'])): ?>(1)<?php endif; ?></div>
+        </div>
+        <div class="dropspot dropspot_number_2">
+            <div class="img-holder" id="<?php echo uniqid(); ?>" rel="2">
+                <?php if (isset($data['dropspot_2']['item_id']) ) :?>
+                    <?php $_pId = $data['dropspot_2']['item_id']; ?>
+                    <img src="<?php echo $block->getImage($_pId, $images, true); ?>" class="art-img <?php echo $_pId; ?> dropspot-size-type-1" alt="<?php echo $_pId; ?>" />
+                <?php endif; ?>
+            </div>
+            <div class="dropspot_number dropspot_number_2"><?php if (isset($data['dropspot_2']['item_id'])): ?>(2)<?php endif; ?></div>
+        </div>
+    </div>
+    <div class="dropspot dropspot_number_3">
+        <div class="img-holder" id="<?php echo uniqid(); ?>" rel="3">
+            <?php if (isset($data['dropspot_3']['item_id']) ) :?>
+                <?php $_pId = $data['dropspot_3']['item_id']; ?>
+                <img src="<?php echo $block->getImage($_pId, $images, true); ?>" class="art-img <?php echo $_pId; ?> dropspot-size-type-3" alt="<?php echo $_pId; ?>" />
+            <?php endif; ?>
+        </div>
+        <div class="dropspot_number dropspot_number_3"><?php if (isset($data['dropspot_3']['item_id'])): ?>(3)<?php endif; ?></div>
+    </div>
+
+    <div class="art-description-section">
+        <?php for ($counter = 1; $counter <= 3; $counter++): ?>
+            <div class="dropspot_<?= $counter; ?>_desc dropspot_desc">
+                <?php echo (isset($data['dropspot_' . $counter]['item_id']) && isset($images[$data['dropspot_' . $counter]['item_id']]['desc'])) ? '('. $counter .')<br/>'.$images[$data['dropspot_' . $counter]['item_id']]['desc'] : '' ?>
+            </div>
+        <?php endfor; ?>
+    </div>
+</div>
+<div style="page-break-before:always"></div>

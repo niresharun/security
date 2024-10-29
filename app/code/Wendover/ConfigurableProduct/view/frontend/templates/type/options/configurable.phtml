@@ -1,0 +1,159 @@
+<?php
+
+use Magento\Catalog\Helper\Image;
+use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable;
+use Wendover\ConfigurableProduct\ViewModel\FrameViewModel;
+use Magento\Catalog\Helper\Product;
+
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var $block Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+/** @var FrameViewModel $frameViewModel */
+$frameViewModel = $block->getData('frame-view-model');
+$frameDefaultSkuAttributeId = $frameViewModel ? $frameViewModel->getFrameDefaultSkuConfigurableAttributeId() : 0;
+/** @var Image $imageHelper */
+$imageHelper = $this->helper(Image::class);
+?>
+<?php if(!empty($_product->getData('specialty'))) : ?>
+    <div class="specialty field  configurable">
+        <span class="label"><?= $escaper->escapeHtml(__('Specialty: ')) ?></span>
+        <span id="product-specialty-text"></span>
+    </div>
+<?php endif; ?>
+<?php if ($_product->isSaleable() && count($_attributes)) :?>
+    <?php foreach ($_attributes as $_attribute) : ?>
+        <?php $isDefaultFrameSKUAttribute = ((int)$_attribute->getAttributeId() === $frameDefaultSkuAttributeId); ?>
+        <div class="field configurable required <?= $isDefaultFrameSKUAttribute ? 'frame-attr' : '' ?>">
+            <label class="label" style="min-width:100px"
+                 for="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>">
+                <span><?= $block->escapeHtml(__('Select')) ?> <?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?>:</span>
+            </label>
+            <?php if ($isDefaultFrameSKUAttribute) : ?>
+                <span id='selected-frame'></span>
+                <div class="field configurable">
+                    <label class="label" >Finish:</label>
+                    <span id="frameFinish">Please select a frame</span>
+                </div>
+            <?php endif; ?>
+
+            <div class="control">
+                <select name="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]"
+                        data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>"
+                    <?= $isDefaultFrameSKUAttribute ? 'style="display: none"' : '' ?>
+                        class="super-attribute-select">
+                    <option value=""><?= $block->escapeHtml(__('Choose an Option...')) ?></option>
+                </select>
+            </div>
+            <?php if ($isDefaultFrameSKUAttribute) : ?>
+                <div id="frame-swatches">
+
+                    <div class="frame-swatches-wrapper">
+                        <span id="hovered-frame-spec-details-<?= $_product->getId(); ?>"
+                              class="hovered-frame-spec-details">
+                            <img id="img-frame-spec-details-<?= $_product->getId(); ?>"
+                                 class="spec-details-image img-frame-spec-details" src="" alt="Frame">
+                        </span>
+                        <ul  id="mirror-frame-swatches-<?= $_product->getId(); ?>"
+                             class="mirror-frame-swatches owl-carousel">
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    require(['jquery', 'mgz.owlcarousel', 'domReady'], function ($) {
+                        $("#mirror-frame-swatches-<?= $_product->getId(); ?>").owlCarousel({
+                            dots: false,
+                            nav: true,
+                            items: 5,
+                            margin: 2,
+                            navText: [
+                                '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+                                '<i class="fa fa-chevron-right" aria-hidden="true"></i>'
+                            ],
+                            responsive:{
+                                0:{
+                                    items:2,
+                                },
+                                767:{
+                                    items:3,
+                                },
+                                992:{
+                                    items:4,
+                                },
+                                1200:{
+                                    items:5,
+                                }
+                            }
+                        });
+
+                        const tip = $("#hovered-frame-spec-details-<?= $_product->getId(); ?>");
+                        // Frame SpecDetails Image
+                        const tipImage = $("#img-frame-spec-details-<?= $_product->getId(); ?>");
+                        const loaderGif = "<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>";
+
+                        $("#mirror-frame-swatches-<?= $_product->getId(); ?>").on('mouseover', 'li', event => {
+                            tipImage.attr('loading', 'eager').attr("src", "");
+                            tipImage.attr('loading', 'eager').attr("src", loaderGif);
+                            $(event.target).closest('li').addClass('tipActive');
+                            const popleft =
+                                $(event.target).parents(".owl-item")[0].getBoundingClientRect().left +
+                                $(event.target).parents().find('.owl-item').position().left -
+                                $(event.target).parents(".mirror-frame-swatches")[0].getBoundingClientRect().left
+                                - tip.width() / 2 + $(event.target).width() / 2;
+
+                            const ww = $(window).width() - 20;
+
+                            if(Math.abs(popleft) > ($(event.target).offset().left) - 10) {
+                                tip.css('left', 0);
+                                tip.addClass('ledge');
+                                tip.removeClass('redge');
+                            } else {
+                                tip.removeClass('ledge');
+                                tip.css('left', popleft);
+                                if(ww < ($(event.target).offset().left + tip.width()/2) ) {
+                                    tip.css('left', 'auto');
+                                    tip.css('right', 0);
+                                    tip.addClass('redge');
+                                } else {
+                                    tip.css('left', popleft);
+                                    tip.removeClass('redge');
+                                    tip.css('right', 'auto');
+                                }
+                            }
+
+                            tip.show();
+                            tipImage.attr('loading', 'lazy').attr("src", $(event.target).data('spec-image-path'));
+                        });
+                        $("#mirror-frame-swatches-<?= $_product->getId(); ?>").on('mouseout', 'li', event => {
+                            tip.hide();
+                            $(event.target).closest('li').removeClass('tipActive');
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "place_holder_image": <?= sprintf('"%s"', $imageHelper->getDefaultPlaceholderUrl('image') ?? '') ?> ,
+                    "frame_attribute_id": <?= $frameDefaultSkuAttributeId ?? 'null' ?>,
+                    "all_product_name" : <?= $frameViewModel->getAllProductNameJSON($_product) ?? '{}' ?>,
+                    "all_view_in_room_config" : <?= $frameViewModel->getAllChildProductViewInRoomJSON($_product) ?? '{}' ?>,
+                    "spConfig": <?= /* @noEscape */ $block->getJsonConfig() ?? '{}' ?>,
+                    "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar(
+                        'gallery_switch_strategy',
+                        'Magento_ConfigurableProduct'
+                    ) ?: 'replace'); ?>",
+                    "wishListUrl": "<?= $escaper->escapeUrl($this->helper(Product::class)->getEmailToFriendUrl($_product)) ?>"
+                }
+            },
+            "*" : {
+                "Magento_ConfigurableProduct/js/catalog-add-to-cart": {}
+            }
+        }
+    </script>
+<?php endif;?>

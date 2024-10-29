@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Modify Customer Account Sales Order Navigation
+ * @category: Magento
+ * @package: Perficient/Sales
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Sales
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="sales" frontName="sales">
+            <module name="Perficient_Sales" before="Magento_Sales"/>
+        </route>
+    </router>
+</config>

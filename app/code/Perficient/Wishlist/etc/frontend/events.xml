@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Add sets to My Projects (Wishlist)
+ * @category: Magento
+ * @package: Perficient/WishlistSet
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_WishlistSet
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+        <event name="controller_action_predispatch_wishlist_index_deletewishlist">
+        <observer name="send_deleted_wishlist_crm" instance="Perficient\Wishlist\Observer\DeleteWishlistObserver" />
+    </event>
+    <event name="controller_action_postdispatch_wishlist_index_deletewishlist">
+        <observer name="custom_deleted_wishlist_validation" instance="Perficient\Wishlist\Observer\ValidateDeletedWishlistObserver" />
+    </event>
+    <event name="controller_action_postdispatch_wishlist_index_add">
+        <observer name="update_wishlist_date_on_add_new_items" instance="Perficient\Wishlist\Observer\UpdatedWishlistDate" />
+    </event>
+    <event name="controller_action_predispatch_wishlist_index_moveitems">
+        <observer name="update_wishlist_date_on_move_items" instance="Perficient\Wishlist\Observer\UpdatedMovedItemsWishlistDate" />
+    </event>
+    <event name="controller_action_predispatch_wishlist_index_moveitem">
+        <observer name="update_wishlist_date_on_move_item" instance="Perficient\Wishlist\Observer\UpdatedMovedItemsWishlistDate" />
+    </event>
+</config>

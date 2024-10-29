@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Tahir Aziz <tahir.aziz@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_ViewInRoom
+*/
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="view_in_room">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">View In Room</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">100</item>
+            </item>
+        </argument>
+
+        <field name="vir_background_img">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">category</item>
+                    <item name="label" xsi:type="string" translate="true">Background Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="viewinroom/category_image/upload"/>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="vir_wall_width">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" translate="true" xsi:type="string">Wall Width</item>
+                </item>
+            </argument>
+        </field>
+        <field name="vir_wall_height">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" translate="true" xsi:type="string">Wall Height</item>
+                </item>
+            </argument>
+        </field>
+        <field name="vir_center_offset">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" translate="true" xsi:type="string">Center Offset</item>
+                    <item name="notice" translate="true" xsi:type="string">width, height</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

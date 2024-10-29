@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fields to map from quote to order table.
+ *
+ * @category: Magento
+ * @package: Perficient/Rabbitmq
+ * @copyright: Copyright © 2021 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Quote\Api\Data\CartInterface">
+        <attribute code="syspro_order_id" type="string"/>
+        <attribute code="syspro_customer_id" type="string"/>
+        <attribute code="syspro_salesrep" type="string"/>
+        <attribute code="customer_due_date" type="string"/>
+        <attribute code="has_dummy_product" type="string"/>
+        <attribute code="web_company_id" type="string"/>
+        <attribute code="syspro_salesrep_id" type="string"/>
+        <attribute code="syspro_order_entry_date" type="string"/>
+        <attribute code="requested_delivery_date" type="string"/>
+        <attribute code="expected_ship_date" type="string"/>
+    </extension_attributes>
+</config>

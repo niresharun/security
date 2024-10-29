@@ -1,0 +1,478 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Catalog\Helper\Output as Helper;
+use Magento\Framework\App\Action\Action;
+use Perficient\Catalog\Helper\Data as CatalogHelper;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+/** @var Helper $_helper */
+$_helper = $block->getData('outputHelper');
+/** @var CatalogHelper $catalogHelper */
+$catalogHelper = $this->helper(CatalogHelper::class);
+$imgSpecPath = 'catalog/product/specifications';
+$currentCategory = $catalogHelper->getCurrentCategory();
+$viewModel = $catalogHelper->getWendoverViewModel();
+$isCustomerLoggedIn = $catalogHelper->isCustomerLoggedIn();
+$request = $block->getRequest();
+$catIds = $block->getLayer()->getCurrentCategory()->getId();
+$paramPage = $request->getParam('p', 0);
+$paramShopByAjax = $request->getParam('shopbyAjax', 0);
+$blockModel = $block->getData('view_model');
+
+?>
+<?php
+$categories = ['Frames', 'Mats'];
+$current_url = $viewModel->getCurrentUrl();
+$search_url = $viewModel->getSearchURL();
+
+$searchString = !empty($request->getParam('searchSku')) ? $request->getParam('searchSku'): '';
+if (in_array($block->getLayer()->getCurrentCategory()->getName(), $categories)) :
+    ?>
+    <div class="search-sku-form">
+        <div class="search-sku">
+            <input type="text" name="search_sku" id="search_sku" placeholder="Search SKU" value="<?= $searchString; ?>" autocomplete="off" />
+            <button type="button" id="submitbtn">button</button>
+        </div>
+        <span id="searchsku-error-message" style="display:none; color:red;">Please enter atleast 3 characters to search</span>
+    </div>
+<?php endif;
+if (!empty($request->getParam('searchSku'))) {
+    $_productCollection = $viewModel->getPLPProductCollection($searchString, $catIds);
+}
+?>
+<?php
+if (empty($_productCollection) && $request->getParam('searchSku') && !empty($request->getParam('searchSku'))) : ?>
+    <div class="message info empty">
+        <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+    <?php  ?>
+<?php elseif (!$_productCollection->count()) : ?>
+    <div class="message info empty">
+        <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php $count = 0; ?>
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php
+                $onlyProductListPage = $catalogHelper->isOnlyProductListPage($_product);?>
+                <?php $isMatAttributeSet = $catalogHelper->isMatAttributeSet($_product); ?>
+                <?php $id = ($onlyProductListPage ? 'popup-product-' : 'listing-product-') . $_product->getId(); ?>
+                <?php $css = ($onlyProductListPage ? 'popup-product' : '') ; ?>
+                <?php
+                $productUrl = $_product->getProductUrl();
+                if ($currentCategory->getName() === 'Quick Ship') {
+                    $productUrl .= "?q=is_quick_ship";
+                }
+                if($_product->getTypeId() === 'simple' && $catalogHelper->getParentId($_product->getId()) )
+                {
+                    $productUrl = $catalogHelper->getMirrorProductUrl($_product->getId());
+                }
+                ?>
+                <li prod-id="<?= $_product->getId() ?>" id="<?= $id;?>" class="item product product-item listing-product <?= $css;?>">
+                    <div class="product-item-info"
+                         id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
+                         data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                        <?php
+                        $productImage = $block->getImage($_product, $imageDisplayArea);
+                        if ($pos != null) {
+                            $position = 'left:' . $productImage->getWidth() . 'px;'
+                                . 'top:' . $productImage->getHeight() . 'px;';
+                        }
+                        ?>
+                        <?php // Product Image ?>
+                        <?php if ($onlyProductListPage): ?>
+                            <div class="Default-configuration-swatches">
+                                <div class="configuration-swatches-block">
+                                    <div class="frame-container">
+                                        <?= $productImage->toHtml() ?>
+                                        <?php $imgSpecPathWithSku = $catalogHelper->getSwatchImagePathForDefaultConf($_product->getSku(), $imgSpecPath);
+                                        $productImageHover = $block->getImage($_product, 'product_page_image_medium')->toHtml(); ?>
+                                        <div class="frame-hover-container" role="dialog">
+                                            <a tabindex="0" class="close-icon" aria-label="Close"
+                                               data-action-keypress="true" role="button"></a>
+                                            <?php if($isMatAttributeSet): ?>
+                                                <?= $productImageHover; ?>
+                                            <?php else: ?>
+                                                <img src="<?= $imgSpecPathWithSku ?>" alt="Image <?= $escaper->escapeHtml($_product->getSku()) ?>"
+                                                     class="frame-img">
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else:?>
+                            <a href="<?= $escaper->escapeUrl($productUrl) ?>"
+                               class="product photo product-item-photo"
+                               tabindex="-1">
+                                <?= $productImage->toHtml() ?>
+                            </a>
+                        <?php endif; ?>
+                        <div class="product details product-item-details">
+                            <?php $_productNameStripped = $block->stripTags($_product->getName(), null, true); ?>
+                            <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                            <?php if ($onlyProductListPage): ?>
+                                <?=/* @noEscape */ $_helper->productAttribute($_product, $_product->getSku(), 'sku')?>
+                                <div class="product new-configuration product-default-configuration">
+                                    <?php if ($currentCategory->getName() == 'Frames' || $currentCategory->getName() == 'Liners'): ?>
+                                        <?php
+                                        $frameLinerData = $viewModel->getFrameAttribute($_product);
+                                        if($frameLinerData) { ?>
+                                            <span class="product-default-configuration">
+                                         <?= $block->escapeHtml($frameLinerData)?>
+                                        </span>
+                                        <?php } ?>
+                                        <div>
+                                            <?= $block->escapeHtmlAttr(__('Finish:')) ?>
+                                            <span><?= $catalogHelper->getAttributeValue($_product, 'color_frame') ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($currentCategory->getName() == 'Mats'): ?>
+                                        <div>
+                                            <?= $block->escapeHtmlAttr(__('Finish:')) ?>
+                                            <span><?= $catalogHelper->getAttributeValue($_product, 'color_mat') ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($catalogHelper->getAttributeValue($_product, 'specialty_note') !==''): ?>
+                                        <span><?= $catalogHelper->getAttributeValue($_product, 'specialty_note') ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            <?php else:?>
+                                <strong class="product name product-item-name">
+                                    <a class="product-item-link" href="<?= $escaper->escapeUrl($productUrl) ?>">
+                                        <?=/* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name')?>
+                                    </a>
+                                </strong>
+                            <?php
+                            if ($_product->getTypeId() === 'configurable' || ($_product->getTypeId() === 'simple' && $catalogHelper->getParentId($_product->getId()))):
+                            $frameArray = [];
+                            $childProductIdsArray = [];
+                            if ($_product->getTypeId() === 'configurable') {
+                                $childProductIds = $_product->getTypeInstance()->getChildrenIds($_product->getId());
+                                $childProductIdsArray = array_values($childProductIds);
+                            } else if ($_product->getTypeId() === 'simple' && $catalogHelper->getParentId($_product->getId())) {
+                                $parent = $catalogHelper->getParentId($_product->getId());
+                                $childProductIds = $parent->getTypeInstance()->getChildrenIds($parent->getId());
+                                $childProductIdsArray = array_values($childProductIds);
+                            }
+
+                            $childProductIds = isset($childProductIdsArray[0]) ? $childProductIdsArray[0] : [];
+                            foreach ($childProductIds as $childProductId) {
+                                $childProduct = $catalogHelper->productLoadByID($childProductId);
+                                $attributeText = $childProduct->getResource()->getAttribute('frame_default_sku_configurable')->getFrontend()->getValue($childProduct);
+                                $frameArray[] = $attributeText;
+                            }
+
+                            $uniqueFrames = array_unique($frameArray);
+                            if (count($uniqueFrames)):
+                            ?>
+                                <div class="frame-swatches-wrapper">
+                                    <span id="hovered-frame-spec-details-<?= $_product->getId(); ?>"
+                                          class="hovered-frame-spec-details">
+                                        <img id="img-frame-spec-details-<?= $_product->getId(); ?>"
+                                             class="spec-details-image img-frame-spec-details" src="" alt="Image">
+                                    </span>
+                                    <ul id="mirror-frame-swatches-<?= $_product->getId(); ?>"
+                                        class="mirror-frame-swatches owl-carousel">
+                                        <?php
+
+                                        foreach ($uniqueFrames as $frame):
+                                            $frames = $catalogHelper->getProductBySku($frame);
+                                            if($frames){
+                                                $thumbnailUrl = $catalogHelper->thumpNailImage($frames)->getUrl();
+                                                $imgSpecPathWithSku = $catalogHelper->getSwatchImagePathForDefaultConf($frames->getSku(), $imgSpecPath);
+                                                ?>
+                                                <li id="mirror-frame-<?= $_product->getId() ?>-<?= $frame ?>"
+                                                    class="mirror-frame">
+                                                    <img src='<?= $thumbnailUrl ?>' alt='Thumbnail Image'
+                                                         data-spec-image-path="<?= $imgSpecPathWithSku ?>"/>
+                                                </li>
+                                            <?php }  endforeach; ?>
+                                    </ul>
+                                </div>
+                                <script>
+                                    require(['jquery', 'mgz.owlcarousel', 'domReady!'], function ($) {
+                                        $("#mirror-frame-swatches-<?= $_product->getId(); ?>").owlCarousel({
+                                            dots: false,
+                                            nav: <?= count($uniqueFrames) > 3 ? 'true' : 'false'; ?>,
+                                            itemElement: 'li',
+                                            margin: 2,
+                                            navText: [
+                                                '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+                                                '<i class="fa fa-chevron-right" aria-hidden="true"></i>'
+                                            ],
+                                            responsive: {
+                                                0:{
+                                                    items: 2
+                                                },
+
+                                                769:{
+                                                    items: 3
+                                                }
+                                            }
+                                        });
+
+                                        const tip = $("#hovered-frame-spec-details-<?= $_product->getId(); ?>");
+                                        // Frame SpecDetails Image
+                                        const tipImage = $("#img-frame-spec-details-<?= $_product->getId(); ?>");
+                                        const loaderGif = "<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>";
+
+                                        $("#mirror-frame-swatches-<?= $_product->getId(); ?> li").on('mouseover', event => {
+                                            tipImage.attr('loading','eager').attr("src", "");
+                                            tipImage.attr('loading','eager').attr("src", loaderGif);
+                                            $(event.target).closest('li').addClass('tipActive');
+                                            let popleft =
+                                                $(event.target).parents(".owl-item")[0].getBoundingClientRect().left +
+                                                $(event.target).parents().find('.owl-item').position().left -
+                                                $(event.target).parents(".mirror-frame-swatches")[0].getBoundingClientRect().left
+                                                - tip.width() / 2 + $(event.target).width() / 2;
+
+                                            const ww = $(window).width() - 20;
+
+                                            if(Math.abs(popleft) > ($(event.target).offset().left) - 10) {
+                                                tip.css('left', 0);
+                                                tip.addClass('ledge');
+                                                tip.removeClass('redge');
+                                            } else {
+                                                tip.removeClass('ledge');
+                                                tip.css('left', popleft);
+                                                if(ww < ($(event.target).offset().left + tip.width()/2) ) {
+                                                    tip.css('left', 'auto');
+                                                    tip.css('right', 0);
+                                                    tip.addClass('redge');
+                                                } else {
+                                                    tip.css('left', popleft);
+                                                    tip.removeClass('redge');
+                                                    tip.css('right', 'auto');
+                                                }
+                                            }
+
+                                            tip.show();
+                                            tipImage.attr('loading','lazy').attr("src", $(event.target).data('spec-image-path'));
+                                        });
+                                        $("#mirror-frame-swatches-<?= $_product->getId(); ?> li").on('mouseout', event => {
+                                            tip.hide();
+                                            $(event.target).closest('li').removeClass('tipActive');
+                                        });
+
+
+                                    });
+                                </script>
+                            <?php endif; ?>
+                            <?php endif; ?>
+                            <?php
+                            $defaultConf = $_product->getData('default_configurations');
+                            $customizedData = $catalogHelper->getDefaultConfigurationSize($defaultConf);
+                            $confDataArr = $customizedData['labels'];
+                            ?>
+                                <div class="product configuration product-default-configuration">
+                                    <?php
+
+                                    if(!isset($confDataArr['Size']))
+                                    {
+                                        $confDataArr['Size'] = $_product->getAttributeText('simplified_size');
+                                    }
+
+                                    if($_product->getTypeId() === 'configurable'){?>
+                                        <span class="product-default-configuration">
+                                                <?=$_product->getSku()?>
+                                        </span>
+                                        <?php
+
+                                    }else{
+                                        if(isset($confDataArr['Size']) && !empty($_product->getSku())) { ?>
+                                            <span class="product-default-configuration">
+                                                <?=$_product->getSku()?>  / <?=$confDataArr['Size']?>
+                                        </span>
+                                        <?php }
+                                    }
+                                    ?>
+
+                                    <?php if($_product->getColorFrame()) :?>
+                                        <?= $block->escapeHtmlAttr(__('Frame Finish:')) ?>
+                                        <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getColorFrame(), 'color_frame') ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($catalogHelper->isOnlyProductListPage($_product) == false) :?>
+                                <?php if ($isCustomerLoggedIn): ?>
+                                    <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?= $_product->getId(); ?>" data-price-box="product-id-<?= $_product->getId() ?>">
+
+                                        <div class="price-container price-final_price">
+                                            <ul class="prices hide hhhh" style="display: none;">
+
+                                                <li>
+                                                    <span class="strikeout-price-wrapper strikeout-price-wrapper-<?= $_product->getId() ?>" data-price-id="<?= $_product->getId() ?>" style="text-decoration: line-through"></span>
+                                                </li>
+                                                <li>
+                                                    <label><?= $block->escapeHtml(__('Your Price:')) ?></label>
+                                                    <?php if($_product->getTypeId() === 'configurable'){?>
+                                                        <span class="product-default-configuration">  Starting at </span>
+                                                    <?php } ?>
+                                                    <span class="price trigger-product-price price-wrapper-<?= $_product->getId() ?>" data-price-id="<?= $_product->getId() ?>"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?= $block->getProductDetailsHtml($_product) ?>
+
+                            <div class="product-item-inner">
+                                <div class="product actions product-item-actions">
+                                    <?php if ($catalogHelper->isOnlyProductListPage($_product) == false) :?>
+                                        <div data-role="add-to-links" class="actions-secondary">
+                                            <?php if ($addToBlock = $block->getChildBlock('addto')) :?>
+                                                <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="actions-primary">
+                                            <?php if ($_product->isSaleable()):?>
+                                                <?php $postParams = $block->getAddToCartPostParams($_product);
+                                                $defaultConf = $_product->getData('default_configurations');
+                                                $confData = $catalogHelper->getDefaultConfigurationJson($defaultConf);
+                                                $jsonStr = $confData['jsonStr'];
+                                                ?>
+
+                                                <form data-role="tocart-form"
+                                                      data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>"
+                                                      action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                                                      data-mage-init='{"catalogAddToCart": {}}'
+                                                      method="post">
+                                                    <?php $options = $block->getData('viewModel')->getOptionsData($_product); ?>
+                                                    <?php foreach ($options as $optionItem): ?>
+                                                        <input type="hidden"
+                                                               name="<?= $escaper->escapeHtml($optionItem['name']) ?>"
+                                                               value="<?= $escaper->escapeHtml($optionItem['value']) ?>">
+                                                    <?php endforeach; ?>
+                                                    <input type="hidden"
+                                                           name="product"
+                                                           value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                    <input type="hidden"
+                                                           name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                           value="<?=
+                                                           /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                                                           ?>">
+                                                    <input type="hidden" name="pz_cart_properties" value='<?=$jsonStr?>' />
+                                                    <input type="hidden" name="quick_ship_product" value='<?=$viewModel->isFromQuickShip()?>' />
+                                                    <?= $block->getBlockHtml('formkey') ?>
+                                                    <?php
+                                                    if($catalogHelper->getAttributeName($_product->getAttributeSetId()) != "Mirror"){?>
+                                                        <button type="submit"
+                                                                title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                class="action tocart primary"
+                                                                disabled>
+                                                            <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                        </button>
+                                                    <?php } ?>
+                                                </form>
+                                            <?php else:?>
+                                                <?php if ($_product->isAvailable()):?>
+                                                    <div class="stock available">
+                                                        <span><?= $escaper->escapeHtml(__('In stock')) ?></span></div>
+                                                <?php else:?>
+                                                    <div class="stock unavailable">
+                                                        <span><?= $escaper->escapeHtml(__('Out of stock')) ?></span></div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if ($showDescription): ?>
+                                    <div class="product description product-item-description">
+                                        <?= /* @noEscape */ $_helper->productAttribute(
+                                            $_product,
+                                            $_product->getShortDescription(),
+                                            'short_description'
+                                        ) ?>
+                                        <a href="<?= $escaper->escapeUrl($productUrl) ?>"
+                                           title="<?= /* @noEscape */ $_productNameStripped ?>"
+                                           class="action more"><?= $escaper->escapeHtml(__('Learn More')) ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?= ($pos && strpos($pos, $viewMode . '-actions')) ?
+                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                            $position,
+                            'product-item-info_' . $_product->getId() . ' div.product-item-actions'
+                        ) : '' ?>
+                </li>
+                <?php $count++;
+                $categoryData = $blockModel->getCategoryData();
+                if ($categoryData):
+                    $displayBrand = $blockModel->canDisplayBrand($count, $categoryData, $_productCollection);
+                    if ($displayBrand && $blockModel->getCmsBlock($categoryData)): ?>
+                        <li class="banner-messaging-ad">
+                            <?= /* @noEscape */
+                            $blockModel->getCmsBlock($categoryData); ?>
+                        </li>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
+    <?php // phpcs:ignore Magento2.Legacy.PhtmlTemplate ?>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Catalog/js/search-form" : {
+                "current_url" : "<?= $block->escapeJs($current_url); ?>"
+            }
+        }
+    }
+</script>
+<script>
+    require(['jquery', 'Perficient_Company/js/restrict_addtocart', 'domReady!'], function ($, $restric) {
+        $(document).ready(function () {
+            $restric.restrictAddtoCart();
+        });
+    });
+</script>
+<script>
+    require(['jquery', 'Perficient_PriceMultiplier/js/storecatalogproduct', 'domReady!'], function ($, $storeCatalogProduct) {
+        $(document).ready(function () {
+            $storeCatalogProduct.fetchPrice();
+        });
+    });
+</script>
+

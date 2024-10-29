@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Model\Action\Customer\Create">
+        <plugin name="after_save_customer" type="Wendover\Company\Plugin\Model\Action\Customer\Create" sortOrder="1" />
+    </type>
+
+    <preference for="Magento\Company\Model\CompanySuperUserGet"
+                type="Wendover\Company\Model\CompanySuperUserGet"/>
+
+</config>

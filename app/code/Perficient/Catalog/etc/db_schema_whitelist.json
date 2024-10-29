@@ -1,0 +1,13 @@
+{
+    "perficient_custom_product_images": {
+        "column": {
+            "custom_product_image_id": true,
+            "sku": true,
+            "image": true,
+            "type": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

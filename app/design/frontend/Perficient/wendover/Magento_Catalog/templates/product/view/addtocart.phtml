@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+?>
+<?php
+$_product = $block->getProduct();
+$catalogHelper = $this->helper('Perficient\Catalog\Helper\Data');
+$productImageUrl = $catalogHelper->getProductImageUrl($_product);
+$isCustomerLoggedIn = $catalogHelper->isCustomerLoggedIn();
+$wendoverModel = $catalogHelper->getWendoverViewModel();
+$isConfigurable = $_product->getTypeId() == Configurable::TYPE_CODE;
+?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($isCustomerLoggedIn && $block->shouldRenderQuantity()) :?>
+                <div class="field qty" style="display: none!important;">
+                    <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                    <div class="control">
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               class="input-text qty"
+                               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                        />
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                <!--Star for ticket WENDOVER-515-->
+                <a class="pz-btn-cart primary action <?= $isConfigurable ? 'disabled' : '' ?>" id="pdp-download-btn"
+                   href="<?= $productImageUrl ?>" data-configurable-sku="<?= $_product->getSku(); ?>"
+                   download="<?= $_product->getSku(); ?>">
+                    <span>Download</span>
+                </a>
+                <!--End for ticket WENDOVER-515-->
+                <?php if ($isCustomerLoggedIn) : ?>
+                <button type="submit"
+                        class="action primary tocart <?= $isConfigurable ? 'disabled' : '' ?>"
+                        id="product-addtocart-button" style="display: none;">
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <?php endif; ?>
+                    <a id="product-tearsheet-button" class="primary action <?= $isConfigurable ? 'disabled' : '' ?>"
+                       href="<?= $isConfigurable ? '#' : "/tearsheet/download/pdf/product_id/".$_product->getId() ?>">
+                        <span><?= __('Download Tear Sheet') ?></span>
+                    </a>
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/javascript">
+  require([
+     'jquery'
+  ], function ($) {
+    setTimeout(function () {
+      $('.input-text.qty').on('keydown keypress keyup', function(e){
+          if($(this).val().match(/^0/)){
+              $(this).val(1);
+              return false;
+          }
+
+          if (e.key === "Enter") {
+              if(jQuery(this).val() == '') {
+                  jQuery(this).val(1);
+                  return false;
+              }
+          }
+
+          var txtQty = $(this).val().replace(/[^0-9\.]/g,'');
+                      $(this).val(txtQty);
+      });
+
+      $('.input-text.qty').on('blur', function(e){
+          if($(this).val() == '') {
+              $(this).val(1);
+              return false;
+          }
+      });
+    });
+  });
+</script>

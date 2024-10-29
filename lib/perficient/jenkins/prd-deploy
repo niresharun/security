@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    environment {
+        DEPLOY_ENV = 'prd'
+        DEPLOY_HOST_WEB1 = '52.142.25.231'
+        DEPLOY_HOST_WEB2 = '52.188.140.158'
+        DEPLOY_USER = 'zdeploy'
+        DOCKER_TEMPLATE = 'wacontainerreg.azurecr.io/wendover_prd_test1'
+        DOCKER_TAG = 'wacontainerreg.azurecr.io/wendoverprd_latest'
+        DOCKER_BUILD = 'wendover-art-prd-build'
+        DOCKER_CONTAINER = 'wendoverm2prod'
+        DOCKER_COMPOSE_FILE = '/data/www/wendoverprod/docker-compose.yml';
+        JENKINS_JOB = 'prd-deploy'
+    }
+    stages {
+        stage('Prepare') {
+            steps {
+                script {
+                    env.DEPLOY_BRANCH = input message: 'Specify branch or tag to deploy:', parameters: [string(defaultValue: 'origin/master', description: 'for example: origin/release/sprint-1', name: '')]
+                    currentBuild.displayName = "#" + currentBuild.number + ' ' + env.DEPLOY_BRANCH
+                }
+                sh "git reset --hard ${env.DEPLOY_BRANCH}"
+                sh "chmod 755 ./lib/perficient/jenkins/scripts/docker-deploy/*.sh"
+                withCredentials([
+                    string(credentialsId: 'DKRDOMAIN', variable: 'DKRDOMAIN'),
+                    string(credentialsId: 'USR', variable: 'USR'),
+                    string(credentialsId: 'PASS', variable: 'PASS')
+                ]) {
+                    sh "./lib/perficient/jenkins/scripts/docker-deploy/prepare.sh $DKRDOMAIN $USR $PASS $DOCKER_TEMPLATE $DOCKER_BUILD"
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "./lib/perficient/jenkins/scripts/docker-deploy/build.sh $DOCKER_BUILD $WORKSPACE $DOCKER_TAG"
+            }
+        }
+        stage('Deploy Web 1') {
+            steps {
+                sh "./lib/perficient/jenkins/scripts/docker-deploy/deploy.sh $DEPLOY_HOST_WEB1 $DEPLOY_USER $DOCKER_CONTAINER $DOCKER_TAG $DOCKER_COMPOSE_FILE"
+            }
+        }
+        stage('Deploy Web 2') {
+            steps {
+                sh "./lib/perficient/jenkins/scripts/docker-deploy/deploy.sh $DEPLOY_HOST_WEB2 $DEPLOY_USER $DOCKER_CONTAINER $DOCKER_TAG $DOCKER_COMPOSE_FILE"
+            }
+        }
+    }
+}

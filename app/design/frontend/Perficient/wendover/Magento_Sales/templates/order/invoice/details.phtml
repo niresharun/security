@@ -1,0 +1,38 @@
+<?php
+/**
+ * @var $block \Magento\Sales\Block\Order\PrintOrder\Invoice
+ */
+
+?>
+<div class="block block-order-invoice-details">
+    <table class="box box-order-invoice-details table-field-align">
+        <caption><?= $block->escapeHtml(__('Invoice')) ?></caption>
+        <thead class="table-heading-background">
+        <tr>
+            <th><?= $block->escapeHtml(__('Invoice Date')) ?></th>
+            <th><?= $block->escapeHtml(__('Invoice #')) ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <?= $block->escapeHtml(
+                    __(
+                        '%1',
+                        '<span>' . $block->formatDate($block->getInvoice()->getCreatedAt(), \IntlDateFormatter::SHORT) . '</span>'
+                    ),
+                    ['span']
+                )?>
+            </td>
+            <td>
+                <?= (int) $block->getInvoice()->getIncrementId() ?>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2"><?=__('Thank You for Your Order')?></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

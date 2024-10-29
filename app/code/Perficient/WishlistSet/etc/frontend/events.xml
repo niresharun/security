@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Add sets to My Projects (Wishlist)
+ * @category: Magento
+ * @package: Perficient/WishlistSet
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_WishlistSet
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_postdispatch_wishlist_index_add">
+        <observer name="wishlist_success_message" instance="Perficient\WishlistSet\Observer\WishlistMessageObserver" />
+    </event>
+    <event name="controller_action_predispatch_wishlist_index_createwishlist">
+        <observer name="create_wishlist_validation" instance="Perficient\WishlistSet\Observer\CreateWishlistObserver" />
+    </event>
+</config>

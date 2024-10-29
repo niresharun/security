@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ajinkya Dondalkar <ajinkya.dondalkar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Perficient_Reports::perficient_reports" title="Perficient Reports Settings" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Reports::report" title="Reports" translate="title" sortOrder="70">
+                    <resource id="Perficient_Reports::wendover" title="Perficient Reports" translate="title" sortOrder="20">
+                        <resource id="Perficient_Reports::perficient_company_change_report" title="Change Request Report" translate="title" sortOrder="10" />
+                        <resource id="Perficient_Reports::perficient_crm_application_report" title="CRM Reports" translate="title" sortOrder="20" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

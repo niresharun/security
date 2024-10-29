@@ -1,0 +1,175 @@
+<?php
+/**
+ * File to create new catalog.
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyCatalog */
+?>
+<?php $catalogData = $block->getCatalogData(); ?>
+<div class="new-catalog">
+    <form class="form" id="new_catalog_form" name="new_catalog_form" method="POST" action="<?= $block->getUrl('*/*/*'); ?>" data-mage-init='{"validation":{}}' enctype="multipart/form-data">
+        <fieldset class="fieldset">
+            <legend class="no-display"><span><?= __('FRONT COVER'); ?></span></legend>
+        <input name="form_key" type="hidden" value="<?= /* @noEscape */ $block->getFormKey()?>" />
+        <input name="wishlist_id" type="hidden" value="<?= /* @noEscape */ $catalogData['wishlist_id']; ?>" />
+        <input name="catalog_id" type="hidden" value="<?= /* @noEscape */ $catalogData['catalog_id']; ?>" />
+        <input type="hidden" name="logo_image" id="wendover_logo" value="<?= /* @noEscape */ $catalogData['logo_image']; ?>" />
+
+        <div id="new-catalog-front-page" class="catalog-front-page-section">
+            <h3 class="legend page-title"><span><?= __('FRONT COVER'); ?></span></h3>
+            <div class="front-page-inner-container">
+                <div class="field catalog_logo">
+                    <div class="mycatalog_placeholder" >
+                        <?php if (!empty($catalogData['logo_image']) && !empty($catalogData['logo_image_url'])): ?>
+                            <img src="<?= $catalogData['logo_image_url']; ?>" height="100%" alt="<?= __('Cover Logo'); ?>" />
+                        <?php else: ?>
+                        <div aria-hidden="true"><?= __('LOGO'); ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <label class="label no-label"  for="catalog_logo"><span><?php /* @escapeNotVerified */ echo __('Logo') ?></span></label>
+                    <div class="control">
+                        <input name="logo" id="catalog_logo" type="file" />
+                    </div>
+                </div>
+                <div class="field catalog_title required">
+                    <label class="label hide" for="catalog_title">
+                        <span><?= /* @escapeNotVerified */ __('Catalog Title'); ?>:</span>
+                    </label>
+                    <input name="catalog_title"
+                           id="catalog_title"
+                           aria-required="true"
+                           type="text"
+                           autocomplete="on"
+                           class="required"
+                           aria-label="<?= __('Catalog Title'); ?>"
+                           data-validate="{required:true}"
+                           placeholder="<?= /* @escapeNotVerified */ __('Catalog Title') ?>"
+                           value="<?= (strlen($catalogData['catalog_title']) > 0) ? $catalogData['catalog_title'] : $block->getDefaultCatalogTitle() ?>"/>
+                </div>
+                <div class="field additional_info_1">
+                    <label class="label hide" for="additional_info_1">
+                        <span><?= /* @escapeNotVerified */ __('Additional Information Line 1'); ?>:</span>
+                    </label>
+                    <input name="additional_info_1"
+                           id="additional_info_1"
+                           type="text"
+                           autocomplete="on"
+                           aria-label="<?= __('Additional Information Line 1'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Additional Information Line 1') ?>"
+                           value="<?= $catalogData['additional_info_1']; ?>" />
+                </div>
+                <div class="field additional_info_2">
+                    <label class="label hide" for="additional_info_2">
+                        <span><?= /* @escapeNotVerified */ __('Additional Information Line 2'); ?>:</span>
+                    </label>
+                    <input name="additional_info_2"
+                           id="additional_info_2"
+                           type="text"
+                           autocomplete="on"
+                           aria-label="<?= __('Additional Information Line 2'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Additional Information Line 2') ?>"
+                           value="<?= $catalogData['additional_info_2']; ?>" />
+                </div>
+            </div>
+        </div>
+
+        <div id="new-catalog-back-page" class="catalog-back-page-section">
+            <h3 class="legend page-title"><span><?= __('BACK COVER'); ?></span></h3>
+            <div class="back-page-inner-container">
+                <div class="field name">
+                    <label class="label hide" for="name">
+                        <span><?= /* @escapeNotVerified */ __('Name'); ?>:</span>
+                    </label>
+                    <input name="name"
+                           id="name"
+                           type="text"
+                           autocomplete="given-name"
+                           aria-label="<?= __('Name'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Name') ?>"
+                           value="<?php if(strlen($catalogData['name']) > 0):
+                               echo $catalogData['name'];
+                           else:
+                               echo $block->getCustomerName();
+                           endif; ?>" />
+                </div>
+                <div class="field phone_number">
+                    <label class="label hide" for="phone_number">
+                        <span><?= /* @escapeNotVerified */ __('Phone'); ?>:</span>
+                    </label>
+                    <input name="phone_number"
+                           id="phone_number"
+                           type="text"
+                           autocomplete="tel"
+                           aria-label="<?= __('Phone'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Phone') ?>"
+                           value="<?php if(strlen($catalogData['phone_number']) > 0):
+                               echo $catalogData['phone_number'];
+                           else:
+                               echo $block->getCustomerPhoneNumber();
+                           endif; ?>" />
+                </div>
+                <div class="field website_url">
+                    <label class="label hide" for="website_url">
+                        <span><?= /* @escapeNotVerified */ __('Website URL'); ?>:</span>
+                    </label>
+                    <input name="website_url"
+                           id="website_url"
+                           type="text"
+                           autocomplete="url"
+                           aria-label="<?= __('Website URL'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Website URL') ?>"
+                           value="<?php if($catalogData['website_url']):
+                               echo $catalogData['website_url'];
+                           else:
+                               echo $block->getCustomerWebsite();
+                           endif; ?>" />
+                </div>
+                <div class="field company_name">
+                    <label class="label hide" for="company_name">
+                        <span><?= /* @escapeNotVerified */ __('Company Name'); ?>:</span>
+                    </label>
+                    <input name="company_name"
+                           id="company_name"
+                           autocomplete="organization"
+                           type="text"
+                           aria-label="<?= __('Company Name'); ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Company Name') ?>"
+                           value="<?php if($catalogData['company_name']):
+                               echo $catalogData['company_name'];
+                           else:
+                               echo $block->getCustomerCompanyName();
+                           endif; ?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="action button-container">
+            <button class="action primary continue" type="submit" value="continue" name="continue">
+                <span><?= /* @escapeNotVerified */ __('Continue') ?></span>
+            </button>
+            <button class="action primary" type="button" value="cancel" name="cancel" id="cancel_catalog">
+                <span><?= /* @escapeNotVerified */ __('Cancel') ?></span>
+            </button>
+        </div>
+        </fieldset>
+    </form>
+</div>
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "wendoverJS": {}
+    }
+}
+</script>
+<script>
+    var mediaUrl = '<?php echo $block->getMediaUrl(); ?>';
+</script>

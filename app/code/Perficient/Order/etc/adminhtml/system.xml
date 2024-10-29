@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Added to handle product surcharge if minimum order amount not met by customer
+* @category: Magento
+* @package: Perficient/Order
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Order
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="order" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Order Surcharge Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Order::perficient_order</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Configuration</label>
+                <field id="minimum_order_amount" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Minimum Order Subtotal Amount</label>
+                    <comment>Refers Order Subtotal</comment>
+                </field>
+                <field id="flat_surcharge" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Flat Surcharge Amount</label>
+                    <comment>This Amount will be charged as flat Surcharge up to Minimum Order Subtotal Amount - Flat
+                        Surcharge Amount
+                    </comment>
+                </field>
+                <field id="surcharge_sku" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Surcharge Sku</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

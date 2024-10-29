@@ -1,0 +1,37 @@
+<!--
+/**
+ *
+ * This file used to add autocomplete
+ *
+ * @category: Magento
+ * @package: Perficient/UI
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient UI
+ */
+-->
+<select autocomplete="on" class="select" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        disabled: disabled,
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        placeholder: placeholder
+    },
+    hasFocus: focused,
+    optgroup: options,
+    value: value,
+    optionsCaption: caption,
+    optionsValue: 'value',
+    optionsText: 'label',
+    optionsAfterRender: function(option, item) {
+        if (item && item.disabled) {
+            ko.applyBindingsToNode(option, {attr: {disabled: true}}, item);
+        }
+    }"
+/>

@@ -1,0 +1,27 @@
+{
+    "company": {
+        "column": {
+            "newsletter": true,
+            "is_dba": true,
+            "first_name": true,
+            "last_name": true,
+            "dba_name": true,
+            "resale_certificate_number": true,
+            "website_address": true,
+            "social_media_site": true,
+            "business_info": true,
+            "business_type": true,
+            "no_of_stores": true,
+            "sq_ft_per_store": true,
+            "type_of_projects_residential": true,
+            "type_of_projects_commercial": true,
+            "type_of_projects": true,
+            "no_of_jobs_per_year": true,
+            "discount_rate": true,
+            "discount_markup": true,
+            "discount_application_type": true,
+            "discount_value": true,
+            "syspro_customer_id": true
+        }
+    }
+}

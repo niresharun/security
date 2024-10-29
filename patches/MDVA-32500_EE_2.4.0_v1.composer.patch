@@ -1,0 +1,20 @@
+diff --git a/vendor/magento/theme-adminhtml-backend/Magento_Backend/web/css/source/module/main/_actions-bar.less b/vendor/magento/theme-adminhtml-backend/Magento_Backend/web/css/source/module/main/_actions-bar.less
+index 8499ecaa48c..9b05b0ceed4 100644
+--- a/vendor/magento/theme-adminhtml-backend/Magento_Backend/web/css/source/module/main/_actions-bar.less
++++ b/vendor/magento/theme-adminhtml-backend/Magento_Backend/web/css/source/module/main/_actions-bar.less
+@@ -83,6 +83,7 @@
+         &:extend(.abs-action-quaternary all);
+         float: right;
+         margin-left: @_page-action__indent;
++        font-size: @font-size__s;
+ 
+         &.back,
+         &.action-back {
+@@ -105,6 +106,7 @@
+             &:extend(.abs-action-primary all);
+             &:extend(.abs-action-l all);
+             .lib-vendor-prefix-order(2);
++            font-size: @font-size__s;
+         }
+ 
+         &.action-secondary {

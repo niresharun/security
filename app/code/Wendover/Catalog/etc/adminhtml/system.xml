@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="perficient_mycatalog" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="1" showInStore="0">
+            <tab>wendover</tab>
+            <resource>Perficient_MyCatalog::perficient_mycatalog</resource>
+        </section>
+        <section id="rabbitmq" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>wendover</tab>
+            <resource>Perficient_Rabbitmq::perficient_rabbitmq</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <field id="custom_log_for_incoming_messages" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Logs For Incoming Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="bloomreach" translate="label" type="text" sortOrder="103" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="url_overwrite" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>PLP URL Overwrite</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Aligned with the provided configuration, adjustments will be made to the Bloomreach API response, ensuring that both product details and product image URLs are modified according to the distinct environments.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

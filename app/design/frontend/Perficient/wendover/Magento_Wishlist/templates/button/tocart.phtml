@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Button $block */
+?>
+
+<?php
+$helper = $this->helper('Perficient\Company\Helper\Data');
+$wishlistHelper = $this->helper('Perficient\WishlistSet\Helper\Data');
+$buttonActionStatus = $wishlistHelper->actionStatus();
+
+$price = [];
+$wishList = $block->getWishlist();
+$wishlistName = $wishList->getName();
+$title = ($wishlistName == "MY FAVORITES") ? "Subtotal:" : "Project Subtotal:";
+$wishListItems = $wishlistHelper->getWishlistByCustomerId($wishList->getWishlistId());
+foreach ($wishListItems as $item) {
+    $buyRequest = $item->getBuyRequest();
+    if (isset($buyRequest['edit_id']) && !empty($buyRequest['edit_id']) &&
+        isset($buyRequest['configurator_price']) && !empty($buyRequest['configurator_price'])):
+        $price[] = $buyRequest['configurator_price'];
+    else:
+        $price[] = $item->getProduct()->getPrice();
+    endif;
+}
+$totalPrice = array_sum($price);
+$customerSession = $wishlistHelper->getCustomerSession();
+$totalPrice = $totalPrice * $customerSession->getData('multiplier');
+$totalPrice = $wishlistHelper->getFormattedPrice($totalPrice);
+
+if ($helper->getMultiplierValue() != 0.00 && $block->getWishlist()->getItemsCount() && $block->getWishlist()->isSalable() && $buttonActionStatus) :?>
+    <?php if ($title == "Subtotal:") :?>
+        <div class="wishlist-subtotal subtotal">
+            <span class="project-subtotal-title"><?= $block->escapeHtml(__($title)) ?></span>
+            <span class="price price-box project-subtotal-price"><?= $block->escapeHtml(__($totalPrice)) ?></span>
+        </div>
+    <?php else: ?>
+        <div class="wishlist-subtotal project-subtotal">
+            <span class="project-subtotal-title"><?= $block->escapeHtml(__($title)) ?></span>
+            <span class="price price-box project-subtotal-price"><?= $block->escapeHtml(__($totalPrice)) ?></span>
+        </div>
+    <?php endif; ?>
+    <button type="button" data-role="all-tocart"  class="action tocart">
+        <span><?= $block->escapeHtml(__('Add All to Cart')) ?></span>
+    </button>
+<?php elseif ($helper->getMultiplierValue() != 0.00 && $block->getWishlist()->getItemsCount() && $block->getWishlist()->isSalable()) : ?>
+    <div class="wishlist-subtotal subtotal">
+        <span class="project-subtotal-title"><?= $block->escapeHtml(__($title)) ?></span>
+        <span class="price price-box project-subtotal-price"><?= $block->escapeHtml(__($totalPrice)) ?></span>
+    </div>
+<?php endif;?>

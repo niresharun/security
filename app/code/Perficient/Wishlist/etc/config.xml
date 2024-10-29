@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to collaboration of wishlist
+ *
+ * @category: Magento
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <Sandeep.Mude@Perficient.com>
+ * @keywords: Module Perficient_Wishlist
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <collaboration>
+            <email>
+                <identity>general</identity>
+                <template>collaboration_email_template</template>
+            </email>
+        </collaboration>
+        <wishlist>
+            <email>
+                <number_limit>10000</number_limit>
+            </email>
+        </wishlist>
+    </default>
+</config>

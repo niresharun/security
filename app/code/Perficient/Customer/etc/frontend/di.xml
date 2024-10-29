@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module to customize customer related features
+ *
+ * @category: PHP
+ * @package: Perficient/Customer
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suraj Jaiswal <suraj.jaiswal@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Customer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Controller\Account\LoginPost"
+                type="Perficient\Customer\Controller\Account\LoginPost"/>
+    <type name="Magento\Customer\CustomerData\Customer">
+        <plugin name="additional_section_data" type="Perficient\Customer\Plugin\CustomerData\CustomerPlugin" />
+    </type>
+</config>

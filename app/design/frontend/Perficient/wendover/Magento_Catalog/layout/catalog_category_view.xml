@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file used to move category search banner on top
+ *
+ * @category: Magento
+ * @package: Perficient/magento catalog
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Search
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <head>
+       <script src="Magento_Wishlist::js/add-ajax-wishlist.js" />
+   </head>
+    <body>
+        <move element="page.main.title" destination="category.view.container" after="-" />
+        <referenceBlock name="category.products">
+            <block class="Perficient\Catalog\Block\SubCategoryGrid" name="subcategory_grid" before="-"
+               template="Magento_Catalog::category/subcategory-grid.phtml" after="cat.desc.for.wendover.img" />
+        </referenceBlock>
+        <move element="page.messages" destination="main.content" before="-" />
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="id" xsi:type="string">page-title-heading</argument>
+                <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading</argument>
+            </arguments>
+            <block class="Magento\Catalog\Block\Category\Rss\Link" name="rss.link" template="Magento_Catalog::category/rss.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="category.products.list">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Wendover\Catalog\ViewModel\BrandMessagingAds </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

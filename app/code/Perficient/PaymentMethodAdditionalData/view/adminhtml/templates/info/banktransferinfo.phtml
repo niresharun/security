@@ -1,0 +1,8 @@
+<?php
+    $payment = $block->getOrder()->getPayment();
+?>
+<div class="admin__page-section-item-content">
+    <strong><?= $block->escapeHtml(__('Account Name:')) ?></strong>
+    <span class="price"><?= $block->escapeHtml($payment->getData('bankowner')); ?></span>
+</div>
+

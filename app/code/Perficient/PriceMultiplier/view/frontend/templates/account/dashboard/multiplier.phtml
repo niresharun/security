@@ -1,0 +1,145 @@
+<?php
+/**
+ * Price Multiplier
+ *
+ * @category: PHP
+ * @package: Perficient/PriceMultiplier
+ * @copyright: Copyright  2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Module Perficient_PriceMultiplier
+ */
+
+/** @var \Perficient\PriceMultiplier\Block\Account\Dashboard\Multiplier $block */
+/** @var $escaper \Magento\Framework\Escaper */
+$doReloadPage = $block->getData('reload');
+$isAllowed = $block->isAllowedMultiplier();
+?>
+    <div class="verify-content" style="display: none">
+        <div class="popup-header">
+            <div class="header"><?= $escaper->escapeHtml(__('Do you want to change the PriceMultiplier to 0.00X?')) ?></div>
+        </div>
+    </div>
+<?php if ($isAllowed): ?>
+    <div class="box box-information">
+        <div id="success-message" class="message-success-multiplier"  role="alert" ></div>
+        <form name="price-multiplier-form" id="price-multiplier-form" class="price-multiplier-form">
+            <div class="box box-multiplier">
+                <h2 class="box-title heading-l3">
+                    <span><?= $escaper->escapeHtmlAttr(__('Price Multiplier')) ?></span>
+                </h2>
+                <div class="box-content">
+                    <label class="label" for="price_multiplier">
+                        <span><?= $escaper->escapeHtmlAttr(__('Price Multiplier')) ?></span>
+                    </label>
+
+                    <div class="control">
+                        <select data-role="price-multiplier-select" name="price_multiplier" id="price_multiplier">
+                            <?php $options = $block->getPriceMultiplierValues(); ?>
+                            <?php foreach ($options as $value): ?>
+                                <option value="<?= $block->escapeHtmlAttr($value['value']) ?>"
+                                    <?php if ($block->getMultiplierPriceValue() == $value['value']) {
+                                        echo 'selected';
+                                    } ?>>
+                                    <?= $escaper->escapeHtmlAttr($value['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <?php if ($block->getDiscountAvailableValue()) { ?>
+                    <div class="field discount_type">
+                        <label class="label" for="discount_type">
+                            <span><?= $escaper->escapeHtmlAttr(__('When to Apply Price Multiplier')) ?></span>
+                        </label>
+                        <div class="control">
+                            <select data-role="discount_type-select" name="discount_type" id="discount_type">
+                                <?php $options = $block->getDiscountTypeValues(); ?>
+                                <?php foreach ($options as $value): ?>
+                                    <option value="<?= $escaper->escapeHtmlAttr($value['value']) ?>"
+                                        <?php if ($block->getDiscountTypeValue() == $value['value']) {
+                                            echo 'selected';
+                                        } ?>>
+                                        <?= $escaper->escapeHtmlAttr($value['label']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </form>
+    </div>
+    <?php $discount = "standard";
+    if (!empty($block->getDiscountTypeValue())) {
+        $discount = $block->getDiscountTypeValue();
+    } ?>
+    <script>
+        require([
+            'jquery',
+            'mage/translate',
+            'Magento_Ui/js/modal/prompt',
+            'Magento_Ui/js/modal/confirm',
+            'jquery/jquery-storageapi'
+        ], function ($, $t, prompt) {
+            'use strict';
+            $('#price-multiplier-form').on('change', function () {
+                var selected = $('#price_multiplier option:selected');
+                if (selected.html() == '0.00X') {
+                    $(".verify-content").confirm({
+                        modalClass: 'verify-popup',
+                        responsive: true,
+                        clickableOverlay: false,
+                        actions: {
+                            confirm: function () {
+                                ajaxsave();
+                            },
+                            cancel: function () {
+                                location.reload();
+                                return false;
+                            }
+                        }
+                    });
+                } else {
+                    ajaxsave();
+                }
+                function ajaxsave(){
+                    var discountType = "<?= $discount; ?>"
+                    if ($('#discount_type').length > 0) {
+                        discountType = $("#discount_type").val();
+                    }
+                    <?php if ($doReloadPage): ?>
+                    $('#catalog_save').trigger('click');
+                    <?php endif; ?>
+                    $.ajax({
+                        url: "<?= $block->getUrl('pricemultiplier/index/save')?>",
+                        data: {
+                            price_multiplier: $("#price_multiplier").val(),
+                            discount_type: discountType
+
+                        },
+                        type: "POST",
+                        beforeSend: function () {
+                            // show some loading icon
+                        },
+                        success: function (data) {
+                            $('#success-message').html(data['message']);
+                            refreshPage();
+                            <?php if ($doReloadPage): ?>
+                            location.reload();
+                            <?php endif; ?>
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            console.log('Error happens. Try again.');
+                            console.log(errorThrown);
+                        }
+                    });
+                }
+                function refreshPage() {
+                    location.reload(true);
+                }
+            });
+        });
+    </script>
+<?php endif; ?>

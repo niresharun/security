@@ -1,0 +1,28 @@
+<!--
+/**
+ *
+ * This file used to add autocomplete
+ *
+ * @category: Magento
+ * @package: Perficient/UI
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient UI
+ */
+-->
+<input autocomplete="on" class="input-text" type="text" data-bind="
+    value: value,
+    valueUpdate: 'keyup',
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        placeholder: placeholder,
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        id: uid,
+        disabled: disabled
+    }" />

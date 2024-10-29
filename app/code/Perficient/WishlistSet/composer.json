@@ -1,0 +1,22 @@
+{
+    "name": "perficient/module-wishlist-set",
+    "description": "Add sets to My Projects (Wishlist)",
+    "require": {
+        "php": "~7.1.3||~7.2.0||~7.3.0",
+        "magento/module-wishlist": "101.2.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Perficient\\WishlistSet\\": ""
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<?php
+/**
+ *
+ * This file used to changes in search list page
+ *
+ * @category: Magento
+ * @package: Perficient/Catalog
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient social share icon changes
+ */
+
+use Magento\Catalog\Helper\Product;
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+?>
+<div class="social-icons-container">
+    <div class="other-social-icon"><span class="share-label"><?= $block->escapeHtml(__('Share')) ?></span></div>
+    <?php $_product = $block->getProduct() ?>
+    <?php if ($block->canEmailToFriend()) :?>
+        <a id="mail-to-friend" href="<?= $block->escapeUrl($this->helper(Product::class)->getEmailToFriendUrl($_product)) ?>"
+           class="action mailto friend"><span><?= $block->escapeHtml(__('Email')) ?></span></a>
+    <?php endif; ?>
+</div>

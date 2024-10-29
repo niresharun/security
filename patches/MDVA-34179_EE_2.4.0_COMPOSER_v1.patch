@@ -1,0 +1,22 @@
+diff --git a/vendor/magento/module-search/view/frontend/web/js/form-mini.js b/vendor/magento/module-search/view/frontend/web/js/form-mini.js
+index b4493c5f380..c345876310a 100644
+--- a/vendor/magento/module-search/view/frontend/web/js/form-mini.js
++++ b/vendor/magento/module-search/view/frontend/web/js/form-mini.js
+@@ -251,6 +251,8 @@ define([
+                         }
+                         this.element.val(this.responseList.selected.find('.qs-option-name').text());
+                         this.element.attr('aria-activedescendant', this.responseList.selected.attr('id'));
++                        this._updateAriaHasPopup(true);
++                        this.autoComplete.show();
+                     }
+                     break;
+ 
+@@ -267,6 +269,8 @@ define([
+                         }
+                         this.element.val(this.responseList.selected.find('.qs-option-name').text());
+                         this.element.attr('aria-activedescendant', this.responseList.selected.attr('id'));
++                        this._updateAriaHasPopup(true);
++                        this.autoComplete.show();
+                     }
+                     break;
+                 default:

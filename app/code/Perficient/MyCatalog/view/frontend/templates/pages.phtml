@@ -1,0 +1,212 @@
+<?php
+/**
+ * File to create left bar.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<script>
+    var imagePathUrl = '<?= $block->getViewFileUrl('Perficient_MyCatalog/images'); ?>';
+    var changeOrderUrl = '<?= $block->getUrl('mycatalog/index/changeOrder', ['_secure' => 1]); ?>';
+    var getTemplateUrl = '<?= $block->getUrl('mycatalog/index/getTemplate', ['_secure' => 1]); ?>';
+    var loadPageUrl = '<?= $block->getUrl('mycatalog/index/loadPage', ['_secure' => 1]); ?>';
+    var savePageUrl = '<?= $block->getUrl('mycatalog/index/savePage', ['_secure' => 1]); ?>';
+    var generatePdfUrl = '<?= $block->getUrl('mycatalog/index/pdf', ['_secure' => 1]); ?>';
+    var printCatalogUrl = '<?= $block->getUrl('mycatalog/index/pdf', ['_secure' => 1, 'download' => 1]); ?>';
+    var deletePageUrl = '<?= $block->getUrl('mycatalog/index/deletePage', ['_secure' => 1]); ?>';
+    var deleteCatalogUrl = '<?= $block->getUrl('mycatalog/index/deleteCatalog', ['_secure' => 1]); ?>';
+    var myCatalogUrl = '<?= $block->getUrl('mycatalog/', ['_secure' => 1]); ?>';
+    var setMultiplierUrl = '<?= $block->getUrl('mycatalog/index/setMultiplier', ['_secure' => 1]); ?>';
+
+    let pageConfig = {};
+    let priceSign = '<?= $block->getCurrencySymbol(); ?>';
+    let priceMultiplier = 1;
+    let dropped = false;
+    let overlay = false;
+    let pageAction = 'view';
+</script>
+
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "jCarouselJs": {},
+        "owl.carousel": {},
+        "wendoverJS": {},
+        "ddSlickJs": {}
+    }
+}
+
+</script>
+<div class="wendover-gallery-section">
+    <button class="icon-nav-left" id="icon-nav-left" aria-label="Previous"><span class="no-label">Previous</span>
+    </button>
+    <div id="wendover_gallery" class="wendover-gallery">
+        <div id="wendover_template">
+            <div id="wendover_template_content">
+            </div>
+        </div>
+        <div class="clear"></div>
+        <input type="hidden" value="<?= $this->getRequest()->getParam('catalog_id'); ?>" id="wendover_catalog_id"/>
+        <input type="hidden" value="1" id="wendover_page_id"/>
+        <input type="hidden" value="<?= $block->getPageNumber(); ?>" id="wendover_total"/>
+        <input type="hidden" value="<?= $block->getPageTemplate(); ?>" id="wendover_template_id"/>
+    </div>
+    <button class="icon-nav-right" id="icon-nav-right" aria-label="Next"><span class="no-label">Next</span></button>
+</div>
+<div id="email-catalog-modal" style="display: none">
+    <form id="email_catalog_form" name="email_catalog_form" method="POST" action="<?= $block->getUrl('*/*/*'); ?>"
+          data-mage-init='{"validation":{}}'>
+        <input name="form_key" type="hidden" value="<?= /* @noEscape */
+        $block->getFormKey() ?>"/>
+        <div class="form">
+            <div class="field recipient">
+                <label class="label hide" for="recipient">
+                    <span><?= /* @escapeNotVerified */
+                        __('Recipient'); ?>:<span>*</span></span>
+                </label>
+                <input name="recipient"
+                       id="recipient"
+                       type="email"
+                       class="required"
+                       autocomplete="email"
+                       data-validate="{required:true, 'validate-email':true}"
+                       placeholder="<?= /* @escapeNotVerified */
+                       __('recipient') ?>"
+                       value=""/>
+            </div>
+            <br/>
+
+            <div class="field message">
+                <label class="label hide" for="message">
+                    <span><?= /* @escapeNotVerified */
+                        __('Message'); ?>:</span>
+                </label>
+                <textarea autocomplete="on" name="message" id="message" placeholder="<?= /* @escapeNotVerified */
+                __('message') ?>"></textarea>
+            </div>
+            <br/>
+        </div>
+
+        <div class="action">
+            <button class="action primary" type="button" value="cancel" name="cancel" id="cancel_email">
+                <span><?= /* @escapeNotVerified */
+                    __('Cancel') ?></span>
+            </button>
+            <button class="action primary" id="send_email" type="button" value="continue" name="send">
+                <span><?= /* @escapeNotVerified */
+                    __('Send Email') ?></span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'mage/translate', 'Perficient_MyCatalog/js/catalog-script', 'Magento_Ui/js/modal/modal', 'Perficient_MyCatalog/js/jquery.jcarousel.min', 'domReady!'], function ($, $t, catalog, modal) {
+        //added event listener when user navigates from catalog page
+        // saving the page content
+        $(document).ready(function () {
+            window.onbeforeunload = function () {
+                catalog.savePageOnUnload(pageConfig);
+                i = 0;
+            };
+
+            $('#create_pdf_action').on('click', function () {
+                catalog.savePdf(1);
+            });
+            $('#print_catalog_action').on('click', function () {
+                catalog.printCatalog();
+            });
+
+            $('#catalog_save').on('click', function () {
+                catalog.savePageCheck(true);
+            });
+
+            $('#icon-nav-left').on('click', function () {
+                catalog.prevPage();
+            });
+
+            $('#icon-nav-right').on('click', function () {
+                catalog.nextPage(true);
+                $('#icon-nav-left').removeClass('disabled');
+            });
+
+            $('#wendover_select_menu').on('click', 'a.template-page-type', function () {
+                let pageType = $(this).attr('data-id');
+                catalog.loadPage(pageType, false);
+            });
+
+            $('#price_multiplier_option').on('click', function () {
+                catalog.openPrice();
+                $(this).attr('aria-expanded','true');
+                $("#price_multiplier").focus();
+                return false;
+            });
+
+
+            $('.dd-option-template-image').on('click', function () {
+                let templateId = $(this).attr('data-id');
+                catalog.loadTemplate(templateId);
+            });
+
+            $('.cancel-price').on('click', function () {
+                catalog.closePrice();
+            });
+
+            $('#catalog_pricing_button').on('click', function () {
+                catalog.triggerPrices();
+            });
+
+            $('.scroll-to-page').on('click', function () {
+                let pageId = $(this).attr('data-id');
+                catalog.scrollToPage(pageId);
+                $(this).focus().attr('aria-current','true');
+                $(this).siblings().attr('aria-current','false');
+            });
+            $(document).on('keydown','.scroll-to-page', function (e) {
+                if(e.keyCode == 13 || e.keyCode == 32){
+                    let pageId = $(this).attr('data-id');
+                    catalog.scrollToPage(pageId);
+                    $(this).focus().attr('aria-current','true');
+                    $(this).siblings().attr('aria-current','false');
+                }
+            });
+            $('.scroll-to-item').on('click', function () {
+                let itemId = $(this).attr('data-id');
+                catalog.scrollToItem(itemId);
+            });
+
+            let options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: $t('Send Email'),
+                buttons: []
+            };
+            let emailForm = $('#email_catalog_form');
+
+            if ($('#email_catalog_form').length > 0) {
+                let popup = modal(options, $('#email-catalog-modal'));
+
+                $("#cancel_email").on('click', function () {
+                    $('#email_catalog_form').validation('clearError');
+                    popup.closeModal();
+                });
+            }
+        });
+
+        $(window).on('load', function () {
+            catalog.fitAllImages();
+        });
+
+    });
+</script>

@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+
+<div class="field limiter">
+    <label class="label" for="product_list_limit" aria-label="<?= __('%1 per page', $block->getLimit()) ?>">
+        <span aria-hidden="true"><?= $block->escapeHtml(__('Show')) ?></span>
+    </label>
+
+    <div class="control">
+        <select id="product_list_limit" data-role="limiter" class="limiter-options" aria-label="Show">
+            <?php foreach ($block->getAvailableLimit() as $_key => $_limit) :?>
+                <option aria-label="Show <?= $block->escapeHtml($_limit) ?> per page" value="<?= $block->escapeHtmlAttr($_key) ?>"
+                    <?php if ($block->isLimitCurrent($_key)) :?>
+                        selected="selected"
+                    <?php endif ?>>
+                    <?= $block->escapeHtml($_limit) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <span class="limiter-text"><?= $block->escapeHtml(__('per page')) ?></span>
+</div>

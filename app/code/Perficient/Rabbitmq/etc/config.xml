@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq settings default value.
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq settings default value.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rabbitmq>
+            <general>
+                <enable_email_notification>0</enable_email_notification>
+                <enable_logging_in_file>0</enable_logging_in_file>
+                <recipient_email>
+                    <![CDATA[sandeep.mude@perficient.com]]>
+                </recipient_email>
+                <sender_email_identity>custom2</sender_email_identity>
+                <email_template>rabbitmq_general_email_template</email_template>
+                <enable_logging_for_incoming_messages>1</enable_logging_for_incoming_messages>
+                <enable_logging_for_outgoing_messages>1</enable_logging_for_outgoing_messages>
+                <enable_order_sync_detailed_log>0</enable_order_sync_detailed_log>
+            </general>
+            <product>
+                <images_path>catalog/product</images_path>
+            </product>
+            <cron_settings>
+                <enabled>1</enabled>
+                <frequency>2M</frequency>
+            </cron_settings>
+            <surcharge_qty_cron_settings>
+                <enabled>1</enabled>
+                <frequency>2M</frequency>
+            </surcharge_qty_cron_settings>
+        </rabbitmq>
+    </default>
+</config>

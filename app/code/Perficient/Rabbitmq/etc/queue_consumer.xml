@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq inventory update
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue_consumer.xsd">
+    <consumer name="productInventoryUpdateConsumer" queue="queue.erp.catalog.inventory.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="productCreateUpdateConsumer" queue="queue.erp.catalog.product.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="baseCostCreateUpdateConsumer" queue="queue.erp.base.cost.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="mediaTreatmentCreateUpdateConsumer" queue="queue.erp.media.treatment.create.update" connection="amqp"
+                                                                                    consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+
+    <consumer name="mediaFlatTableCreateUpdateConsumer" queue="queue.erp.media.flat.table.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="treatmentFlatTableCreateUpdateConsumer" queue="queue.erp.treatment.flat.table.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="frameTreatmentFlatTableCreateUpdateConsumer" queue="queue.erp.frame.treatment.flat.table.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <consumer name="mediaTreatmentFlatTableCreateUpdateConsumer" queue="queue.erp.media.treatment.flat.table.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <!-- Consumer to create order from Syspro to Magento -->
+    <consumer name="orderCreateUpdateConsumer" queue="queue.erp.order.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+    <!-- Consumer to create/update invoice/shipment from Syspro to Magento -->
+    <consumer name="sysProInvoiceShipmentCreateConsumer" queue="queue.erp.invoice.shipment.create.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+
+    <!-- Consumer to update company from SysPro to Magento -->
+    <consumer name="sysProCompanyUpdateConsumer" queue="queue.erp.company.update" connection="amqp"
+              consumerInstance="Perficient\Rabbitmq\Model\MassConsumer"/>
+</config>

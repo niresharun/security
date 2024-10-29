@@ -1,0 +1,89 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Ccpa
+ */
+?>
+<?php
+/** @var $block \Perficient\Ccpa\Block\Settings */
+
+$settings = $block->getPrivacySettings();
+?>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$blk = $objectManager->create('Perficient\Ccpa\Block\Settings');
+//echo get_class($blk);
+
+$wendoverContactBlock = $blk->getWendoverContactBlock();
+if ($wendoverContactBlock != '') {
+    echo $this->getLayout()
+        ->createBlock(\Magento\Cms\Block\Block::class)
+        ->setBlockId($wendoverContactBlock)
+        ->toHtml();
+}
+?>
+
+<?php foreach ($settings as $setting): ?>
+    <div class="block">
+        <div class="block-title"><h2 class="heading-l2"><?= $block->escapeHtml($setting['title']) ?></h2></div>
+        <div class="block-content">
+            <form method="post"
+                  action="<?= $block->escapeUrl($setting['action']) ?>"
+                  data-mage-init='{"validation":{}}'>
+                <input name="form_key" type="hidden" value="<?= $block->escapeHtmlAttr($block->getFormKey()); ?>" />
+                <input name="is_order" type="hidden" value="<?= (int)$block->isOrder(); ?>" />
+                <input name="order_increment_id" type="hidden" value="<?= $block->escapeHtml($block->getCurrentOderIncrementId()); ?>" />
+                <p class="policy-content"><?= /** @noEscape */ $setting['content'] ?></p>
+                <?php if ($setting['type'] == 'checkbox'): ?>
+                    <p class="control checkbox">
+                        <input type="checkbox" data-validate="{required:true}" name="agree" id="agree">
+                        <label class="accept addon" for="agree">
+                           <span><?= $block->escapeHtml($setting['checkboxText']) ?></span>
+                        </label>
+
+
+                    </p>
+                <?php elseif ($setting['type'] == 'select'): ?>
+                    <p class="control select">
+                        <label class="accept addon no-label" for="dont_sell_personal_data">
+                            <?= $block->escapeHtml(__('Do you want to stop businesses from selling your personal information?')) ?>
+                        </label>
+                        <select name="dont_sell_personal_data" id="dont_sell_personal_data">
+                            <option <?php if ((int)$setting['value'] == 1): ?>selected="selected"<?php endif; ?>
+                                    value="1"><?= $block->escapeHtml(__('Yes')) ?></option>
+                            <option <?php if ((int)$setting['value'] == 0): ?>selected="selected"<?php endif; ?>
+                                    value="0"><?= $block->escapeHtml(__('No')) ?></option>
+                        </select>
+                    </p>
+                <?php endif; ?>
+                <?php if ($setting['needPassword']): ?>
+                    <fieldset class="fieldset" data-hasrequired="* Required Fields" <?php if ($setting['hidePassword']): ?> hidden <?php endif; ?> name="passwordField">
+                        <legend class="no-display"><?= $block->escapeHtml(__('Current Password')) ?></legend>
+                        <div class="field password current required">
+                            <label class="label" for="current-password-<?= $block->escapeHtml($setting['actionCode']) ?>">
+                                <span><?= $block->escapeHtml(__('Current Password')) ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="password" class="input-text" name="current_password" id="current-password-<?= $block->escapeHtml($setting['actionCode']) ?>" data-input="current-password" autocomplete="off" aria-required="true" data-validate="{required:true}">
+                            </div>
+                        </div>
+                    </fieldset>
+                <?php endif; ?>
+                <div class="actions-toolbar">
+                    <button type="submit" class="action primary">
+                        <?= $block->escapeHtml($setting['submitText']) ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script type="text/x-magento-init">
+    {"*": {
+            "Amasty_Ccpa/js/show-password": {}
+          }
+    }
+</script>

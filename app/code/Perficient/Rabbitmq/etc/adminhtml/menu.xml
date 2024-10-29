@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configuration to create Menus in the Admin Panel
+ *
+ * @category: Magento
+ * @package: Perficient/Rabbitmq
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Rabbitmq::perficient_rabbitmq_manager"
+             title="RabbitMQ"
+             module="Perficient_Rabbitmq"
+             sortOrder="10"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_Rabbitmq"
+             resource="Perficient_Rabbitmq::perficient_rabbitmq_manager"/>
+        <add id="Perficient_Rabbitmq::perficient_rabbitmq_settings"
+             title="RabbitMQ Settings"
+             module="Perficient_Rabbitmq"
+             sortOrder="60"
+             parent="Perficient_Rabbitmq::perficient_rabbitmq_manager"
+             action="adminhtml/system_config/edit/section/rabbitmq"
+             resource="Perficient_Rabbitmq::perficient_rabbitmq_settings"/>
+    </menu>
+</config>

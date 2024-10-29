@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Quickship field in quote, order and order_grid table.
+* @category: Magento
+* @package: Perficient/QuickShip
+* @copyright: Copyright 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <Sandeep.mude@perficient.com>
+* @keywords: Module Perficient_QuickShip
+*/
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote">
+        <column xsi:type="smallint" name="quick_ship" unsigned="true" nullable="true" identity="false"
+                comment="Quick Ship"/>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="smallint" name="quick_ship" unsigned="true" nullable="true" identity="false"
+                comment="Quick Ship"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="smallint" name="quick_ship" unsigned="true" nullable="true" identity="false"
+                comment="Quick Ship"/>
+    </table>
+</schema>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Perficient_CronScheduler::css/timeline.css"/>
+        <css src="Perficient_CronScheduler::css/common.css"/>
+        <link src="Perficient_CronScheduler::js/timeline.js"/>
+        <script src="//www.google.com/jsapi" src_type="url"/>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Perficient\CronScheduler\Block\Adminhtml\Task\Timeline\Actions"
+                   name="cronscheduler_task_timeline_actions"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Perficient\CronScheduler\Block\Adminhtml\Task\Timeline"
+                   name="cronscheduler_task_timeline"/>
+            <block template="Perficient_CronScheduler::task/view.phtml"
+                   class="Magento\Backend\Block\Template" 
+                   name="perficient_cronscheduler_task_view"/>
+        </referenceContainer>
+    </body>
+</page>

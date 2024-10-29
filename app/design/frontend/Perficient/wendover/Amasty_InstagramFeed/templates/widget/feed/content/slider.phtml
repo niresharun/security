@@ -1,0 +1,171 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Instagram Feed for Magento 2
+ */
+/**
+ * @var \Amasty\InstagramFeed\Block\Widget\Feed\Slider $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+use Amasty\InstagramFeed\Api\Data\PostInterface;
+use Amasty\InstagramFeed\Block\Widget\Feed\Slider;
+
+$posts = $block->getPosts();
+$postsIndent = (int)$block->getPadding();
+$postSizeNumber = $block->getPostSizeNumber();
+$columnsCount = $block->getColumnsCount();
+$rowsCount = $block->getRowsCount();
+$sliderId = Slider::HTML_ID . random_int(1, 10000);
+?>
+
+<?php if (count($posts)): ?>
+    <style>
+        #<?= /* @noEscape */ $sliderId ?> {
+            max-width: <?=(int)($columnsCount * ($postsIndent + $postSizeNumber) - $postsIndent)?>px;
+        }
+        @media only screen and (max-width: 400px) {
+            #<?= /* @noEscape */ $sliderId ?> {
+                max-width: <?=(int)(2 * ($postsIndent + $postSizeNumber) - $postsIndent)?>px;
+            }
+        }
+        #<?= /* @noEscape */ $sliderId ?> .swiper-container .swiper-wrapper {
+            max-height: <?= (int)($postSizeNumber * $rowsCount + $postsIndent * $rowsCount - $postsIndent) ?>px;
+        }
+        #<?= /* @noEscape */ $sliderId ?> .swiper-container .aminst-feed-post {
+            max-width: <?= (int)$postSizeNumber ?>px;
+            max-height: <?= (int)$postSizeNumber ?>px;
+        }
+    </style>
+
+    <?php if ($block->getTitle()): ?>
+        <h4 class="aminst-feed-title">
+            <?= $escaper->escapeHtml($block->getTitle()) ?>
+        </h4>
+    <?php endif;?>
+    <section class="aminst-feed-slider-container aminst-feed-wrapper" id="<?= /* @noEscape */ $sliderId ?>">
+        <div class="swiper-container">
+            <?php if ($block->isButtonsShow() && $rowsCount === 1): ?>
+                <div class="swiper-button-prev"
+                     aria-label="<?= $escaper->escapeHtmlAttr(__('Previous')) ?>"
+                     title="<?= $escaper->escapeHtmlAttr(__('Previous')) ?>">
+                </div>
+                <div class="swiper-button-next"
+                     aria-label="<?= $escaper->escapeHtmlAttr(__('Next')) ?>"
+                     title="<?= $escaper->escapeHtmlAttr(__('Next')) ?>">
+                </div>
+            <?php endif;?>
+            <article class="aminst-feed-posts swiper-wrapper"
+                     data-aminst-js="post-items"
+                     data-mage-init='{"amInstHover":{}}'>
+                <?php /** @var PostInterface $post */ ?>
+                <?php foreach ($posts as $post): ?>
+                    <?php $relationLinkHtml = $block->getRelationLinkHtml($post) ?>
+                    <figure class="aminst-feed-post swiper-slide"
+                            data-aminst-js="post-item"
+                            <?php if ($relationLinkHtml): ?>
+                                data-aminst-hover="true"
+                            <?php endif; ?>>
+                        <?php $caption = $post->getCaption() ?>
+
+                        <a class="aminst-feed-link -<?= /* @noEscape */ $block->isShowDescription() ? 'en-desc' : 'dis-desc' ?>"
+                           href="<?= $escaper->escapeUrl($post->getPermalink()) ?>"
+                           target="_blank"
+                           data-aminst-js="feed-link"
+                            <?php if ($block->isShowDescription()): ?>
+                                title="<?= $escaper->escapeHtml($caption) ?>"
+                            <?php endif; ?>
+                        >
+                            <?php if ($block->isNeedPlayVideo($post)): ?>
+                                <video autoplay muted loop class="aminst-feed-img"
+                                       src="<?= $escaper->escapeUrl($block->getVideoMediaPath($post)) ?>">
+                                </video>
+                            <?php else: ?>
+                                <img class="aminst-feed-img -<?= $escaper->escapeHtml($block->getPostSize()) ?>"
+                                     src="<?= $escaper->escapeUrl($post->getMediaUrl()) ?>"
+                                     alt="<?= $escaper->escapeHtml(__('Instagram Image')) ?>"
+                                />
+                            <?php endif; ?>
+
+                            <?php if ($block->isNeedShowVideoThumbnailImage($post)): ?>
+                                <div class="aminst-feed-watch">
+                                    <img class="aminst-feed-play-video"
+                                         alt="<?= $escaper->escapeHtmlAttr(__('Play')) ?>"
+                                         src="<?= $escaper->escapeUrl($block->getPlayLogoUrl()) ?>"
+                                    >
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($block->isShowDescription()): ?>
+                                <figurecaption class="aminst-feed-comment-cont">
+                                    <p class="aminst-feed-review">
+                                        <?php if ($post->getLikeCount()): ?>
+                                            <span class="aminst-feed-likes"><?= $escaper->escapeHtml($post->getLikeCount()) ?></span>
+                                        <?php endif; ?>
+                                        <span class="aminst-feed-comments"><?= $escaper->escapeHtml($post->getCommentsCount()) ?></span>
+                                    </p>
+                                    <p class="aminst-feed-caption"><?= $escaper->escapeHtml($caption) ?></p>
+                                </figurecaption>
+                            <?php endif; ?>
+                        </a>
+                        <?= /* @noEscape */ $relationLinkHtml ?>
+                    </figure>
+                <?php endforeach; ?>
+            </article>
+        </div>
+        <div class="swiper-pagination"></div>
+    </section>
+    <?php if ($block->isPopupEnabled()): ?>
+        <script type="text/x-magento-init">
+            {
+                "#<?= /* @noEscape */ $sliderId ?> [data-aminst-js='post-item']": {
+                    "Amasty_InstagramFeed/js/post/popup": {
+                        "loaderUrl" : "<?= $escaper->escapeUrl($block->getPopupUrl()) ?>"
+                    }
+                }
+            }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    require(['jquery', 'swiper', 'domReady!'], function ($, Swiper) {
+        new Swiper('#<?= /* @noEscape */ $sliderId ?> .swiper-container', {
+            <?php if ($rowsCount > 1): ?>
+                grid: {
+                    rows: <?= (int)$rowsCount ?>,
+                    fill: 'row'
+                },
+            <?php endif; ?>
+            <?php if ($block->isAutoplayEnabled()): ?>
+                autoplay: {
+                    delay: <?= (int)$block->getAutoplaySpeed() ?>,
+                    disableOnInteraction: false
+                },
+            <?php endif; ?>
+            breakpoints: {
+                200: {
+                    slidesPerView: 2
+                },
+                400: {
+                    slidesPerView: <?= (int)$columnsCount ?>
+                }
+            },
+            spaceBetween: <?= (int)$postsIndent ?>,
+            <?php if ($rowsCount === 1 && count($posts) >= $columnsCount * 2): ?>
+                loop: <?= /** @noEscape */ $block->getLoop() ?>,
+            <?php endif; ?>
+            <?php if ($block->isPaginationShow() && $rowsCount > 1): ?>
+                pagination: {
+                    el: '#<?= /** @noEscape */ $sliderId ?> .swiper-pagination',
+                    clickable: true,
+                },
+            <?php endif; ?>
+            navigation: {
+                nextEl: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-next',
+                prevEl: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-prev'
+            }
+        });
+    });
+</script>

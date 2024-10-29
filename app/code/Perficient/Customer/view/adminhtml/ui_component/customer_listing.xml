@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="customer_columns">
+        <column name="role_name" class="Perficient\Customer\Ui\Component\Listing\Column\UserRole" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <options class="Perficient\Customer\Model\Config\Source\UserRoles"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">User Role</label>
+            </settings>
+        </column>
+        <column name="syspro_customer_id" sortOrder="62">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Syspro Customer ID</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="mailchimp_sync">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentDisabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

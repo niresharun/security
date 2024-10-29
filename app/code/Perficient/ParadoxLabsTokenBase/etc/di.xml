@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Extend ParadoxLabs TokenBase for removing payment address save validations
+* @category: Magento
+* @package: Perficient/ParadoxLabsTokenBase
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_ParadoxLabsTokenBase
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="ParadoxLabs\TokenBase\Controller\Adminhtml\Index\PaymentinfoSave"
+                type="Perficient\ParadoxLabsTokenBase\Controller\Adminhtml\Index\PaymentinfoSave" />
+    <preference for="ParadoxLabs\TokenBase\Controller\Paymentinfo\Save"
+                type="Perficient\ParadoxLabsTokenBase\Controller\Paymentinfo\Save" />
+</config>

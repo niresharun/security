@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $_item = $block->getItem() ?>
+<?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
+<?php
+$product = $block->getItem()->getOrderItem()->getProduct();
+$imageUrl = '';
+if(!is_null($_item->getOrderItem()->getBuyRequest()->getData())) {
+    $buyRequest = $_item->getOrderItem()->getBuyRequest()->getData();
+    $viewModel = $block->getViewModel();
+    $productimizeHelper = $viewModel->getProductimizeHelper();
+    $catalogHelper = $viewModel->getCatalogImage();
+    $imageUrl = $productimizeHelper->getImageurlfrombuyrequestdata($buyRequest);
+    if(!empty($buyRequest) && isset($buyRequest['edit_id'])) {
+        $customizeEditId = $buyRequest['edit_id'];
+    }
+}
+
+
+?>
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+        <div class="order-detail-name">
+            <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+            <?php if (isset($customizeEditId)) :?>
+                    <img src="<?= $block->getViewFileUrl('Perficient_Order/images/icon.palette.svg'); ?>" alt="Customizable Product" style="padding-left: 10px;vertical-align: middle;" />
+                    <span class="customized-name" style="margin-left: 1rem;"><?= $block->escapeHtml(__('Customized')) ?></span>
+                <?php endif; ?>
+        </div>
+        <?php //if($imageUrl != ''): ?>
+        <!-- <div class="productimize_added_element_container_myaccount"> -->
+        <?php //endif; ?>
+        <?php if ($_options = $block->getItemOptions()) : ?>
+            <dl class="item-options">
+            <?php foreach ($_options as $_option) : ?>
+                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                <?php if (!$block->getPrintStatus()) : ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <?php 
+                        $matValues = array("Top Mat","Bottom Mat","Frame");
+                        if(in_array($_option['label'], $matValues) && (isset($_formatedOptionValue['full_view']))): ?>
+                            <dd>
+                            <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                                    <div class="tooltip content">
+                                        <dl class="item options">
+                                            <dd><?= $block->escapeHtml($_formatedOptionValue['full_view'],['span', 'i']) ?></dd>
+                                        </dl>
+                                    </div>
+                                <?php endif; ?>
+                            </dd>
+                        <?php else: ?>
+                    <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
+                        <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) ?>
+                        <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                        <div class="tooltip content">
+                            <dl class="item options">
+                                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                                <dd><?= $block->escapeHtml($_formatedOptionValue['full_view']) ?></dd>
+                            </dl>
+                        </div>
+                        <?php endif; ?>
+                    </dd>
+
+                    <?php endif; ?>
+                <?php else : ?>
+                    <dd><?= $block->stripTags((isset($_option['print_value']) ? str_replace(' Weighted',', ',$_option['print_value']) : str_replace(' Weighted',', ',$_option['value']))) ?></dd>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php if($imageUrl != ''): ?>
+            <img width="100" height="100" style="display: block;" src="<?=$imageUrl?>" />
+        <!-- </div> -->
+        <?php else:
+        $imgUrl = $catalogHelper->init($product, 'product_thumbnail_image')
+        ->constrainOnly(TRUE)
+        ->keepAspectRatio(TRUE)
+        ->keepTransparency(TRUE)
+        ->keepFrame(FALSE)
+        ->resize(170, 170)->getUrl();
+        ?>
+        <img width="100" height="100" style="display: block;" src="<?=$imgUrl?>" alt="" />    
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) : ?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>"><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></td>
+    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty Shipped')) ?>"><?= (int) $_item->getQty() ?></td>
+</tr>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="megamenu_mainmenu" resource="default" engine="innodb" comment="Megamenu Menu Table">
+        <column xsi:type="int" name="menu_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Menu ID"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Is Menu Active"/>
+        <column xsi:type="varchar" name="menu_title" nullable="true" length="255" comment="Menu_title"/>
+        <column xsi:type="varchar" name="menu_url" comment="url"/>
+        <column xsi:type="varchar" name="menu_class" nullable="true" length="255" comment="Items Classes"/>
+        <column xsi:type="smallint" name="sort_order" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Sort Order"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="menu_id"/>
+        </constraint>
+    </table>
+    <table name="megamenu_submenu" resource="default" engine="innodb" comment="Megamenu SubMenu Table">
+        <column xsi:type="int" name="submenu_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Sub Menu ID"/>
+        <column xsi:type="int" name="menu_id" padding="10" unsigned="true" nullable="false"  comment="Menu ID"/>
+        <column xsi:type="varchar" name="submenu_title" nullable="true" length="255" comment="submenu_title"/>
+        <column xsi:type="varchar" name="submenu_url" comment="url"/>
+        <column xsi:type="varchar" name="submenu_class" nullable="true" length="255" comment="SubMenu Classes"/>
+        <column xsi:type="smallint" name="submenu_sort_order" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Sub Menu Sort Order"/>
+        <column xsi:type="text" name="child_menu" nullable="false"  comment="Child Menu"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="submenu_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MEGAMENU_SUBMENU_MENU_ID_MEGAMENU_MAINMENU_MENU_ID" table="megamenu_submenu" column="menu_id" referenceTable="megamenu_mainmenu" referenceColumn="menu_id" onDelete="CASCADE"/>
+    </table>
+</schema>
+
+

@@ -1,0 +1,22 @@
+<button type="button" class="pz-customize" id="productimize_customize_button" <?php echo $block->getData('buttonVisibility') ?  $block->getData('buttonVisibility') : ""; ?>>
+    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+    <?php echo $block->escapeHtml(__('Customize')); ?>
+</button>
+<script>
+    require(['jquery'], function ($) {
+        $(document).on('click', '#productimize_customize_button', function () {
+            if($('#product_addtocart_form').find('.input-text.qty').length > 0) {
+                $('#product_addtocart_form').find('.input-text.qty').val(1);
+            }
+        });
+
+        $(document).on('blur', '.pz-qty-field', function () {
+            let qty = $(this).val();
+            if(qty > 0) {
+                if($('#product_addtocart_form').find('.input-text.qty').length > 0) {
+                    $('#product_addtocart_form').find('.input-text.qty').val(qty);
+                }
+            }
+        });
+    })
+</script>

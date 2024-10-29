@@ -1,0 +1,25 @@
+{
+  "name": "perficient/leadtime",
+  "description": "Module used to display the lead time notification on various pages based on the selected product.",
+  "version": "1.0.0",
+  "type": "magento2-module",
+  "require": {
+    "php": "~7.1.3||~7.2.0||~7.3.0",
+    "magento/module-catalog-inventory": "100.3.*",
+    "magento/module-catalog": "103.0.*",
+    "magento/module-checkout": "100.3.*",
+    "magento/magento-composer-installer": "*"
+  },
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Perficient\\LeadTime\\": ""
+    }
+  }
+}

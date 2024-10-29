@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq inventory update
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue_topology.xsd">
+    <exchange name="SysPro" type="topic" connection="amqp">
+        <binding id="productInventoryUpdateBinding" topic="erp.catalog.inventory.update" destinationType="queue"
+                 destination="queue.erp.catalog.inventory.update"/>
+        <binding id="errorproductInventoryUpdateBinding" topic="error.erp.catalog.inventory.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.catalog.inventory.update"/>
+        <binding id="productCreateUpdateBinding" topic="erp.catalog.product.create.update" destinationType="queue"
+                 destination="queue.erp.catalog.product.create.update"/>
+        <binding id="errorproductCreateUpdateBinding" topic="error.erp.catalog.product.create.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.catalog.product.create.update"/>
+        <binding id="baseCostCreateUpdateBinding" topic="erp.base.cost.create.update" destinationType="queue"
+                 destination="queue.erp.base.cost.create.update"/>
+        <binding id="errorbaseCostCreateUpdateBinding" topic="error.erp.base.cost.create.update" destinationType="queue"
+                 destination="queue.error.erp.base.cost.create.update"/>
+        <binding id="mediaTreatmentCreateUpdateBinding" topic="erp.media.treatment.create.update" destinationType="queue"
+                 destination="queue.erp.media.treatment.create.update"/>
+        <binding id="errormediaTreatmentCreateUpdateBinding" topic="error.erp.media.treatment.create.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.media.treatment.create.update"/>
+        <binding id="mediaFlatTableCreateUpdateBinding" topic="erp.media.flat.table.create.update" destinationType="queue"
+                 destination="queue.erp.media.flat.table.create.update"/>
+        <binding id="errormediaFlatTableCreateUpdateBinding" topic="error.erp.media.flat.table.create.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.media.flat.table.create.update"/>
+        <binding id="treatmentFlatTableCreateUpdateBinding" topic="erp.treatment.flat.table.create.update" destinationType="queue"
+                 destination="queue.erp.treatment.flat.table.create.update"/>
+        <binding id="errortreatmentFlatTableCreateUpdateBinding" topic="error.erp.treatment.flat.table.create.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.treatment.flat.table.create.update"/>
+        <binding id="frameTreatmentFlatTableCreateUpdateBinding" topic="erp.frame.treatment.flat.table.create.update" destinationType="queue"
+                 destination="queue.erp.frame.treatment.flat.table.create.update"/>
+        <binding id="errorframeTreatmentFlatTableCreateUpdateBinding"
+                 topic="error.erp.frame.treatment.flat.table.create.update" destinationType="queue"
+                 destination="queue.error.erp.frame.treatment.flat.table.create.update"/>
+        <binding id="mediaTreatmentFlatTableCreateUpdateBinding" topic="erp.media.treatment.flat.table.create.update" destinationType="queue"
+                 destination="queue.erp.media.treatment.flat.table.create.update"/>
+        <binding id="errormediaTreatmentFlatTableCreateUpdateBinding"
+                 topic="error.erp.media.treatment.flat.table.create.update" destinationType="queue"
+                 destination="queue.error.erp.media.treatment.flat.table.create.update"/>
+        <!-- Binding for create order from Syspro to Magento -->
+        <binding id="orderCreateUpdateBinding" topic="erp.order.create.update" destinationType="queue"
+                 destination="queue.erp.order.create.update" />
+        <binding id="errororderCreateUpdateBinding" topic="error.erp.order.create.update" destinationType="queue"
+                 destination="queue.error.erp.order.create.update"/>
+        <!-- Binding for create order invoice/shipment from Syspro to Magento -->
+        <binding id="sysProMagentoInvoiceShipmentData" topic="erp.invoice.shipment.create.update" destinationType="queue"
+                 destination="queue.erp.invoice.shipment.create.update"/>
+        <binding id="errorsysProMagentoInvoiceShipmentData" topic="error.erp.invoice.shipment.create.update"
+                 destinationType="queue"
+                 destination="queue.error.erp.invoice.shipment.create.update"/>
+        <!-- Company update from SysPro to Magento -->
+        <binding id="sysProCompanyUpdate" topic="erp.company.update" destinationType="queue"
+                 destination="queue.erp.company.update"/>
+        <!-- Company update from SysPro to Magento -->
+        <binding id="errorsysProCompanyUpdate" topic="error.erp.company.update" destinationType="queue"
+                 destination="queue.error.erp.company.update"/>
+    </exchange>
+	 <exchange name="Magento" type="topic" connection="amqp">
+        <!-- Order create from Magento to SysPro -->
+        <binding id="orderCreateInErpBinding" topic="magento.sales.order.create"
+                 destinationType="queue" destination="queue.magento.sales.order.create"/>
+        <binding id="errororderCreateInErpBinding" topic="error.magento.sales.order.create"
+                 destinationType="queue" destination="queue.error.magento.sales.order.create"/>
+        <!-- Company update from Magento to SysPro -->
+        <binding id="companyUpdateMagento" topic="magento.company.update"
+                 destinationType="queue" destination="queue.magento.company.update"/>
+        <binding id="errorcompanyUpdateMagento" topic="error.magento.company.update"
+                 destinationType="queue" destination="queue.error.magento.company.update"/>
+
+         <!-- Invoice success/failure message from Magento to SysPro -->
+         <binding id="invoiceSuccessFailureInErpBinding" topic="invoice.success.failure"
+                  destinationType="queue" destination="queue.invoice.success.failure"/>
+        <binding id="errorinvoiceSuccessFailureInErpBinding" topic="error.invoice.success.failure"
+                 destinationType="queue" destination="queue.error.invoice.success.failure"/>
+         <!-- Creditmemo success/failure message from Magento to SysPro -->
+         <binding id="creditMemoSuccessFailureInErpBinding" topic="creditmemo.success.failure"
+                  destinationType="queue" destination="queue.creditmemo.success.failure"/>
+    </exchange>
+</config>

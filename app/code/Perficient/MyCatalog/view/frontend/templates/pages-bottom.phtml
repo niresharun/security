@@ -1,0 +1,83 @@
+<?php
+/**
+ * File to create left bar.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+
+$galleryImages = $block->getGalleryImages();
+$catalogName = '';
+$count = count($galleryImages);
+?>
+<div id="bottom-items">
+        <div class="jcarousel-wrap">
+                <div class="jcarousels">
+                    <ul>
+                    <?php foreach ($galleryImages as $key => $galleryImage): ?>
+                            <?php
+                            if (empty($catalogName)) {
+                                $catalogName = $galleryImage['catalog_title'];
+                            }
+                            ?>
+                            <li class="image_placeholder" id="p_<?= uniqid(); ?>">
+                                <img
+                                    width="100px"
+                                    aria-grabbed="false"
+                                    tabindex="0"
+                                    draggable="true"
+                                    aria-haspopup = "true"
+                                    src="<?= $galleryImage['url'] ?>"
+                                    data-alt="p<?= $galleryImage['wishlist_item_id']; ?>"
+                                    alt="<?= $galleryImage['product_name']; ?>"
+                                    class="wendover_thumb draggable p<?= $galleryImage['wishlist_item_id']; ?>"
+                                    id="<?= uniqid() ?>" />
+                                <div id="place_<?= $key; ?>" style="visibility: hidden" ><?= $galleryImage['desc'] ?></div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+            </div>
+            <a href="#" class="jcarousel-control-prev"></a>
+                <a href="#" class="jcarousel-control-next"></a>
+                <p class="jcarousel-pagination">
+                    
+                    </p>
+</div>
+   
+    <div class="clear"></div>
+    <div id="bottom-line">
+        <div class="bottom-name"><?= $escaper->escapeHtml($catalogName);?></div>
+        <div class="dots-bottom">
+            <ul id="select-dots">
+                <?php if ($count >= 10) : ?>
+                    <?php for ($i = 1; $i <= 10; $i++) : ?>
+                        <?php $class = ($i == 1) ? 'active' : '' ?>
+                        <li tabindex="0" role="button"  aria-label="Dot <?= $i ?>" class="scroll-to-page bullet<?= $i . ' ' . $class ?>" data-id="<?= $i ?>"></li>
+                    <?php endfor; ?>
+                <?php else : ?>
+                    <?php for ($i = 1; $i <= $count; $i++) : ?>
+                        <?php $class = ($i == 1) ? 'active' : '' ?>
+                        <li tabindex="0" class="scroll-to-item bullet<?= $i . ' ' . $class ?>" data-id="<?= $i ?>"><span class="no-label"><?= $i ?></span></li>
+                    <?php endfor; ?>
+                <?php endif; ?>
+            </ul>
+            <input type="hidden" id="carousel-count" value="<?= $count ?>" />
+            <input type="hidden" id="carousel-item" value="1" />
+            <input type="hidden" id="carousel-button" value="0" />
+        </div>
+    </div>
+</div>
+<div id="overlay" class="">
+    <a href="#" class="close">
+        <img src="<?= $block->getViewFileUrl('Perficient_MyCatalog/images/btn-close-overlay.png') ?>" alt="Close"/>
+    </a>
+</div>

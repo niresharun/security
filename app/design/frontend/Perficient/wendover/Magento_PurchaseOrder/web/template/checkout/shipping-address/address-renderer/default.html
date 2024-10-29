@@ -1,0 +1,49 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="shipping-address-item" css="'selected-item': isSelected(), 'not-selected-item': !isSelected()">
+    <strong>
+        <text args="address().prefix"></text> <text args="address().firstname"></text> <text args="address().middlename"></text>
+        <text args="address().lastname"></text> <text args="address().suffix"></text>
+    </strong><br/>
+    <text args="_.values(address().street).join(', ')"></text><br/>
+    <text args="address().city "></text>, <span text="address().region"></span> <text args="address().postcode"></text><br/>
+    <text args="getCountryName(address().countryId)"></text><br/>
+    <a if="address().telephone" attr="'href': 'tel:' + address().telephone" text="address().telephone"></a><br/>
+
+    <!--<each args="data: address().customAttributes, as: 'element'">
+        <each args="data: Object.keys(element), as: 'attribute'">
+        <! -- ko if: (element[attribute].attribute_code != "default_company_address") -- >
+            <if args="typeof element[attribute] === 'object'">
+                <if args="element[attribute].label">
+                    <text args="element[attribute].label"/>
+                </if>
+                <ifnot args="element[attribute].label">
+                    <if args="element[attribute].value">
+                        <text args="element[attribute].value"/>
+                    </if>
+                </ifnot>
+            </if>
+            <if args="typeof element[attribute] === 'string'">
+                <text args="element[attribute]"/>
+            </if><br/>
+        <! -- /ko -- >
+        </each>
+    </each>-->
+	
+    <!-- ko if: (address().isEditable()) -->
+    <button visible="address().isEditable()" type="button"
+            class="action edit-address-link"
+            click="editAddress">
+        <span translate="'Edit'"></span>
+    </button>
+    <!-- /ko -->
+    <!-- ko if: (!isSelected()) -->
+    <button type="button" data-bind="click: selectAddress, visible: !isQuoteAddressLocked" class="action action-select-shipping-item">
+        <span data-bind="i18n: 'Ship Here'"></span>
+    </button>
+    <!-- /ko -->
+</div>

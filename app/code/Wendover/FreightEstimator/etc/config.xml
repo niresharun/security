@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <freight_estimator>
+            <parcel_box_config>
+                <max_size_parcel_box>160</max_size_parcel_box>
+                <max_items_per_parcel_box>4</max_items_per_parcel_box>
+                <max_items_per_parcel_box_mirror>1</max_items_per_parcel_box_mirror>
+                <max_count_parcel_boxes_per_shipment>4</max_count_parcel_boxes_per_shipment>
+                <max_weight_per_parcel_box>50</max_weight_per_parcel_box>
+                <max_long_side_for_banding_box>40</max_long_side_for_banding_box>
+                <max_long_side_for_foam_box>0</max_long_side_for_foam_box>
+                <item_depth_without_frame>1.5</item_depth_without_frame>
+            </parcel_box_config>
+            <Pack_materials_size>
+                <pack_materials_size_bubble_toLongSide>5.0</pack_materials_size_bubble_toLongSide>
+                <pack_materials_size_bubble_toShortSide>5.0</pack_materials_size_bubble_toShortSide>
+                <pack_materials_size_bubble_toDepth>5.0</pack_materials_size_bubble_toDepth>
+                <pack_materials_size_bubble_betweenPieces>0.5</pack_materials_size_bubble_betweenPieces>
+                <pack_materials_size_banding_toLongSide>5.0</pack_materials_size_banding_toLongSide>
+                <pack_materials_size_banding_toShortSide>5.0</pack_materials_size_banding_toShortSide>
+                <pack_materials_size_banding_toDepth>5.0</pack_materials_size_banding_toDepth>
+                <pack_materials_size_banding_betweenPieces>1.5</pack_materials_size_banding_betweenPieces>
+                <pack_materials_size_foam_toLongSide>8</pack_materials_size_foam_toLongSide>
+                <pack_materials_size_foam_toShortSide>8</pack_materials_size_foam_toShortSide>
+                <pack_materials_size_foam_toDepth>8</pack_materials_size_foam_toDepth>
+                <pack_materials_size_foam_betweenPieces>1.5</pack_materials_size_foam_betweenPieces>
+            </Pack_materials_size>
+            <max_size_diff>
+                <max_size_diff_bubble_longSide>6.0</max_size_diff_bubble_longSide>
+                <max_size_diff_bubble_shortSide>6.0</max_size_diff_bubble_shortSide>
+                <max_size_diff_banding_longSide>6.0</max_size_diff_banding_longSide>
+                <max_size_diff_banding_shortSide>6.0</max_size_diff_banding_shortSide>
+                <max_size_diff_foam_longSide>0</max_size_diff_foam_longSide>
+                <max_size_diff_foam_shortSide>0</max_size_diff_foam_shortSide>
+                <glass_size_threshold_item_weights>12.0</glass_size_threshold_item_weights>
+            </max_size_diff>
+            <canada_freight>
+                <canada_central_region>ON, QC, MB</canada_central_region>
+                <canada_eastern_region>NB, NS, PE</canada_eastern_region>
+                <canada_western_region>AB, BC, SK</canada_western_region>
+                <canada_freight_upcharge_order_threshold>1000</canada_freight_upcharge_order_threshold>
+                <canada_central_regional_free_freight_limit>3500</canada_central_regional_free_freight_limit>
+                <canada_eastern_regional_free_freight_limit>4000</canada_eastern_regional_free_freight_limit>
+                <canada_western_regional_free_freight_limit>4500</canada_western_regional_free_freight_limit>
+                <canada_central_flat_rate_upToThreshold>300</canada_central_flat_rate_upToThreshold>
+                <canada_central_flat_rate_overThreshold>550</canada_central_flat_rate_overThreshold>
+                <canada_eastern_flat_rate_upToThreshold>325</canada_eastern_flat_rate_upToThreshold>
+                <canada_eastern_flat_rate_overThreshold>700</canada_eastern_flat_rate_overThreshold>
+                <canada_western_flat_rate_upToThreshold>325</canada_western_flat_rate_upToThreshold>
+                <canada_western_flat_rate_overThreshold>725</canada_western_flat_rate_overThreshold>
+            </canada_freight>
+            <us_freight>
+                <us_region_1>FL</us_region_1>
+                <us_region_2>GA, AL, SC</us_region_2>
+                <us_region_3>AZ, AR, CA, CO, CT, DE, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SD, TN, TX, UT, VT, VA, WA,  WV,  WI, WY</us_region_3>
+                <us_region_4>AS, GU, MP, PR, VI</us_region_4>
+                <us_region_5>HI, AK</us_region_5>
+                <us_free_freight_limit_region_1>3000</us_free_freight_limit_region_1>
+                <us_free_freight_limit_region_2>3000</us_free_freight_limit_region_2>
+                 <us_free_freight_limit_region_3>3000</us_free_freight_limit_region_3>
+                <us_free_freight_limit_region_4>3000</us_free_freight_limit_region_4>
+                <us_free_freight_limit_region_5>999999</us_free_freight_limit_region_5>
+                <parcel_residential_costThreshold>90</parcel_residential_costThreshold>
+                <parcel_residential_upcharge_factor_upToThreshold>0.55</parcel_residential_upcharge_factor_upToThreshold>
+                <parcel_commercial_costThreshold>90</parcel_commercial_costThreshold>
+                <parcel_commercial_upcharge_factor_upToThreshold>0.55</parcel_commercial_upcharge_factor_upToThreshold>
+                <LTL_residential_order_threshold>1000</LTL_residential_order_threshold>
+                <LTL_residential_upcharge_factor_upToThreshold>0.65</LTL_residential_upcharge_factor_upToThreshold>
+                <LTL_residential_upcharge_factor_OverThreshold>0.69</LTL_residential_upcharge_factor_OverThreshold>
+                <LTL_commercial_order_threshold>1000</LTL_commercial_order_threshold>
+                <LTL_commercial_upcharge_factor_upToThreshold>0.60</LTL_commercial_upcharge_factor_upToThreshold>
+                <LTL_commercial_upcharge_factor_OverThreshold>0.60</LTL_commercial_upcharge_factor_OverThreshold>
+                <Weight_limit_for_left_gate_eligiblity>65</Weight_limit_for_left_gate_eligiblity>
+            </us_freight>
+        </freight_estimator>
+    </default>
+</config>

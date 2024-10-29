@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Set Default configuration to the wishlist.
+ * @category: Magento
+ * @package: Perficient/Catalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vijayashanthi M<v.murugesan@Perficient.com>
+ * @keywords: Module Perficient_Catalog
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Perficient\Catalog\Controller\Adminhtml\Category\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Magento\Catalog\CategoryImageUpload</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Catalog\CategoryImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">catalog/category</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="Magento\Catalog\Model\Category\DataProvider"
+                type="Perficient\Catalog\Model\Category\DataProvider"/>
+    <preference for="Magento\Catalog\Model\Product\Gallery\Processor"
+                type="Perficient\Catalog\Model\Product\Gallery\Processor"/>
+    <preference for="Perficient\Catalog\Api\Data\CustomProductImageInterface"
+                type="Perficient\Catalog\Model\CustomProductImage"/>
+    <preference for="Perficient\Catalog\Api\CustomProductImageRepositoryInterface"
+                type="Perficient\Catalog\Model\CustomProductImageRepository"/>
+    <preference for="Magento\Catalog\Model\ResourceModel\Product\Indexer\Eav\Source"
+                type="Perficient\Catalog\Model\ResourceModel\Product\Indexer\Eav\Source"/>
+    <preference for="Magento\ProductAlert\Model\Observer" type="Perficient\Catalog\Model\FrameStockAlertObserver"/>
+
+    <virtualType name="Perficient\Catalog\Model\Cron\BulkImport" type="Perficient\Catalog\Model\Cron\Backend\Cron">
+        <arguments>
+            <argument name="prefix" xsi:type="string">perficient_bulk_upload</argument>
+            <argument name="suffix" xsi:type="string">cron_setup</argument>
+            <argument name="type" xsi:type="string">bulk_upload</argument>
+            <argument name="cronGroup" xsi:type="string">feed_group</argument>
+        </arguments>
+    </virtualType>
+</config>

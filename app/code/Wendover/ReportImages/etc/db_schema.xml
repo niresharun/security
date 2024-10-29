@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="product_images_missing_report" resource="default" engine="innodb">
+    <column xsi:type="int" name="entity_id" unsigned="false" nullable="false" identity="true" comment="Value ID"/>
+    <column xsi:type="int" name="product_id" unsigned="false" nullable="false" comment="Product ID"/>
+    <column xsi:type="smallint" name="attribute_set_id" unsigned="true" nullable="false"  default="0" comment="Attribute Set ID"/>
+    <column xsi:type="varchar" name="sku"  nullable="false" comment="Product Sku"/>
+    <column xsi:type="varchar" name="name"  nullable="false" comment="Product Name"/>
+    <column xsi:type="varchar" name="status"  nullable="false"  comment="Product Status"/>
+    <column xsi:type="varchar" name="thumbnail_img" nullable="false" comment="Thumbail"/>
+    <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false" default="0" comment="Store ID"/>
+    <column xsi:type="int" name="base" unsigned="false" default="0" nullable="false" comment="Base"/>
+    <column xsi:type="int" name="small" unsigned="false" nullable="false" default="0"  comment="Small"/>
+    <column xsi:type="int" name="thumbnail" unsigned="false" nullable="false" default="0"  comment="Thumbnail"/>
+    <column xsi:type="int" name="cropped_art" unsigned="false" nullable="false" default="0"  comment="Cropped Art"/>
+    <column xsi:type="int" name="single_corner_image" unsigned="false" nullable="false" default="0" comment="Single Corner Image"/>
+    <column xsi:type="int" name="spec_detail_image" unsigned="false" nullable="false" default="0" comment="Spec Details Image "/>
+    <column xsi:type="int" name="double_corner_image" unsigned="false" nullable="false" default="0" comment="Double Corner Image"/>
+    <column xsi:type="int" name="renderer_length" unsigned="false" nullable="false" default="0" comment="Renderer Length"/>
+    <column xsi:type="int" name="renderer_corner" unsigned="false" nullable="false" default="0" comment="Renderer Corner "/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+        <column name="entity_id"/>
+    </constraint>
+    <index referenceId="PROUDCT_IMAGES_MISSING_NAME_SKU" indexType="fulltext">
+        <column name="name"/>
+        <column name="sku"/>
+    </index>
+</table>
+</schema>

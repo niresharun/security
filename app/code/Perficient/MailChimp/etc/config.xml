@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to set mailchimp configuration
+ *
+ * @category: Magento
+ * @package: Perficient/MailChimp
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Trupti Bobde<trupti.bobde@Perficient.com>
+ * @keywords: Module Perficient_MailChimp
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mailchimp>
+            <general>
+                <apikey>4acf823b65d6b9c872fd05a6a806ffaa-us11</apikey>
+            </general>
+        </mailchimp>
+    </default>
+</config>

@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<div class="checkout-success">
+
+    <?php if ($block->getOrderId()) :?>
+        <p><?= $block->escapeHtml(__('For successfully ordered items, you will receive a confirmation email shortly with more details.')) ?></p>
+        <h2 class="order-successful"><?= $block->escapeHtml(__('Successfully Ordered')) ?></h2>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= $block->escapeHtml(__('Order Number: %1', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?></p>
+        <?php  else :?>
+            <p><?= $block->escapeHtml(__('Order Number: <span>%1</span>', $block->getOrderId()), ['span']) ?></p>
+        <?php endif;?>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue"
+               href="<?= $block->escapeUrl($block->getContinueUrl()) ?>"><span><?= $block->escapeHtml(__('Continue Shopping')) ?></span></a>
+        </div>
+    </div>
+</div>

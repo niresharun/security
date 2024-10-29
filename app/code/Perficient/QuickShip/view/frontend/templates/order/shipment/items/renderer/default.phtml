@@ -1,0 +1,122 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/**
+ * @var Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer $block
+ * @var \Wendover\Theme\ViewModel\WendoverViewModel $viewModel
+ */
+
+use Perficient\Catalog\Helper\Data as CatalogHelper;
+
+/** @var CatalogHelper $catalogHelper */
+$catalogHelper = $this->helper(CatalogHelper::class);
+?>
+<?php $_item = $block->getItem() ?>
+<?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
+<?php
+$product = $block->getItem()->getOrderItem()->getProduct();
+$productUrl = $product->getUrlModel()->getUrl($product);
+$viewModel = $block->getData('wendover_model');
+?>
+<?php
+$imageUrl = '';
+$customizedDataArray = [];
+if ($block->getItem()->getOrderItem()->getProductOptionByCode('info_buyRequest') !== null) {
+    $buyRequest = $block->getItem()->getOrderItem()->getProductOptionByCode('info_buyRequest');
+    $imageUrl = $viewModel->getImageUrlFromBuyRequestData($buyRequest);
+    if(!empty($buyRequest) && isset($buyRequest['edit_id'])) {
+        $customizeEditId = $buyRequest['edit_id'];
+    }
+
+    $expectedProductLabels = null;
+    if ($viewModel?->isMirrorProduct($product)) {
+        $expectedProductLabels = CatalogHelper::$expectedConfMirrorProductLabel;
+    }
+
+    if(isset($buyRequest['pz_cart_properties']) && $buyRequest['pz_cart_properties']) {
+        $customizedDataArray = $viewModel->getValidCustomizedOptions(
+            $buyRequest['pz_cart_properties'], $expectedProductLabels
+        );
+    }
+}
+
+$productName = $_item->getName();
+$imgUrl = $viewModel->getImageURL($product, 'product_thumbnail_image');
+if($viewModel?->isMirrorProduct($product)) {
+    $productData = $catalogHelper->getProductBySku($block->getSku());
+    $productUrl = $catalogHelper->getMirrorProductUrl($productData->getId());
+    $productName = $viewModel->getProductName($productData);
+    $imgUrl = $viewModel->getImageURL($productData, 'product_thumbnail_image');
+}
+$miscSku = strtolower($block->getSku());
+?>
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+        <div class="order-detail-name">
+            <?php if($miscSku == "misc"):?>
+                <strong class="product name product-item-name"><?= $block->escapeHtml($productName) ?></strong>
+            <?php else : ?>
+                <a href="<?= $block->escapeUrl($productUrl) ?>">
+                    <strong class="product name product-item-name"><?= $block->escapeHtml($productName) ?></strong>
+                </a>
+            <?php endif; if (isset($customizeEditId)) :?>
+                <img src="<?= $block->getViewFileUrl('Perficient_Order/images/icon.palette.svg'); ?>" alt="" style="padding-left: 10px;vertical-align: middle;" />
+                <span class="customized-name" style="margin-left: 1rem;"><?= $block->escapeHtml(__('Customized')) ?></span>
+            <?php endif; ?>
+        </div>
+        <?php if (!empty($customizedDataArray['dataArray'])) : ?>
+            <dl class="item-options">
+                <?php foreach ($customizedDataArray['dataArray'] as $labelKey => $labelValue) :?>
+                    <dt><?= $block->escapeHtml($labelKey) ?></dt>
+                    <dd>
+                        <?= $labelValue ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php elseif ($_options = $block->getItemOptions()) : ?>
+            <dl class="item-options">
+            <?php foreach ($_options as $_option) : ?>
+                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                <?php if (!$block->getPrintStatus()) : ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <?php
+                    // Condition for weighted Mats - Removed the tooltip class
+                    if (isset($_formatedOptionValue['full_view']) && (strpos(strtolower($block->stripTags($_option['value'])), 'weighted') !== false)): ?>
+                    <dd>
+                        <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['a', 'img','span', 'i']) ?>
+                    </dd>
+                    <?php else: ?>
+                        <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
+                            <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) ?>
+                            <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                                <div class="tooltip content">
+                                    <dl class="item options">
+                                        <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                                        <dd><?= $block->escapeHtml($_formatedOptionValue['full_view'],['span', 'i']) ?></dd>
+                                    </dl>
+                                </div>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endif;?>
+                <?php else : ?>
+                    <dd><?= $block->escapeHtml($_option['print_value'] ?? $_option['value']) ?></dd>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php if($imageUrl != ''): ?>
+            <img width="100" height="100" alt="" style="display: block;" src="<?=$imageUrl?>" />
+        <?php else: ?>
+            <img width="100" height="100" alt="" style="display: block;" src="<?=$imgUrl?>"  />
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) : ?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>"><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></td>
+    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty Shipped')) ?>"><?= (int) $_item->getQty() ?></td>
+</tr>

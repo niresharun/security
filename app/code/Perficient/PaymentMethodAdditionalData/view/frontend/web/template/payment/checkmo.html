@@ -1,0 +1,97 @@
+<!--
+/**
+* Custom Module to store Additional Payment Data to Quote and Order in Payment Tables
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Sachin Badase <sachin.badase@perficient.com>
+* @keywords: Payment Data to Quote and Order in Payment Tables
+*/
+-->
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <span class="payment-terms" data-bind="text: getTitle()"></span></label>
+        <div class="pay-terms-block field-tooltip shipping-policy-tooltip-section">
+            <a class="field-tooltip-action"
+               tabindex="0"
+               data-toggle="dropdown"
+               data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}" data-trigger-keypress-button="true" role="button">
+                <span class="no-label"><!-- ko i18n: 'Pay On Terms' --><!-- /ko --></span>
+            </a>
+            <div role="dialog"  class="field-tooltip-content"
+                 data-target="dropdown">
+                <a tabindex="0" class="close-icon" aria-label="Close" data-action-keypress="true" role="button"></a>
+                <span>Payment due based on credit terms stated on payment receipt, which Wendover will provide you at time of shipping.
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-method-content">
+        <div class="field _required po-container">
+            <label data-bind="attr: {for: getCode() + '_bankowner'}" class="label">
+                <span class="po-number"><!-- ko i18n: 'Purchase Order Number'--><!-- /ko --></span>
+            </label>
+            <div class="control">
+                <input data-validate="{'required-entry':true}" type="text" name="payment[bankowner]" class="input-text"
+                       value=""
+                       maxlength="30"
+                       data-bind="attr: {
+id: getCode() + '_bankowner',
+title: $t('Purchase Order Number'),
+'data-container': getCode() + '-bankowner',
+'data-validate': JSON.stringify({'required':true})},
+valueUpdate: 'keyup' "/>
+                <p class="max-len-note-div">Maximum 30 characters</p>
+            </div>
+        </div>
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!-- ko if: getMailingAddress() || getPayableTo() -->
+        <dl class="items check payable">
+            <!-- ko if: getPayableTo() -->
+            <dt class="title"><!-- ko i18n: 'Make Check payable to:' --><!-- /ko --></dt>
+            <dd class="content"><!-- ko text: getPayableTo() --><!-- /ko --></dd>
+            <!-- /ko -->
+            <!-- ko if: getMailingAddress() -->
+            <dt class="title"><!-- ko i18n: 'Send Check to:' --><!-- /ko --></dt>
+            <dd class="content">
+                <address class="checkmo mailing address" data-bind="html: getMailingAddress()"></address>
+            </dd>
+            <!-- /ko -->
+        </dl>
+        <!-- /ko -->
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+click: placeOrder,
+attr: {title: $t('Place Order')},
+css: {disabled: !isPlaceOrderActionAllowed()},
+enable: (getCode() == isChecked())
+"
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

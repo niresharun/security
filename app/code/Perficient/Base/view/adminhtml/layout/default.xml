@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * added custom admin css
+ *
+ * @category: Magento
+ * @package: Perficient/Base
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Harshal Dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Base
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Perficient_Base::css/custom-admin.css"/>
+    </head>
+</page>

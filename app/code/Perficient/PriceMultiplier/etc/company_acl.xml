@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to add price multiplier
+ * This file used to set the ACL permission
+ *
+ * @category: Magento
+ * @package: Perficient/PriceMultiplier
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Module Perficient_PriceMultiplier ACL Permission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Company::index">
+                <resource id="Perficient_PriceMultiplier::multiplier" title="Price Multiplier" translate="title" sortOrder="1" />
+            </resource>
+        </resources>
+    </acl>
+</config>

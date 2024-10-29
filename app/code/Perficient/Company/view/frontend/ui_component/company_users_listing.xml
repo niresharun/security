@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="company_users_columns">
+    <column name="team" component="Magento_Company/js/users/grid/columns/text-with-dash-placeholder">
+        <settings>
+            <label translate="true">Team</label>
+            <sortable>false</sortable>
+            <visible>false</visible>
+        </settings>
+    </column>
+    </columns>
+</listing>

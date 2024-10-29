@@ -1,0 +1,26 @@
+<?php
+/**
+ * Display Quick ship category details on search result page if q=is_quick_ship.
+ *
+ * @category: phtml
+ * @package: Perficient/Catalog
+ * @author: Archana Lohakare (archana.lohakare@perficient.com)
+ * @project: Wendover
+ * @var $block \Magento\Catalog\Block\Category\View
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+<?php $quickShipCategory =  $block->getQuickShipCategoryInfo();?>
+<?php if (!empty($quickShipCategory)) :?>
+    <div class="quick-ship-banner custom-banner-list">
+        <?php if ($quickShipCategory->getImageUrl()) :?>
+            <img src="<?= $escaper->escapeUrl($quickShipCategory->getImageUrl());?>" alt="<?= $escaper->escapeHtmlAttr($quickShipCategory->getName());?>" title="<?= $escaper->escapeHtmlAttr($quickShipCategory->getName());?>" data-element="desktop_image">
+        <?php endif; ?>
+        <div class="page-title-wrapper">
+            <h1 class="page-heading">
+                <?= $escaper->escapeHtmlAttr($quickShipCategory->getName());?>
+            </h1>
+        </div>
+    </div>
+<?php endif; ?>
+

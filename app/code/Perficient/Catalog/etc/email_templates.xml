@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="importemail_email_failture_notification" label="Email Notification" file="customemail.html"
+              type="html" module="Perficient_Catalog" area="frontend"/>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * PriceMultiplier module for multiplier price .
+ *
+ * @category:  JS
+ * @package:   Perficient/PriceMultiplier
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords:  Module Perficient_PriceMultiplier
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="customer.account.dashboard.info.blocks">
+            <block class="Perficient\PriceMultiplier\Block\Account\Dashboard\Multiplier" name="customer_account_dashboard_multiplier" as="multiplier" template="Perficient_PriceMultiplier::account/dashboard/multiplier.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

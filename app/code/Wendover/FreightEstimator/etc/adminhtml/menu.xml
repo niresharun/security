@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wendover_FreightEstimator::ziffity_freightestimator"
+             title="Freight Estimator"
+             module="Wendover_FreightEstimator"
+             sortOrder="180"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Wendover_FreightEstimator"
+             resource="Wendover_FreightEstimator::ziffity_freightestimator"/>
+        <add id="Wendover_FreightEstimator::ziffity_freightestimator_settings"
+             title="Freight Estimator Settings"
+             module="Wendover_FreightEstimator"
+             sortOrder="190"
+             parent="Wendover_FreightEstimator::ziffity_freightestimator"
+             action="adminhtml/system_config/edit/section/freight_estimator"
+             resource="Wendover_FreightEstimator::ziffity_freightestimator_settings"/>
+    </menu>
+</config>

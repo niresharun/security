@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Make Company Name Role un-editable
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer.form.edit.fields.before.in.form">
+            <referenceBlock name="extended_customer_edit" remove="true"/>
+            <block class="Magento\Company\Block\Company\CompanyInfo" name="new_extended_customer_edit"
+                   ifconfig="btob/website_configuration/company_active"
+                   template="Perficient_Company::customer/extended_customer_edit.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-account-link">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,229 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $_order = $block->getOrder() ?>
+<?php $_invoice = $block->getInvoice() ?>
+
+<?php if ($_invoice) : ?>
+    <?php $_invoices = [$_invoice]; ?>
+<?php else : ?>
+    <?php $_invoices = $_order->getInvoiceCollection() ?>
+<?php endif; ?>
+<?php foreach ($_invoices as $_invoice) : ?>
+    <div class="block block-order-details-view">
+        <div class="block-content">
+            <div class="box box-order-billing-address">
+                <div class="box-title">
+                    <span class="table-heading-background"><?= $block->escapeHtml(__('Billing Address:')) ?></span>
+                </div>
+                <div class="box-content">
+                    <?php $_billing = $_invoice->getbillingAddress() ?>
+                    <address>
+                        <?= strip_tags($block->formatAddress($_order->getBillingAddress(), 'html'),"<br>") ?>
+                    </address>
+                </div>
+            </div>
+
+            <?php if (!$_order->getIsVirtual()) : ?>
+                <div class="box box-order-shipping-address">
+                    <div class="box-title">
+                        <span class="table-heading-background"><?= $block->escapeHtml(__('Shipping Address:')) ?></span>
+                    </div>
+                    <div class="box-content">
+                        <?php $_shipping = $_invoice->getShippingAddress() ?>
+                        <address>
+                            <?= strip_tags($block->formatAddress($_shipping, 'html'),"<br>") ?>
+                        </address>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="block block-invoice-details-view">
+        <table class="box table-field-align table-align-mob">
+            <thead class="table-heading-background">
+            <tr>
+                <th><?= __("Customer PO #") ?></th>
+                <th><?= __("Sales Order #") ?></th>
+                <th><?= __("Order Reference #") ?></th>
+                <th><?= __("Item Count") ?></th>
+                <th><?= __("Sales Rep") ?></th>
+                <th><?= __("Terms") ?></th>
+                <th><?= __("Due Date") ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <?= !empty($_order->getPayment()->getCustomerPoNumber())?$_order->getPayment()->getCustomerPoNumber():'-' ?></td>
+                <td><?= $_order->getIncrementId() ?></td>
+                <td><?= $_order->getSysproOrderId() ?></td>
+                <td><?= (int) $_invoice->getTotalQty() ?></td>
+                <td><?= $_order->getSysproSalesrep() ?></td>
+                <td><?= ucfirst($_order->getPayment()->getMethod()) ?></td>
+                <td><?= !empty($_order->getCustomerDueDate()) ? $block->formatDate($_order->getCustomerDueDate(), \IntlDateFormatter::SHORT) : '-' ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <?php
+    $shipments = $block->getShipmentDetails();
+    ?>
+    <?php if(!empty($shipments)): ?>
+        <div class="block block-carrier-details-view">
+            <table class="box table-field-align table-align-mob">
+                <thead class="table-heading-background">
+                <tr>
+                    <th><?= __("Carrier Name") ?></th>
+                    <th><?= __("Tracking #") ?></th>
+                    <th><?= __("Shipping Method") ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($shipments as $shipment): ?>
+                    <tr>
+                        <td><?= !empty($shipment->getCarrierCode()) ? strtoupper($shipment->getCarrierCode()) : '-' ?></td>
+                        <td><?= $shipment->getTrackNumber() ?></td>
+                        <td><?= $shipment->getTitle() ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+
+    <div class="order-details-items invoice">
+        <div class="table-wrapper table-order-items invoice">
+            <table class="data table table-order-items invoice table-product-details" id="my-invoice-table-<?= (int) $_invoice->getId() ?>">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Items Invoiced')) ?></caption>
+                <thead>
+                <tr>
+                    <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
+                    <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
+                    <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
+                    <th class="col qty"><?= $block->escapeHtml(__('Qty Invoiced')) ?></th>
+                    <th class="col subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+                </thead>
+                <?php $_items = $_invoice->getItemsCollection(); ?>
+                <?php foreach ($_items as $_item) : ?>
+                    <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                        <tbody>
+                        <?= $block->getItemHtml($_item) ?>
+                        </tbody>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </table>
+            <table class="data table table-order-items invoice freight-charge-table">
+                <tr>
+                    <td><?= __("Freight Charge") ?></td>
+                    <td><?= $block->formatPrice($_invoice->getShippingAmount()) ?></td>
+                </tr>
+            </table>
+            <?php
+            $payment = $_order->getPayment();
+            ?>
+            <?php if(!empty($payment)): ?>
+                <div class="block block-payments-details-view">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th><?= __("PAYMENTS") ?></th>
+                            <th><?= __("Date") ?></th>
+                            <th><?= __("Reference") ?></th>
+                            <th><?= __("Type") ?></th>
+                            <th><?= __("Deposit Amount") ?></th>
+                            <th><?= __("Applied Amount") ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td data-th="PAYMENTS">&nbsp;</td>
+                            <td data-th="Date">
+                                <?php $transactionData = $block->getPaymentTransaction(); ?>
+                                <?php if(isset($transactionData) && !empty($transactionData)): ?>
+                                    <?= $block->escapeHtml(
+                                        __(
+                                            '%1',
+                                            '<span>' . $block->formatDate($block->getPaymentTransaction()->getCreatedAt(), \IntlDateFormatter::SHORT) . '</span>'
+                                        ),
+                                        ['span']
+                                    )?>
+
+                                <?php else: ?>
+                                    <?= '-' ?>
+                                <?php endif; ?>
+                            </td>
+                            <td data-th="Reference">
+                                <?php
+                                $additionalInformation = $payment->getAdditionalInformation();
+                                if(isset($additionalInformation['transaction_id'])) {
+                                    $transactionId = $additionalInformation['transaction_id'];
+                                    $maskingCharacter = 'x';
+                                    echo str_repeat($maskingCharacter, strlen($transactionId) - 4) . substr($transactionId, -4);
+                                } elseif(!empty($transactionData->getTxnId())) {
+                                    $transactionId = $transactionData->getTxnId();
+                                    $maskingCharacter = 'x';
+                                    echo str_repeat($maskingCharacter, strlen($transactionId) - 4) . substr($transactionId, -4);
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td data-th="Type">
+                                <?php
+                                if(!empty($additionalInformation['card_type'])) {
+                                    echo $additionalInformation['card_type'];
+                                } else if(!empty($additionalInformation['method_title'])) {
+                                    echo $additionalInformation['method_title'];
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                            <td data-th="Deposit Amount"><?= $block->formatPrice($payment->getAmountPaid()) ?></td>
+                            <td data-th="Applied Amount"><?= $block->formatPrice($payment->getAmountOrdered()) ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+            <table class="data table table-order-items invoice total-count-table" id="my-invoice-table-<?= (int) $_invoice->getId() ?>">
+                <tfoot>
+                <?= $block->getInvoiceTotalsHtml($_invoice) ?>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<div class="container-notes">
+    <ul class="note">
+        <li>Currency is listed in US dollars.</li>
+        <li>EPA TSCA Title VI Compliant.</li>
+    </ul>
+</div>
+
+<footer class="page-footer">
+    <div class="footer content">
+        <div class="footer-logo">
+            <a href="#" aria-label="Wendover Logo" class="logo-footer"><img src="<?= $block->getViewFileUrl('images/icon_wendover_wred.svg'); ?>" alt="Wendover Logo"></a>
+        </div>
+        <div class="footer-description">
+            <p>Thank you for your order.<span>&nbsp;</span>We deeply appreciate that you have chosen to do business with us, and would like you to think of Wendover Art Group as <a class="remove-border" href="#">The Source for Art</a>.</p>
+        </div>
+        <div class="our-promises">
+            <span>Our Promises to You:</span>
+            <ul>
+                <li><a href="#">Partenship</a></li>
+                <li><a href="#">One Source for Art</a></li>
+                <li><a href="#">Proactive Service</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Address\Grid $block */
+$customerAddressView = $block->getData('customer_address');
+?>
+
+<div class="block block-addresses-list">
+    <div class="block-title"><h2 class="heading-l2"><?= $block->escapeHtml(__('Additional Addresses')) ?></h2></div>
+    <div class="block-content">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()) : ?>
+
+            <div class="table-wrapper additional-addresses">
+                <table class="data table table-additional-addresses-items history" id="additional-addresses-table">
+                    <caption class="table-caption"><?= $block->escapeHtml(__('Additional addresses')) ?></caption>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col firstname"><?= $block->escapeHtml(__('First Name')) ?></th>
+                        <th scope="col" class="col lastname"><?= $block->escapeHtml(__('Last Name')) ?></th>
+                        <th scope="col" class="col streetaddress"><?= $block->escapeHtml(__('Street Address')) ?></th>
+                        <th scope="col" class="col city"><?= $block->escapeHtml(__('City')) ?></th>
+                        <th scope="col" class="col state"><?= $block->escapeHtml(__('State')) ?></th>
+                        <th scope="col" class="col zip"><?= $block->escapeHtml(__('Zip/Postal')) ?></th>
+                        <th scope="col" class="col phone"><?= $block->escapeHtml(__('Phone')) ?></th>
+                        <th scope="col" class="col actions no-label"><?= $escaper->escapeHtml(__('Actions')) ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($_pAddsses as $address) : ?>
+                        <tr>
+                            <td data-th="<?= $block->escapeHtml(__('First Name')) ?>" class="col firstname"><?= $block->escapeHtml($address->getFirstname()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Last Name')) ?>" class="col lastname"><?= $block->escapeHtml($address->getLastname()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Street Address')) ?>" class="col streetaddress"><?= $block->escapeHtml($block->getStreetAddress($address)) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('City')) ?>" class="col city"><?= $block->escapeHtml($address->getCity()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('State')) ?>" class="col state"><?= $block->escapeHtml($address->getRegion()->getRegion()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Zip/Postal Code')) ?>" class="col zip"><?= $block->escapeHtml($address->getPostcode()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Phone')) ?>" class="col phone"><?= $block->escapeHtml($address->getTelephone()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                                <a  aria-label="<?= $block->escapeHtml(__('Edit Address of ID ')) ?> <?=  $address->getId() ?>" class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $address->getId()])) ?>"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+                                <a class="action delete" href="#" role="link" data-address="<?= $block->escapeHtmlAttr($address->getId()) ?>"><span><?= $block->escapeHtml(__('Delete')) ?></span></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if ($block->getChildHtml('pager')) : ?>
+                <div class="customer-addresses-toolbar toolbar bottom"><?= $block->getChildHtml('pager') ?></div>
+            <?php endif ?>
+        <?php else : ?>
+            <p class="empty"><?= $block->escapeHtml(__('You have no other address entries in your address book.')) ?></p>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="actions-toolbar">
+    <div class="primary">
+        <button type="button" class="action primary add account-secondary-button"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+    </div>
+    <div class="secondary">
+        <a class="action back" href="<?= $block->escapeUrl($block->getUrl('customer/account')) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "td a[role='link']",
+                "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>id/",
+                "addAddress": ".account-secondary-button",
+                "addAddressLocation": "<?= $block->escapeJs($block->escapeUrl($block->getAddAddressUrl())) ?>"
+            }
+        }
+    }
+</script>

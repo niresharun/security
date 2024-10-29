@@ -1,0 +1,40 @@
+<?php
+/**
+ * File to create front template.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$catalog = $block->getCatalogData();
+$catalogImage = $catalog->getLogoImage();
+$catalogTitle = $catalog->getCatalogTitle();
+$catalogName = $catalog->getName();
+?>
+<div class="cover-first-page">
+    <?php if (!empty($catalogImage)): ?>
+        <img class="cover-logo" width="350px" src="<?= $block->getLogoImagePath() . $catalogImage ?>"/>
+        <hr/>
+    <?php endif; ?>
+    <div class="title">
+            <?= $escaper->escapeHtml($catalogTitle) ?>
+    </div>
+    <div class="additional_information name">
+            <?= $escaper->escapeHtml($catalog->getData('additional_info_1')) ?>
+    </div>
+    <div class="additional_information name">
+            <?= $escaper->escapeHtml($catalog->getData('additional_info_2')) ?>
+    </div>
+    <br/>
+</div>
+<div style="page-break-before:always"></div>

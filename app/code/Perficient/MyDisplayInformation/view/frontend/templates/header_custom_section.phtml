@@ -1,0 +1,59 @@
+<?php
+/**
+ * This module is used by employee who can add/update his personal information which needs to display his customers
+ * @category: Magento
+ * @package: Perficient/MyDisplayInformation
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyDisplayInformation
+ */
+?>
+<?php
+$headerDisplay = $bodydisplay = $footerDisplay = '';
+$displayModel =  $block->getData('view_model');;
+$urlParam = $displayModel->previewForParentUrlParam();
+if($urlParam):
+    $params = $displayModel->previewForParent();
+    if(isset($params['preview']) && $params['preview']):
+        $responseData = $displayModel->getParentMydisplayPreview();
+        $headerDisplay = $responseData['header_mydisplayinformation'];
+        $bodydisplay = $responseData['body_mydisplayinformation'];
+        $footerDisplay = $responseData['footer_mydisplayinformation'];
+    endif;
+endif;
+?>
+<div class="mydisplayinformation_header_section" data-bind="scope: 'header_section'">
+    <?php if($headerDisplay != '' && $urlParam): ?>
+        <div><?php echo $headerDisplay; ?></div>
+    <?php else: ?>
+        <div data-bind="text: customsection().header_mydisplayinformation"></div>
+    <?php endif; ?>
+</div>
+<div class="mydisplayinformation_header_section" data-bind="scope: 'header_section'">
+    <?php if($bodydisplay != '' && $urlParam): ?>
+        <div><?php echo $bodydisplay; ?></div>
+    <?php else: ?>
+        <div data-bind="text: customsection().body_mydisplayinformation"></div>
+    <?php endif; ?>
+</div>
+<?php if($footerDisplay != '' && $urlParam): ?>
+    <div class="footer_mydisplay_info_preview" style="display:none" data-bind="scope: 'header_section'">
+        <div><?php echo $footerDisplay; ?></div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                    "header_section": {
+                    "component": "Perficient_MyDisplayInformation/js/section"
+                    }
+                }
+            }
+        }
+    }
+</script>

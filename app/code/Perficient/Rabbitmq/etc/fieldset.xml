@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Fields to map from quote to order table.
+
+* @category: Magento
+* @package: Perficient/Rabbitmq
+* @copyright: Copyright © 2021 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Rabbitmq
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="syspro_order_id">
+                <aspect name="to_order" />
+            </field>
+            <field name="syspro_customer_id">
+                <aspect name="to_order" />
+            </field>
+            <field name="syspro_salesrep">
+                <aspect name="to_order" />
+            </field>
+            <field name="customer_due_date">
+                <aspect name="to_order" />
+            </field>
+            <field name="has_dummy_product">
+                <aspect name="to_order" />
+            </field>
+            <field name="web_company_id">
+                <aspect name="to_order" />
+            </field>
+            <field name="syspro_salesrep_id">
+                <aspect name="to_order" />
+            </field>
+            <field name="syspro_order_entry_date">
+                <aspect name="to_order" />
+            </field>
+            <field name="requested_delivery_date">
+                <aspect name="to_order" />
+            </field>
+            <field name="expected_ship_date">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+        <fieldset id="quote_convert_item">
+            <field name="discount_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="base_discount_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="tax_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="base_tax_amount">
+                <aspect name="to_order_item" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

@@ -1,0 +1,95 @@
+<?php
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+
+/** @var \Perficient\Reports\Block\Adminhtml\Details $block */
+?>
+
+<?php
+$event = $block->getCurrentEvent();
+?>
+
+<div class="entry-edit form-inline">
+    <section class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('User Data')) ?></span>
+        </div>
+
+        <div id="log_details_fieldset" class="field log-details">
+            <table class="admin__table-secondary">
+                <colgroup>
+                    <col width="25%"/>
+                    <col/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th><?= $block->escapeHtml(__('User ID')) ?></th>
+                    <td>
+                        <?php if ($block->getEventUser()) : ?>
+                            #<?= $block->escapeHtml($event->getUserId()); ?>
+                        <?php else : ?>
+                            N/A
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?= $block->escapeHtml(__('User Name')) ?></th>
+                    <td>
+                        <?php if ($block->getEventUser()) : ?>
+
+                            <?php if($block->getUserType() == 'frontend'): ?>
+                                <a href="<?= $block->escapeUrl($block->getUrl(
+                                    'customer/index/edit',
+                                    [
+                                        'id' => $event->getUserId(),
+                                    ]
+                                )); ?>">
+                                    <?= $block->escapeHtml($event->getUser()); ?>
+                                </a>
+                             <?php else: ?>
+                            <a href="<?= $block->escapeUrl($block->getUrl(
+                                'adminhtml/user/edit',
+                                [
+                                    'user_id' => $event->getUserId(),
+                                ]
+                            )); ?>">
+                                <?= $block->escapeHtml($event->getUser()); ?>
+                            </a>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <?= $block->escapeHtml($event->getUser()); ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?= $block->escapeHtml(__('IP-Address')) ?></th>
+                    <td><?= $block->escapeHtml($block->getEventIp()) ?></td>
+                </tr>
+                <?php if ($block->getEventXForwardedIp()) : ?>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('X-Forwarded For')); ?></th>
+                        <td><?= $block->escapeHtml($block->getEventXForwardedIp()); ?></td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Related Changes')) ?></span>
+        </div>
+        <div class="field log-details-grid">
+            <?= $block->getChildHtml('details_grid') ?>
+        </div>
+    </section>
+</div>

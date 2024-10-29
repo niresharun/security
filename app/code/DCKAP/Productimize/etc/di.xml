@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * @author     DCKAP <extensions@dckap.com>
+  * @package    DCKAP_Productimize
+  * @copyright  Copyright (c) 2017 DCKAP Inc (http://www.dckap.com)
+  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="dckap_productimize_plugin_custom_layout" type="DCKAP\Productimize\Plugin\Layout" sortOrder="1" />
+    </type>
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="DCKAP_Productimize::Minicart_Changer" type="DCKAP\Productimize\Plugin\Minicart\Content" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer">
+        <plugin sortOrder="1" name="foo" type="DCKAP\Productimize\Plugin\Block\Cart\Item\RendererPlugin"/>
+    </type>
+    <preference for="Magento\Wishlist\Model\Wishlist" type="DCKAP\Productimize\Model\Rewrite\Model\Wishlist" />
+    <type name="Magento\Sales\Model\Reorder\Reorder">
+        <plugin sortOrder="1" name="reorder_addparams" type="DCKAP\Productimize\Model\Rewrite\Model\Reorder\Reorder"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin sortOrder="1" name="editquote_addparams" type="DCKAP\Productimize\Plugin\Model\Editquoteupdate"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit">
+        <plugin sortOrder="1" name="cartediturl_addeditid" type="DCKAP\Productimize\Plugin\Block\Cart\Item\Renderer\Actions\Edit"/>
+    </type>
+    <preference for="Magento\Checkout\CustomerData\DefaultItem" type="DCKAP\Productimize\Plugin\Rewrite\Checkout\CustomerData\DefaultItem" />
+    <type name="Magento\Wishlist\Helper\Data">
+        <plugin sortOrder="1" name="wishlistediturl_addeditid" type="DCKAP\Productimize\Plugin\Wishlist\Helper\Data"/>
+    </type>
+    <type name="Magento\Wishlist\Block\AbstractBlock">
+        <plugin sortOrder="1" name="setwishlistediturl_forproducturl" type="DCKAP\Productimize\Plugin\Wishlist\Block\AbstractBlock"/>
+    </type>
+   <type name="Magento\Checkout\Model\Cart">
+        <plugin name="customcart" type="DCKAP\Productimize\Plugin\CartPlugin" sortOrder="99999" />
+    </type>
+    <!--<type name="Magento\Quote\Model\Quote">
+        <plugin name="customcart" type="DCKAP\Productimize\Plugin\AddToCollectionPriceUpdate" sortOrder="99999" />
+    </type>-->
+    <preference for="Magento\Wishlist\Block\Cart\Item\Renderer\Actions\MoveToWishlist"
+                type="DCKAP\Productimize\Block\Wishlist\Block\Cart\Item\Renderer\Actions\MoveToWishlist" />
+</config>

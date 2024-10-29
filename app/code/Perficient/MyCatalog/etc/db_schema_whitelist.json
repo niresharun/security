@@ -1,0 +1,73 @@
+{
+    "perficient_customer_gallery_catalog": {
+        "column": {
+            "catalog_id": true,
+            "customer_id": true,
+            "wishlist_id": true,
+            "logo_image": true,
+            "catalog_title": true,
+            "name": true,
+            "phone_number": true,
+            "website_url": true,
+            "company_name": true,
+            "additional_info_1": true,
+            "additional_info_2": true,
+            "created_at": true,
+            "updated_at": true,
+            "price_on": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PERFICIENT_CSTR_GLR_CAT_CSTR_ID_CSTR_ENTT_ENTT_ID": true,
+            "PERFICIENT_CSTR_GLR_CAT_WISHLIST_ID_WISHLIST_WISHLIST_ID": true
+        }
+    },
+    "perficient_customer_catalog_template": {
+        "column": {
+            "template_id": true,
+            "template_name": true,
+            "template_file": true,
+            "template_drop_spots_count": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "perficient_customer_gallery_catalog_page": {
+        "column": {
+            "page_id": true,
+            "catalog_id": true,
+            "page_template_id": true,
+            "drop_spot_config": true,
+            "page_position": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_E0D579E65A7693B22D73E0C0007CDCD2": true,
+            "FK_34B0D310A29CC0EE3128FBEC0948095A": true
+        }
+    },
+    "perficient_customer_catalog_share": {
+        "column": {
+            "id": true,
+            "catalog_id": true,
+            "customer_id": true,
+            "price_multiplier": true,
+            "share_date": true
+        },
+        "index": {
+            "PERFICIENT_CSTR_CAT_SHARE_CUSTOMER_ID": true,
+            "PERFICIENT_CUSTOMER_CATALOG_SHARE_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PERFICIENT_CSTR_CAT_SHARE_CAT_ID_PERFICIENT_CSTR_GLR_CAT_CAT_ID": true,
+            "PERFICIENT_CSTR_CAT_SHARE_CAT_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "PERFICIENT_CSTR_CAT_SHARE_CATALOG_ID_CUSTOMER_ID": true,
+            "PERFICIENT_CSTR_CAT_SHARE_CSTR_ID_CSTR_ENTT_ENTT_ID": true,
+            "PERFICIENT_CUSTOMER_CATALOG_SHARE_CATALOG_ID_CUSTOMER_ID": true
+        }
+    }
+}

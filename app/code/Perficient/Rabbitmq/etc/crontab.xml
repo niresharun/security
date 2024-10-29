@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq email template
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: MOnika Nemade <monika.nemade@Perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="consumers">
+        <job name="consumers_runner" instance="Magento\MessageQueue\Model\Cron\ConsumersRunner" method="run" />
+    </group>
+	<group id="default">
+        <job name="surcharge_qty_update"
+             instance="Perficient\Rabbitmq\Cron\UpdateSurchargeQty" method="execute" />
+    </group>    
+</config>

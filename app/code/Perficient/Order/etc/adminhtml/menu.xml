@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Added to handle product surcharge if minimum order amount not met by customer
+* @category: Magento
+* @package: Perficient/Order
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Order
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Order::perficient_order_manager"
+             title="Order Surcharge"
+             module="Perficient_Order"
+             sortOrder="10"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_Order"
+             resource="Perficient_Order::perficient_order_manager"/>
+        <add id="Perficient_Order::perficient_order_settings"
+             title="Order Surcharge Settings"
+             module="Perficient_Order"
+             sortOrder="60"
+             parent="Perficient_Order::perficient_order_manager"
+             action="adminhtml/system_config/edit/section/order"
+             resource="Perficient_Order::perficient_order_settings"/>
+    </menu>
+</config>

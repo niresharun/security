@@ -1,0 +1,30 @@
+<!--
+/**
+ *
+ * This file used to add autocomplete
+ *
+ * @category: Magento
+ * @package: Perficient/UI
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient UI
+ */
+-->
+
+<textarea autocomplete="on" class="admin__control-textarea" data-bind="
+    value: value,
+    valueUpdate: valueUpdate,
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        cols: cols,
+        rows: rows,
+        'aria-describedby': getDescriptionId(),
+        placeholder: placeholder,
+        id: uid,
+        disabled: disabled
+    }"
+        />

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Home, footer page related xml changes
+ * @category: Magento
+ * @package: Perficient/Magento_theme
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Magento_theme
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.container">
+            <block name="mydisplayinformation_header_section" class="Magento\Framework\View\Element\Template" template="Perficient_MyDisplayInformation::header_custom_section.phtml" after="-" >
+                <arguments>
+                    <argument name="view_model"
+                              xsi:type="object">Perficient\MyDisplayInformation\ViewModel\MyDisplayInformation</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+            <block class="Magento\Cms\Block\Block" name="footer_static_links">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_static_links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="footer_links" remove="true"/>
+
+        <referenceContainer name="footer">
+            <block class="Magento\Cms\Block\Block" name="basket_rent" after="form.subscribe">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-newsletter-text</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Template" name="footer.page.links" template="Magento_Theme::html/header/header-top.phtml" before="-">
+                <block class="Magento\Cms\Block\Block" name="header-top-text" as="header-top-text">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-top-left</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <move element="header" destination="header.links" after="register.company.link"/>
+        <move element="customer" destination="header.links" after="header"/>
+
+        <referenceBlock name="currency" remove="true"/>
+        <!--remove compare from search listing-->
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true" />
+        <referenceBlock name="catalogsearch.product.addto.compare" remove="true"/>
+        <referenceBlock name="category.product.addto.compare" remove="true"/>
+        <referenceBlock name="crosssell.product.addto.compare" remove="true" />
+        <referenceBlock name="related.product.addto.compare" remove="true" />
+        <referenceBlock name="upsell.product.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="authentication-popup" remove="true"/>
+        <!--move navigation after logo -->
+        <move element="navigation.sections" destination="header-wrapper" after="logo"/>
+        <referenceBlock name="store_language" remove="true" />
+        <referenceBlock name="quick-ship" remove="true" />
+        <referenceBlock name="store.settings" remove="true" />
+        <referenceContainer name="header.container">
+            <referenceBlock name="catalog.compare.link" remove="true"/>
+        </referenceContainer>
+        <move element="copyright" destination="footer-container"/>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_width" xsi:type="number">0</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="top.links">
+            <referenceBlock name="company.link" remove="true" />
+            <referenceBlock name="invitation_link_top" remove="true" />
+        </referenceBlock>
+        <!--Remove Settings Tab in Mobile Menu -->
+        <referenceBlock name="am.store.settings" remove="true" />
+        <!--Remove Recently Order Section-->
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="mydisplayinformation_footer_section"
+                   template="Perficient_MyDisplayInformation::footer_custom_section.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceContainer name="header.container">
+            <container name="header.block.panel" htmlClass="panel header text" htmlTag="div" after="header.panel.wrapper">
+                <block class="Magento\Cms\Block\Block" name="header_top_text">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-top-text</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="header">
+            <arguments>
+                <argument name="view_model"
+                          xsi:type="object">Wendover\FindYourRep\ViewModel\Rep</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

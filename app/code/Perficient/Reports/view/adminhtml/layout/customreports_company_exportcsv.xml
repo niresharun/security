@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customreports_company_changereport_block"/>
+    <body>
+        <block class="Magento\Backend\Block\Widget\Grid\Container" name="changereports.company.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+    </body>
+</page>

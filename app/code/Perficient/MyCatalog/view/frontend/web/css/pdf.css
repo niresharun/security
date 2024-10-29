@@ -1,0 +1,201 @@
+body {margin: 0; padding:0;}
+.mycatalog_placeholder {width: 300px; height: 200px; background-color: #eee; text-align: center; font-family: Arial; font-size: 64px; color: #a4a4a4; }
+.mycatalog_placeholder div { padding-top: 90px; }
+#mycatalog_front_form label { width: 150px; display: inline-block; }
+.right { float: right }
+.right:hover { float: right }
+.right_link { float: right; padding-right: 15px; }
+#mycatalog_front_form input { margin: 0; }
+.wendover_template_select { width: 120px; padding: 5px; }
+.wendover_template_select { float: left;}
+.wendover_template { float: left; width: 638px; height: 770px; background-color: #F6F6F6; margin-left: 20px;}
+.wendover_template_content { width: 638px; height: 770px; position: relative; }
+#wendover_gallery {width: 100%; height: 1180px; position: relative; }
+#wendover_header { height: 100px; width: 100%; overflow-x: scroll; overflow-y: none; margin-bottom: 40px; }
+#wendover_footer { width: 100%; margin: 20px 0 40px 0; }
+.wendover_page_thumb { float: left; padding: 0 5px;}
+.wendover_page_thumbnails { margin: 0; }
+.wendover_page_thumbnails li { float: left; display: block; text-align: center; padding: 0 5px; margin: 0; }
+.wendover_page_thumbnails li.active { background-color: #eee; }
+.wendover_thumb { position: absolute; }
+.draggable { width: 158px; position: relative; }
+.modal { display: block; position: fixed; z-index: 999999999; top: 0; left: 0; height: 100%; width: 100%; background: rgba( 255, 255, 255, .8 ) url('../mycatalog/images/loading.gif') 50% 50%  no-repeat; }
+.placeholder { width: 100%; margin: 0 auto; height: 170px; background-color: #eee; margin-top: 10px; border: dashed; padding: 15px; }
+.image_placeholder { position: relative; width: 158px; float: left; }
+.wendover_template_buttons { float: right; }
+.wendover_template_buttons li { padding-bottom: 37px; }
+.wendover_template_buttons li button { width: 100px; }
+
+.pdf-first-page
+{
+    background-color: #fff;
+    width: 849px;
+    height: 1099px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.pdf-logo {
+    margin: 70px 0 40px 0;
+}
+
+hr
+{
+    width: 80%;
+    margin: 0 auto;
+    border-color: #000;
+    border-width: 1px 0 0 0;
+}
+
+.pdf-first-page .title
+{
+    font-family: 'Source Sans Pro';
+    margin: 20px auto;
+    width: 60%;
+    font-size: 42px;
+    text-align: center;
+    font-weight: 200;
+}
+
+.pdf-first-page .name
+{
+    font-family: 'Source Sans Pro';
+    margin: 0 auto;
+    width: 60%;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 200;
+}
+
+.pdf-last-page
+{
+    font-family: 'Source Sans Pro';
+    font-size: 15px;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* PDF Templates */
+/* Dropspots */
+.dropspot {
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 350px;
+    height: 350px;
+    background-color: #fff;
+    text-align:center;
+    position: relative;
+    float:left;
+    margin:50px 0 0 50px;
+}
+.dropspot .img-holder {
+    width:100%;
+    height:100%;
+}
+.dropspot img {
+    width: auto;
+    height: auto;
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    left: 0;
+    top: 0;
+    bottom:0;
+    right:0;
+    margin:auto;
+    display:block;
+}
+
+.page_number {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    bottom: 20px;
+    left: 0;
+    font-size: 19px;
+}
+
+.dropspot_number {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+}
+
+.art-description-section {
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    bottom: 40px;
+    clear: both;
+    height: 210px;
+    margin-top: 50px;
+    position: absolute;
+    width: 90%;
+    left:5%;
+    right:5%;
+    overflow:hidden;
+}
+.dropspot_desc {
+    width: 171px;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #888;
+    float:left;
+}
+
+.dropspot_desc .pricebox-container { font-weight: bold; }
+
+.sidemark-desc {
+    overflow: hidden;
+}
+
+.wendover_template_canvas { background-image: url('../mycatalog/images/first.png'); position: relative; width: 849px; height: 1099px; background-repeat: no-repeat; }
+
+/* 1 */
+/* Quarters */
+.wendover_template1 .dropspot { }
+
+/* 2 */
+/* Single Full */
+.wendover_template2 .dropspot { width:750px; height:750px;}
+.wendover_template2 .dropspot_1_desc { margin-left:303px; }
+
+.wendover_template2 .dropspot_desc:first-child { margin-left:300px; }
+
+/* 3 */
+/* Top Left and Right Quarters and Bottom Half */
+.wendover_template3 .dropspot_number_3 { width: 750px; height: 350px; }
+
+/* 4 */
+/* Top Half and Bottom Left and Right Quarters */
+.wendover_template4 .dropspot_number_1 { width: 750px; height: 350px; }
+
+/* 5 */
+/* Left Half and Top and Bottom Right Quarters */
+.wendover_template5 .dropspot_number_1 { width: 350px; height: 750px; }
+
+/* 6 */
+/* Right Half and Top and Bottom Left Quarters */
+.wendover_template6 .dropspot_number_3 { width: 350px; height: 750px;}
+.wendover_template6 .misc-organizer { width: 400px; float:left; }
+
+/* any three dropspot templates */
+.wendover_template3 .dropspot_desc:first-child,
+.wendover_template4 .dropspot_desc:first-child,
+.wendover_template5 .dropspot_desc:first-child { margin-left:100px; }
+
+/* 7 */
+/* Left and Right Halves */
+.wendover_template7 .dropspot { width: 350px; height: 750px;}
+
+/* 8 */
+/* Top and Bottom Halves */
+.wendover_template8 .dropspot { width: 750px; height: 350px; }
+
+/* any three dropspot templates */
+.wendover_template7 .dropspot_desc:first-child,
+.wendover_template8 .dropspot_desc:first-child { margin-left:200px; }

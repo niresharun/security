@@ -1,0 +1,34 @@
+<?php
+/**
+ * Render Sub-categories
+ * @category: Magento
+ * @package: Perficient/Perficient_Catalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Catalog
+ */
+
+/** @var \Perficient\Catalog\Block\SubCategoryGrid $block */
+
+$subcategories = $block->getChildCategories()?>
+
+<?php if (!empty($subcategories)): ?>
+    <ul id="subcat-grid">
+        <?php foreach($subcategories as $subcategory): ?>
+            <li>
+                <a href="<?php echo $block->escapeUrl($subcategory['url']) ?>">
+                    <?php if (!empty($subcategory['image'])): ?>
+                        <div class="image">
+                            <img alt="" width="135" height="135"
+                                 src="<?php echo $block->escapeUrl($subcategory['image']) ?>"/>
+                        </div>
+                    <?php endif; ?>
+                    <span><?php echo $block->escapeHtmlAttr($subcategory['name']) ?></span>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

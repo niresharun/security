@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="company_reports" translate="label" type="text" sortOrder="103" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Reports Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Reports::perficient_reports</resource>
+
+            <group id="company_changes_cron" translate="label" type="text" sortOrder="50"  showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="0">
+                <label>Company Change Log Removal Cron</label>
+                <group id="cron_settings" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cron Settings</label>
+                    <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                           showInStore="0">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <group id="cron_schedule" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Cron Schedule</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                        <field id="frequency" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Frequency</label>
+                            <source_model>Perficient\Reports\Model\Cron\Source\Frequency</source_model>
+                            <backend_model>Perficient\Reports\Model\Cron\CompanyChangeLogCleanup</backend_model>
+                        </field>
+                        <field id="week_day" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Week Day</label>
+                            <source_model>Perficient\Reports\Model\Cron\Source\Weekdays</source_model>
+                            <depends>
+                                <field id="frequency">W</field>
+                            </depends>
+                        </field>
+                        <field id="month_day" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Day of Month</label>
+                            <comment>Month day value in integer from 1-31</comment>
+                            <source_model>Perficient\Reports\Model\Cron\Source\MonthDate</source_model>
+                            <depends>
+                                <field id="frequency">M</field>
+                            </depends>
+                        </field>
+                        <field id="time" translate="label" type="time" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Start Time</label>
+                        </field>
+                        <field id="endtime" translate="label" type="time" sortOrder="6" showInDefault="1" showInWebsite="0"
+                               showInStore="0">
+                            <label>End Time</label>
+                            <depends>
+                                <field id="frequency" separator=",">5M,10M,15M,30,1H,2H,4H,6H,8H</field>
+                            </depends>
+                        </field>
+                    </group>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

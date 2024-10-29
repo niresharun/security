@@ -1,0 +1,84 @@
+.catalog-product-view {
+    .product-info-main {
+      .vir-img-container {
+        margin: 4em auto;
+        z-index: 100000;
+        position: relative;
+
+          span {
+              color: #ffffff;
+              float: right;
+              cursor: pointer;
+          }
+
+      }
+      .vir-popup {
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+      }
+      .vir_art {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+  }
+
+    .product-info-main{
+            .vir-button-container {
+                float: right;
+                position: relative;
+                bottom: 1em;
+
+                button {
+                    padding: 0 10px 0 30px;
+                    font-size: 12px;
+                    min-height: 37px;
+                    min-width: 124px;
+                    border: 1px solid #d8d9d7;
+                    background: #fff;
+                    color: #757063;
+
+                    .fa-eye {
+                        position: relative;
+                    }
+
+                    .fa-eye::before {
+                        width: 20px;
+                        height: 20px;
+                        background-image: url(../images/icon_view_in_room.svg);
+                        content: '';
+                        position: absolute;
+                        top: -15px;
+                        left: -25px;
+                    }
+                }
+            }
+
+        .vir-button-container.has-price{
+            float: right;
+            position: relative;
+            bottom: 2.5em;
+        }
+
+        @media screen and (max-width: (@screen__l)){
+            .vir-button-container.no-price {
+                float: none;
+                position: static;
+                bottom: 0;
+            }
+        }
+
+        @media screen and (max-width: (@screen__xs)) {
+            .vir-button-container {
+                float: none;
+                position: static;
+                bottom: 0;
+            }
+        }
+    }
+}

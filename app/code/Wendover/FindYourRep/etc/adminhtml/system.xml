@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="find_your_rep" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Find Your Rep</label>
+            <tab>wendover</tab>
+            <resource>Wendover_FindYourRep::wendover_findyourrep</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="no_rep_text" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rep Not Available Text</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

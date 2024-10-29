@@ -1,0 +1,21 @@
+#!groovy​
+
+pipeline {
+    agent any
+
+    environment {
+        DEPLOY_HOST = '52.150.36.202'
+        DEPLOY_USER = 'zdeploy'
+    }
+
+    stages {
+        stage('CDN-Deploy') {
+            steps {
+                script {
+                sh "ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST sudo /bin/bash /home/$DEPLOY_USER/CDN_Purge.sh" 
+				}
+			}
+		}
+	}
+
+}

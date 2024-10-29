@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_Wishlist
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Wishlist\Controller\Index\Update">
+        <plugin name="wishlist_collaborate" type="Perficient\Wishlist\Plugin\WishlistUpdatePlugin"/>
+    </type>
+    <type name="Magento\Wishlist\Controller\Index\Add">
+        <plugin name="add_to_collaboration" type="Perficient\Wishlist\Plugin\WishlistAddPlugin"/>
+    </type>
+    <type name="Magento\Wishlist\Helper\Data">
+        <plugin name="wishlist_update_params" type="Perficient\Wishlist\Plugin\DataPlugin"/>
+    </type>
+    <type name="Magento\Wishlist\Controller\Index\Allcart">
+        <plugin name="wishlist_redirect" type="Perficient\Wishlist\Plugin\AllcartPlugin"/>
+    </type>
+
+    <preference for="Magento\Wishlist\Controller\WishlistProvider"
+                type="Perficient\Wishlist\Controller\WishlistProvider" />
+
+    <preference for="Magento\MultipleWishlist\CustomerData\MultipleWishlist"
+                type="Perficient\Wishlist\CustomerData\MultipleWishlist" />
+
+    <preference for="Magento\MultipleWishlist\Block\Customer\Wishlist\Item\Column\Management"
+                type="Perficient\Wishlist\Block\Customer\Wishlist\Item\Column\Management" />
+
+    <preference for="Magento\Customer\Block\Account\SortLink"
+                type="Perficient\Wishlist\Block\Customer\Account\CurrentLink" />
+
+    <preference for="Magento\Wishlist\Controller\Index\UpdateItemOptions"
+                type="Perficient\Wishlist\Controller\Index\UpdateItemOptions" />
+
+    <preference for="Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart"
+                type="Perficient\Wishlist\Block\Customer\Wishlist\Item\Column\Cart" />
+
+    <preference for="Magento\MultipleWishlist\Controller\Index\Add"
+                type="Perficient\Wishlist\Controller\MultipleWishlist\Add" />
+
+    <preference for="Magento\Wishlist\Controller\Index\Add"
+                type="Perficient\Wishlist\Controller\Index\Add" />
+
+    <preference for="Magento\Wishlist\Controller\Index\Update"
+                type="Perficient\Wishlist\Controller\Index\Update" />
+
+    <preference for="Magento\Wishlist\Controller\Index\Cart"
+                type="Perficient\Wishlist\Controller\Index\Cart" />
+
+
+</config>

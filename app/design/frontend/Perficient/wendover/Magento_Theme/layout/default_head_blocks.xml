@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Custom font added
+ * @category: Magento
+ * @package: Perficient/Magento_theme
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Custom font added
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Add external resources -->
+        <font src="fonts/opensans/regular/opensans-400.woff2"/>
+        <font src="fonts/Luma-Icons.woff2"/>
+        <font src="Magento_PageBuilder/fonts/pagebuilder-icons/pagebuilder-icons.woff"/>
+<!--    <link rel="stylesheet"  src="https://use.typekit.net/psr7fuo.css" src_type="url"  type="text/css"/>-->
+        <font src="Wend_Font/myriad-pro-400.woff2"/>
+        <font src="Wend_Font/garamond-premier-pro-400.woff2"/>
+        <font src="Wend_Font/myriad-pro-semiextended-400.woff2"/>
+        <font src="Wend_Font/cormorant-garamond-400.woff2"/>
+<!--    <font src="Wend_Font/myriad-pro-600.woff2"/>
+        <font src="Wend_Font/myriad-pro-700.woff2"/>
+        <font src="Wend_Font/myriad-pro-300.woff2"/>
+        <font src="Wend_Font/garamond-premier-pro-600.woff2"/>
+        <font src="Wend_Font/garamond-premier-pro-700.woff2"/>
+        <font src="Wend_Font/myriad-pro-semiextended-700.woff2"/>
+        <font src="Wend_Font/cormorant-garamond-700.woff2"/>
+-->
+
+        <font src="Wend_Font/Norms-Regular.woff2"/>
+        <font src="Wend_Font/Norms-Bold.woff2"/>
+    </head>
+</page>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Remove gift card on checkout
+ *
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <sachin.badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Checkout
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+    <link src="Perficient_Checkout::js/add-collection-plp.js"/>
+</head>
+</page>

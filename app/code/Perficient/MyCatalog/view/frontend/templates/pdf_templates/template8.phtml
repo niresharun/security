@@ -1,0 +1,48 @@
+<?php
+/**
+ * File to create/update artwork catalog.
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$templateData = $this->getData('templateData');
+$images = $templateData['images'];
+$data = $templateData['data'];
+$page = $templateData['page'];
+?>
+<!--  Two wide halves -->
+
+<div class="wendover_template_canvas wendover_template8">
+	<div class="page_number">Page <?php echo $page; ?></div>
+
+    <?php for ($counter = 1; $counter <= 2; $counter++): ?>
+        <div class="dropspot dropspot_number_<?= $counter; ?>">
+            <div class="img-holder" id="<?= uniqid(); ?>" rel="<?= $counter; ?>">
+                <?php if (isset($data['dropspot_' . $counter]['item_id']) ) :
+                    $_pId = $data['dropspot_' . $counter]['item_id']; ?>
+                    <img src="<?php echo $block->getImage($_pId, $images, true); ?>" class="art-img <?php echo $_pId; ?> dropspot-size-type-1" alt="<?php echo $_pId; ?>"/>
+                <?php endif; ?>
+            </div>
+            <div class="dropspot_number dropspot_number_<?= $counter; ?>"><?php if (isset($data['dropspot_' . $counter]['item_id'])): ?>(<?= $counter; ?>)<?php endif; ?></div>
+        </div>
+    <?php endfor; ?>
+
+    <div class="art-description-section">
+        <?php for ($counter = 1; $counter <= 2; $counter++): ?>
+            <div class="dropspot_<?= $counter; ?>_desc dropspot_desc">
+                <?php echo (isset($data['dropspot_' . $counter]['item_id']) && isset($images[$data['dropspot_' . $counter]['item_id']]['desc'])) ? '('. $counter .')<br/>'.$images[$data['dropspot_' . $counter]['item_id']]['desc'] : '' ?>
+            </div>
+        <?php endfor; ?>
+    </div>
+</div>
+<div style="page-break-before:always"></div>

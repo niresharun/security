@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Rabbitmq">
+        <sequence>
+            <module name="Magento_Sales"/>
+            <module name="Perficient_Company"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Defines Dependency for overidden features
+ *
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Cron\Observer\ProcessCronQueueObserver" type="Perficient\CronScheduler\Model\Cron\Observer\ProcessCronQueueObserver" />
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="perficientCronSchedulerRun" xsi:type="object">Perficient\CronScheduler\Console\Command\Runjob</item>
+                <item name="perficientCronSchedulerShow" xsi:type="object">Perficient\CronScheduler\Console\Command\Showjobs</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

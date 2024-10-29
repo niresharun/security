@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Sachin Badase <sachin.badase@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_RequisitionList
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_RequisitionList">
+        <sequence></sequence>
+    </module>
+</config>

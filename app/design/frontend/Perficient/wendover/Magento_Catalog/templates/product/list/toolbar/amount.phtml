@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+$currentUrl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+
+if (preg_match("/catalogsearch\/result/", $currentUrl)) {
+    $totalNum = $block->getCollection()->getSize();
+    $lastNum = $block->getLimit();
+} else {
+    $totalNum = $block->getTotalNum();
+}
+?>
+<p class="toolbar-amount" id="toolbar-amount">
+    <?php if ($totalNum > 1) :?>
+        <?= $block->escapeHtml(
+            __(
+                '%1-%2 of %3 Items',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($block->getFirstNum()) . '</span>',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($block->getLastNum()) . '</span>',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($totalNum) . '</span>'
+            ),
+            ['span']
+        ) ?>
+    <?php else :?>
+        <?= $block->escapeHtml(
+            __(
+                '%1-%2 of %3 Items',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($block->getFirstNum()) . '</span>',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($block->getLastNum()) . '</span>',
+                '<span class="toolbar-number">' . $localeFormatter->formatNumber($totalNum) . '</span>'
+            ),
+            ['span']
+        )
+        ?>
+    <?php endif; ?>
+</p>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Fixing MailChimp Core Bug
+ *
+ * @category: PHP
+ * @package: Perficient/Customer
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <sachin.badase@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Customer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Ebizmarts\MailChimp\Model\Api\Subscriber"
+                type="Perficient\MailChimp\Model\Api\Subscriber"/>
+    <preference for="Ebizmarts\MailChimp\Model\Api\Customer"
+                type="Perficient\MailChimp\Model\Api\Customer"/>
+  <type name="Magento\Sales\Model\Order\ShipmentRepository">
+        <plugin name="mailchimp_save_shipment" type="Ebizmarts\MailChimp\Model\Plugin\Ship" disabled="true"/>
+    </type>
+
+    <type name="Magento\Sales\Model\Order\InvoiceRepository">
+        <plugin name="mailchimp_save_invoice" type="Ebizmarts\MailChimp\Model\Plugin\Invoice" disabled="true"/>
+    </type>
+
+    <type name="Magento\Sales\Model\Order\CreditmemoRepository">
+        <plugin name="mailchimp_save_creditmemo" type="Ebizmarts\MailChimp\Model\Plugin\Creditmemo" disabled="true"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Coupon">
+        <plugin name="mailchimp-coupon" type="Ebizmarts\MailChimp\Model\Plugin\Coupon" disabled="true"/>
+    </type>
+</config>

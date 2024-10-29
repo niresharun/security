@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * DB schema to maintain global template of roles permission for all customers
+ *
+ * @category: Magento
+ * @package: Perficient/RolesPermission
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Wendover
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords: global template of roles permission
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Perficient Company Roles DB Schema -->
+    <table name="perficient_company_roles" resource="default" engine="innodb" comment="Roles Table">
+        <column xsi:type="int" name="role_id" unsigned="true" nullable="false" identity="true"
+                comment="Primary Role ID"/>
+        <column xsi:type="varchar" name="role_name" nullable="true" length="40" comment="Company role name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="role_id"/>
+        </constraint>
+    </table>
+
+    <!-- Company template DB Schema -->
+    <table name="perficient_company_templates" resource="default" engine="innodb" comment="Perficient Company Template">
+        <column xsi:type="int" name="permission_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Permission Id"/>
+        <column xsi:type="int" name="role_id" padding="10" unsigned="true" nullable="false" comment="Role Id"/>
+        <column xsi:type="varchar" name="resource_id" length="80" comment="Resource Id"/>
+        <column xsi:type="varchar" name="permission" length="80" comment="Permission"/>
+        <column xsi:type="int" name="is_update" unsigned="true" nullable="true" comment="Is Update Needed"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="permission_id"/>
+        </constraint>
+    </table>
+</schema>

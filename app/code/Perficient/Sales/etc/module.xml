@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Modify Customer Account Sales Order Navigation
+ * @category: Magento
+ * @package: Perficient/Sales
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Sales
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Sales" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Sales"/>
+            <module name="Magento_OrderHistorySearch"/>
+        </sequence>
+    </module>
+</config>

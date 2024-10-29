@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq related settings.
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @project: Wendover
+ * @keywords:  Rabbitmq related settings.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="rabbitmq" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>RabbitMQ Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Rabbitmq::perficient_rabbitmq</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Configuration</label>
+                <field id="enable_email_notification" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable Emails Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_logging_in_file" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable Logging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="recipient_email" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Send Error Emails To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="sender_email_identity" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="enable_logging_for_incoming_messages" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Logging For Incoming Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_logging_for_outgoing_messages" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Logging For Outgoing Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_order_sync_detailed_log" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Order Sync Detailed Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="product" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Product Import</label>
+                <field id="images_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Product Images Path</label>
+                    <comment>The path must be relative to 'pub/media/'</comment>
+                </field>
+            </group>
+            <group id="cron_settings" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Cron Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="frequency" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\Frequency</source_model>
+                    <backend_model>Perficient\Rabbitmq\Model\Cron\Backend\Cron</backend_model>
+                </field>
+                <field id="week_day" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Week Day</label>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\Weekdays</source_model>
+                    <depends>
+                        <field id="frequency">W</field>
+                    </depends>
+                </field>
+                <field id="month_day" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Day of Month</label>
+                    <comment>Month day value in integer from 1-31</comment>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\MonthDate</source_model>
+                    <depends>
+                        <field id="frequency">M</field>
+                    </depends>
+                </field>
+                <field id="time" translate="label" type="time" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Start Time</label>
+                </field>
+                <field id="endtime" translate="label" type="time" sortOrder="6" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>End Time</label>
+                    <depends>
+                        <field id="frequency" separator=",">5M,10M,15M,30,1H,2H,4H,6H,8H</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="surcharge_qty_cron_settings" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Surcharge Qty Cron Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="frequency" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\Frequency</source_model>
+                    <backend_model>Perficient\Rabbitmq\Model\Cron\Backend\SurchargeQtyCron</backend_model>
+                </field>
+                <field id="week_day" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Week Day</label>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\Weekdays</source_model>
+                    <depends>
+                        <field id="frequency">W</field>
+                    </depends>
+                </field>
+                <field id="month_day" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Day of Month</label>
+                    <comment>Month day value in integer from 1-31</comment>
+                    <source_model>Perficient\Rabbitmq\Model\Cron\Source\MonthDate</source_model>
+                    <depends>
+                        <field id="frequency">M</field>
+                    </depends>
+                </field>
+                <field id="time" translate="label" type="time" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Start Time</label>
+                </field>
+                <field id="endtime" translate="label" type="time" sortOrder="6" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>End Time</label>
+                    <depends>
+                        <field id="frequency" separator=",">5M,10M,15M,30,1H,2H,4H,6H,8H</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

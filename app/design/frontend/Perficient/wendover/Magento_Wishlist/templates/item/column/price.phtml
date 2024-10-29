@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Perficient\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$buyRequest = $item->getBuyRequest();
+if (isset($buyRequest['edit_id']) && !empty($buyRequest['edit_id']) &&
+    isset($buyRequest['configurator_price']) && !empty($buyRequest['configurator_price'])):
+    $priceData = $block->getConfigratorItemPrice($buyRequest['configurator_price']);
+    ?>
+    <div class="price-box price-configured_price" data-role="priceBox" data-product-id="<?= $item->getProductId(); ?>" data-price-box="product-id-<?= $item->getProductId(); ?>">
+        <div class="price-container price-final_price">
+            <ul class="prices hide" style="display: block;">
+                <li><span class="strikeout-price-wrapper strikeout-price-wrapper-<?= $item->getProductId(); ?>" style="text-decoration: line-through"><?= $priceData['strikeout_price']; ?></span></li>
+                <li><label>Your Price:</label><span class="price"><?= $priceData['display_price']; ?></span></li>
+            </ul>
+        </div>
+    </div>
+<?php else: ?>
+    <?php foreach ($block->getChildNames() as $childName) : ?>
+        <?php $block->getChildBlock($childName)->setProduct($block->getProduct()) ?>
+        <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false) ?>
+    <?php endforeach;?>
+<?php endif; ?>

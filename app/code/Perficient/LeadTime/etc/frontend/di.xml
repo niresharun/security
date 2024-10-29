@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * File used to add plugin/preference based on the requirement.
+ *
+ * @category: XML
+ * @package: Perficient/LeadTime
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_LeadTime LeadTime Quote
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- For override the getConfig() method to add lead-time message -->
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="add_lead_time_in_config"
+                type="Perficient\LeadTime\Plugin\UpdateDefaultConfigForLeadTime"/>
+    </type>
+</config>

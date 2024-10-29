@@ -1,0 +1,30 @@
+{
+  "name": "perficient/module-core",
+  "description": "Perficient module for handling Basic changes",
+  "require": {
+    "php": "~7.1.3||~7.2.0",
+    "magento/framework": "102.0.*",
+    "magento/module-store": "101.0.*"
+  },
+  "type": "magento2-module",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Perficient\\Core\\": ""
+    }
+  },
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Perficient/Core"
+      ]
+    ]
+  }
+}

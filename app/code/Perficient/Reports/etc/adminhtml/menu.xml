@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Reports::perficient_company_report"
+             title="Wendover"
+             module="Perficient_Reports"
+             sortOrder="30"
+             parent="Magento_Reports::report"
+             dependsOnModule="Perficient_Reports"
+             resource="Perficient_Reports::wendover"/>
+        <add id="Perficient_Reports::perficient_company_change_report"
+             title="Company Change Report"
+             module="Perficient_Reports"
+             sortOrder="10"
+             parent="Perficient_Reports::perficient_company_report"
+             action="customreports/company/changereport"
+             resource="Perficient_Reports::perficient_company_change_report"/>
+        <add id="Perficient_Reports::perficient_crm_application_report"
+             title="CRM Reports"
+             module="Perficient_Reports"
+             sortOrder="15"
+             parent="Perficient_Reports::perficient_company_report"
+             action="customreports/crm/reports"
+             resource="Perficient_Reports::perficient_crm_application_report"
+             target="_blank"/>
+
+        <add id="Perficient_Reports::perficient_report"
+             title="Reports"
+             module="Perficient_Reports"
+             sortOrder="80"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_Reports"
+             resource="Perficient_Reports::perficient_report"/>
+        <add id="Perficient_Reports::perficient_report_setting"
+             title="Report Settings"
+             module="Perficient_Reports"
+             sortOrder="90"
+             parent="Perficient_Reports::perficient_report"
+             action="adminhtml/system_config/edit/section/company_reports"
+             resource="Perficient_Reports::perficient_report_setting"/>
+    </menu>
+</config>

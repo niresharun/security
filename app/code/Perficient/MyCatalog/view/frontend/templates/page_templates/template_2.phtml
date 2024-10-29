@@ -1,0 +1,29 @@
+<?php
+/**
+ * File to create/update artwork catalog.
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$templateData = $this->getData('templateData');
+$images = $templateData['images'];
+$data   = $templateData['data'];
+?>
+<!--  Full Page single -->
+
+<div id="wendover_template2" class="wendover_template_canvas">
+	<div class="page_number"></div>
+	<div class="dropspot droppable dropspot_1" id="dropspot_1" rel="1"><?php echo isset($data['dropspot_1']['item_id']) ? $block->getImage($data['dropspot_1']['item_id'], $images) : '' ?></div>
+    <div class="dropspot_number dropspot_number_1">(1)</div>
+    <div class="dropspot_1_desc dropspot_desc"><?php echo (isset($data['dropspot_1']['item_id']) && isset($images[$data['dropspot_1']['item_id']]['desc'])) ? '(1)<br/>'.$images[$data['dropspot_1']['item_id']]['desc'] : '' ?></div>
+</div>

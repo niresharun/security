@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to update all the roles in company roles table when roles and permission get updated
+ *
+ * @category: Magento
+ * @package: Perficient/RolesPermission
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sreedevi Selvaraj <Sreedevi.Selvaraj@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_RolesPermission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rolespermissions>
+            <cron_settings>
+                <enabled>1</enabled>
+                <cron_schedule>*/5 * * * *</cron_schedule>
+            </cron_settings>
+        </rolespermissions>
+    </default>
+</config>

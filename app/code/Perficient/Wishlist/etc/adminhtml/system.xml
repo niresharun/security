@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Admin configuration for collaboration
+ * @category: Magento
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_Wishlist
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="collaboration" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Wishlist Collaboration Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Wishlist::perficient_wishlist</resource>
+            <group id="email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Collaboration Configuration</label>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

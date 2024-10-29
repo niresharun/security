@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Checkout Addresses.
+* @category: Magento
+* @package: Perficient/Checkout
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Checkout
+*/
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_address" resource="checkout" comment="Sales Flat Quote Address">
+        <column xsi:type="text" name="order_shipping_notes" nullable="true"
+                comment="Order/Shipping Notes"/>
+        <column xsi:type="varchar" name="receiver_name" nullable="true" length="255" comment="Receiver Name"  disabled="true"/>
+        <column xsi:type="varchar" name="receiver_telephone" nullable="true" length="255" comment="Receiver Telephone" disabled="true"/>
+        <column xsi:type="varchar" name="receiving_hours" nullable="true" length="255" comment="Receiving Hours" disabled="true"/>
+        <column xsi:type="int" name="location" nullable="true" comment="Location"/>
+        <column xsi:type="int" name="delivery_appointment" comment="Delivery Appointment Required"/>
+        <column xsi:type="int" name="loading_dock_available" comment="Loading Dock Available"/>
+    </table>
+    <table name="sales_order_address" resource="checkout" comment="Sales Flat Quote Address">
+        <column xsi:type="text" name="order_shipping_notes" nullable="true"
+                comment="Order/Shipping Notes"/>
+        <column xsi:type="varchar" name="receiver_name" nullable="true" length="255" comment="Receiver Name" disabled="true"/>
+        <column xsi:type="varchar" name="receiver_telephone" nullable="true" length="255" comment="Receiver Telephone" disabled="true"/>
+        <column xsi:type="varchar" name="receiving_hours" nullable="true" length="255" comment="Receiving Hours" disabled="true"/>
+        <column xsi:type="int" name="location" nullable="true" comment="Location"/>
+        <column xsi:type="int" name="delivery_appointment" comment="Delivery Appointment Required"/>
+        <column xsi:type="int" name="loading_dock_available" comment="Loading Dock Available"/>
+    </table>
+
+    <table name="sales_order" resource="sales" comment="Sales Flat Order">
+        <column xsi:type="text" name="lead_time" nullable="true"
+                comment="Lead Time"/>
+        <column xsi:type="varchar" name="syspro_order_id" nullable="true" length="32"
+                comment="Syspro Order Id"/>
+        <column xsi:type="varchar" name="syspro_customer_id" length="255" nullable="true"
+                default="0" comment="Syspro Customer Id"/>
+        <column xsi:type="varchar" name="syspro_salesrep" nullable="true" length="255" comment="Sales Representative"/>
+        <column xsi:type="datetime" name="customer_due_date" on_update="false" nullable="true" comment="Customer Due Date"/>
+        <index referenceId="PERFICIENT_CHECKOUT_SALES_ORDER_SYSPRO_ORDER_ID" indexType="btree">
+            <column name="syspro_order_id"/>
+        </index>
+        <index referenceId="PERFICIENT_CHECKOUT_SALES_ORDER_SYSPRO_CUSTOMER_ID" indexType="btree">
+            <column name="syspro_customer_id"/>
+        </index>
+    </table>
+</schema>

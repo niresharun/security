@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Catalog Table -->
+    <table name="perficient_customer_gallery_catalog" resource="default" engine="innodb" comment="Perficient Custom Catalog Table">
+        <column xsi:type="int" name="catalog_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Catalog Id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" comment="Customer Id"/>
+        <column xsi:type="int" name="wishlist_id" padding="10" unsigned="true" nullable="false" comment="Wishlist Id"/>
+        <column xsi:type="varchar" name="logo_image" nullable="true" length="255" comment="Logo Image"/>
+        <column xsi:type="varchar" name="catalog_title" nullable="true" length="255" comment="Catalog Title"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Catalog Name"/>
+        <column xsi:type="varchar" name="phone_number" nullable="true" length="255" comment="Phone Number"/>
+        <column xsi:type="varchar" name="website_url" nullable="true" length="255" comment="Website URL"/>
+        <column xsi:type="varchar" name="company_name" nullable="true" length="255" comment="Company Name"/>
+        <column xsi:type="text" name="additional_info_1" nullable="true" comment="Additional Information 1"/>
+        <column xsi:type="text" name="additional_info_2" nullable="true" comment="Additional Information 2"/>
+        <column xsi:type="text" name="price_on"  nullable="true" comment="Price On Flag"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="float" name="price_modifier"  nullable="true" comment="Price Modifier"/>
+        <column xsi:type="varchar" name="catalog_uuid"  nullable="true" length="64" comment="Catalog UUID"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="catalog_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="DELETE_CUSTOMER_ID"
+                    table="perficient_customer_gallery_catalog" column="customer_id"
+                    referenceTable="customer_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="DELETE_WISHLIST_ID"
+                    table="perficient_customer_gallery_catalog" column="wishlist_id"
+                    referenceTable="wishlist" referenceColumn="wishlist_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <!-- Template Table -->
+    <table name="perficient_customer_catalog_template" resource="default" engine="innodb" comment="Perficient Catalog Template Table">
+        <column xsi:type="int" name="template_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Template Id"/>
+        <column xsi:type="varchar" name="template_name" nullable="true" length="255" comment="Template Name"/>
+        <column xsi:type="varchar" name="template_file" nullable="true" length="255" comment="Template Filename"/>
+        <column xsi:type="int" name="template_drop_spots_count" nullable="true" comment="Template Spots Count"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="template_id"/>
+        </constraint>
+    </table>
+
+    <!-- Page Table -->
+    <table name="perficient_customer_gallery_catalog_page" resource="default" engine="innodb" comment="Perficient Catalog Page Table">
+        <column xsi:type="int" name="page_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Page Id"/>
+        <column xsi:type="int" name="catalog_id" padding="10" unsigned="true" nullable="false" comment="Catalog Id"/>
+        <column xsi:type="int" name="page_template_id" padding="10" unsigned="true" nullable="true" comment="Page Template Id"/>
+        <column xsi:type="text" name="drop_spot_config" nullable="true" comment="Page Config Data"/>
+        <column xsi:type="int" name="page_position" padding="10" nullable="true" comment="Page Position"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="varchar" name="page_uuid"  nullable="true" length="64" comment="Page UUID"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="page_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_TEMPLATE_ID"
+                    table="perficient_customer_gallery_catalog_page" column="page_template_id"
+                    referenceTable="perficient_customer_catalog_template" referenceColumn="template_id"
+                    onDelete="CASCADE"
+                     />
+        <constraint xsi:type="foreign" referenceId="FK_CATALOG_ID"
+                    table="perficient_customer_gallery_catalog_page" column="catalog_id"
+                    referenceTable="perficient_customer_gallery_catalog" referenceColumn="catalog_id"
+                    onDelete="CASCADE"
+                     />
+    </table>
+
+
+    <table name="perficient_customer_catalog_share" resource="default" engine="innodb"
+           comment="Perficient Customer Catalog Share Table">
+        <column xsi:type="int" name="id" padding="11" unsigned="false"
+                nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="catalog_id" padding="10" unsigned="true"
+                nullable="false" identity="false" default="0" comment="Catalog ID"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true"
+                nullable="false" identity="false" default="0" comment="Customer ID"/>
+        <column xsi:type="float" name="price_multiplier" unsigned="false" nullable="true" default="1" comment="Price Multiplier"/>
+        <column xsi:type="timestamp" name="share_date" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Catalog Share Date"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PERFICIENT_CSTR_CAT_SHARE_CAT_ID_PERFICIENT_CSTR_GLR_CAT_CAT_ID"
+                    table="perficient_customer_catalog_share" column="catalog_id" referenceTable="perficient_customer_gallery_catalog"
+                    referenceColumn="catalog_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="PERFICIENT_CSTR_CAT_SHARE_CAT_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="perficient_customer_catalog_share" column="customer_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="PERFICIENT_CSTR_CAT_SHARE_CATALOG_ID_CUSTOMER_ID">
+            <column name="catalog_id"/>
+            <column name="customer_id"/>
+        </constraint>
+        <index referenceId="PERFICIENT_CSTR_CAT_SHARE_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+</schema>

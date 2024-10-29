@@ -1,0 +1,93 @@
+<?php
+/**
+ * RequisitionList Converted to Market Scans with project specific configurations
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sachin Badase <sachin.badase@perficient.com>
+ * @project: Wendover
+ * @keywords:  Module Perficient_RequisitionList
+ */
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Item
+ */
+$item = $block->getItem();
+?>
+<td class="col col-checkbox">
+    <?php if ($block->getRequisitionListProduct()) : ?>
+    <input name="<?= $block->escapeHtmlAttr($item->getSku()) ?>"
+           class="input-checkbox"
+           type="checkbox"
+           id="<?= (int) $item->getId() ?>"
+           data-item-id="<?= (int) $item->getId() ?>"
+           data-item-has-errors="<?= (int)!empty($item->getItemErrors()) ?>"
+           data-action="requisition-item-check"
+           data-role="select-item"
+           value="1"/>
+    <label for="<?= (int) $item->getId() ?>" class="label-checkbox"><?= $block->escapeHtml(__('Checkbox for product name')) ?> <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?></label>
+    <?php endif; ?>
+</td>
+<td class="col product" data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>">
+    <div class="product-item-image">
+        <img alt="<?= (int) $item->getId() ?>"  src="<?= $block->escapeUrl($block->getImageUrl()) ?>" width="75" height="75">
+    </div>
+    <div class="product-item-description">
+        <?php if ($block->getRequisitionListProduct()) : ?>
+            <span class="product-item-name">
+                <a href="<?= $block->escapeUrl($block->getProductUrlByItem()) ?>">
+                    <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
+                </a>
+            </span>
+        <?php endif ?>
+        <div class="product-item-sku">
+            <b><?= $block->escapeHtml(__('SKU')) ?>:</b>
+            <span><?= $block->escapeHtml($item->getSku()) ?></span>
+        </div>
+        <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
+        <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+        <?php if ($block->getItemError()) : ?>
+            <div class="message error item-error">
+                <span><?= $block->escapeHtml($block->getItemError()) ?></span>
+            </div>
+        <?php endif ?>
+    </div>
+</td>
+<td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+    <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+        <?php if ($block->displayBothPrices()) : ?>
+            <span class="price-excluding-tax"
+                  data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                <?= /* @noEscape */ $block->getFormattedPriceExcludingTax() ?>
+            </span>
+        <?php endif; ?>
+    <?php endif ?>
+</td>
+<td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+    <label class="no-label" for="item-<?= (int) $item->getId() ?>-qty"><?= $block->escapeHtmlAttr(__('Qty')) ?></label>
+    <input id="item-<?= (int) $item->getId() ?>-qty"
+           name="qty[<?= (int) $item->getId() ?>]"
+           value="<?= (float) ($item->getQty() * 1) ?>"
+            disabled="disabled"
+           type="number"
+           class="input-text qty"
+           data-validate='{
+                "validate-number": true,
+                "validate-greater-than-zero": true,
+                "required": true
+                }'
+           data-role="requisition-item-qty"/>
+</td>
+<td class="col subtotal action" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+    <div class="product-item-subtotal">
+        <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+            <?= /* @noEscape */ $block->getFormattedSubtotal() ?>
+            <?php if ($block->displayBothPrices()) : ?>
+                <span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                    <?= /* @noEscape */ $block->getFormattedSubtotalExcludingTax() ?>
+                </span>
+            <?php endif; ?>
+        <?php endif ?>
+
+    </div>
+</td>

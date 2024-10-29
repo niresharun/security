@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Company Change Log Cleanup cron -->
+    <virtualType name="Perficient\Reports\Cron\CompanyChangeLogCleanup">
+        <arguments>
+            <argument name="process" xsi:type="string">CompanyChangeLogCleanup</argument>
+        </arguments>
+    </virtualType>
+
+    <!--Backend Cron Model-->
+    <virtualType name="Perficient\Reports\Model\Cron\CompanyChangeLogCleanup" type="Perficient\Reports\Model\Cron\Backend\Cron">
+        <arguments>
+            <argument name="cronGroup" xsi:type="string">report_group</argument>
+            <argument name="prefix" xsi:type="string">company_changes_cron</argument>
+            <argument name="suffix" xsi:type="string">cron_settings</argument>
+            <argument name="jobId" xsi:type="string">company_change_log_cleanup</argument>
+        </arguments>
+    </virtualType>
+</config>

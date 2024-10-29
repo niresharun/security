@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Perficient_Core
+ *
+ * @category: PHP
+ * @copyright: Copyright © 2018 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Kartikey.Pali<kartikey.pali@perficient.com>
+ * @project: Wendover
+ * @keywords: Core Module
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Plugin to disable form ke validation -->
+    <type name="Magento\Framework\Data\Form\FormKey\Validator">
+        <plugin name="disable_form_key_validation" type="Perficient\Core\Plugin\Framework\Data\Form\FormKey\Validator\DisableFormKeyValidation"/>
+    </type>
+</config>

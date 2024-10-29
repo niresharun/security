@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@vars {
+"var data.title":"Title",
+"var data.error":"Error",
+"var data.message":"Message",
+"var data.subject":"Subject"
+} @-->
+<!--@subject {{trans " %subject" subject=$data.subject}} @-->
+<p>{{trans " %title" title=$data.title}}</p>
+<p>{{trans " %error" error=$data.error}}</p>
+<p><strong>{{trans "Message"}}:</strong>{{trans " %message" message=$data.message}}</p>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Added to handle product surcharge if minimum order amount not met by customer
+* @category: Magento
+* @package: Perficient/Order
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Order
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--commented for skipping surcharge-->
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="pluginAddProductToCart" type="Perficient\Order\Plugin\CartPlugin" sortOrder="10"
+                disabled="false"/>
+    </type>
+    <!--commented for skipping surcharge-->
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="pluginUpdateCart" type="Perficient\Order\Plugin\CartUpdatePlugin" sortOrder="999"
+                disabled="false"/>
+    </type>
+    <!--commented for skipping surcharge-->
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="pluginDeleteCart" type="Perficient\Order\Plugin\CartDeletePlugin" sortOrder="998"
+                disabled="false"/>
+    </type>
+    <type name="Perficient\Checkout\Controller\Product\AddToCollection">
+        <plugin name="pluginAddToCollection" type="Perficient\Order\Plugin\CartAddToCollectionPlugin" sortOrder="1212"
+                disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="pluginUpdateCartItem" type="Perficient\Order\Plugin\CartItemUpdatePlugin" sortOrder="997"
+                disabled="false"/>
+    </type>
+    <preference for="Magento\Checkout\CustomerData\DefaultItem" type="Perficient\Order\CustomerData\DefaultItem"/>
+    <preference for="Magento\Sales\Block\Order\Email\Items\Order\DefaultOrder" type="Perficient\Order\Block\Email\Items\ItemRenderer"/>
+
+    <!-- Reorder Feature exclude surcharge product from order and add programmatically in cart -->
+    <type name="Magento\Sales\Controller\Order\Reorder">
+        <plugin name="replaceQuoteItems" disabled="true"/>
+        <plugin name="replaceUpdatedQuoteItems" type="Perficient\Order\Plugin\Sales\Controller\Order\ReorderPlugin"/>
+    </type>
+    <!--commented for skipping surcharge comment it-->
+    <!--<type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="validateCartItems" type="Perficient\Order\Plugin\CartPlugin" sortOrder="11" disabled="false"/>
+    </type>-->
+</config>

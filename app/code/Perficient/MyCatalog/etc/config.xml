@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <perficient_mycatalog>
+            <email>
+                <template>perficient_mycatalog_email_template_attachment</template>
+                <sender>general</sender>
+                <subject>My Catalog#</subject>
+                 <content_attachment>Hello,
+Please see my catalog attached here.
+                </content_attachment>
+                 <content_download_link>Hello,
+Please click here to download my catalog.
+                </content_download_link>
+                <no_of_days_to_expire_link>120</no_of_days_to_expire_link>
+            </email>
+        </perficient_mycatalog>
+
+    </default>
+</config>

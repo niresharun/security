@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to prepare add to collection configurable url on checkout
+ *
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Trupti Bobde <trupti.bobde@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="mycheckout" frontName="mycheckout">
+            <module name="Perficient_Checkout"/>
+        </route>
+    </router>
+</config>

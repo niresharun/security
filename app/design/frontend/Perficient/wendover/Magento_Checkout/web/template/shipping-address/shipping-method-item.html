@@ -1,0 +1,46 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="row new-shipping-row" data-bind="css: $index() === 0 ? 'zero' : 'one', css: $parent.isHideFlatRate(method.method_code) == 1 ? 'hide-shipping-method' : '',  css: $parent.addressTypeValidation(method) == 1 ? 'hide-shipping-method' : ''"
+    click="element.selectShippingMethod">
+    <div class="col select-method">
+        <input type="radio"
+               class="radio"
+               ifnot="method.error_message"
+               ko-checked="element.isSelected"
+               ko-value="method.carrier_code + '_' + method.method_code"
+               attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_price_' + method.method_code + '_' + method.carrier_code + ' '  + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+                    'checked': element.rates().length == 1 || element.isSelected, 'id':method.carrier_code + '_' + method.method_code" />
+        <label aria-hidden="true" data-bind="attr: { for: method.carrier_code + '_' + method.method_code}" class="label label-radio">Radio Button</label>
+
+    </div>
+    <div class="col col-price">
+        <each args="element.getRegion('price')" render="" />
+    </div>
+    <div class="col col-method"
+         attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
+         data-bind="text: method.method_title ? method.method_title : method.carrier_title" />
+    <div class="col col-carrier"
+        attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
+        text="method.carrier_title" />
+</div>
+<div class="row row-error"
+    if="method.error_message">
+    <div class="col col-error" colspan="4">
+        <div role="alert" class="message error">
+            <div text="method.error_message"></div>
+        </div>
+        <span class="no-display">
+            <input type="radio"
+                   attr="'value' : method.method_code, 'id': 's_method_' + method.method_code" />
+        </span>
+    </div>
+</div>
+<div class="row row-disabled-notice"
+     if="$parent.isHideFlatRate(method.carrier_code)">
+    <span data-bind="text: $parent.flatrateDisabledNotice()"></span>
+</div>
+

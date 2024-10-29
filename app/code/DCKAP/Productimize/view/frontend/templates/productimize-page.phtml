@@ -1,0 +1,983 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script type="text/javascript">
+    var pzSelectedOptions = {},pzArtworkData = {}, pzConfigurationLabel = '', pzCartPropertiesData = '';
+    function getGlassDimention(artworkData) {
+        var range = document.getElementsByName("rangeVal")[0].value
+        var rangeDimention = range.split(/[\s″×]+/); //range.split('×')
+        return [rangeDimention[0], rangeDimention[1]];
+    }
+    function getDefaultImageDimention()
+    {
+        var imgDimention = [0, 0];
+        var decodedArtworkData = JSON.parse(pzArtworkData);
+        console.log("decodedArtworkData ", decodedArtworkData)
+        if (decodedArtworkData && decodedArtworkData.default_configuration) {
+            pzDefaultConf = JSON.parse(decodedArtworkData.default_configuration);
+            pzDefaultConf = {...pzDefaultConf, ...decodedArtworkData};
+            imgDimention[0] = (pzDefaultConf.image_width) ? pzDefaultConf.image_width : 0;
+            imgDimention[1] = (pzDefaultConf.image_height) ? pzDefaultConf.image_height : 0;
+
+        }
+        return imgDimention;
+    }
+    function loadPlaceholderImage (currThis) {
+        currThis.onerror=null;
+        currThis.src = placeHolderSwatchImageUrl;
+    }
+</script>
+
+<?php
+$viewModel = $block->getViewModel();
+$magentoProductId = $productId = $block->getProduct()->getId();
+$productimizeHelper = $viewModel->getProductimizeHelper(); 
+$customerLoggedIn = $viewModel->isCustomerLoggedIn();
+?>
+<script>
+var pubUrl = '<?=$productimizeHelper->getProductimizeJsonPath()?>';
+</script>
+<?php $defaultConf = $block->getProduct()->getData('default_configurations');
+$origPriceHidden = 'style="display:none;"';
+$cancelButtonHidden = 'style="display:none;"';
+$pzdataHidden = 'style="display:block;"';
+$pzdisplaypriceHidden = 'style="display:block;"';
+$customButtonHidden = 'style="display:block;"';
+if ($productimizeHelper->checkEditidinurl() || ($productimizeHelper->getCurrentpagehandle() == 'wishlist_index_configure') || $this->getRequest()->getParam('wishlist_share_id')) {
+    if ($productimizeHelper->getCurrentpagehandle() == 'checkout_cart_configure' || $productimizeHelper->getCurrentpagehandle() == 'wishlist_index_configure' || $this->getRequest()->getParam('type') || $this->getRequest()->getParam('wishlist_share_id')) {
+        if ($productimizeHelper->getCurrentpagehandle() == 'checkout_cart_configure') {
+            $productStatus = $productimizeHelper->getAdditionaloptionsWithCustomImage($this->getRequest()->getParam('id'), 1);
+        } else if ($productimizeHelper->getCurrentpagehandle() == 'wishlist_index_configure') {
+            $productStatus = $productimizeHelper->getAdditionaloptionsWithCustomImage($this->getRequest()->getParam('id'), 2);
+        } else if ($this->getRequest()->getParam('type') || $this->getRequest()->getParam('wishlist_share_id')) {
+            $productStatus = true;
+        }
+        if ($productStatus) {
+            $origPriceHidden = 'style="display:none;"';
+            $cancelButtonHidden = 'style="display:none;"';
+            $pzdataHidden = 'style="display:none;"';
+            $pzmediaHidden = 'style="display:none;"';
+            $pzdisplaypriceHidden = 'style="visibility:hidden;"';
+            $customButtonHidden = 'style="display:none;"';
+            ?>
+            <style>
+                .pz-media,.sidemark-container,.art-configurator-desc,.Default-configuration-swatches,.Default-configuration-text,.specialty,.pz-customize,.a2a_kit,.mailto,.update,#product-updatecart-button,.box-tocart {
+                    display: none;
+                }
+                .update  {
+                    display: none;
+                }
+                .box-tocart {
+                    display:none!important;
+                }
+            </style>
+            <?php
+        }
+    }
+}
+?>
+
+<div class="productimise-container" data-mage-init='{"customisedOptions":{}}'>
+</div>
+<div style="display:none;" data-bind="mageInit: {
+        'Magento_Ui/js/modal/modal':{
+            'type': 'popup',
+            'title': 'Mail',
+            'trigger': '[class=mailto1]',
+            'responsive': true,
+            'buttons': [{
+                text: jQuery.mage.__('Submit'),
+                class: 'send_mail_button'
+            }]
+        }}">
+    <div class="content">
+        <fieldset class="fieldset sendername" id="sender_options_name">
+            <legend></legend>
+            <div class="field name required">
+                <label for="sender-name" class="label"><span>Sender Name</span></label>
+                <div class="control">
+                    <input name="sender[name]" value="" title="Name" id="sender-name" type="text" class="input-text"
+                           data-validate="{required:true, 'validate-name':true}">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset sender" id="sender_options">
+            <legend></legend>
+            <div class="field email required">
+                <label for="sender-email" class="label"><span>Sender Email</span></label>
+                <div class="control">
+                    <input name="sender[email]" value="" title="Email" id="sender-email" type="text" class="input-text"
+                           data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset receiver" id="receiver_options_email">
+            <legend></legend>
+            <div class="field email required">
+                <label for="receiver-email" class="label"><span>Receiver Email</span></label>
+                <div class="control">
+                    <input name="receiver[email]" value="" title="Email" id="receiver-email" type="text"
+                           class="input-text" data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset receiver" id="receiver_options">
+            <legend></legend>
+            <div class="field message">
+                <label for="receiver-message" class="label"><span>Message</span></label>
+                <div class="control">
+                    <textarea name="receiver[message]" title="Message" id="receiver-message"
+                              class="input-text"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="pz-product-container" id="pz-product-container">
+    <div class="pz-pdp-display-price" id="pz-display-price" style="visibility: hidden;">
+        <?php //echo ($productimizeHelper->getCustomerAccessRestrictionCode() == 1 || $productimizeHelper->getCustomerAccessRestrictionCode() == 2) ? $productimizeHelper->getDisplayPrice($block->getProduct()->getId(), false) : ''; ?>
+            <?php if($customerLoggedIn): ?>
+            <div><span class="strikeout-price-wrapper strikeout-price-wrapper-<?php echo $block->getProduct()->getId()?>"
+                      data-price-id = "<?php echo $block->getProduct()->getId(); ?>" style="text-decoration: line-through; color: #333"></span></div>
+            <div><span class="price trigger-product-price price-wrapper-<?php echo $block->getProduct()->getId(); ?>"
+                                                                           data-price-id = "<?php echo $productId; ?>"></span></div>
+            <?php endif; ?>
+
+    </div>
+
+    <div class="pz-display-button-grp">
+    <?php if($customerLoggedIn): ?>
+        <div class="pz-display-price" style="display:none;" id="pz-button-price" <?php echo $origPriceHidden; ?>>
+             <span id="custom-price"><?php echo number_format($block->getProduct()->getPrice(), 2, '.', ''); ?></span>
+        </div>
+        <?php endif; ?>
+
+        <button type="button" class="pz-room active" id="magento_customize_button">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+            <?php echo $block->escapeHtml(__('View in Room'));
+            ?>
+        </button>
+        <?php
+        $block->setData('buttonVisibility', $customButtonHidden);
+        echo $block->getChildHtml('productimize.view.customize.button', false);
+        ?>
+        <?php if ($myBlock = $block->getChildBlock('productimize.view.customize.button')): ?>
+            <?php
+            //$myBlock->setData('buttonVisibility', $customButtonHidden);
+            //echo $myBlock->getChildHtml('productimize.view.customize.button', false);
+            ?>
+        <?php endif; ?>
+        <button type="button" class="pz-cancel" id="productimize_customize_cancel_button" <?php echo $cancelButtonHidden; ?>>
+            <i class="fa fa-paint-brush" aria-hidden="true"></i>
+            <?php echo $block->escapeHtml(__('Cancel'));
+            ?>
+        </button>
+    </div>
+</div>
+<input type="hidden" value='<?=$productimizeHelper->getCurrentpagehandle()?>' id="pz_page_handle" />
+<input type="hidden" value='<?=$productimizeHelper->getParaminrequest()?>' id="pz_param_id" />
+<input type="hidden" value='<?=$this->getRequest()->getParam('type')?>' id="pz_type" />
+<input type="hidden" value='<?=urldecode($this->getRequest()->getServer('QUERY_STRING'))?>' id="pz_query_string" />
+<input type="hidden" value='<?php echo $defaultConf; ?>' id="pz_magento_default_options"/>
+<input type="hidden" value='<?php echo $block->getProduct()->getData('product_level'); ?>' id="pz_platform_product_level"/>
+<input type="hidden" value='' id="pz_magento_framedata"/>
+<input type="hidden" value='' id="pz_platform_custom_returndata"/>
+<input type="hidden" value='<?=$magentoProductId?>' id="pz_product_id"/>
+<!--pz_cart_properties needs to be dynamic-->
+<input type="hidden" name="pz_cart_properties" id="pz_cart_properties" value=''/>
+<input type="hidden" id="frame_defalt" value=""/>
+<?php
+if (isset($_SERVER['HTTP_REFERER'])) {
+  $l_sReferer = $_SERVER['HTTP_REFERER'];
+} else {
+  $l_sReferer = "";
+}
+?>
+<input type="hidden" id="pagereferer" value="<?php echo $l_sReferer; ?>"/>
+<div id="productimize_container"></div>
+<script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript">
+    let searchfilter = '';
+    require(
+        [
+            'jquery',
+            'mage/validation',
+            'fabric',
+            'customizerCommon',
+            'jquery/ui',
+            'domReady!',
+            'selectric',
+            //'owlCarousel'
+        ],
+        function ($, validation, fabric, customizerCommon) {
+            'use strict';
+            var customizationButtonUrl = "<?= $this->getUrl('productimize/index/customizebuttonrestrict')?>";
+            $.ajax({
+                showLoader: false,
+                url: customizationButtonUrl,
+                data: {
+                    product: $('#pz_product_id').val(),
+                },
+                type: "POST",
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    console.log(data);
+                    if(data && data.configLevel != 4)   {
+                        $('#productimize_customize_button').css('display', 'block');
+                        $('.pdp_art_customizer').removeClass('hide').addClass('show');
+                    }
+
+                    if (data.restrictAccessCode == 1 || data.restrictAccessCode== 2) {
+                        jQuery('.pz-pdp-display-price').css('visibility', 'visible');
+                        $('.price-box.price-final_price').hide();
+                    }
+                }
+            })
+            $(document).on("click", "#pdp_art_configurator_link", function () {
+                console.log('calling')
+                $('#productimize_customize_button').trigger('click');
+                return false;
+            });
+
+            $(document).on("click", ".fbshare", function () {
+                let urlValues1 = urlValues();
+                var saveCanvasUrl = "<?= $this->getUrl('productimize/index/savecanvas')?>";
+                var dataUrl = artwork.render("jpeg");
+                var glassDimention = getGlassDimention(null);
+                let artworkData = {};
+                artworkData['glassDimention'] = glassDimention;
+                artworkData['pzSelectedOptions'] = pzSelectedOptions;
+                if ($('.medium-select-elem').length > 0 && $('.medium-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['medium'] = {
+                        'sku': $('.medium-select-elem option:selected').val()
+                    }
+                }
+                if (jQuery('.treatment-select-elem').length > 0 && jQuery('.treatment-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['treatment'] = {
+                        'sku': jQuery('.treatment-select-elem option:selected').val()
+                    }
+                }
+                artworkData['productUrl'] = productImg;
+                artworkData['productId'] = productId;
+                $.ajax({
+                    showLoader: true,
+                    url: saveCanvasUrl,
+                    data: {
+                        artworkData: JSON.stringify(artworkData)
+                    },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        let dataparsed = data;
+                        let urltest = dataparsed.imageUrl;
+                        const a = document.createElement("a");
+                        a.href = 'https://www.facebook.com/sharer/sharer.php?u=' + urlValues1 + '-media=' + urltest;
+                        a.target = '_blank';
+                        a.click();
+                    }
+                })
+            })
+            $(document).on("click", ".pinitttest", function () {
+                let urlValues1 = urlValues();
+                var saveCanvasUrl = "<?= $this->getUrl('productimize/index/savecanvas')?>";
+                var dataUrl = artwork.render("jpeg");
+                var glassDimention = getGlassDimention(null);
+                let artworkData = {};
+                artworkData['glassDimention'] = glassDimention;
+                artworkData['pzSelectedOptions'] = pzSelectedOptions;
+                if ($('.medium-select-elem').length > 0 && $('.medium-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['medium'] = {
+                        'sku': $('.medium-select-elem option:selected').val()
+                    }
+                }
+                if (jQuery('.treatment-select-elem').length > 0 && jQuery('.treatment-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['treatment'] = {
+                        'sku': jQuery('.treatment-select-elem option:selected').val()
+                    }
+                }
+                artworkData['productUrl'] = productImg;
+                artworkData['productId'] = productId;
+                $.ajax({
+                    showLoader: true,
+                    url: saveCanvasUrl,
+                    data: {
+                        artworkData: JSON.stringify(artworkData)
+                    },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        let dataparsed = data;
+                        let urltest = dataparsed.imageUrl;
+                        window.open('http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(urlValues1) + '&media=' + urltest + '&description=' + encodeURIComponent('test sample test sa'));
+                    }
+                })
+            });
+
+            // for styles
+            var info_main = $('#productimize_customize_button').parent();
+            info_main.addClass('pz_product_info_main');
+            var customizer_api_data;
+            var returnedData;
+            var returnedFrameData;
+            var defaultConf = '<?php echo $defaultConf; ?>';
+            var defaultConfigJson = defaultConf ? JSON.parse(defaultConf) : null;
+            var mediaDefault = ((defaultConfigJson) && 'medium_default_sku' in defaultConfigJson) ? defaultConfigJson.medium_default_sku : null;
+            var treatDefault =  ((defaultConfigJson) && 'treatment_default_sku' in defaultConfigJson) ? defaultConfigJson.treatment_default_sku : null;
+            var frameDefault =  ((defaultConfigJson) && 'frame_default_sku' in defaultConfigJson) ? defaultConfigJson.frame_default_sku : null;
+            $('#frame_defalt').val(frameDefault);
+            // product configuration level
+            var product_level = $('#pz_platform_product_level').val();
+            let framedetail = '', locSearchVal = '', colorSearchVal = [], widthSearchVal = '', frameColorFilter = {},
+                colorSubVal = [], typeSearchVal = '', framesizefilter = {}, frametypefilter = {};
+            function getParentClass(thisval) {
+                let arrayy = {
+                    "pz-frame": "frameli",
+                    "pz-top-mat": "topmatli",
+                    "pz-bottom-mat": "bottommatli",
+                    "pz-liner": "linerli"
+                };
+                let parentClass = $(thisval).parents('.pz-custom-item-body').attr('class').replace(/\s/g, '.');
+                let splitClass = $(thisval).parents('.pz-custom-item-body').attr('class').split(' ');
+                if (arrayy[splitClass[1]] == searchfilter) {
+                } else {
+                    if (searchfilter != '') {
+                        locSearchVal = '';
+                        colorSearchVal = [];
+                        colorSubVal = [];
+                        widthSearchVal = '';
+                        typeSearchVal = '';
+                    }
+                    searchfilter = arrayy[splitClass[1]];
+                }
+                return [parentClass, arrayy[splitClass[1]]]
+            }
+
+            $(document).on("click", ".pz-optioninputsearch", function () {
+                let classarray = getParentClass(this);
+                locSearchVal = $('.' + classarray[0]).find('.locatesearch').val();
+                frameSearch(0, classarray);
+                return false;
+            })
+
+            $(document).on("click", ".cartbutton", function () {
+                var saveCanvasUrl = "<?= $this->getUrl('productimize/index/savecanvas')?>";
+                if (typeof getArtwork == 'function') {
+                    var ischecked = $(".showartworktext").is(':checked');
+                    if (ischecked == false) {
+                        color = '';
+                    }   else {
+                        if($('#pz-text').val().length == 0) {
+                            $('.pz-custom-items').removeClass('open');
+                            $('.pz-custom-image-color').parents('.pz-custom-items').addClass('open');
+                            $('.pz-custom-image-color').append('<div class="customred">*Please enter Artwork Color to continue</div>')
+                            $('.customred').fadeOut(5000, function () {
+                                $(this).remove();
+                            });
+                            return false;
+                        }
+                    }
+                    var dataUrl = getArtworkImage('jpeg');
+                    var glassDimention = getGlassDimention(null);
+                    let artworkData = {};
+                    artworkData['glassDimention'] = glassDimention;
+                    artworkData['pzSelectedOptions'] = pzSelectedOptions;
+                    if ($('.medium-select-elem').length > 0 && $('.medium-select-elem option:selected').val()) {
+                        artworkData['pzSelectedOptions']['medium'] = {
+                            'sku': $('.medium-select-elem option:selected').val()
+                        }
+                    }
+                    if (jQuery('.treatment-select-elem').length > 0 && jQuery('.treatment-select-elem option:selected').val()) {
+                        artworkData['pzSelectedOptions']['treatment'] = {
+                            'sku': jQuery('.treatment-select-elem option:selected').val()
+                        }
+                    }
+                    artworkData['productUrl'] = productImg;
+                    artworkData['productId'] = productId;
+                    var pzCartData = setPzCartPropertiesData();
+                    $.ajax({
+                        showLoader: true,
+                        url: saveCanvasUrl,
+                        data: {
+                            artworkData: JSON.stringify(artworkData)
+                        },
+                        type: "POST",
+                        cache: false,
+                        success: function (data) {
+                            pzCartData['CustomImage'] = (data && data.imageUrl) ? data.imageUrl : productImg;
+                            document.getElementById('pz_cart_properties').value = JSON.stringify(pzCartData);
+                            setTimeout(function () {
+                                $('#product-updatecart-button').trigger('click');
+                            }, 100)
+                        }
+                    });
+                }
+            })
+            function getPZConfLabels() {
+                //var value = ", Gold, <span class='hint'><i class='fa fa-info-circle' aria-hidden='true'></i> Weighted<span class='pz-tooltip-content'>Left: 1.5 Top: 1.5 Right: 1.5 Bottom: 1.5</span></span>"
+                var parsedConfLabels = (pzConfigurationLabel) ? JSON.parse(pzConfigurationLabel) : null;
+                var mediaLabel = (parsedConfLabels && 'medium_default_sku' in parsedConfLabels) ? parsedConfLabels["medium_default_sku"] : "Medium";
+                var treatmentLabel = (parsedConfLabels && 'treatment_default_sku' in parsedConfLabels) ? parsedConfLabels["treatment_default_sku"] : "Treatment";
+                var sizeLabel = (parsedConfLabels && 'size_default_sku' in parsedConfLabels) ? parsedConfLabels["size_default_sku"] : "Size";
+                var frameLabel = (parsedConfLabels && 'frame_default_sku' in parsedConfLabels) ? parsedConfLabels["frame_default_sku"] : "Frame";
+                var topMatLabel = (parsedConfLabels && 'top_mat_default_sku' in parsedConfLabels) ? parsedConfLabels["top_mat_default_sku"] : "Top Mat";
+                var bottomMatLabel = (parsedConfLabels && 'bottom_mat_default_sku' in parsedConfLabels) ? parsedConfLabels["bottom_mat_default_sku"] : "Bottom Mat";
+                var linerLabel = (parsedConfLabels && 'liner_default_sku' in parsedConfLabels) ? parsedConfLabels["liner_default_sku"] : "Liner";
+                return {'mediumLabel' : mediaLabel, 'treatmentLabel': treatmentLabel, 'sizeLabel':sizeLabel, 'frameLabel': frameLabel, 'topMatLabel': topMatLabel, 'bottomMatLabel': bottomMatLabel, 'linerLabel' : linerLabel}
+            }
+
+            function assignPZCartProperties(imageValue) {
+                var encodedPZCartProperties = document.getElementById('pz_cart_properties').value;
+                var imageData = (imageValue && imageValue.imageUrl) ? imageValue : null;
+                var pzConfLabels = getPZConfLabels();
+                var pzCartProperties = null;
+                if (encodedPZCartProperties) {
+                    pzCartProperties = JSON.parse(encodedPZCartProperties)
+                }
+                var outputData = {}, pzCartOutputData = {};
+                var loopInc = 0;
+                for (const property in pzSelectedOptions) {
+                    loopInc++;
+                    const data = pzSelectedOptions[property];
+                    if (data.sku) {
+                        outputData[property] = data.sku;
+                        outputData[property] += data['color'] ? ', ' + data['color'] : '';
+                        if (property == "frame") {
+                            outputData['frame'] += data['width'] ? ', ' + data['width'] + "″" : '';
+                        } else if (property == "topMat" || property == "bottomMat") {
+                            if (data.width) {
+                                if (Object.keys(data.width).length > 0 && data.width.left == data.width.right && data.width.right == data.width.top && data.width.top == data.width.bottom) {
+                                    outputData[property] += data['width'] ? ', ' + data['width']['left'] + "″" : '';
+                                } else {
+                                    var padding = "<span class='hint'><i class='fa fa-info-circle' aria-hidden='true'></i> Weighted<span class='pz-tooltip-content'>";
+                                    padding += 'Left: ' + data.width.left + "″, " + 'Right: ' + data.width.right + "″, " + 'Top: ' + data.width.top + "″, " + 'Bottom: ' + data.width.bottom + "″ ";
+                                    padding += "</span></span>";
+                                    outputData[property] += padding;
+                                }
+                            }
+                        }
+                    }
+                }
+                var glassDimention = getGlassDimention(null);
+                if (loopInc == Object.keys(pzSelectedOptions).length) {
+                    pzCartOutputData[pzConfLabels.mediumLabel] = (jQuery('.medium-select-elem')) ? jQuery('.medium-select-elem option:selected').text() : 'No Medium'
+                    pzCartOutputData[pzConfLabels.treatmentLabel] = (jQuery('.treatment-select-elem')) ? jQuery('.treatment-select-elem  option:selected').text() : 'No Treatment'
+                    pzCartOutputData[pzConfLabels.sizeLabel] = ((glassDimention[0]) ? glassDimention[0] : 100) + '×' + ((glassDimention[1]) ? glassDimention[1] : 100);
+                    pzCartOutputData[pzConfLabels.frameLabel] = (outputData['frame']) ? outputData['frame'] : 'No Frame';
+                    pzCartOutputData[pzConfLabels.topMatLabel] = (outputData['topMat']) ? outputData['topMat'] : 'No Top Mat';
+                    pzCartOutputData[pzConfLabels.bottomMatLabel] = (outputData['bottomMat']) ? outputData['bottomMat'] : 'No Bottom Mat';
+                    pzCartOutputData[pzConfLabels.linerLabel] = (outputData['liner']) ? outputData['liner'] : 'No Liner';
+                    pzCartOutputData['Artwork Color'] = (jQuery('#pz-text')) ? jQuery('#pz-text').val() : 'No Artwork Color';
+                    pzCartOutputData['Sidemark'] = (jQuery('.pz-textarea')) ? jQuery('.pz-textarea').val() : 'No Sidemark';
+                    if (imageData.imageUrl) {
+                        pzCartOutputData['CustomImage'] = imageData.imageUrl;
+                    }
+                    document.getElementById('pz_cart_properties').value = JSON.stringify(pzCartOutputData);
+                }
+            }
+            $(document).on("click", ".pz-colorsearch", function () {
+                let classarray = getParentClass(this);
+                let colSear = $('.' + classarray[0]).find('.searchCol').val().toLowerCase().replace(/\s/g, '');
+                console.log('testest', colSear)
+                if (colSear != '') {
+                    $('.' + classarray[0]).find('.maincolor').find('.checkmainarea,.checkarea').css('display', 'none')
+                    $('.' + classarray[0]).find('.maincolor').find("[id*='" + colSear + "']").css('display', 'block')
+                } else {
+                    $('.' + classarray[0]).find('.maincolor').find('.checkmainarea,.checkarea').css('display', 'block')
+                }
+            })
+
+            $(document).on("keypress", ".searchCol", function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    let classarray = getParentClass(this);
+                    let colSear = $('.' + classarray[0]).find('.searchCol').val().toLowerCase().replace(/\s/g, '');
+                    console.log('testest', colSear)
+                    if (colSear != '') {
+                        $('.' + classarray[0]).find('.maincolor').find('.checkmainarea,.checkarea').css('display', 'none')
+                        $('.' + classarray[0]).find('.maincolor').find("[id*='" + colSear + "']").css('display', 'block')
+                    } else {
+                        $('.' + classarray[0]).find('.maincolor').find('.checkmainarea,.checkarea').css('display', 'block')
+                    }
+                }
+            })
+
+            $(document).on("input", ".locatesearch", function (e) {
+                if ($(this).val() == '')  // the enter key code
+                {
+                    let classarray = getParentClass(this);
+                    locSearchVal = '';
+                    frameSearch(0, classarray);
+                    return false;
+                }
+            });
+
+            //$('.locatesearch').keypress(function (e) {
+            $(document).on("keypress", ".locatesearch", function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    let classarray = getParentClass(this);
+                    locSearchVal = $('.' + classarray[0]).find('.locatesearch').val();
+                    frameSearch(0, classarray);
+                    return false;
+                }
+            });
+
+            $(document).on("click", ".widthli", function () {
+                //Remove the activetest class
+                $('.widthli').removeClass('activetest')
+
+                let classarray = getParentClass(this);
+                $(this).parent().find('activetest').removeClass('activetest')
+                $(this).addClass('activetest');
+                if ($(this).text().toLowerCase().includes('select')) {
+                    widthSearchVal = '';
+                } else {
+                    widthSearchVal = $(this).text();
+                }
+                frameSearch(2, classarray);
+            })
+
+            $(document).on("click", ".typeli", function () {
+                //Remove the current activetest class
+                $('.typeli').removeClass('activetest')
+
+
+                let classarray = getParentClass(this);
+                $(this).parent().find('activetest').removeClass('activetest')
+                $(this).addClass('activetest');
+                if ($(this).text().toLowerCase().includes('select')) {
+                    typeSearchVal = '';
+                } else {
+                    typeSearchVal = $(this).text();
+                }
+                frameSearch(3, classarray);
+            })
+
+            $(document).on("click", ".allcolorinput", function () {
+                let classarray = getParentClass(this);
+                colorSearchVal = [];
+                colorSubVal = [];
+                widthSearchVal = '';
+                typeSearchVal = '';
+                var ischecked = $(this).is(':checked');
+                if (ischecked == false) {
+                    jQuery('.maincolorinput, .subcolorinput, .allcolorinput').prop('checked', false);
+                    //Remove activetest class if any
+                    $('.widthli').removeClass('activetest');
+                    $('.typeli').removeClass('activetest');
+
+                    //Show all width && type
+                    $('.widthli, .typeli').css('display', 'block');
+
+                } else {
+                    jQuery('.maincolorinput, .subcolorinput, .allcolorinput').prop('checked', true);
+                    colorSearchVal = $(".maincolorinput:checked").map(function () {
+                        return $(this).val();
+                    }).get();
+                    colorSubVal = $(".subcolorinput:checked").map(function () {
+                        return $(this).val();
+                    }).get();
+                }
+                frameSearch(1, classarray);
+            })
+
+            $(document).on("click", ".clearcolor", function () {
+                //Remove activetest class if any
+                $('.widthli').removeClass('activetest');
+                $('.typeli').removeClass('activetest');
+
+                //Show all width && type
+                $('.widthli, .typeli').css('display', 'block');
+
+
+                let classarray = getParentClass(this);
+                colorSearchVal = [];
+                colorSubVal = [];
+                widthSearchVal = '';
+                typeSearchVal = '';
+                jQuery('.maincolorinput, .subcolorinput, .allcolorinput').removeAttr('checked');
+                jQuery('.maincolorinput, .subcolorinput, .allcolorinput').prop( "checked", false );
+                frameSearch(1, classarray);
+            })
+
+
+            $(document).on("click", ".maincolorinput", function () {
+                let classarray = getParentClass(this);
+                var ischecked = $(this).is(':checked');
+                widthSearchVal = '';
+                typeSearchVal = '';
+                jQuery('.allcolorinput').removeAttr('checked');
+                jQuery('.allcolorinput').prop( "checked", false );
+                if (ischecked == false) {
+                    var index = colorSearchVal.indexOf($(this).val());
+                    if (index !== -1) {
+                        colorSearchVal.splice(index, 1);
+                    }
+
+                    $(this).parents('.maincolor').find('.subcolorinput').each(function()    {
+                        console.log($(this).val())
+                        $(this).removeAttr('checked');
+                        $(this).prop( "checked", false );
+                        var index1 = colorSubVal.indexOf($(this).val());
+                        if (index1 !== -1) {
+                            colorSubVal.splice(index1, 1);
+                        }
+
+                    })
+                } else {
+                    colorSearchVal.push($(this).val());
+
+                    $(this).parents('.maincolor').find('.subcolorinput').each(function()    {
+                        $(this).prop('checked', true);
+                        colorSubVal.push($(this).val());
+                    })
+
+                }
+                if (colorSearchVal.length == 0 && colorSubVal.length == 0) {
+                    widthSearchVal = '';
+                    typeSearchVal = '';
+                    $('.widthli').removeClass('activetest');
+                    $('.typeli').removeClass('activetest');
+                    $('.widthli, .typeli').css('display', 'block');
+                }
+                frameSearch(1, classarray);
+            })
+
+            $(document).on("click", ".subcolorinput", function () {
+                let classarray = getParentClass(this);
+                var ischecked = $(this).is(':checked');
+                widthSearchVal = '';
+                typeSearchVal = '';
+                jQuery('.allcolorinput').removeAttr('checked');
+                jQuery('.allcolorinput').prop( "checked", false );
+                if (ischecked == false) {
+                    var index = colorSubVal.indexOf($(this).val());
+                    if (index !== -1) {
+                        colorSubVal.splice(index, 1);
+                    }
+                } else {
+                    colorSubVal.push($(this).val());
+                }
+                if (colorSearchVal.length == 0 && colorSubVal.length == 0) {
+                    widthSearchVal = '';
+                    typeSearchVal = '';
+                }
+                frameSearch(1, classarray);
+            })
+
+            $(document).on("click", ".pz-searchcolorlabel, .pz-searchwidthlabel, .pz-searchtypelabel", function () {
+                if($(this).attr('class').includes('pz-searchcolorlabel'))   {
+                    $(".pz-searchwidthlabel, .pz-searchtypelabel").next().removeClass('active');
+                    $(".pz-searchwidthlabel, .pz-searchtypelabel").find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                } else if($(this).attr('class').includes('pz-searchwidthlabel'))   {
+                    $(".pz-searchcolorlabel, .pz-searchtypelabel").next().removeClass('active');
+                    $(".pz-searchcolorlabel, .pz-searchtypelabel").find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                } else if($(this).attr('class').includes('pz-searchtypelabel'))   {
+                    $(".pz-searchwidthlabel, .pz-searchcolorlabel").next().removeClass('active');
+                    $(".pz-searchwidthlabel, .pz-searchcolorlabel").find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                }
+                $(this).next().toggleClass('active');
+                $(this).find('i').toggleClass('fa-chevron-up fa-chevron-down');
+                return false;
+            });
+            $(document).on("click", function (event) {
+                if (!$(event.target).closest(".pz-optionwidthsearch").length) {
+                    $('.pz-optionwidthsearch').find('.active').removeClass('active');
+                    $('.pz-optionwidthsearch').find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                }
+                if (!$(event.target).closest(".pz-optioncolorsearch").length) {
+                    $('.pz-optioncolorsearch').find('.active').removeClass('active');
+                    $('.pz-optioncolorsearch').find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                }
+                if (!$(event.target).closest(".pz-optiontypesearch").length) {
+                    $('.pz-optiontypesearch').find('.active').removeClass('active');
+                    $('.pz-optiontypesearch').find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+                }
+            })
+
+
+            function urlValues() {
+                var outputData = {}, pzCartOutputData = {};
+                var loopInc = 0;
+                let urlmerge = '&';
+                for (const property in pzSelectedOptions) {
+                    loopInc++;
+                    const data = pzSelectedOptions[property];
+                    outputData[property] = data.sku;
+                }
+                var glassDimention = getGlassDimention(null);
+                if (loopInc == Object.keys(pzSelectedOptions).length) {
+                    let med = (jQuery('.medium-select-elem')) ? jQuery('.medium-select-elem').val() : 'No Medium';
+
+                    let treatmnt = (jQuery('.treatment-select-elem')) ? jQuery('.treatment-select-elem').val() : 'No Treatment';
+                    let sze = (glassDimention[0] ? glassDimention[0] : 100) + '×' + (glassDimention[1] ? glassDimention[1] : 100);
+                    let frme = (outputData['frame']) ? outputData['frame'] : 'No Frame';
+                    let topmt = (outputData['topMat']) ? outputData['topMat'] : 'No Top Mat';
+                    let botmt = (outputData['bottomMat']) ? outputData['bottomMat'] : 'No Bottom Mat';
+                    let lner = (outputData['liner']) ? outputData['liner'] : 'No Liner';
+                    let artwkclr = (jQuery('#pz-text')) ? jQuery('#pz-text').val() : 'No Artwork Color';
+                    let sdmark = (jQuery('.pz-textarea')) ? jQuery('.pz-textarea').val() : 'No Sidemark';
+                    let pdtURL = jQuery('#productUrl').val();
+                    urlmerge = pdtURL+'?type=configure--'+'medium='+med+'--treatment='+treatmnt+'--size='+sze+'--frame='+frme+'--topmat='+topmt+'--bottommat='+botmt+'--liner='+lner+'--artworkcolor='+artwkclr+'--sidemark='+sdmark;
+                }
+                return urlmerge;
+            }
+
+            //$('.send_mail_button').on('click',function(){
+            $(document).on("click", ".send_mail_button", function (event) {
+                event.preventDefault();
+                let urlValues1 = urlValues();
+                var saveCanvasUrl = "<?= $this->getUrl('productimize/index/savecanvas')?>";
+                var dataUrl = artwork.render("jpeg");
+                var glassDimention = getGlassDimention(null);
+                let artworkData = {};
+                artworkData['glassDimention'] = glassDimention;
+                artworkData['pzSelectedOptions'] = pzSelectedOptions;
+                if ($('.medium-select-elem').length > 0 && $('.medium-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['medium'] = {
+                        'sku': $('.medium-select-elem option:selected').val()
+                    }
+                }
+                if (jQuery('.treatment-select-elem').length > 0 && jQuery('.treatment-select-elem option:selected').val()) {
+                    artworkData['pzSelectedOptions']['treatment'] = {
+                        'sku': jQuery('.treatment-select-elem option:selected').val()
+                    }
+                }
+                artworkData['productUrl'] = productImg;
+                artworkData['productId'] = productId;
+                $.ajax({
+                    showLoader: true,
+                    url: saveCanvasUrl,
+                    data: {
+                        artworkData: JSON.stringify(artworkData)
+                        //dataUrl: dataUrl
+                    },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        console.log("submit 1");
+                        console.log(data);
+                        var sender_name = $('#sender-name').val();
+                        var sender_email = $('#sender-email').val();
+                        var receiver_email = $('#receiver-email').val();
+                        var receiver_message = $('#receiver-message').val();
+                        var productlink = urlValues1;
+                        let dataparsed = data;
+                        var emaillink = dataparsed.imageUrl;
+                        console.log("sender", sender_email, "receiver_email", receiver_email, "receiver_message", receiver_message);
+                        var productimizeMailUrl = "<?= $this->getUrl('productimize/index/sendproductimizemail')?>";
+                        $.ajax({
+                            url: productimizeMailUrl,
+                            method: "POST",
+                            cache: false,
+                            data: {
+                                sender_name: sender_name,
+                                sender_email: sender_email,
+                                receiver_email: receiver_email,
+                                receiver_message: receiver_message,
+                                emaillink: emaillink,
+                                productlink: productlink
+                            },
+                            success: function (response) {
+                                $("#share_mail_content").prepend('<div class="alert alert-success">Mail sent successfully.</div>')
+                                $(".send_mail_button").find('i').remove();
+                                setTimeout(function () {
+                                    $("#share_mail_content").find('.alert-success').remove();
+                                    $('.closepopup').trigger('click');
+                                }, 5000);
+                            },
+                            error: function () {
+                                console.log("=====error==========");
+                                alert('sorry something went wrong');
+                                $('#product-addtocart-button').removeAttr('style');
+                                $('#product-addtocart-button').removeAttr('style');
+
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            $(document).on("click", ".owl-next", function () {
+                console.log('calling 123')
+
+                var matrix = jQuery(this).parents('.pz-design-item-list').find('.owl-stage').css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+                var x = matrix[12] || matrix[4];
+                console.log(Math.abs(x))
+                let owlwidth = parseInt(jQuery(this).parents('.pz-design-item-list').find('.owl-stage').css('width'))
+                owlwidth = owlwidth;
+                let transWidth = (Math.abs(x) <= 770) ? Math.abs(x) + 440 : Math.abs(x) + 550;
+                if(transWidth > owlwidth)  {
+                    $(this).addClass('disabled');
+                }
+
+            });
+
+            $(document).on("click", ".owl-prev", function () {
+                console.log('calling 123 prev')
+
+                var matrix = jQuery(this).parents('.pz-design-item-list').find('.owl-stage').css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+                var x = matrix[12] || matrix[4];
+                let owlwidth = parseInt(jQuery(this).parents('.pz-design-item-list').find('.owl-stage').css('width'))
+                console.log(Math.abs(x), '----', owlwidth)
+                if(Math.abs(x) <= 110 || Math.abs(x) > owlwidth-110)  {
+                    $(this).addClass('disabled');
+                    jQuery(this).parents('.pz-design-item-list').find('.owl-stage').css('transform','translate3d(0px, 0px, 0px)')
+                    let dataFrom = jQuery(this).parents('.pz-design-item-list').attr('dataFrom')
+                    $('.' + dataFrom).owlCarousel('resetproductimize');
+                }
+
+
+                $('.owl-next').removeClass('disabled');
+            });
+
+
+
+            function frameSearch(searchfil, tabFrom) {
+                $('.pz-optionwidthsearch,.pz-optiontypesearch').find('.active').removeClass('active');
+                var mediaframehtml = '';
+                let maincolorshowarray = [], subcolorshowarray = [], widthshowarray = [], typeshowarray = [];
+                let classKey = '.' + tabFrom[1] + ' li';
+                let widthSize = 0;
+                $(classKey).each(function () {
+                    let matchedVal = 1;
+                    if (locSearchVal != '') {
+                        if (!$(this).attr('data-sku').toLowerCase().includes(locSearchVal.toLowerCase())) {
+                            matchedVal = 0;
+                        }
+                    }
+                    if (colorSearchVal.length > 0) {
+                        if ($.inArray($(this).attr('data-color'), colorSearchVal) == -1) {
+                            matchedVal = 0;
+                        } else {
+                            if ($.inArray($(this).attr('data-width-range'), widthshowarray) == -1) {
+                                widthshowarray.push($(this).attr('data-width-range'));
+                            }
+                            if ($.inArray($(this).attr('data-type'), typeshowarray) == -1) {
+                                typeshowarray.push($(this).attr('data-type'));
+                            }
+                        }
+                    }
+                    if (colorSubVal.length > 0) {
+                        if ($.inArray($(this).attr('data-color-frame'), colorSubVal) == -1) {
+                            matchedVal = 0;
+                        } else {
+                            if ($.inArray($(this).attr('data-width-range'), widthshowarray) == -1) {
+                                widthshowarray.push($(this).attr('data-width-range'));
+                            }
+                            if ($.inArray($(this).attr('data-type'), typeshowarray) == -1) {
+                                typeshowarray.push($(this).attr('data-type'));
+                            }
+                        }
+                    }
+                    if (widthSearchVal != '') {
+                        if ($(this).attr('data-width-range') != widthSearchVal.replace(/\./g, "").replace(/['"]+/g, '').replace(/ /g, "")) {
+                            matchedVal = 0;
+                        }
+                    }
+                    if (typeSearchVal != '') {
+                        if ($(this).attr('data-type') != typeSearchVal) {
+                            matchedVal = 0;
+                        }
+                    }
+                    if (matchedVal == 1) {
+
+                        $(this).parents('.owl-item').css('display', 'flex')
+                        $(this).css('display', 'block')
+                        widthSize += 110;
+                        if(!$(this).find('img').attr('src'))    {
+                            $(this).find('img').attr('src',$(this).find('img').attr('data-src'))
+                            $(this).find('img').css('opacity',1)
+                        }
+                    } else {
+                        $(this).parents('.owl-item').css('display', 'none')
+                        $(this).css('display', 'none')
+                    }
+                });
+
+                let dataFrom = $('.' + tabFrom[0]).find('.pz-design-item-list').attr('dataFrom')
+                $('.' + dataFrom).owlCarousel('resetproductimize');
+                $('.' + tabFrom[0]).find('.owl-prev').addClass('disabled');
+                $('.' + tabFrom[0]).find('.owl-next').removeClass('disabled');
+                setTimeout(() => {
+                    var matrix = $('.' + tabFrom[0]).find('.owl-stage').css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+                    var x = matrix[12] || matrix[4];
+                    console.log(Math.abs(x))
+                    let owlwidth = parseInt($('.' + tabFrom[0]).find('.owl-stage').css('width'))
+                    owlwidth = owlwidth;
+                    let transWidth = (Math.abs(x) <= 770) ? Math.abs(x) + 440 : Math.abs(x) + 550;
+                    if(transWidth > owlwidth)  {
+                        $('.' + tabFrom[0]).find('.owl-next').addClass('disabled');
+                    }
+                }, 2000);
+                
+
+                if ($(classKey + ':visible').length == 0) {
+                    let valueerror = $('.' + tabFrom[0]).parents('.pz-custom-items').find('.pz-item-title-text').text();
+                    // $('.' + tabFrom[0]).find('.nextContentParent').before('<div class="customnovalue">*No ' + valueerror + ' Available</div>')
+
+                    if ($('.customnovalue').length == 0) {
+                        $('.' + tabFrom[0]).find('.nextContentParent').before('<div class="customnovalue">*No ' + valueerror + ' Available</div>')
+                        $('.customnovalue').fadeOut(5000, function () {
+                            $(this).remove();
+                        });
+                    } else {
+                        $('.customnovalue').show().fadeOut(5000, function () {
+                            $(this).remove();
+                        });
+                    }
+
+                } else {
+                    $('.' + tabFrom[0]).find('.customnovalue').remove();
+                }
+                if ($(classKey + ':visible').length > 5) {
+                    $('.' + tabFrom[0]).find('.owl-next,.owl-prev').show();
+                }   else {
+                    $('.' + tabFrom[0]).find('.owl-next,.owl-prev').hide();
+                }
+                $('.' + tabFrom[0]).find('.owl-stage').css('transform','translate3d(0px, 0px, 0px)')
+
+                if($('.' + tabFrom[0]).find('.owl-stage').length > 0) {
+                    $('.' + tabFrom[0]).find('.owl-stage').css('width',widthSize);
+                }
+
+
+                // let tabstart = '.'+tabFrom;
+                if (widthshowarray.length > 0) {
+                    $('.' + tabFrom[0]).find('.width > li').css('display', 'none')
+                    $('.' + tabFrom[0]).find('#widthli0').css('display', 'block')
+                    $.each(widthshowarray, function (widthkey, widthdata) {
+                        if (widthdata != undefined) {
+                            console.log(widthkey, widthdata)
+                            let id = '#widthli' + widthdata.replace(/\./g, "").replace(/['"]+/g, '').replace(/ /g, "");
+                            console.log(id);
+                            $(id).css('display', 'block')
+                        }
+                    })
+                }
+                if (typeshowarray.length > 0) {
+                    $('.' + tabFrom[0]).find('.pz-optiontypesearch li').css('display', 'none')
+                    $('.' + tabFrom[0]).find('.typeli0').css('display', 'block')
+                    $.each(typeshowarray, function (typekey, typedata) {
+                        if (typedata != undefined) {
+                            $('.' + tabFrom[0]).find('.typeli' + typedata).css('display', 'block')
+                        }
+                    })
+                }
+
+            }
+
+
+
+            $("#productimize_customize_cancel_button").on('click', function () {
+                if($('#pagereferer').val() != '')   {
+                    window.location.href = $('#pagereferer').val();
+                }   else {
+                    window.location.href = $('#productUrl').val();
+                }
+            });
+
+        });
+</script>

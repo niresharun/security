@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">ziffity_submenu_edit.ziffity_submenu_edit_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Sub Menu</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save</item>
+                <item name="class" xsi:type="string">save primary</item>
+                <item name="url" xsi:type="string">*/submenu/save</item>
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Wendover\MegaMenu\Block\Adminhtml\SubMenu\Buttons\BackButton" />
+            <button name="delete" class="Wendover\MegaMenu\Block\Adminhtml\SubMenu\Buttons\DeleteButton" />
+            <button name="save_and_continue" class="Wendover\MegaMenu\Block\Adminhtml\Form\SaveAndContinueButton" />
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>ziffity_submenu_edit.ziffity_submenu_edit_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="ziffity_submenu_edit_data_source" component="Magento_Ui/js/form/provider" >
+        <settings>
+            <submitUrl path="*/submenu/save"/>
+        </settings>
+        <dataProvider class="Wendover\MegaMenu\Ui\DataProvider\SubMenuDataProvider" name="ziffity_submenu_edit_data_source">
+            <settings>
+                <primaryFieldName>submenu_id</primaryFieldName>
+                <requestFieldName>submenu_id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="submenu_configuration">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Sub Menu</item>
+            </item>
+        </argument>
+        <field name="menu_id" formElement="hidden">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="class" xsi:type="string">Wendover\MegaMenu\Ui\Component\MenuIdValue</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+        <field name="submenu_title" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">fieldset</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Sub Menu Title</label>
+                <dataScope>submenu_title</dataScope>
+            </settings>
+        </field>
+        <field name="submenu_url" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">menu</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Sub Menu URL</label>
+                <dataScope>submenu_url</dataScope>
+            </settings>
+        </field>
+        <field name="submenu_sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Sort Order</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">menu</item>
+                    <item name="dataScope" xsi:type="string">submenu_sort_order</item>
+                </item>
+            </argument>
+        </field>
+        <field name="submenu_class" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">menu</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Sub Menu Class</label>
+                <dataScope>submenu_class</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+        <fieldset name="childmenu_configuration">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Child Menu Configuration</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        <dynamicRows name="child_menu">
+            <settings>
+            <addButtonLabel translate="true">Add Rows</addButtonLabel>
+            <additionalClasses>
+                <class name="admin__field-wide">true</class>
+            </additionalClasses>
+            <componentType>dynamicRows</componentType>
+        </settings>
+        <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="isTemplate" xsi:type="boolean">true</item>
+                    <item name="is_collection" xsi:type="boolean">true</item>
+                    <item name="componentType" xsi:type="string">container</item>
+                </item>
+            </argument>
+            <field name="childmenu_title" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="fit" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-no-html-tags" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                    <label>Child Menu Title</label>
+                </settings>
+            </field>
+            <field name="childmenu_url" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="fit" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-no-html-tags" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                    <label>Child Url</label>
+                </settings>
+            </field>
+            <field name="childmenu_class" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="fit" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <dataType>text</dataType>
+                    <label>Child Class</label>
+                </settings>
+            </field>
+            <actionDelete template="Magento_Backend/dynamic-rows/cells/action-delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="fit" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="some-class">true</class>
+                    </additionalClasses>
+                    <dataType>text</dataType>
+                    <label>Actions</label>
+                    <componentType>actionDelete</componentType>
+                </settings>
+            </actionDelete>
+        </container>
+    </dynamicRows>
+        </fieldset>
+</form>

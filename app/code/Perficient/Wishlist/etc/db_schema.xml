@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_Wishlist
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wishlist">
+        <column xsi:type="varchar" name="collaboration_ids" nullable="true" comment="Collaborated Customer Ids"/>
+    </table>
+</schema>

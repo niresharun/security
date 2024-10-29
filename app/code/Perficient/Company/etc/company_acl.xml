@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file used to set the ACL permission
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Company ACL Permission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Company::index" title="All" translate="title" sortOrder="100">
+                <resource id="Perficient_Company::myproject" title="My Project" translate="title" sortOrder="20"/>
+                <resource id="Perficient_Company::company_display_information" title="Company Display Information"
+                          translate="title" sortOrder="30"/>
+            </resource>
+        </resources>
+    </acl>
+</config>

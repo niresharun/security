@@ -1,0 +1,205 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Email extend styles
+//  _____________________________________________
+
+//  This file should be used for theme-specific styles for emails that extend or modify the styles in _email.less
+//  This will allow you to edit email styles without copying and editing the _email.less file
+
+//  Importing fonts from an external CSS file, rather than embedding @font-face declarations inside the <style> tag,
+//  as the latter will cause font rendering issues if the web fonts are inaccessible.
+
+@import "_color";
+
+.lead_time, .lead-time{
+    position: relative;
+    border: 1px solid #ccbea0;
+    font-size: 14px;
+    line-height: 24px;
+    background: #fffaf3;
+    box-sizing: border-box;
+    color: #925A02;
+    padding: 22px 10px 22px 30px;
+    display: block;
+}
+table{
+    width: 100%;
+}
+
+.x_no-display,
+.no-display {
+    display: none;
+}
+table {
+    tr td img {
+        margin-top: 20px;
+    }
+    td p {
+        text-align: left !important;
+    }
+    p,dl,dd,dt{
+        margin-left: 0;
+        text-align: left;
+    }
+}
+table:not(.main,.x_main){
+    margin-left: 0 !important;
+    width: 100%;
+}
+.main-content {
+    .method-info {
+        .payment-method th {
+            text-align: left;
+        }
+    }
+}
+div, table, tr, td, p, th, span, body, html {
+    background: #fff !important;
+}
+
+td:hover, tr:hover, th:hover, table:hover{
+    background: none !important;
+}
+.button.remind-password td a{
+    background: #a82b19; color: #fff !important; border: 0; font-size: 17px; border-radius: 4px; min-width: 156px; min-height: 33px;
+    font-weight: bold; text-transform: uppercase; letter-spacing: 0.85px; padding:15px;line-height: 35px;border: 1px solid #a82b19;
+}
+.button.remind-password td{color:#fff; border-radius: 0;background-color: #fff !important;}
+body .button.remind-password td a:link{color: #fff !important; border: 0 !important;}
+body .button .inner-wrapper td:hover {
+    background: none !important;
+}
+table.message-info, table{
+    background-color: #fff !important;
+    width: 100%;
+    tbody,tfoot,table,tr,td,h3,h2,p,span,th{
+        background-color: #fff !important;
+    }
+}
+dd.warning.message {
+    padding: 15px !important;
+}
+span.lead_time {
+    padding: 5px 0 0 !important;
+    div {
+        margin: 0 !important;
+        padding-bottom: 5px;
+    }
+}
+tfoot.order-totals{
+    td, th {
+        padding-bottom: 5px;
+    }
+    table.table-order-items {
+        width: 60% !important;
+    }
+}
+td.address-details{
+    p {
+        line-height: 25px;
+    }
+}
+dl.payment-method{
+    dt{
+        padding-bottom: 5px !important;
+    }
+}
+dl.payment-method{
+    td{
+        padding-bottom: 5px !important;
+    }
+}
+td.x_main-content,
+td.main-content {
+    background: none !important;
+}
+tr.email-information{
+    table.email-items{
+        dl.item-options{
+            padding-left: 2px !important;
+            grid-template-columns: 125px auto !important;
+            width: 100% !important;
+            display: grid !important;
+            dd {
+                width: inherit  !important;
+                margin-bottom: 6px !important;
+            }
+            dt {
+                font-weight: 600  !important;
+                width: 105px  !important;
+            }
+        }
+    }
+}
+tfoot.order-totals{
+    td.order-items-td {
+        padding-left: 0 !important;
+    }
+}
+tr.email-information a, tr.email-information a:link, tr.email-information td a, tr.email-information td p a,
+tr.email-intro td p a,tr.email-intro a:link, tr.email-intro a, tr.email-intro td a{color: #a82b19 !important;}
+td dt,
+.main-content .item-info dt {
+    float: left;
+    clear: left;
+    width: 50%;
+}
+td dl,
+.main-content .item-info dl{
+    width: 100%;
+    display: inline-block;
+    padding-left: 0;
+}
+td,
+.main-content .item-info{
+    dt {
+        em {
+            font-style: normal;
+        }
+    }
+}
+.x_hint,
+.hint {
+    display: block;
+    font-weight: 700;
+}
+.x_pz-tooltip-content,
+.pz-tooltip-content {
+    display: none;
+}
+body .product-image-container .product-image-wrapper,
+body .x_product-image-container .x_product-image-wrapper{
+    padding-bottom: 0;
+}
+.x_main-content table .x_attribute-section,
+.main-content table .attribute-section,
+table .attribute-section,
+table .x_attribute-section {
+    ul {
+        padding: 0;
+        margin-bottom: 0;
+        li {
+            list-style-type: none;
+            margin: 0;
+            line-height: normal;
+            padding-bottom: 2px;
+            .title,
+            .x_title {
+                padding-right: 2px;
+                text-transform: capitalize;
+            }
+            .x_title,
+            .title,
+            .x_value,
+            .value,
+            span {
+                font-size: 14px;
+                line-height: 16px;
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Defines frontname and controller
+ *
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="cronscheduler" frontName="cronscheduler">
+            <module name="Perficient_CronScheduler"/>
+        </route>
+    </router>
+</config>

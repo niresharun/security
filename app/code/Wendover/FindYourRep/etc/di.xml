@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Wendover\FindYourRep\Model\ResourceModel\Rep\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">find_your_rep_main</argument>
+            <argument name="resourceModel" xsi:type="string">Wendover\FindYourRep\Model\ResourceModel\Rep</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="representative_grid_list_data_source" xsi:type="string">Wendover\FindYourRep\Model\ResourceModel\Rep\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Ui\Model\Export\ConvertToCsv" type="Wendover\FindYourRep\Model\Export\ConvertToCsv" />
+    <preference for="Magento\Theme\Block\Html\Header" type="Wendover\FindYourRep\Block\Frontend\Account\Header" />
+</config>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * This module is used to add class in page and change structure
+ * @category: Magento
+ * @package: Perficient/magento Wishlist
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Wishlist
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Comment $block  */
+
+/* @var \Magento\Wishlist\Model\Item $item */
+
+use Perficient\Wishlist\Helper\Data as WishlistHelper;
+
+$item = $block->getItem();
+$sideMark = '';
+
+if ($item->getWishlistItemId()) {
+    /** @var WishlistHelper $wishlistHelper */
+    $wishlistHelper = $this->helper(WishlistHelper::class);
+    $sideMark = $wishlistHelper->getSideMark($item->getWishlistItemId());
+}
+?>
+
+<div class="field comment-box product-item-comment-container">
+    <label class="" for="product-item-comment-<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>">
+        <span><?= $block->escapeHtml(__('Sidemark')) ?></span>
+    </label>
+    <div class="control">
+        <textarea id="product-item-comment-<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>" maxlength="250" placeholder="<?= $block->escapeHtmlAttr(__('Sidemark')) ?>" name="description[<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>]" title="<?= $block->escapeHtmlAttr(__('Sidemark')) ?>" class="product-item-comment" <?= $item->getProduct()->isSaleable() ? '' : 'disabled="disabled"' ?>><?= ($sideMark) ?></textarea>
+        <div for="side-mark-input" class="max-len-note-div">
+            <?= $block->escapeHtml(__('Maximum 250 characters')) ?>
+        </div>
+    </div>
+</div>

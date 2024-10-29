@@ -1,0 +1,142 @@
+<!--
+/**
+ * Custom Email Template to Notify Admin
+ * Ref Ticket : WENDOVER-534
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar
+ * @project: Wendover
+ * @keywords: Module Perficient_Company
+ */
+-->
+<!--@subject New company registration request @-->
+<!--@vars {
+"var admin":"Admin Name",
+"var customer":"Customer Name",
+"var company":"Company Name",
+"var company_url":"Company Page Admin URL",
+"var companyData.companyEmail":"Company Email",
+"var companyData.companyResaleCertificate":"Resale Certificate Number",
+"var companyData.companyWebsite":"Website Address",
+"var companyData.companySocialMedia":"Social Media Site",
+"var companyData.companyBusinessType":"Business Type",
+"var companyData.billingStreetZero":"Street Address",
+"var companyData.billingStreetOne":"Street Address 2",
+"var companyData.billingCity":"City",
+"var companyData.billingCountry":"Country",
+"var companyData.billingState":"State/Province",
+"var companyData.billingPostal":"Zip/Postal Code",
+"var companyData.billingPhoneNumber":"Phone Number",
+"var companyData.adminEmail":"Admin Email",
+"var companyData.adminFirstName":"Admin First Name",
+"var companyData.adminLastName":"Admin Last Name"
+
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans
+"Dear %name,"
+name = $admin}}</strong></p>
+<p>
+    {{trans
+"A company registration request has been submitted by customer %customer. The account is temporarily locked until you approve or reject this company."
+customer = $customer}}
+</p>
+
+<p><strong> {{trans
+"COMPANY"}}</strong></p>
+
+<p>
+    <a href="{{var company_url}}">{{trans
+    "Company Name: %company"
+    company = $company}}</a>
+</p>
+<p>
+    {{trans
+"Company Email: %companyEmail"
+companyEmail = $companyData.companyEmail}}
+</p>
+<p>
+    {{trans
+"Resale Certificate Number: %companyResaleCert"
+companyResaleCert = $companyData.companyResaleCertificate}}
+</p>
+<p>
+    {{trans
+"Website Address: %companyWebAddress"
+companyWebAddress = $companyData.companyWebsite}}
+</p>
+<p>
+    {{trans
+"Social Media Site: %companySocialSite"
+companySocialSite = $companyData.companySocialMedia}}
+</p>
+<p>
+    {{trans
+"Business Type: %companyBusinessType"
+companyBusinessType = $companyData.companyBusinessType}}
+</p>
+
+<p><strong> {{trans
+"BILLING ADDRESS"}}</strong></p>
+
+<p>
+    {{trans
+"Street Address: %billingStreetZero"
+billingStreetZero = $companyData.billingStreetZero}}
+</p>
+<p>
+    {{trans
+"Street Address 2: %billingStreetOne"
+billingStreetOne = $companyData.billingStreetOne}}
+</p>
+<p>
+    {{trans
+"City: %billingCity"
+billingCity = $companyData.billingCity}}
+</p>
+<p>
+    {{trans
+"Country: %billingCountry"
+billingCountry = $companyData.billingCountry}}
+</p>
+<p>
+    {{trans
+"State/Province: %billingState"
+billingState = $companyData.billingState}}
+</p>
+<p>
+    {{trans
+"Zip/Postal Code: %billingPostal"
+billingPostal = $companyData.billingPostal}}
+</p>
+<p>
+    {{trans
+"Phone Number: %billingPhoneNumber"
+billingPhoneNumber = $companyData.billingPhoneNumber}}
+</p>
+
+<p><strong> {{trans
+"COMPANY ADMINISTRATOR"}}</strong></p>
+
+<p>
+    {{trans
+"Email: %adminEmail"
+adminEmail = $companyData.adminEmail}}
+</p>
+<p>
+    {{trans
+"First Name: %adminFirstName"
+adminFirstName = $companyData.adminFirstName}}
+</p>
+<p>
+    {{trans
+"Last Name: %adminLastName"
+adminLastName = $companyData.adminLastName}}
+</p>
+
+{{template config_path="design/email/footer_template"}}

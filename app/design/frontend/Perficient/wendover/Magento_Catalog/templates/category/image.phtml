@@ -1,0 +1,29 @@
+<?php
+/**
+ * CMS Category view template to display image banner.
+ *
+ * @category: phtml
+ * @package: Perficient/Catalog
+ * @author: Archana Lohakare (archana.lohakare@perficient.com)
+ * @project: Wendover
+ *
+ * @var $block \Perficient\Catalog\Block\Category\View
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+<?php  $_category  = $block->getCurrentCategory();?>
+<?php  $mode = $_category->getDisplayMode(); ?>
+<?php if ($mode == 'PRODUCTS') :?>
+<?php
+    $_imgHtml   = '';
+    if ($_imgUrl = $block->getCategoryImageUrl($_category)) {
+            $_imgHtml = '<div class="category-image"><img src="'
+            . $escaper->escapeUrl($_imgUrl)
+            . '" alt="Image '
+                . $block->escapeHtmlAttr($_category->getName())
+                . '" class="image" /></div>';
+        $_imgHtml = $block->getOutput()->categoryAttribute($_category, $_imgHtml, 'image');
+        /* @noEscape */ echo $_imgHtml;
+    }
+?>
+<?php endif; ?>

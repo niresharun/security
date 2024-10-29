@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Admin configuration of GoogleTagManager
+ * @category: Magento
+ * @package: Perficient/GoogleTagManager
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_GoogleTagManager
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\GoogleTagManager\Block\Ga">
+        <plugin name="modify_order_purchase_data" type="Perficient\GoogleTagManager\Plugin\GtmPurchase" sortOrder="10" disabled="false"/>
+    </type>
+</config>

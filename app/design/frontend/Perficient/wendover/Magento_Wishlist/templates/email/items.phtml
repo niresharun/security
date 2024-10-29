@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Share\Email\Items $block */
+?>
+<?php $l = $block->getWishlistItemsCount();
+$productimizeHelper = $this->helper(\DCKAP\Productimize\Helper\Data::class);
+?>
+<div>
+    <table>
+        <tr>
+            <?php $i = 0;
+            foreach ($block->getWishlistItems() as $item): $i++ ?>
+                <?php /* @var \Magento\Wishlist\Model\Item $item */ ?>
+                <?php
+                $newProductImage = '';
+                if($item->getData('wishlist_item_id')){
+                    $newProductImage = $productimizeHelper->getImageurlforwishlistId($item->getData('wishlist_item_id'));
+                }
+                ?>
+                <?php /* @var \Magento\Catalog\Model\Product $_product */ ?>
+                <?php $_product = $item->getProduct(); ?>
+                <td class="col product">
+                    <p>
+                    <?php if($newProductImage == ''): ?>
+                        <a style="color:#a82b19" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>">
+                            <?php $productThumbnail = $block->getProductForThumbnail($item) ?>
+                            <?= /* @noEscape */ $block->getImage($productThumbnail, 'product_small_image')->toHtml() ?>
+                        </a>
+                        <?php else: ?>
+                        <a class="product-item-photo" tabindex="-1" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>" title="<?= $block->escapeHtmlAttr($_product->getName()) ?>">
+                            <span class="product-image-container product-image-container-2048" style="width: 240px;">
+                            <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                                <img class="product-image-photo" src="<?=$newProductImage?>" loading="lazy" width="135" height="135" alt="<?= $block->escapeHtmlAttr($_product->getName()) ?>"></span>
+                            </span>
+                        </a>
+                        <?php endif; ?>
+                    </p>
+
+                    <p>
+                        <a style="color:#a82b19" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>">
+                            <strong><?= $block->escapeHtml($_product->getName()) ?></strong>
+                        </a>
+                    </p>
+                    <?php
+                    $catalogHelper = $this->helper('Perficient\Catalog\Helper\Data');
+                    $buyRequest = $item->getBuyRequest();
+                    $productimizeEditId = $buyRequest->getEditId();
+                    $productConfiguration = $buyRequest->getPzCartProperties();
+                    if ($productConfiguration) {
+                    $confData = $catalogHelper->getValidCustomizedOptions($productConfiguration);
+                    $data = $confData['dataArray'];
+                    if(!empty($data)){
+                    ?>
+                    <div class="attribute-section">
+                        <ul role="list">
+                            <?php foreach($data as $labelKey => $labelValue) { ?>
+                                <?php if($productimizeEditId && $labelKey == 'CustomImage'): continue; endif; ?>
+                                <li role="listitem">
+                                    <span class="title"><?= $block->escapeHtml($labelKey) ?>: </span>
+                                    <?php if($productimizeEditId){ ?>
+                                        <span class="value"><?= $block->escapeHtml($labelValue,['span', 'i']) ?></span>
+                                    <?php } else{ ?>
+                                        <span class="value"><?= $labelValue ?></span>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <?php }} ?>
+                    <?php if ($block->hasDescription($item)): ?>
+                        <p>
+                            <strong><?= $block->escapeHtml(__('Comment')) ?>:</strong>
+                            <br/><?= /* @noEscape */  $block->getEscapedDescription($item) ?>
+                        </p>
+                    <?php endif; ?>
+                    <p>
+                        <a style="color:#a82b19" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>">
+                            <?= $block->escapeHtml(__('View Product')) ?>
+                        </a>
+                    </p>
+                </td>
+                <?php if ($i % 3 != 0): ?>
+                    <td></td>
+                <?php else: ?>
+            </tr>
+            <tr>
+                <td colspan="5">&nbsp;</td>
+            </tr>
+                    <?php if ($i < $l): ?>
+                    <tr>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endforeach ?>
+    </table>
+</div>

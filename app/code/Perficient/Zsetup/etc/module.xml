@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module to correct the attributes type.
+ *
+ * @category: PHP
+ * @package: Perficient/Zsetup
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suraj Jaiswal <suraj.jaiswal@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Zsetup
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Zsetup" setup_version="1.0.0">
+        <sequence>
+            <module name="Amasty_Shopby" />
+            <module name="Perficient_Catalog" />
+        </sequence>
+    </module>
+</config>

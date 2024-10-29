@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Base  module to add all system configuration.
+*
+* @category: PHP
+* @package: Perficient/Base
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <sandeep.mude@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Base
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Base::main_menu_item" title="Wendover" module="Perficient_Base" sortOrder="30"
+             resource="Perficient_Base::main_menu_item" />
+        <!-- General settings -->
+        <add id="Perficient_Base::other_settings" title="General settings" translate="title" module="Perficient_Base"
+             parent="Perficient_Base::main_menu_item" sortOrder="200" resource="Perficient_Base::other_settings"/>
+
+        <add id="Perficient_Base::urlrewrites" title="Import URL Rewrites" translate="title" module="Perficient_Base" sortOrder="20" parent="Magento_Backend::marketing_seo" action="customutlrewrite/index/index" resource="Magento_UrlRewrite::urlrewrite"/>    
+    </menu>
+</config>

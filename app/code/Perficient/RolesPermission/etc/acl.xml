@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Rolespermission cron update permission
+ *
+ * @category: Magento
+ * @package: Perficient/RolesPermission
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sreedevi Selvaraj <sreedevi.selvaraj@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_RolesPermission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Perficient_RolesPermission::perficient_rolespermission" title="Wendover RolesPermission Settings" sortOrder="55" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Productimize System Config.
+* @category: Magento
+* @package: Perficient/Productimize
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Productimize
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="productimize" translate="label" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Productimize</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Productimize::perficient_productimize</resource>
+            <group id="pricing" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Product Pricing Settings</label>
+                <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Is Enabled?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled return configurator price else default magento price and apply discount on it.</comment>
+                </field>
+                <field id="customization_markup_pct" translate="label" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Customization Markup (%)</label>
+                    <comment>Accept integer values only.</comment>
+                </field>
+                <field id="color_const_markup_pct" translate="label" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Color Const Markup (%)</label>
+                    <comment>Accept integer values only.</comment>
+                </field>
+                <!--<field id="logger" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Logger</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>-->
+                <field id="detailed_logger" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Detailed Pricing Logger</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="disc_surcharge_logger" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Detailed Discount Surcharge Logger</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

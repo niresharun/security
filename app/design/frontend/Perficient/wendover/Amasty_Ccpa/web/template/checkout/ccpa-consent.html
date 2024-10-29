@@ -1,0 +1,15 @@
+<!-- ko foreach: { data: items, afterRender: initModal } -->
+<div data-bind="visible: $data.visible, attr: {class: $data.required ? 'amasty-ccpa-consent required' : null}">
+    <input type="checkbox"
+           value="1"
+           data-bind="attr: {'title': title, 'name': name, 'id': checkbox_code + $parent.getUniqId(),
+               'data-checkbox-code': checkbox_code,
+               'data-validate': $data.required ? '{required:true}' : null,
+                class: $data.required ? 'required-entry' : null}"/>
+    <label data-bind="attr: {'for': checkbox_code + $parent.getUniqId()}">
+        <span class="action" data-bind="html: checkbox_text"></span>
+    </label>
+</div>
+</div>
+<!-- /ko -->
+<input type="hidden" name="am-ccpa-checkboxes-from" data-bind="attr: {'value': metaInfo.where}">

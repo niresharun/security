@@ -1,0 +1,44 @@
+<?php
+/**
+ * File to create/update artwork catalog.
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$templateData = $this->getData('templateData');
+$images = $templateData['images'];
+$data = $templateData['data'];
+$page = $templateData['page'];
+?>
+<!--  Full Page single -->
+
+<div class="wendover_template_canvas wendover_template2">
+	<div class="page_number">Page <?php echo $page; ?></div>
+
+    <div class="dropspot dropspot_number_1">
+        <div class="img-holder" id="<?php echo uniqid(); ?>" rel="1">
+            <?php if (isset($data['dropspot_1']['item_id']) ) :?>
+                <?php $_pId = $data['dropspot_1']['item_id']; ?>
+                <img src="<?php echo $block->getImage($_pId, $images, true); ?>" class="art-img <?php echo $_pId; ?> dropspot-size-type-2" alt="<?php echo $_pId; ?>" />
+            <?php endif; ?>
+        </div>
+        <div class="dropspot_number dropspot_number_1"><?php if (isset($data['dropspot_1']['item_id'])): ?>(1)<?php endif; ?></div>
+    </div>
+
+    <div class="art-description-section">
+        <div class="dropspot_1_desc dropspot_desc">
+            <?php echo (isset($data['dropspot_1']['item_id']) && isset($images[$data['dropspot_1']['item_id']]['desc'])) ? '(1)<br/>'.$images[$data['dropspot_1']['item_id']]['desc'] : '' ?>
+        </div>
+    </div>
+</div>
+<div style="page-break-before:always"></div>

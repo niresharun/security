@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Base  module to add all system configuration.
+*
+* @category: PHP
+* @package: Perficient/Base
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <sandeep.mude@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Base
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- Add new Tab -->
+        <tab id="wendover" translate="label" sortOrder="200">
+            <label>Wendover</label>
+        </tab>
+        <section id="wendover_general_settings" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1"
+                     showInStore="1">
+            <label>General Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_Base::general_settings</resource>
+        </section>
+    </system>    
+</config>

@@ -1,0 +1,23 @@
+<!--
+/**
+ * Price Multiplier
+ *
+ * @category: PHP
+ * @package: Perficient/PriceMultiplier
+ * @copyright: Copyright  2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Module Perficient_PriceMultiplier
+ */
+-->
+<if args="isSalable($row())">
+    <if args="getRegularPrice($row())">
+        <span class="prices hide">
+            <span data-bind="attr: { 'class': 'strikeout-price-wrapper strikeout-price-wrapper-' + $row()['id'], 'data-price-id': $row()['id'], 'style': 'text-decoration: line-through'}"></span><br/>
+            <label><span data-bind="i18n: 'Your Price:'"> </span></label>
+            <span data-bind="attr: { 'class': 'price trigger-product-price price-wrapper-' + $row()['id'], 'data-price-id': $row()['id']}"></span>
+        </span>
+        <span class="price-loader" data-bind="i18n: 'Loading..'"></span>
+    </if>
+</if>

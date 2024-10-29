@@ -1,0 +1,13 @@
+diff --git a/vendor/avalara/avatax-magento/Framework/Interaction/MetaData/MetaDataObject.php b/vendor/avalara/avatax-magento/Framework/Interaction/MetaData/MetaDataObject.php
+index c28d6dd4..4e7672f8 100644
+--- a/vendor/avalara/avatax-magento/Framework/Interaction/MetaData/MetaDataObject.php
++++ b/vendor/avalara/avatax-magento/Framework/Interaction/MetaData/MetaDataObject.php
+@@ -17,7 +17,7 @@ namespace ClassyLlama\AvaTax\Framework\Interaction\MetaData;
+ 
+ use Magento\Framework\DataObject;
+ use Magento\Framework\Phrase;
+-use Zend\Validator\NotEmpty;
++use Laminas\Validator\NotEmpty;
+ 
+ class MetaDataObject
+ {

@@ -1,0 +1,248 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+.fieldset {
+    border: 0;
+    margin: 0 0 20px;
+    padding: 0
+}
+.fieldset .legend {
+    box-sizing: border-box;
+    float: left;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 25px;
+    padding: 0
+}
+.fieldset .legend+br {
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden
+}
+.fieldset:last-child {
+    margin-bottom: 0
+}
+.fieldset:after {
+    content: attr(data-hasrequired);
+    color: #e02b27;
+    display: block;
+    font-size: 12px;
+    letter-spacing: normal;
+    margin: 10px 0 0;
+    word-spacing: normal
+}
+.field {
+    margin: 0 0 20px
+}
+.label {
+    font-weight: 700
+}
+.label:after {
+    content: "*";
+    font-size: 12px;
+    color: #e02b27;
+    margin: 0 0 0 5px
+}
+
+body {
+    background: #fff;
+    font-family: "myriad-pro", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    color:#000;
+}
+header, footer{
+    max-width: 1440px;
+    margin: 0 auto;
+
+}
+footer{
+    background: #000;
+    padding: 10px 0;
+    display: block;
+    margin-top: 20px;
+}
+header{
+    margin: 30px auto 20px;
+    padding: 0 15px;
+}
+.copyright{
+    font-size: 14px;
+    padding: 0;
+    color: #808080;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+}
+main {
+    display: block;
+    padding: 0 15px;
+
+}
+main.page-main {
+    max-width: 1440px;
+    margin: 0 auto 50px;
+    min-height: 468px;
+}
+img {
+    border: 0
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: "garamond-premier-pro",serif;
+    color: #000;
+    margin: 0 0 10px;
+}
+h1{
+    font-size: 44px;
+    line-height: 64px;
+}
+h2{
+    letter-spacing: 0;
+    line-height: 50px;
+    font-size:36px;
+}
+h3{
+    line-height: 42px;
+    font-size:30px;
+    font-weight: normal;
+}
+h4{
+    font-size:24px;
+    line-height: 36px;
+    font-weight: 600;
+}
+h5{
+    font-size:18px;
+    line-height: 30px;
+    font-weight: 600;
+}
+h6{
+    font-size:16px;
+    line-height: 26px;
+    font-weight: 600;
+}
+p, li{
+    font-size:16px;
+    line-height: 26px;
+}
+a{
+    font-size:16px;
+    color: #A82B19;
+    line-height: 26px;
+    text-decoration: underline;
+}
+a:hover, a:visited{
+    color: #A82B19;
+}
+th, td{
+    font-size:16px;
+    box-sizing: border-box;
+}
+fieldset{
+    border: 0;
+    padding: 10px 0 0;
+}
+.ddd{
+    border: 1px solid #CCBEA0;
+    font-size:14px;
+    line-height: 24px;
+    background: #FFFAF3;
+}
+.primary{
+    background: #A82B19;
+    color: #fff;
+    border: 0;
+    padding: 18px 40px;
+    font-size: 17px;
+    line-height: 12px;
+    border-radius: 4px;
+    box-shadow: none;
+    min-width: 156px;
+    min-height: 53px;
+    font-weight: bold;
+    font-family: "myriad-pro",sans-serif;
+    text-transform: uppercase;
+}
+.primary:hover{
+    background: #801000;
+    border: 0;
+    color: #fff;
+}
+label.label {
+    color: #000000;
+    font-size: 16px;
+    line-height: 22px;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.input-text {
+    width: 700px;
+    height: 50px;
+    border: 2px solid #CCc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+textarea.textarea {
+    height: 204px;
+    width: 700px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: 1px solid #DEDEDF;
+}
+._keyfocus *:focus, input:not([disabled]):focus, textarea:not([disabled]):focus, select:not([disabled]):focus {
+    border: 2px solid #5483D0;
+}
+.message-success, .message-info, .message-error{
+    width: 100%;
+    min-height: 50px;
+    padding: 22px;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+.message-success{
+    background: #FCFFF5;
+    border: 1px solid #A8C599;
+    color: #1E561FCC;
+}
+.message-info{
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+}
+.message-error{
+    background: #FFF6F6;
+    border: 1px solid #973937;
+    color: #973937;
+}
+@media only screen and (max-width: 767px) {
+    h1{
+        font-size: 28px;
+        line-height: 36px;
+    }
+    h2{
+        font-size: 24px;
+        line-height: 32px;
+    }
+    main.page-main{
+        min-height: 400px;
+    }
+    .input-text, textarea.textarea {
+        width: 100%;
+    }
+    header{
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,24 @@
+<?php
+/**
+ * This module is used to prepare add to collection configurable url on checkout
+ *
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Trupti Bobde <trupti.bobde@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Checkout
+ */
+
+/** @var $block \Perficient\Checkout\Block\Cart\Item\Renderer\Actions\AddToCollection */
+
+$addToCollectionUrl = $block->getAddToCollectionConfigureUrl();
+
+if ($addToCollectionUrl):
+    ?>
+    <a href="" class="<?=$block->getItem()->getProduct()->getId()?>" id="collection-link" item-id="<?=$block->getItem()->getId()?>">
+        <span class="action action-addtocollection"><?= $escaper->escapeHtml(__('ADD COLLECTION TO CART')) ?></span>
+    </a>
+<?php endif; ?>

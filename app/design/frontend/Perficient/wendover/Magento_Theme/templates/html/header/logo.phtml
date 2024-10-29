@@ -1,0 +1,31 @@
+<?php
+/**
+ *
+ * This file used to add aria label
+ *
+ * @category: Magento
+ * @package: Perficient/Theme
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Theme
+ */
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+$storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt()
+?>
+<span data-action="toggle-nav" class="action nav-toggle"><span><?= $block->escapeHtml(__('Toggle Nav')) ?></span></span>
+<a
+        class="logo"
+        href="<?= $block->escapeUrl($block->getUrl('')) ?>"
+        aria-label="<?= $block->escapeHtml(__('Wendover Art Group')) ?>">
+    <img src="<?= $block->escapeUrl($block->getLogoSrc()) ?>"
+         alt="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+        <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
+        <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+    />
+</a>

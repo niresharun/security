@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Custom Fields.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Company\Controller\Profile\EditPost"
+                type="Perficient\Company\Controller\Profile\EditPost"/>
+    <preference for="Magento\Company\Model\Customer\Company" type="Perficient\Company\Model\Customer\Company"/>
+    <preference for="Magento\Company\Model\Email\Sender" type="Perficient\Company\Model\Email\Sender"/>
+    <preference for="Magento\Company\Controller\Users\Index" type="Perficient\Company\Controller\Users\Index"/>
+    <type name="Magento\Company\Api\CompanyRepositoryInterface">
+        <plugin name="save_custom_attributes" type="Perficient\Company\Plugin\Company\Model\CustomAttributes"/>
+    </type>
+    <type name="Magento\Company\Model\Action\SaveCustomer">
+        <plugin name="save_custom_attributes" type="Perficient\Company\Plugin\Company\Model\Action\SaveCustomer"/>
+    </type>
+    <type name="Magento\Customer\Block\Account\Navigation">
+        <plugin name="account_tab_plugin" type="Perficient\Company\Plugin\LinkTitle" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Newsletter\Controller\Manage\Save">
+        <plugin name="newslettercompanyupdate" type="Perficient\Company\Plugin\Manage\Save" sortOrder="10"
+                disabled="false"/>
+    </type>
+    <preference for="Magento\Company\Ui\Component\Listing\Column\CompanyUsersActions"
+                type="Perficient\Company\Ui\Component\Listing\Column\CompanyUsersActions"/>
+    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
+        <plugin name="customersaveafter" type="Perficient\Company\Plugin\Model\ResourceModel\CustomerRepository"
+                sortOrder="10000" disabled="false"/>
+
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="company_users_listing_data_source" xsi:type="string">
+                    Perficient\Company\Model\ResourceModel\Users\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+
+    </type>
+
+    <type name="Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="is_visible_wishlist_sidebar" disabled="true"/>
+        <plugin name="is_loggedin_wishlist_sidebar"
+                type="Perficient\Company\Plugin\Wishlist\Block\Customer\SidebarPlugin"/>
+    </type>
+    <type name="Magento\Company\Controller\Account\CreatePost">
+        <plugin name="beforecreatepost" type="Perficient\Company\Plugin\Company\Controller\Account\CreatePost"
+                disabled="false"/>
+    </type>
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <plugin name="BeforeGetRowData" type="Perficient\Company\Plugin\Model\Export\MetadataProvider" sortOrder="10"
+                disabled="false"/>
+    </type>
+</config>

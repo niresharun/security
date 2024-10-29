@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Perficient\Wishlist\Block\Customer\Wishlist\Item\Column\Edit $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+
+<?php if ($product->isVisibleInSiteVisibility()) : ?>
+    <a class="action edit"
+       aria-label="<?= $block->escapeHtml(__('Edit item')) ?> <?= $block->escapeHtml($product->getName()) ?>"
+       href="<?= $escaper->escapeUrl($block->getItemConfigureUrl($item)) ?>">
+        <span><?= $escaper->escapeHtml(__('Edit')) ?></span>
+    </a>
+<?php endif ?>

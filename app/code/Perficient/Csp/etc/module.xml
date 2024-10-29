@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This is the module for Refused to load the stylesheet changes
+ *
+ * @category: PHP
+ * @package: Perficient/Csp
+ * @copyright: Copyright © 2021 Magento. All rights reserved.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Purushottam Rathi <purushottam.rathi@perficient.com>
+ * @project: Wendover
+ * @keywords: Perficient Csp Module
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Csp" setup_version="1.0.0" />
+</config>

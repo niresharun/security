@@ -1,0 +1,27 @@
+{
+    "perficient_mydisplayinformation": {
+        "column": {
+            "mydisplayinformation_id": true,
+            "user_id": true,
+            "company_name": true,
+            "contact_name": true,
+            "phone_number": true,
+            "street_line_1": true,
+            "street_line_2": true,
+            "city": true,
+            "state": true,
+            "zip": true,
+            "country": true,
+            "mobile_number": true,
+            "fax_number": true,
+            "email_address": true,
+            "welcome_message_on_the_homepage": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "index": {
+            "PERFICIENT_MYDISPLAYINFORMATION_USER_ID": true
+        }
+    }
+}

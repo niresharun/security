@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php
+/* @var $_helper \Perficient\ViewInRoom\Helper\Data */
+$_helper = $this->helper(Perficient\ViewInRoom\Helper\Data::class);
+$_product = $block->getProduct();
+$isConfigurable = $_product->getTypeId() === Configurable::TYPE_CODE;
+$jsonConfig = $isConfigurable ? "{}" : $_helper->getJsonConfig($_product);
+?>
+<?php if($jsonConfig): ?>
+<div class="vir-popup" style="display: none">
+    <div class="vir-img-container">
+        <span class="button" tabindex="-1"><span class="no-label"><?= $block->escapeHtml(__('Close')) ?></span></span>
+        <img class="vir-bg" alt="" src="<?= $block->getViewFileUrl('images/icon_wendover_wred.svg'); ?>" />
+        <img class="vir_art" alt="" src="<?= $block->getViewFileUrl('images/icon_wendover_wred.svg'); ?>" />
+    </div>
+    <div class="modals-overlay" style="z-index: 910;"></div>
+</div>
+
+<?php endif; ?>
+<?php if ($block->displayProductStockStatus()) :?>
+    <?php if ($_product->isAvailable()) :?>
+        <div class="stock available" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+        </div>
+    <?php else :?>
+        <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php if($jsonConfig): ?>
+<script>
+    window.vir_config =  <?php echo $jsonConfig ?>;
+    require(['jquery', 'vir'], function($, vir) {
+        vir();
+    });
+</script>
+<?php else: ?>
+<script>
+    require(['jquery'], function($) {
+        $('#magento_customize_button').css("display","none");
+        $('#vir_button').css("display","none");
+    });
+</script>
+<?php endif; ?>

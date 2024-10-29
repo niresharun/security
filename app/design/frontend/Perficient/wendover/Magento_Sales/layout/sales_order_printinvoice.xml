@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_print_invoice_renderers" />
+    <update handle="sales_order_item_price"/>
+    <update handle="print" />
+
+    <body>
+        <referenceBlock name="page.main.title" template="Magento_Sales::order/invoice/title.phtml"/>
+        <referenceContainer name="page.main.title">
+            <referenceBlock name="order.status" remove="true"/>
+            <referenceBlock name="order.date" remove="true"/>
+            <container name="wendover.invoice.header">
+                <block name="wendover.invoice.comany.details" class="Magento\Sales\Block\Order\PrintOrder\Invoice" template="Magento_Sales::order/invoice/company.phtml"/>
+                <block name="wendover.invoice.details" class="Magento\Sales\Block\Order\PrintOrder\Invoice" template="Magento_Sales::order/invoice/details.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="page.bottom.container" remove="true"/>
+    </body>
+</page>

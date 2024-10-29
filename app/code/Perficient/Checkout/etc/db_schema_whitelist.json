@@ -1,0 +1,37 @@
+{
+    "quote_address": {
+        "column": {
+            "order_shipping_notes": true,
+            "location": true,
+            "delivery_appointment": true,
+            "loading_dock_available": true,
+            "receiver_name": true,
+            "receiver_telephone": true,
+            "receiving_hours": true
+        }
+    },
+    "sales_order_address": {
+        "column": {
+            "order_shipping_notes": true,
+            "location": true,
+            "delivery_appointment": true,
+            "loading_dock_available": true,
+            "receiver_name": true,
+            "receiver_telephone": true,
+            "receiving_hours": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "lead_time": true,
+            "syspro_order_id": true,
+            "syspro_customer_id": true,
+            "syspro_salesrep": true,
+            "customer_due_date": true
+        },
+        "index": {
+            "SALES_ORDER_SYSPRO_ORDER_ID": true,
+            "SALES_ORDER_SYSPRO_CUSTOMER_ID": true
+        }
+    }
+}

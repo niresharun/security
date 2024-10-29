@@ -1,0 +1,26 @@
+diff --git a/Block/AccountLinkPlugin.php b/Block/AccountLinkPlugin.php
+index 3db34a0ec5ca343d75b3d893fac06fbac316d41d..7f985ac5e045a2ea4d2b97378156f09725145270 100644
+--- a/Block/AccountLinkPlugin.php
++++ b/Block/AccountLinkPlugin.php
+@@ -63,7 +63,7 @@ class AccountLinkPlugin
+                 [
+                     'data' => [
+                         'path' => 'ccpa/customer/settings',
+-                        'label' => __('Privacy Settings'),
++                        'label' => __('California Privacy Settings'),
+                         'sortOrder' => self::SORT_ORDER
+                     ]
+                 ]
+diff --git a/view/frontend/layout/ccpa_customer_settings.xml b/view/frontend/layout/ccpa_customer_settings.xml
+index 260d938d174403c0c4e112bb89f3af30bd0c60e9..5362daa9a68aa3fb285c2f278459be4f908a3f29 100644
+--- a/view/frontend/layout/ccpa_customer_settings.xml
++++ b/view/frontend/layout/ccpa_customer_settings.xml
+@@ -4,7 +4,7 @@
+       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <update handle="customer_account"/>
+     <head>
+-        <title>Privacy Settings</title>
++        <title>California Privacy Settings</title>
+     </head>
+     <body>
+         <referenceContainer name="content">

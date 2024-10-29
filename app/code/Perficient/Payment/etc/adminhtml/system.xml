@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Payment
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ankita Bodhankar
+ * @project: Wendover
+ * @keywords: Module Perficient_Payment
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="checkmo" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="payment_method_fee_message" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee Message</label>
+                    <comment>This text will be shown below the payment method radio button on checkout page. Basic HTML tags and inline CSS can be use.</comment>
+                </field>
+                <field id="payment_method_fee" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee</label>
+                    <comment>Charge to customer in percentage on order total for payment processing</comment>
+                </field>
+            </group>
+            <group id="authnetcim" translate="label comment" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="payment_method_fee_message" translate="label" type="text" sortOrder="161" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee Message</label>
+                    <comment>This text will be shown below the payment method radio button on checkout page. Basic HTML tags and inline CSS can be use.</comment>
+                </field>
+                <field id="payment_method_fee_ae" translate="label" type="text" sortOrder="161" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee AE</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "American Express Card".</comment>
+                </field>
+                <field id="payment_method_fee_vi" translate="label" type="text" sortOrder="162" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee VI</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "Visa Card".</comment>
+                </field>
+                <field id="payment_method_fee_mc" translate="label" type="text" sortOrder="163" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee MC</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "MasterCard".</comment>
+                </field>
+                <field id="payment_method_fee_di" translate="label" type="text" sortOrder="164" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee DI</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "Discover Card".</comment>
+                </field>
+                <field id="payment_method_fee_jcb" translate="label" type="text" sortOrder="165" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee JCB</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "JCB Card".</comment>
+                </field>
+                <field id="payment_method_fee_dn" translate="label" type="text" sortOrder="166" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee DN</label>
+                    <comment>Payment processing charge to customer in percentage on order total for "Diners Card".</comment>
+                </field>
+            </group>
+            <group id="authnetcim_ach" translate="label" type="text" sortOrder="510" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="payment_method_fee_message" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee Message</label>
+                    <comment>This text will be shown below the payment method radio button on checkout page. Basic HTML tags and inline CSS can be use.</comment>
+                </field>
+                <field id="payment_method_fee" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee</label>
+                    <comment>Charge to customer in percentage on order total for payment processing</comment>
+                </field>
+            </group>
+        </section>
+        <section id="sales">
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="payment_method_fee_label" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee Label</label>
+                    <comment>Label for payment processing fee</comment>
+                </field>
+                <field id="payment_method_fee_debugging" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method Fee Debugging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

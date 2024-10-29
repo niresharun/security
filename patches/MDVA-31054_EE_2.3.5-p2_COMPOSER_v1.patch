@@ -1,0 +1,59 @@
+diff --git a/vendor/magento/module-catalog-permissions/Observer/CheckQuotePermissionsObserver.php b/vendor/magento/module-catalog-permissions/Observer/CheckQuotePermissionsObserver.php
+index 5ef72c6bdd7..98d874e8868 100644
+--- a/vendor/magento/module-catalog-permissions/Observer/CheckQuotePermissionsObserver.php
++++ b/vendor/magento/module-catalog-permissions/Observer/CheckQuotePermissionsObserver.php
+@@ -16,6 +16,8 @@ use Magento\Store\Api\StoreRepositoryInterface;
+ 
+ /**
+  * Checks for permissions for quote items
++ *
++ * @SuppressWarnings(PHPMD.CookieAndSessionMisuse)
+  */
+ class CheckQuotePermissionsObserver implements ObserverInterface
+ {
+@@ -121,8 +123,10 @@ class CheckQuotePermissionsObserver implements ObserverInterface
+     {
+         $storeId = $quote->getStoreId();
+         $customerGroupId = $this->_customerSession->getCustomerGroupId();
++        $canCustomerAddToCart = $this->isConfigSettingsCanAddToCart($customerGroupId, $storeId);
+ 
+-        if ($this->canCheckoutGeneralConfigPermissions($customerGroupId, $storeId)) {
++        if ($this->canCheckoutGeneralConfigPermissions($customerGroupId, $storeId) &&
++            $canCustomerAddToCart) {
+             return $this;
+         }
+ 
+@@ -145,7 +149,8 @@ class CheckQuotePermissionsObserver implements ObserverInterface
+                 $permissions[] = (int)$permission['grant_checkout_items'];
+             }
+ 
+-            if (!in_array(Permission::PERMISSION_ALLOW, $permissions, true)) {
++            if ((!empty($permissions) && !in_array(Permission::PERMISSION_ALLOW, $permissions, true)) ||
++                !$canCustomerAddToCart) {
+                 $item->setDisableAddToCart(true);
+             }
+         }
+@@ -174,4 +179,23 @@ class CheckQuotePermissionsObserver implements ObserverInterface
+ 
+         return $grantCategoryView;
+     }
++
++    /**
++     * Check if current customer group can able to add product to cart
++     *
++     * @param int $customerGroupId
++     * @param int $storeId
++     * @return bool
++     */
++    private function isConfigSettingsCanAddToCart(int $customerGroupId, int $storeId) : bool
++    {
++        $canAddToCart = true;
++        if ((int) $this->_permissionsConfig->getCheckoutItemsMode($storeId) === ConfigInterface::GRANT_CUSTOMER_GROUP) {
++            $canAddToCart = in_array(
++                $customerGroupId,
++                $this->_permissionsConfig->getCheckoutItemsGroups($storeId)
++            );
++        }
++        return $canAddToCart;
++    }
+ }

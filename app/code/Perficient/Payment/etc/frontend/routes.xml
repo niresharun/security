@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Frontend Route
+ * @category: Magento
+ * @package: Perficient/Payment
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ankita Bodhankar
+ * @project: Wendover
+ * @keywords: Module Perficient_Payment
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="paymentmethodfee" frontName="paymentmethodfee">
+            <module name="Perficient_Payment" />
+        </route>
+    </router>
+</config>

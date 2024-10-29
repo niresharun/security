@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Modify Customer Account Sales Order Navigation
+ * @category: Magento
+ * @package: Perficient/Sales
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Sales
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Perficient\Sales\Block\Order\Shipped\History" name="sales.order.history" cacheable="false">
+                <container name="sales.order.history.info" as="info" label="Order History Info"/>
+                <container name="sales.order.history.extra.column.header" as="extra.column.header" label="Order History Extra Column Header"/>
+                <block class="Magento\Sales\Block\Order\History\Container"
+                       name="sales.order.history.extra.container" as="extra.container">
+                    <block class="Magento\Framework\View\Element\Template"
+                        name="sales.order.history.extra.container.data" as="extra.container.data"/>
+                </block>
+            </block>
+            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>
+            <block class="Perficient\Sales\Block\Order\Shipped\Filters" name="sales.order.history.filters" before="-" template="Magento_OrderHistorySearch::filters.phtml"/>
+            <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+            <referenceBlock name="show.all.orders.link" remove="true"/>
+        </referenceContainer>
+        <!-- This will add additional column header to order list -->
+        <referenceBlock name="sales.order.history.extra.column.header">
+            <block name="quickship.additional.column.header" template="Perficient_QuickShip::order/extraColumnHeader.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="sales.order.history.extra.container">
+            <block name="quickship.additional.column.data" template="Perficient_QuickShip::order/extraColumn.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

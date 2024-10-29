@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to set system configuration
+ *
+ * @category: Magento
+ * @package: Perficient/Base
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @keywords: Module Perficient_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sendfriend>
+            <email>
+                <enabled>1</enabled>
+            </email>
+        </sendfriend>
+        <recaptcha>
+            <type_v3>
+                <public_key>6Ldx-s8ZAAAAAOwhERbijbDhUDwxsx1mU5aio09v</public_key>
+                <private_key>6Ldx-s8ZAAAAAPg4pweifrtLi4kLIvE8mgiXO_N5</private_key>
+            </type_v3>
+        </recaptcha>
+    </default>
+</config>

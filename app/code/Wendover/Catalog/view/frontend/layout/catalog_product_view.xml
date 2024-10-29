@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.view.default.configuration">
+            <block class="Wendover\Catalog\Block\Block" name="wall_covering_content" >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">wall_covering_content</argument>
+                    <argument name="product_attribute" xsi:type="string">available_as_wc</argument>
+                </arguments>
+            </block>
+            <block class="Wendover\Catalog\Block\Block" name="custom_mirror_content" >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">custom_mirror_content</argument>
+                    <argument name="product_attribute" xsi:type="string">sku</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

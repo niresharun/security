@@ -1,0 +1,932 @@
+<?php
+$perfCatalogHelper = $this->getPerficientHelper();
+$productimizeHelper = $this->getProductimizeHelper();
+$productId = (int)$this->getRequest()->getParam('product');
+
+$baseSecureUrl = $this->getStoreBaseUrl();
+
+$product = $this->getProductById($productId);
+$productImages = $this->getCustomImageTypeUrl($product, ['cropped' => 'croppedImg', 'thumbnail' => 'thumbImg']);
+
+//$productImageUrl = $this->getProductImageUrl($product);
+
+$productImageUrl = isset($productImages) ? $productImages['croppedImg'] : $this->getProductImageUrl($product);
+$productOriginalSpecImageUrl = isset($productImages) ? $productImages['thumbImg'] : $this->getProductImageUrl($product);
+
+
+$productUrl = $product->getProductUrl();
+
+$waterMarkImageConf = $productimizeHelper->getWatermarkImageDataByType('image');
+
+$placeholderSwatchImageUrl = $block->getCatalogImageHelper()->getDefaultPlaceholderUrl('thumbnail');
+
+
+$defaultConfData = $product->getData('default_configurations');
+//print_r($defaultConfData);
+
+$defaultConfJsonData = $productimizeHelper->getDefaultConfJsonSpecificationLabel($defaultConfData);
+
+$specificationData = array();
+
+$ziffityModel = $block->getData('view_model');
+
+if ($defaultConfJsonData && is_array($defaultConfJsonData) && count($defaultConfJsonData)) {
+    $data = (array_key_exists('displayFormattedStr', $defaultConfJsonData)) ? $defaultConfJsonData['displayFormattedStr'] : "";
+    $specificationData = json_decode($data);
+}
+
+$renderArtworkData = $block->getData('renderArtworkData');
+
+$defConfLabelJson = $block->getData('artworkDataLabel');
+$defConfLabel = ($defConfLabelJson) ? json_decode($defConfLabelJson, 1) : null;
+
+$artworkDataJson = $block->getData('artworkData');
+
+$renderArtworkData = ($renderArtworkData && count($renderArtworkData) > 0) ? json_encode($renderArtworkData) : null;
+
+
+$mediaData = '';
+$treatmentData = '';
+$sizeData = '';
+$frameData = '';
+$topMatData = '';
+$bottomMatData = '';
+$linerData = '';
+
+?>
+
+<input type="hidden" name="web_product_id" id="web_product_id" value="<?php echo $productId; ?>"/>
+<input type="hidden" name="productUrl" id="productUrl" value="<?php echo $productUrl; ?>"/>
+<input type="hidden" name="custom_price" id="customised-price" value=""/>
+<input type="hidden" name="selling_price" id="selling_price" value=""/>
+<input type="hidden" name="configurator_price" id="configurator_price" value=""/>
+
+<?php $_helper = $this->getCatalogOutput(); ?>
+<?php $_checkoutHelper = $this->getCheckoutCartHelper(); ?>
+<?php $_product = $product; ?>
+<?php if ($this->getRequest()->getParam('page') == 'checkout_cart_configure'): ?>
+    <?php
+    $submitUrl = $this->getUrl('checkout/cart/updateItemOptions', ['id' => $this->getRequest()->getParam('id')]);
+    ?>
+<?php else: ?>
+    <?php
+    $submitUrl = $this->getCheckoutCartHelper()->getAddUrl($product);
+    ?>
+<?php endif; ?>
+
+<div class="product-add-form">
+
+    <div class="pz pz-main-widget">
+        <div class="pz-container">
+            <div class="pz-custom-wrapper">
+                <div class="pz-image-section">
+                    <div class="pz-image-container">
+                        <div class="pz-loader-cover1 hide" id="pz-loader-cover1">
+                            <div class="pz-loader1"></div>
+                        </div>
+                        <div class="canvas-container" id="canvas-container" tabindex="0">
+                        </div>
+                    </div>
+                    <!-- Display pre-frame size -->
+                    <div class="pz-image-container-middle"></div>
+                    <div class="pz-selected-option-inner-container">
+                        <div id="pz-selected-options-list">
+
+                            <div class="pz-designed-thumb-image" id="pz-designed-thumb-image">
+                                <img id="pz-static-canvas-image" src="<?php echo $productOriginalSpecImageUrl; ?>"alt="pre frame image"/>
+                            </div>
+
+                            <div class="pz-selected-item-list" id="pz-selected-option-list">
+
+
+                                <?php
+                                $loopInc = 0;
+                                foreach ($specificationData as $key => $value) {
+                                    $loopInc++;
+                                    if ($loopInc == 1) {
+                                        ?>
+                                        <div class="pz-selected-container">
+                                            <h6><?php echo $block->escapeHtml(__('Original Specifications')); ?></h6>
+                                            <br/>
+                                        </div>
+                                    <?php } ?>
+                                    <div class="pz-selected-container">
+                                        <h6 class="pz-selected-opt-title"><?php echo $key; ?>:</h6>
+                                        <h6 class="pz-selected-opt-data"><?php echo ' ' . $value; ?></h6>
+                                    </div>
+                                    <?php
+                                }
+                                //}
+                                ?>
+                                <div class="pz-selected-container product-original-price-container">
+                                    <h6 class="pz-selected-opt-title">Original Price:</h6>
+                                    <h6 class="pz-selected-opt-data">
+                                        <?php
+                                        if ($block->getData('productPrice')) {
+                                            $currProductPrice = $productimizeHelper->formatPrice($block->getData('productPrice'));
+                                        } else {
+                                            $currProductPrice = $productimizeHelper->formatPrice($product->getPrice());
+                                        }
+                                        ?>
+                                        <?php echo $currProductPrice ?></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <canvas class="pz-room-canvas" id="pz-room-canvas" style="display:none;"> </canvas>
+                </div>
+                <div class="pz-customizer-section">
+                    <div class="pz-customizer-wrapper">
+                        <div class="pz-custom-item-wrapper">
+                            <div class="pz-custom-item-menu">
+                                <ul class="pz-custom-tab-item">
+                                    <li class="pz-custom-tab-items active">
+
+                                        <ul class="pz-custom-sm-tab-item active">
+                                            <li class="pz-custom-tab-items active">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['medium_default_sku']) ? $defConfLabel['medium_default_sku'] : 'Medium'); ?>
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['size_default_sku']) ? $defConfLabel['size_default_sku'] : 'Size'); ?>
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['frame_default_sku']) ? $defConfLabel['frame_default_sku'] : 'Frame'); ?>
+
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['top_mat_default_sku']) ? $defConfLabel['top_mat_default_sku'] : 'Top Mat'); ?>
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['bottom_mat_default_sku']) ? $defConfLabel['bottom_mat_default_sku'] : 'Bottom Mat'); ?>
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">
+                                                    <?php echo(isset($defConfLabel['liner_default_sku']) ? $defConfLabel['liner_default_sku'] : 'Liner'); ?>
+                                                </button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">Custom Image Color</button>
+                                            </li>
+                                            <li class="pz-custom-tab-items">
+                                                <button class="pz-custom-tab-btn">Side Mark</button>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pz-custom-content-wrapper">
+                                <div class="productimize-grp"></div>
+                                <div class="pz-startover">
+                                    <button class="pz-btn-share"><i class="fa fa-repeat" aria-hidden="true"></i><span>Reset All</span>
+                                    </button>
+                                </div>
+                                <div class="pz-custom-item-content">
+                                    <div class="pz-custom-items medium-option open">
+                                        <div class="pz-custom-item-header" data-role="title" data-tab="medtrt"
+                                             data-nexttab="size">
+                                            <span class="pz-item-step-number-mobile">1</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div data-role="trigger" class="pz-header-name">
+                                                <h4 class="pz-item-header">
+                                                    <span class="pz-item-step-number">1</span>
+                                                    <span class="pz-tick pz-tick-success"
+                                                          style="display: none;"></span>
+                                                    <span class="pz-item-title-text">
+                                                             <?php echo(isset($defConfLabel['medium_default_sku']) ? $defConfLabel['medium_default_sku'] : 'Medium'); ?>
+                                                        </span></h4>
+                                                <h4 class="medium-treat pz-item-header">
+                                                    <span class="pz-item-selected-medtrt"><span class="labels_to_remove">:</span></span>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-up" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-medium" data-role="content">
+                                            <div class="pz-design-dropdown pz_Medium">
+                                                <div class="pz-custom-dp">
+                                                    <select class="medium-select-elem">
+                                                        <!-- options goes here -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class="pz-design-dropdown pz_treatment">
+                                                    <div class="pz-custom-dp">
+                                                        <select class="treatment-select-elem">
+                                                            <option class="option">Select Treatment</option>
+                                                            <!-- options goes here -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nextContentParent">
+                                                <button class="nextcontent" dataCheck="media,treatment">NEXT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-items">
+                                        <div class="pz-custom-item-header size-option" data-tab="size"
+                                             data-nexttab="frame">
+                                            <span class="pz-item-step-number-mobile">2</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">2</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span>
+                                                    <div class="size-label">
+                                                        <div class="preframe-size">
+                                                                <span class="pz-item-title-text">
+                                                                     <?php echo(isset($defConfLabel['size_default_sku']) ? $defConfLabel['size_default_sku'] : 'Size'); ?>
+                                                                </span>
+                                                            <span class="pz-item-selected-size"></span>
+                                                        </div>
+                                                        <div class="outer-dimensions">
+                                                            <span class="pz-item-title-out-dimensions-text"></span>
+                                                            <span
+                                                                    class="pz-item-title-out-dimensions-selected-text"></span>
+                                                        </div>
+                                                    </div>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-size">
+                                            <div class="sliderarea">
+                                                <div id="slider"></div>
+                                                <output name="rangeVal">100</output>
+                                                <div class="rangeleft"></div>
+                                                <div class="rangeright"></div>
+                                            </div>
+                                            <div
+                                                    class="size-text"><?= __("Select a size before framing. Final size will vary based on frame width selected"); ?></div>
+
+                                            <div class="nextContentParent">
+                                                <button class="nextcontent" dataCheck="size">NEXT</button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="pz-custom-items frame-option">
+                                        <div class="pz-custom-item-header" data-tab="frame" data-nexttab="topmat">
+                                            <span class="pz-item-step-number-mobile">3</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">3</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span><span
+                                                            class="pz-item-title-text">
+                                                            <?php echo(isset($defConfLabel['frame_default_sku']) ? $defConfLabel['frame_default_sku'] : 'Frame'); ?>
+                                                        </span></h4>
+                                                <h4 class="frame pz-item-header">
+                                                    <span class="pz-item-selected-frame" data-sku=""><span class="labels_to_remove">:</span></span>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-frame">
+                                            <div class="pz-frame-filter">
+                                                <div class="pz-frame-filter-left">
+                                                    <div class="pz-optioncolorsearch">
+                                                        <button class="pz-searchcolorlabel">Color <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="colorFil">
+                                                            <div class="colorFilter">
+                                                                <label class="labels_to_remove" for="searchCol_frame">Colors:</label>
+                                                                <input type="text" class="searchCol"
+                                                                       id="searchCol_frame"
+                                                                       name="searchCol" value=""
+                                                                       placeholder="Search Colors"/><i
+                                                                       class="fa fa-search pz-colorsearch"
+                                                                       aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="colorlist">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pz-optionwidthsearch">
+                                                        <button class="pz-searchwidthlabel">Width <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul class="width"></ul>
+                                                    </div>
+                                                    <div class="pz-optiontypesearch">
+                                                        <button class="pz-searchtypelabel">Type <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul>
+                                                            <li class="pz-design-item typeli" id="typeli0">Select
+                                                                Type
+                                                            </li>
+                                                            <li class="pz-design-item typeli" id="typeliStandard">
+                                                                Standard
+                                                            </li>
+                                                            <li class="pz-design-item typeli" id="typeliFloater">
+                                                                Floater
+                                                            </li>
+                                                            <li class="pz-design-item typeli" id="typeliLiner">
+                                                                Liner
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="pz-frame-filter-right">
+                                                    <div class="pz-optionsearch">
+                                                        <label class="labels_to_remove" for="locatesearch_frame">Locate by Number</label>
+                                                        <input type="" name="searchVal" class="locatesearch"
+                                                               id="locatesearch_frame"
+                                                               value="" placeholder="Locate by Number">
+                                                        <i class="fa fa-search pz-optioninputsearch"
+                                                           aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pz-design-item-wrapper">
+
+                                            <div class="pz-hover-wrapper1" style="display:none;position:absolute;">
+    <div class="pz-hover-content1">
+        My Content
+        <a href="#" class="pz-close-hover" role="button"></a>
+    </div>
+</div>
+                                                <ul class="owl-carousel pz-design-item-list frameli"
+                                                    dataFrom="frameli">
+                                                </ul>
+                                            </div>
+                                            <div class="nextContentParent">
+                                                <!-- <div class="nextcontent" dataCheck="frameli">NEXT</div> -->
+                                                <button class="nextcontent" dataCheck="frameli">NEXT</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-items">
+                                        <div class="pz-custom-item-header topmat-option" data-tab="topmat"
+                                             data-nexttab="bottommat">
+                                            <span class="pz-item-step-number-mobile">4</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">4</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span><span
+                                                            class="pz-item-title-text">
+                                                            <?php echo(isset($defConfLabel['top_mat_default_sku']) ? $defConfLabel['top_mat_default_sku'] : 'Top Mat'); ?>
+                                                        </span></h4>
+                                                <h4 class="frame pz-item-header">
+                                                    <span class="pz-item-selected-topmat"><span class="labels_to_remove">:</span></span>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-top-mat">
+                                            <div class="pz-frame-filter">
+                                                <div class="pz-frame-filter-left">
+                                                    <div class="pz-optioncolorsearch">
+                                                        <button class="pz-searchcolorlabel">Color <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="colorFil">
+                                                            <div class="colorFilter">
+                                                                <label class="labels_to_remove" for="searchCol_top_mat">Colors:</label>
+                                                                <input type="text" class="searchCol"
+                                                                       id="searchCol_top_mat"
+                                                                       name="searchCol" value=""
+                                                                       placeholder="Search Colors"/><i
+                                                                        class="fa fa-search pz-colorsearch"
+                                                                        aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="colorlist">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pz-optiontypesearch">
+                                                        <button class="pz-searchtypelabel">Type <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul>
+                                                            <li class="pz-design-item typeli" id="typeli0">Select
+                                                                Type
+                                                            </li>
+                                                            <li class="pz-design-item typeli" id="typeliStandard">
+                                                                Standard
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="pz-frame-filter-right">
+                                                    <div class="pz-optionsearch">
+                                                         <label class="labels_to_remove" for="locatesearch_frame_right">Locate by Number</label>
+                                                        <input type="" name="searchVal" class="locatesearch" id="locatesearch_frame_right"
+                                                               value="" placeholder="Locate by Number">
+                                                        <i class="fa fa-search pz-optioninputsearch"
+                                                           aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pz-design-item-wrapper">
+                                                <ul class="owl-carousel pz-design-item-list topmatli"
+                                                    dataFrom="topmatli">
+
+                                                </ul>
+                                            </div>
+                                            <div class="nextContentParent">
+                                                <!-- <div class="nextcontent" dataCheck="topmatli">NEXT</div> -->
+                                                <button class="nextcontent" dataCheck="topmatli">NEXT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-items">
+                                        <div class="pz-custom-item-header bottommat-option" data-tab="bottommat"
+                                             data-nexttab="liner">
+                                            <span class="pz-item-step-number-mobile">5</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">5</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span><span
+                                                            class="pz-item-title-text">
+
+                                                            <?php echo(isset($defConfLabel['bottom_mat_default_sku']) ? $defConfLabel['bottom_mat_default_sku'] : 'Bottom Mat'); ?>
+
+                                                        </span></h4>
+                                                <h4 class="frame pz-item-header">
+                                                    <span class="pz-item-selected-bottommat"><span class="labels_to_remove">:</span></span>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-bottom-mat">
+                                            <div class="pz-frame-filter">
+                                                <div class="pz-frame-filter-left">
+                                                    <div class="pz-optioncolorsearch">
+                                                        <button class="pz-searchcolorlabel">Color <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="colorFil">
+                                                            <div class="colorFilter">
+                                                                <label class="labels_to_remove" for="searchCol_bottom_mat">Colors:</label>
+                                                                <input type="text" class="searchCol"
+                                                                       id="searchCol_bottom_mat"
+                                                                       name="searchCol" value=""
+                                                                       placeholder="Search Colors"/><i
+                                                                        class="fa fa-search pz-colorsearch"
+                                                                        aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="colorlist">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pz-optiontypesearch">
+                                                        <button class="pz-searchtypelabel">Type <i
+                                                                    class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul>
+                                                            <li class="pz-design-item typeli" id="typeli0">Select
+                                                                Type
+                                                            </li>
+                                                            <li class="pz-design-item typeli" id="typeliStandard">
+                                                                Standard
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="pz-frame-filter-right">
+                                                    <div class="pz-optionsearch">
+                                                        <label class="labels_to_remove" for="locatesearch_frame_filter_right">Locate by Number</label>
+                                                        <input type="" name="searchVal" class="locatesearch" id="locatesearch_frame_filter_right"
+                                                               value="" placeholder="Locate by Number">
+                                                        <i class="fa fa-search pz-optioninputsearch"
+                                                           aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pz-design-item-wrapper">
+                                                <ul class="owl-carousel pz-design-item-list bottommatli"
+                                                    dataFrom="bottommatli"></ul>
+                                            </div>
+                                            <div class="nextContentParent">
+                                                <!-- <div class="nextcontent" dataCheck="bottommatli">NEXT</div> -->
+                                                <button class="nextcontent" dataCheck="bottommatli">NEXT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-items">
+                                        <div class="pz-custom-item-header liner-option" data-tab="liner"
+                                             data-nexttab="customcolor">
+                                            <span class="pz-item-step-number-mobile">6</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">6</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span><span
+                                                            class="pz-item-title-text">
+                                                            <?php echo(isset($defConfLabel['liner_default_sku']) ? $defConfLabel['liner_default_sku'] : 'Liner'); ?>
+                                                        </span></h4>
+                                                <h4 class="frame pz-item-header">
+                                                    <span class="pz-item-selected-liner"><span class="labels_to_remove">:</span></span>
+                                                </h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-liner">
+
+                                            <div class="pz-design-item-wrapper">
+                                                <ul class="pz-design-item-list linerli" dataFrom="linerli">
+                                                </ul>
+                                            </div>
+                                            <div class="nextContentParent">
+                                                <!-- <div class="nextcontent" dataCheck="linerli">NEXT</div> -->
+                                                <button class="nextcontent" dataCheck="linerli">NEXT</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-items">
+                                        <div class="pz-custom-item-header" data-tab="customcolor"
+                                             data-nexttab="sidemark">
+                                            <span class="pz-item-step-number-mobile">7</span><span
+                                                    class="pz-tick pz-tick-success-mobile"
+                                                    style="display: none;"></span>
+                                            <div class="pz-header-name">
+                                                <h4 class="pz-item-header"><span
+                                                            class="pz-item-step-number">7</span><span
+                                                            class="pz-tick pz-tick-success"
+                                                            style="display: none;"></span><span
+                                                            class="pz-item-title-text">Artwork Color</span></h4>
+                                            </div>
+                                            <div class="pz-header-icon"><span
+                                                        class="pz-selected-option-price"></span><i
+                                                        class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                        </div>
+                                        <div class="pz-custom-item-body pz-custom-image-color">
+                                            <!-- <div class="pz-design-checkbox"><label for="Red" class="pz-cust-checkbox">Red<input type="checkbox" name="Red" id="Red" value=""><span class="checkmark"></span></label><label for="Blue" class="pz-cust-checkbox">Blue<input type="checkbox" name="Blue" id="Blue" value=""><span class="checkmark"></span></label><label for="Yellow" class="pz-cust-checkbox">Yellow<input type="checkbox" name="Yellow" id="Yellow" value=""><span class="checkmark"></span></label><label for="Green" class="pz-cust-checkbox">Green<input type="checkbox" name="Green" id="Green" value=""><span class="checkmark"></span></label></div> -->
+
+                                            <div class="showartworkarea">
+                                                <label for="showartworktext" class="pz-cust-checkbox">Customize Image Color<input type="checkbox" name="showartworktext"
+                                                                id="showartworktext" class="showartworktext"
+                                                                value=""><span class="checkmark"></span></label>
+                                            </div>
+
+                                            <div class="pz-design-item-wrapper">
+                                                <div class="pz-text-control-wrapper">
+                                                    <div class="pz-text-item">
+                                                         <label class="labels_to_remove" for="pz-text">Color Instructions</label>
+                                                        <textarea name="" id="pz-text"
+                                                                                        placeholder="Color Instructions"
+                                                                                        minlength="0"></textarea>
+                                                    </div>
+                                                    <div class="pz-text-decoration-wrapper"></div>
+                                                    <!--<div class="pz-text-color-wrapper">
+                                                        <button class="pz-sm-clr-picker"><img
+                                                                    src="https://devcloud.productimize.com/Promize-Template1/images/clr-picker.png"
+                                                                    alt="Clr-picker"></button>
+                                                        <div class="pz-text-color-container "></div>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-custom-itemspriceconf" tabindex="0">Price as Configured: <span
+                                                id="configured-price"></span></div>
+                                    <div class="pz-custom-itemssidemark">
+                                        <div class="pz-custom-item-body pz-side-mark" data-tab="sidemark">
+                                            <div class="showtextarea">
+                                                <label for="showsidemarktext" class="pz-cust-checkbox">Side
+                                                    Mark<input type="checkbox" name="showsidemarktext"
+                                                               id="showsidemarktext" class="showsidemarktext"
+                                                               value=""><span class="checkmark" tabindex="0"></span></label>
+                                            </div>
+                                            <div class="pz-divtext">
+                                                <label class="labels_to_remove" for="pz-priceconf-textarea">-</label>
+                                                <textarea class="pz-textarea" id="pz-priceconf-textarea" maxlength="250"></textarea>
+                                                <div for="side-mark-input" class="max-len-note-div">
+                                                    <?= $block->escapeHtml(__('Maximum 250 characters'))?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pz-cart-container">
+                                        <div class="pz-container">
+                                            <div class="pz-cart-wrapper">
+
+                                                <div class="pz-quantity-container">
+                                                    <div class="pz-quantity">
+                                                        <!-- <button class="pz-qty-dec" disabled=""><i
+                                                                    class="fa fa-minus"></i></button> -->
+                                                        <span>Qty:</span>
+                                                        <?php
+                                                        $qty = 1;
+                                                        $urlQryString = $this->getRequest()->getParam('qryStr');
+                                                        if (isset($urlQryString) && !empty($urlQryString)) {
+                                                            parse_str($urlQryString, $urlQryStringArr);
+                                                            if (is_array($urlQryStringArr) && count($urlQryStringArr) > 0 && array_key_exists('qty', $urlQryStringArr)) {
+                                                                $qty = $urlQryStringArr['qty'];
+                                                            }
+                                                        }
+                                                        else if ($this->getRequest()->getParam('page') == 'checkout_cart_configure') {
+                                                            $qty = $productimizeHelper->getQuoteItemQty($this->getRequest()->getParam('id'));
+                                                        } elseif ($this->getRequest()->getParam('page') == 'wishlist_index_configure') {
+                                                            $qty = $productimizeHelper->getWishlistItemQty($this->getRequest()->getParam('id'));
+                                                        }
+                                                        ?>
+                                                        <label class="labels_to_remove">-</label>
+                                                        <input name="qty" pattern="[0-9]"
+                                                               onkeypress="return !(event.charCode == 46)" type="number"
+                                                               class="pz-qty-field" min="1"
+                                                               id="qty" value="<?= $qty; ?>">
+                                                    </div>
+                                                </div>
+                                        <div class="pz-actions">
+                                            <?php
+                                                if ($this->getRequest()->getParam('page') == 'checkout_cart_configure') {
+                                                    $buttonTitle = __('Update Cart');
+                                                    $buttonId = "product-updatecart-button";
+                                                    $disabled = '';
+                                                } else {
+                                                    $buttonTitle = __('Add to Cart');
+                                                    $buttonId = "productimize-addtocart-button";
+                                                    $disabled = 'disabled';
+                                                }
+                                                ?>
+                                                <?php if ($_product->isSaleable()) : ?>
+                                                    <div class="pz-add-to-cart-container">
+                                                        <div class="actions">
+
+                                                            <?php
+                                                            if ($this->getRequest()->getParam('page') == 'checkout_cart_configure') { ?>
+                                                                <div class="action primary cartbutton">
+                                                                    <span>UPDATE CART</span>
+                                                                </div>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                            <button disabled type="submit"
+                                                                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                                                                    class="action primary tocart productimizecartbutton"
+                                                                    id="<?= $buttonId ?>">
+                                                                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                                                            </button>
+                                                            <?= $block->getChildHtml('', true) ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <div class="pz-download-container"
+                                                     onclick="downloadClick(); return false;">
+                                                    <button class="pz-btn-cart"><span>Download</span></button>
+                                                    <input type="hidden" id="download-sku" value="<?= $_product->getSku(); ?>">
+                                                </div>
+                                                <a id="link" href="return false"><span class="labels_to_remove" aria-label="Link" title="Link">Link</span></a>
+                                                <div class="pz-social-icons" style="display:none;">
+                                                    <span class="a2a_svg a2a_s__default a2a_s_pinterest pinitttest"
+                                                          style="background-color: rgb(189, 8, 28); width: 16px; line-height: 16px; height: 16px; background-size: 16px; border-radius: 2px;" tabindex="0"><svg
+                                                                focusable="false" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path
+                                                                    fill="#FFFFFF"
+                                                                    d="M16.539 4.5c-6.277 0-9.442 4.5-9.442 8.253 0 2.272.86 4.293 2.705 5.046.303.125.574.005.662-.33.061-.231.205-.816.27-1.06.088-.331.053-.447-.191-.736-.532-.627-.873-1.439-.873-2.591 0-3.338 2.498-6.327 6.505-6.327 3.548 0 5.497 2.168 5.497 5.062 0 3.81-1.686 7.025-4.188 7.025-1.382 0-2.416-1.142-2.085-2.545.397-1.674 1.166-3.48 1.166-4.689 0-1.081-.581-1.983-1.782-1.983-1.413 0-2.548 1.462-2.548 3.419 0 1.247.421 2.091.421 2.091l-1.699 7.199c-.505 2.137-.076 4.755-.039 5.019.021.158.223.196.314.077.13-.17 1.813-2.247 2.384-4.324.162-.587.929-3.631.929-3.631.46.876 1.801 1.646 3.227 1.646 4.247 0 7.128-3.871 7.128-9.053.003-3.918-3.317-7.568-8.361-7.568z"></path></svg></span>
+                                                    <span class="a2a_svg a2a_s__default a2a_s_facebook fbshare"
+                                                          style="background-color: rgb(24, 119, 242); width: 16px; line-height: 16px; height: 16px; background-size: 16px; border-radius: 2px;" tabindex="0"><svg
+                                                                focusable="false" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path
+                                                                    fill="#FFFFFF"
+                                                                    d="M17.78 27.5V17.008h3.522l.527-4.09h-4.05v-2.61c0-1.182.33-1.99 2.023-1.99h2.166V4.66c-.375-.05-1.66-.16-3.155-.16-3.123 0-5.26 1.905-5.26 5.405v3.016h-3.53v4.09h3.53V27.5h4.223z"></path></svg></span>
+
+                                                    <span class="mailto1" tabindex="0"></span>
+                                                </div>
+                                                <div class="pz-tear-sheet-download"
+                                                     onclick="downloadTearSheetClick(); return false;">
+                                                    <a class="primary action" href="#"><?= __('Download Tear Sheet') ?></a>
+                                                <input type="hidden" id="url" value="<?= $block->getUrl('catalog/index/saveproductimage') ?>">
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="product" value="<?= (int)$_product->getId() ?>"/>
+    <input type="hidden" name="selected_configurable_option" value=""/>
+    <input type="hidden" name="related_product" id="related-products-field-test" value=""/>
+    <input type="hidden" name="item" value="<?= (int)$block->getRequest()->getParam('id') ?>"/>
+    <input type="hidden" name="edit_id" id="pz_edit_id" value="1"/>
+    <?php $medium = $size = ''; ?>
+    <?php
+    ?>
+    <?php if ($this->getRequest()->getParam('page') == 'checkout_cart_configure'):
+        $additionalOptions = $productimizeHelper->getAdditionaloptionsbyquoteId($this->getRequest()->getParam('id'));
+        ?>
+        <script>
+            require(['jquery'], function ($) {
+                $('#pz_cart_properties').val('<?=json_encode($additionalOptions)?>');
+                let cartProperty = $('#pz_cart_properties').val();
+            })
+        </script>
+    <?php
+    elseif ($this->getRequest()->getParam('page') == 'wishlist_index_configure'):
+    $additionalOptions = $productimizeHelper->getAdditionaloptionsbywishlistId($this->getRequest()->getParam('id'));
+    ?>
+        <script>
+            require(['jquery'], function ($) {
+                $('#pz_cart_properties').val('<?=json_encode($additionalOptions)?>');
+                let cartProperty = $('#pz_cart_properties').val();
+            })
+        </script>
+    <?php
+    elseif ((strpos($this->getRequest()->getParam('type'), 'configure') !== false)):
+    $qryStr = $this->getRequest()->getParam('qryStr');
+    $explodeqryStr = explode('--', $qryStr);
+    $cartArray = array();
+    foreach ($explodeqryStr as $key => $val) {
+        $expval = explode('=', $val);
+        //print_r($expval);echo '<br />';
+        if (strpos($expval[0], 'medium') !== false) {
+            $cartArray['medium'] = $expval[1];
+        } else if (strpos($expval[0], 'treatment') !== false) {
+            $cartArray['treatment'] = $expval[1];
+        } else if (strpos($expval[0], 'size') !== false) {
+            $cartArray['size'] = urldecode($expval[1]); //$expval[1];
+        } else if (strpos($expval[0], 'frame') !== false) {
+            $cartArray['frame'] = $expval[1];
+        } else if (strpos($expval[0], 'topmat') !== false) {
+            $cartArray['top mat'] = $expval[1];
+        } else if (strpos($expval[0], 'bottommat') !== false) {
+            $cartArray['bottom mat'] = $expval[1];
+        } else if (strpos($expval[0], 'liner') !== false) {
+            $cartArray['liner'] = $expval[1];
+        } else if (strpos($expval[0], 'artworkcolor') !== false) {
+            $cartArray['artwork color'] = $expval[1];
+        } else if (strpos($expval[0], 'sidemark') !== false) {
+            $cartArray['sidemark'] = $expval[1];
+        }
+    }
+    ?>
+        <script>
+            require(['jquery'], function ($) {
+                $('#pz_cart_properties').val('<?=json_encode($cartArray)?>');
+                let cartProperty = $('#pz_cart_properties').val();
+            })
+        </script>
+    <?php
+    endif; ?>
+    <?= $block->getBlockHtml('formkey') ?>
+    <?= $block->getChildHtml('form_top') ?>
+
+</div>
+
+
+<!-- pin it start -->
+
+
+<script>
+
+</script>
+<!-- pin it end -->
+
+
+<?php if ($this->getRequest()->getParam('page') != 'checkout_cart_configure'): ?>
+    <script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+
+
+    </script>
+<?php else: ?>
+    <script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "validation": {},
+            "addToCart": {
+                "cartButtonId": "#product-updatecart-button",
+                "cartForm": "#product_addtocart_form"
+            }
+        }
+    }
+
+
+
+
+
+
+
+    </script>
+<?php endif; ?>
+
+
+<script>
+    window.shop_name = "wendoveruat-m2.perficientdcsdemo.com";
+    var productId = '<?php echo $productId;?>'
+    var productImg = '<?php echo $productImageUrl;?>'
+    var placeHolderSwatchImageUrl = '<?php echo $placeholderSwatchImageUrl;?>'
+</script>
+<div id="root">
+</div>
+
+<script>
+
+
+    require(['jquery', 'jquery/ui', 'fabric', 'artworkCore', 'artworkIndex'],
+        function ($, jqyeryui, fabric, artworkCore, artworkIndex) {
+            var waterMarkImageConf = '<?php echo json_encode($waterMarkImageConf) ?>'
+            if (waterMarkImageConf) {
+                pzWatermarkConf = JSON.parse(waterMarkImageConf);
+            }
+
+            artwork = new Artwork({
+                name: 'main-canvas',
+                width: 1000,
+                height: 1000
+            }, document.getElementById('canvas-container'))
+
+            const artData = {
+                treatment: null,
+                frame: null,
+                liner: null,
+                topMat: null,
+                bottomMat: null,
+                image: {
+                    url: '<?php echo $productImageUrl;?>',
+                    dimension: {x: 15, y: 15}, // inch
+                }
+            }
+            if (pzWatermarkConf && Object.keys(pzWatermarkConf).length > 0) {
+                artData.watermark = {
+                    url: pzWatermarkConf['url'],
+                    position: (pzWatermarkConf['position']) ? pzWatermarkConf['position'] : 'center',
+                    opacity: (pzWatermarkConf['opacity']) ? pzWatermarkConf['opacity'] : 100,
+                    dimension: {
+                        x: (pzWatermarkConf['width']) ? pzWatermarkConf['width'] : 100,
+                        y: (pzWatermarkConf['height']) ? pzWatermarkConf['height'] : 100,
+                    }
+                };
+            }
+
+            var rendererArtworkData = '<?php echo $renderArtworkData ?>'
+            if (rendererArtworkData) {
+                var pzArtworkData = '<?php echo $artworkDataJson;?>';
+                pzSelectedOptions = JSON.parse(rendererArtworkData);
+                setPZSelectedOptionsForEdit(JSON.stringify(rendererArtworkData));
+            } else {
+                jQuery('body').trigger('processStart');
+                artwork.create(artData).then(() => {
+                    jQuery('body').trigger('processStop');
+                }).catch(e => {
+                    jQuery('body').trigger('processStop');
+                    console.log("ERROR ==> ", e)
+                })
+            }
+        })
+
+</script>
+

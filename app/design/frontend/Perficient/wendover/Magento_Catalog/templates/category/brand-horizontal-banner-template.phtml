@@ -1,0 +1,33 @@
+<?php
+/**
+ * CMS Category view template
+ *
+ * @category: phtml
+ * @package: Perficient/Catalog
+ * @author: Archana Lohakare (archana.lohakare@perficient.com)
+ * @project: Wendover
+ * @var $block \Magento\Catalog\Block\Category\View
+ * @var $escaper \Magento\Framework\Escaper
+ */
+?>
+<?php $category = $block->getCurrentCategory();?>
+<?php $mediaUrl = $this->getUrl('pub/media/catalog/').'category/'; ?>
+<?php $categoryAdditionalImgUrl = $category->getAdditionalImage(); ?>
+<div class="brand-schemes-container custom-banner-list">
+    <?php if ($category->getImageUrl()) :?>
+    <img src="<?= $escaper->escapeUrl($category->getImageUrl());?>" alt="Category Image <?= $category->getName();?>"  data-element="desktop_image">
+    <?php endif; ?>
+    <div class="brand-copy-section" >
+       <h1><?= $escaper->escapeHtmlAttr($category->getName());?></h1>
+        <?php if ($category->getDescription()) :?>
+            <div class="brand-inner-container">
+                <?= $category->getDescription();?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php if ($category->getAdditionalImage()) :?>
+        <div class="brand-foreground-image" data-content-type="image" data-appearance="full-width" data-element="main" >
+            <img src="<?= $categoryAdditionalImgUrl;?>" alt="Thumbnail Image <?= $escaper->escapeHtmlAttr($category->getName());?>" data-element="desktop_image" />
+        </div>
+    <?php endif; ?>
+</div>

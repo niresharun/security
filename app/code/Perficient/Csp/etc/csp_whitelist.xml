@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="socialShare" type="host">*.addtoany.com</value>
+                <value id="pinterestAsset" type="host">https://assets.pinterest.com</value>
+                <value id="chimpstatic" type="host">https://chimpstatic.com</value>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="pinterestLog" type="host">https://log.pinterest.com</value>
+                <value id="google-recaptcha" type="host">https://www.google.com/recaptcha/</value>
+                <value id="gstatic" type="host">https://www.gstatic.com/</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="typekit" type="host">*.typekit.net</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="bootstrapCdn" type="host">*.bootstrapcdn.com</value>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="typekit" type="host">*.typekit.net</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="bootstrapCdn" type="host">*.bootstrapcdn.com</value>
+                <value id="data" type="host">'self' data:</value>
+                <value id="data" type="host">'unsafe-inline' data:</value>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="google" type="host">https://www.google.com/</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="data" type="host">'self' data:</value>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="pinterestLog" type="host">https://log.pinterest.com</value>
+                <value id="doubleclick" type="host">https://stats.g.doubleclick.net/</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="pinterestAsset" type="host">https://assets.pinterest.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

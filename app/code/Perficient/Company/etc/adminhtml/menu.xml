@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Customers Restriction Menu.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Company::company_manager"
+             title="Customer Restriction"
+             module="Perficient_Company"
+             sortOrder="110"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_Company"
+             resource="Perficient_Company::company_manager"/>
+        <add id="Perficient_Company::perficient_company_settings"
+             title="Customers Customer Restrict Configurations"
+             module="Perficient_Company"
+             sortOrder="120"
+             parent="Perficient_Company::company_manager"
+             action="adminhtml/system_config/edit/section/restrictcustomer"
+             resource="Perficient_Company::perficient_company_settings"/>
+    </menu>
+</config>

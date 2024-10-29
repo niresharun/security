@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Payment Processing Fee and Label Default Values
+ * @category: Magento
+ * @package: Perficient/Payment
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ankita Bodhankar
+ * @project: Wendover
+ * @keywords: Module Perficient_Payment
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <checkmo>
+                <payment_method_fee>0</payment_method_fee>
+            </checkmo>
+            <authnetcim>
+                <payment_method_fee_ae>0</payment_method_fee_ae>
+                <payment_method_fee_vi>0</payment_method_fee_vi>
+                <payment_method_fee_mc>0</payment_method_fee_mc>
+                <payment_method_fee_di>0</payment_method_fee_di>
+                <payment_method_fee_jcb>0</payment_method_fee_jcb>
+                <payment_method_fee_dn>0</payment_method_fee_dn>
+            </authnetcim>
+            <authnetcim_ach>
+                <payment_method_fee>0</payment_method_fee>
+            </authnetcim_ach>
+        </payment>
+        <sales>
+            <general>
+                <payment_method_fee_label>Payment Processing Fee</payment_method_fee_label>
+            </general>
+        </sales>
+    </default>
+</config>

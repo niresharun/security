@@ -1,0 +1,32 @@
+<?php
+/**
+ * This module is used to prepare add to collection configurable url on checkout
+ *
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Trupti Bobde <trupti.bobde@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Checkout
+ */
+/** @var \Magento\Framework\View\Element\Template $block */
+   // $pageRequestType = $helper->pageRequestType();
+    $collectionLink = '';
+   /* if ($helper::PLP == $pageRequestType) {
+        $collectionLink = $block->getData('product_id');
+    } */
+    $blockName = $block->getLayout()->createBlock('Perficient\Checkout\Block\AddCartSuccessMessage');
+?>
+<?php
+if($blockName->isQuickShipCart()) {
+    echo $escaper->escapeHtml(__(
+        '%1 has been added to your cart.', $block->getData('product_name')));
+
+} else {
+    echo $escaper->escapeHtml(__(
+        '%1 has been added to your cart. <span class="' . $block->getData('product_id') . '" id="collection-link"><a href="">ADD COLLECTION TO CART</a></span>',
+        $block->getData('product_name')
+    ), ['a', 'span']);
+}

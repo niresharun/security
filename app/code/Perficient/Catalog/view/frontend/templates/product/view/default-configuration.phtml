@@ -1,0 +1,269 @@
+<?php
+
+/**
+ * Product list template
+ *
+ *
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+use Perficient\Catalog\ViewModel\CatalogViewModel;
+?>
+<?php
+$_product = $block->getProduct();
+/** @var CatalogViewModel $viewModel */
+$viewModel = $block->getData('viewModel');
+$imgSpecPath = 'catalog/product/specifications';
+$imgDefaultConfPath = 'catalog/product/default_configuration';
+$excludeLabels = $viewModel->skipLabelDirectDisplay();
+
+$reqParams = $block->getRequest()->getParams();
+$moduleName = $block->getRequest()->getModuleName();
+$sideMark = '';
+$sideMarkFlag = 0;
+
+if(isset($reqParams['id']) && !empty($reqParams['id']) && isset($reqParams['product_id']) && !empty($reqParams['product_id'])) {
+    if(!empty($moduleName) && $moduleName == 'wishlist') {
+        $sideMarkFlag = 1;
+        $sideMark = $viewModel->getSideMark((int)$reqParams['id']);
+    }
+
+    if(!empty($moduleName) && $moduleName == 'checkout') {
+        $sideMarkFlag = 1;
+        $sideMark = $viewModel->getCartSideMark((int)$reqParams['id']);
+    }
+}
+?>
+<?php if(!empty($_product->getData('specialty'))) : ?>
+    <div class="specialty">
+        <span class="label"><?= $escaper->escapeHtml(__('Specialty: ')) ?></span>
+        <span><?= $_product->getData('specialty') ?></span>
+    </div>
+<?php endif; ?>
+<?php
+$jsonStr = '';
+$defaultConf = $_product->getData('default_configurations');
+$isCustomiser = $_product->getData('product_customizer');
+$wallCovering = $_product->getData('available_as_wc');
+
+if(!empty($defaultConf)) :
+    $conf = $viewModel->getDefaultConfigurationForPDP($_product);
+    $textLabels = $conf['labels'];
+    $swatches = $conf['swatches'];
+    if(count($textLabels)>0) {
+        ?>
+        <div class="Default-configuration-text">
+            <ul>
+                <?php foreach($textLabels as $labelKey => $labelValue) { ?>
+                    <?php if(in_array($labelKey,$excludeLabels)) {
+                        continue;
+                    }?>
+                    <li>
+                        <label><?= $escaper->escapeHtml($labelKey) ?>:</label>
+                        <span><?=$escaper->escapeHtml($labelValue)?></span>
+                    </li>
+                <?php  } ?>
+            </ul>
+        </div>
+        <?php
+    }
+    if(count($swatches)>0) {
+        ?>
+        <div class="Default-configuration-swatches">
+            <?php
+            foreach($swatches as $swatchKey => $swatchValue) {
+                if ($swatchKey == 'Frame' && isset($textLabels['Frame Width']) && $textLabels['Frame Width'] <= 0):
+                    continue;
+                endif;
+                if ($swatchKey == 'Liner' && isset($textLabels['Liner Width']) && $textLabels['Liner Width'] <= 0):
+                    continue;
+                endif;
+                if ($swatchKey == 'Top Mat'
+                    && isset($textLabels['Top Mat Size Bottom']) && $textLabels['Top Mat Size Bottom'] <= 0
+                    && isset($textLabels['Top Mat Size Top']) && $textLabels['Top Mat Size Top'] <= 0
+                    && isset($textLabels['Top Mat Size Left']) && $textLabels['Top Mat Size Left'] <= 0
+                    && isset($textLabels['Top Mat Size Right']) && $textLabels['Top Mat Size Right'] <= 0
+                ):
+                    continue;
+                endif;
+                if ($swatchKey == 'Bottom Mat'
+                    && isset($textLabels['Bottom Mat Size Bottom']) && $textLabels['Bottom Mat Size Bottom'] <= 0
+                    && isset($textLabels['Bottom Mat Size Top']) && $textLabels['Bottom Mat Size Top'] <= 0
+                    && isset($textLabels['Bottom Mat Size Left']) && $textLabels['Bottom Mat Size Left'] <= 0
+                    && isset($textLabels['Bottom Mat Size Right']) && $textLabels['Bottom Mat Size Right'] <= 0
+                ):
+                    continue;
+                endif;
+                $imagePath = $viewModel->getSwatchImagePathForDefaultConf($swatchValue, $imgDefaultConfPath);
+                $imgSpecPathWithSku = '';
+            ?>
+                <div class="configuration-swatches-block">
+                    <span><label><?= $escaper->escapeHtml($swatchKey) ?></label><span class="swatchlabel-separator">:</span></span>
+                    <div class="frame-container">
+                        <?php if ($imagePath) { ?>
+                            <img src="<?= $imagePath ?>" tabindex="0" alt="Image <?= $escaper->escapeHtml($swatchValue) ?>" class="placeholder-img">
+                               <?php $imgSpecPathWithSku = $viewModel->getSwatchImagePathForDefaultConf($swatchValue, $imgSpecPath)
+                               ?>
+
+                            <?php if (($escaper->escapeHtml($swatchKey) == 'Liner' || $escaper->escapeHtml($swatchKey) == 'Frame')
+                                && strpos($imgSpecPathWithSku,'/no_image') === false): ?>
+                                <div class="frame-hover-container" role="dialog">
+                                    <a tabindex="0" class="close-icon" aria-label="Close" data-action-keypress="true" role="button"></a>
+                                    <img src="<?= $imgSpecPathWithSku ?>" alt="Image <?=$escaper->escapeHtml($swatchValue)?>" class="frame-img">
+                                </div>
+                            <?php endif; ?>
+                        <?php } ?>
+                    </div>
+                    <span><?= $escaper->escapeHtml($swatchValue) ?><br>
+                        <?php if($swatchKey == 'Frame' && isset($textLabels['Frame Width'])) { ?><?php echo $textLabels['Frame Width'].'″ x '.$textLabels['Frame Depth'].'″'; } ?>
+                        <?php if($swatchKey == 'Liner' && isset($textLabels['Liner Width'])) { ?><?php echo $textLabels['Liner Width'].'″ x '.$textLabels['Liner Depth'].'″'; } ?>
+                        <?php if($swatchKey == 'Top Mat'
+                            && isset($textLabels['Top Mat Size Bottom'])
+                            && isset($textLabels['Top Mat Size Top'])
+                            && isset($textLabels['Top Mat Size Left'])
+                            && isset($textLabels['Top Mat Size Right'])
+                        ) {
+                            if($textLabels['Top Mat Size Bottom'] == $textLabels['Top Mat Size Top'] &&
+                                $textLabels['Top Mat Size Top'] == $textLabels['Top Mat Size Left'] &&
+                                $textLabels['Top Mat Size Left'] == $textLabels['Top Mat Size Bottom']){
+                                echo $textLabels['Top Mat Size Bottom'].'″';
+                            }else{
+                                $padding = "<span class='tooltip-container'><span class='hint' role='button' tabindex='0' data-toggle='dropdown' aria-haspopup='true' data-trigger-keypress-button='true' aria-expanded='false'><i class='fa fa-info-circle'></i> ". $escaper->escapeHtml(__('Weighted ')) ."</span><span class='pz-tooltip-content' role='dialog'><a tabindex='0' class='close-icon' aria-label='Close' data-action-keypress='true' role='button'></a>";
+                                $padding .= 'Left: ' . $textLabels['Top Mat Size Left'] . "″, " . 'Right: ' . $textLabels['Top Mat Size Right'] . "″, " . 'Top: ' . $textLabels['Top Mat Size Top'] . "″, " . 'Bottom: ' . $textLabels['Top Mat Size Bottom'] . "″ ";
+                                $padding .= "</span></span>";
+                                echo $padding;
+                            }
+                        }?>
+                        <?php if($swatchKey == 'Bottom Mat'
+                            && isset($textLabels['Bottom Mat Size Bottom'])
+                            && isset($textLabels['Bottom Mat Size Top'])
+                            && isset($textLabels['Bottom Mat Size Left'])
+                            && isset($textLabels['Bottom Mat Size Right'])
+                        ) {
+                            if($textLabels['Bottom Mat Size Bottom'] == $textLabels['Bottom Mat Size Top'] &&
+                                $textLabels['Bottom Mat Size Top'] == $textLabels['Bottom Mat Size Left'] &&
+                                $textLabels['Bottom Mat Size Left'] == $textLabels['Bottom Mat Size Bottom']){
+                                echo $textLabels['Bottom Mat Size Bottom'].'″';
+                            }else{
+                                $padding = "<span class='tooltip-container'><span class='hint' role='button' tabindex='0' data-toggle='dropdown' aria-haspopup='true' data-trigger-keypress-button='true' aria-expanded='false'><i class='fa fa-info-circle'></i> ". $escaper->escapeHtml(__('Weighted ')) ."</span><span class='pz-tooltip-content' role='dialog'><a tabindex='0' class='close-icon' aria-label='Close' data-action-keypress='true' role='button'></a>";
+                                $padding .= 'Left: ' . $textLabels['Bottom Mat Size Left'] . "'″', " . 'Right: ' . $textLabels['Bottom Mat Size Right'] . "″, " . 'Top: ' . $textLabels['Bottom Mat Size Top'] . "″, " . 'Bottom: ' . $textLabels['Bottom Mat Size Bottom'] . "″ ";
+                                $padding .= "</span></span>";
+                                echo $padding;
+                            }
+                        }?></span>
+
+                </div>
+            <?php } ?>
+
+        </div>
+        <?php
+    }
+
+    $confData = $viewModel->getDefaultConfigurationJson($_product);
+    $jsonStr = $confData['jsonStr'];
+    ?>
+    <div class="art-configurator-desc">
+        <?php
+            if (!empty($wallCovering) && $wallCovering == 1 ) {
+                echo $block->getChildHtml('wall_covering_content');
+            } elseif (!empty($isCustomiser) && $isCustomiser == 1) {
+        ?>
+        <p class="pdp_art_customizer hide">
+            <i>Default product specifications may be changed using our <a href="#" onClick="" id="pdp_art_configurator_link">art customizer.</a></i>
+        </p>
+        <?php } ?>
+    </div>
+    <div class="sidemark-container">
+    <span>
+        <input type="checkbox" name="side-mark" id="side-mark" checked="checked">
+        <label for="side-mark" class="label"><strong><?=$escaper->escapeHtml(__('Side Mark'))?></strong></label>
+    </span>
+        <div class="side_mark_box">
+            <label for="side-mark-input" class="no-label"><?=$escaper->escapeHtml(__('Side Mark'))?></label>
+            <input type="text" name="side-mark-input" id="side-mark-input" maxlength="250">
+            <div for="side-mark-input" class="max-len-note-div">
+                <?= $escaper->escapeHtml(__('Maximum 250 characters'))?>
+            </div>
+        </div>
+    </div>
+    <?php if (empty($isCustomiser) || $isCustomiser == 0) { ?>
+        <!--pz_cart_properties needs to be dynamic-->
+        <input type="hidden" name="pz_cart_properties" id="pz_cart_properties" value=''/>
+    <?php } ?>
+<?php
+endif;
+?>
+
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function() {
+            $('input#side-mark').on('change', function () {
+                if ($(this).is(':checked')) $('div.side_mark_box').show();
+                else $('div.side_mark_box').hide();
+            });
+            var jsonStr = <?=$jsonStr?>;
+            $('input#side-mark-input').on('blur', function() {
+                jsonStr['Side Mark'] = $('input[name=side-mark-input]').val();
+                var json1Str = JSON.stringify(jsonStr);
+                $("input#pz_cart_properties").val(json1Str);
+
+                //Add to wishlist
+
+                var wishListData = $('[data-action="add-to-wishlist"]');
+                for (var i=0; i < wishListData.length; i++) {
+                    if(wishListData[i].getAttribute('data-ajax-post') || wishListData[i].getAttribute('data-post-new-wishlist') || wishListData[i].getAttribute('data-post')) {
+                        var wishlistAttr = wishListData[i].getAttribute('data-ajax-post') || wishListData[i].getAttribute('data-post-new-wishlist') ||  wishListData[i].getAttribute('data-post');
+                        var wishListDataObject = JSON.parse(wishlistAttr);
+                        if(wishListDataObject.data.pz_cart_properties) {
+                            var pzProp = JSON.parse(wishListDataObject.data.pz_cart_properties);
+                            pzProp['Side Mark'] = $('#side-mark-input').val();
+                            wishListDataObject.data.pz_cart_properties = JSON.stringify(pzProp);
+                            var hasAttr = '';
+                            if(wishListData[i].getAttribute('data-post')) {
+                                hasAttr = 'data-post';
+                            }else {
+                                hasAttr = (wishListData[i].getAttribute('data-ajax-post')) ? 'data-ajax-post' : 'data-post-new-wishlist';
+                            }
+                            wishListData[i].setAttribute(hasAttr, JSON.stringify(wishListDataObject));
+                        }
+                    }
+                }
+
+            });
+
+            var sideMarkFlag = <?=$sideMarkFlag?>;
+            var sideMark = <?='"'.$sideMark.'"'?>;
+            if(sideMarkFlag == 1 && sideMark) {
+                $('input[name=side-mark-input]').val(sideMark);
+                if(jsonStr) {
+                    jsonStr['Side Mark'] = sideMark;
+                }
+
+                //Add to wishlist
+
+                var wishListData = $('[data-action="add-to-wishlist"]');
+                for (var i=0; i < wishListData.length; i++) {
+                    if(wishListData[i].getAttribute('data-ajax-post') || wishListData[i].getAttribute('data-post')
+                        || wishListData[i].getAttribute('data-post-new-wishlist')) {
+                        var wishlistAttr = wishListData[i].getAttribute('data-ajax-post') ||  wishListData[i].getAttribute('data-post')  || wishListData[i].getAttribute('data-post-new-wishlist');
+                        var wishListDataObject = JSON.parse(wishlistAttr);
+                        if(wishListDataObject.data.pz_cart_properties) {
+                            var pzProp = JSON.parse(wishListDataObject.data.pz_cart_properties);
+                            pzProp['Side Mark'] = $('#side-mark-input').val();
+                            wishListDataObject.data.pz_cart_properties = JSON.stringify(pzProp);
+                            var hasAttr = '';
+                            if(wishListData[i].getAttribute('data-post')) {
+                                hasAttr = 'data-post';
+                            }else {
+                                hasAttr = (wishListData[i].getAttribute('data-ajax-post')) ? 'data-ajax-post' : 'data-post-new-wishlist';
+                            }
+                            wishListData[i].setAttribute(hasAttr, JSON.stringify(wishListDataObject));
+                        }
+                    }
+                }
+            }
+
+            var json2Str = JSON.stringify(jsonStr);
+            $("input#pz_cart_properties").val(json2Str);        });
+    });
+</script>

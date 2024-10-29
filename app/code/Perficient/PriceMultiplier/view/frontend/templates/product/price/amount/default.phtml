@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\Framework\Pricing\Render\Amount;
+use Magento\Wishlist\Model\Item;
+use Perficient\Catalog\Helper\Data as CatalogHelper;
+use Perficient\Wishlist\Block\Customer\Wishlist\Item\Column\Cart;
+?>
+
+<?php /** @var $block Amount */ ?>
+<?php
+$productId = $block->getProduct()?->getId() ?: $block->getSaleableItem()->getId();
+$productType = $block->getProduct()?->getTypeId() ?: $block->getSaleableItem()->getTypeId();
+
+/** @var Item $item */
+$item = $block->getItem();
+$buyRequest = !empty($item) ? $item->getBuyRequest() : [];
+
+$cartBlock = $block->getLayout()->createBlock(Cart::class);
+/** @var CatalogHelper $catalogHelper */
+$catalogHelper = $this->helper(CatalogHelper::class);
+$customerLoggedIn = $catalogHelper->isCustomerLoggedIn();
+?>
+<?php if ($customerLoggedIn) : ?>
+<div class="price-container price-final_price">
+    <span class="price-loader"><?=/* @noEscape */ __('Loading..')?></span>
+    <ul class="prices hide" data-product-type="<?= $productType ?>">
+    <?php
+    if (isset($buyRequest['edit_id']) && !empty($buyRequest['edit_id']) &&
+        isset($buyRequest['configurator_price']) && !empty($buyRequest['configurator_price'])):
+        $priceData = $cartBlock->getConfigratorItemPrice($buyRequest['configurator_price']);
+    ?>
+        <li><span class="strikeout-price-wrapper strikeout-price-wrapper-<?php echo $productId?>"
+                  data-price-id = "<?php echo $productId; ?>" style="text-decoration: line-through"><?= isset($priceData['strikeout_price']) ? $priceData['strikeout_price'] : ''; ?></span></li>
+        <li><label><?=/* @noEscape */ __('Your Price:')?></label><span class="price" data-price-type="finalPrice"><?= isset($priceData['display_price']) ? $priceData['display_price'] : $buyRequest['configurator_price']; ?></span></li>
+    <?php else: ?>
+        <li><span class="strikeout-price-wrapper strikeout-price-wrapper-<?php echo $productId?>"
+                  data-price-id = "<?php echo $productId; ?>" style="text-decoration: line-through"></span></li>
+        <li><label><?=/* @noEscape */ __('Your Price:')?></label><span class="config-text price"></span><span class="price trigger-product-price price-wrapper-<?php echo $productId; ?>" data-price-type="finalPrice" data-price-id = "<?php echo $productId; ?>"></span></li>
+    <?php endif; ?>
+    </ul>
+</div>
+<?php endif; ?>

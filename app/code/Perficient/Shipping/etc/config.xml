@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Flatrate shipping addition field config
+* @category: Magento
+* @package: Perficient/Shipping
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Tahir Aziz<tahir.aziz@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Shipping
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <flatrate>
+                <hide_in_frontend>1</hide_in_frontend>
+                <disabled_notice>Freight will be calculated based on data received from syspro</disabled_notice>
+            </flatrate>
+        </carriers>
+    </default>
+</config>

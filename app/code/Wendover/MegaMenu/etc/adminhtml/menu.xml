@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wendover_MegaMenu::menu" title="Menus" module="Wendover_MegaMenu" sortOrder="20" action="menu/index/index" resource="Wendover_MegaMenu::menu" parent="Magento_Backend::content_elements"/>
+    </menu>
+</config>

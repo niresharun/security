@@ -1,0 +1,54 @@
+<?php
+/**
+ * Add Products By Sku.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar <Amin.Akhtar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Wishlist
+ */
+
+/** @var $block \Magento\MultipleWishlist\Block\Customer\Wishlist\Management */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<form id="add-by-sku-form" method="POST" class="form popup-catalog-form"
+      action="<?php echo $block->getUrl('wishlist/index/addbysku/');?>" data-mage-init='{"validation":{}}'>
+    <input name="form_key" type="hidden" value="<?= /* @noEscape */ $block->getFormKey()?>" />
+    <input name="wishlist_id" type="hidden" value="<?= /* @noEscape */ $block->getCurrentWishlist()->getId()?>">
+    <div class="new-catalog">
+        <fieldset class="fieldset">
+            <div class="field project_name">
+                <label class="label" for="project_name">
+                    <span><?= /* @escapeNotVerified */ __('Project Name'); ?></span>
+                </label>
+                <input type="text" id="project_name" value="<?= $escaper->escapeHtml($block->getCurrentWishlist()->getName()) ?>" disabled>
+            </div>
+            <div class="field sku_to_add required">
+                <label class="label" for="sku_to_add">
+                    <span><?= /* @escapeNotVerified */ __('SKU'); ?></span>
+                </label>
+                <textarea placeholder="Add comma seperated SKU (Ex: Enter 'sku-1, sku-2')"
+                          data-validate='{"required":true}' name="sku_to_add" id="sku_to_add"></textarea>
+            </div>
+            <div class="action btn-container">
+                <button class="action primary" type="submit">
+                    <span><?= /* @escapeNotVerified */ __('Continue') ?></span>
+                </button>
+                <button class="action primary" type="button" id="close_add_by_sku">
+                    <span><?= /* @escapeNotVerified */ __('Close') ?></span>
+                </button>
+            </div>
+        </fieldset>
+    </div>
+</form>
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "addBySkuJS": {}
+    }
+}
+</script>

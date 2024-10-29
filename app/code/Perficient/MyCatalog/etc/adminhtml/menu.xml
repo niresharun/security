@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs.
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_MyCatalog::mycatalog_manager"
+             title="My Catalog Settings"
+             module="Perficient_MyCatalog"
+             sortOrder="10"
+             parent="Perficient_Base::main_menu_item"
+             dependsOnModule="Perficient_MyCatalog"
+             resource="Perficient_MyCatalog::mycatalog_manager"/>
+        <add id="Perficient_MyCatalog::perficient_mycatalog_settings"
+             title="My Catalog Settings"
+             module="Perficient_MyCatalog"
+             sortOrder="20"
+             parent="Perficient_MyCatalog::mycatalog_manager"
+             action="adminhtml/system_config/edit/section/perficient_mycatalog"
+             resource="Perficient_MyCatalog::perficient_mycatalog_settings"/>
+    </menu>
+</config>

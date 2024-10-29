@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Custom Fields.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Company\Api\Data\CompanyInterface">
+        <attribute code="newsletter" type="string"/>
+        <attribute code="is_dba" type="string"/>
+        <attribute code="first_name" type="string"/>
+        <attribute code="last_name" type="string"/>
+        <attribute code="dba_name" type="string"/>
+        <attribute code="resale_certificate_number" type="string"/>
+        <attribute code="website_address" type="string"/>
+        <attribute code="social_media_site" type="string"/>
+        <attribute code="business_type" type="string"/>
+        <attribute code="business_type_new" type="string"/>
+        <attribute code="no_of_stores" type="string"/>
+        <attribute code="sq_ft_per_store" type="string"/>
+        <attribute code="type_of_projects" type="string"/>
+        <attribute code="no_of_jobs_per_year" type="string"/>
+        <attribute code="discount_rate" type="string"/>
+        <attribute code="discount_markup" type="string"/>
+        <attribute code="discount_application_type" type="string"/>
+        <attribute code="discount_value" type="string"/>
+    </extension_attributes>
+</config>

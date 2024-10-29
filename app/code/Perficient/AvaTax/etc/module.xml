@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* AvaTax  module configuration and customization.
+*
+* @category: PHP
+* @package: Perficient/AvaTax
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Archana Lohakare <archana.lohakare@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_AvaTax
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_AvaTax" setup_version="1.0.0" />
+    <sequence>
+        <module name="ClassyLlama_AvaTax"/>
+    </sequence>
+</config>

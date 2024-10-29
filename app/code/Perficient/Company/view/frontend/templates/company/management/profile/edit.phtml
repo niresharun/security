@@ -1,0 +1,371 @@
+<?php
+/**
+ * Company Custom Fields.
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Company
+ */
+/**
+ * @var \Magento\Company\Block\Company\CompanyProfile $block
+ * @var \Magento\Framework\DataObject $formSelectOptionsData
+ */
+$formMessages = $block->getFormMessages();
+$countries = $block->getCountriesList();
+$company = $block->getCustomerCompany();
+$getTypeOfProjectsArray = [];
+if (!empty($company->getTypeOfProjects())) {
+    $getTypeOfProjectsArray = explode(',', $company->getTypeOfProjects());
+}
+$viewModel = $block->getData('company_view_model');
+?>
+
+<?php if (!empty($formMessages)): ?>
+    <div id="company_edit_form_messages">
+        <?php foreach ($formMessages as $formMessage): ?>
+            <div class="message error">
+                <span><?= $block->escapeHtml($formMessage) ?></span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
+<form class="form form-edit-company" method="post" id="company-edit-form"
+      action="<?= $block->escapeUrl($block->getUrl('*/profile/editPost')) ?>"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+    <?= $block->getBlockHtml('formkey') ?>
+    <?php if ($block->isEditAccountAllowed()): ?>
+        <fieldset class="fieldset info">
+            <legend class="legend no-display"><span><?= $block->escapeHtml(__('Account Information')) ?></span></legend>
+            <h2 class="legend heading-l2"><span><?= $block->escapeHtml(__('Account Information')) ?></span></h2>
+            <div class="field company-name _required">
+                <label class="label" for="company_name">
+                    <span><?= $block->escapeHtml(__('Company Name')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company_name" id="company_name"
+                           autocomplete="organization"
+                           value="<?= $block->escapeHtmlAttr($company->getCompanyName()) ?>"
+                           class="input-text" data-validate="{required:true, maxlength:50}">
+                </div>
+            </div>
+            <div class="field company-email required">
+                <label class="label" for="company_email">
+                    <span><?= $block->escapeHtml(__('Company Email')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="email" name="company_email" id="company_email"
+                           value="<?= $block->escapeHtmlAttr($company->getCompanyEmail()) ?>"
+                           autocomplete="email"
+                           data-role="email"
+                           data-async-is-valid="true"
+                           data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+"name": "company_email",
+"validateUrl": "<?= $block->escapeUrl($block->getUrl('company/account/validate')) ?>"
+}}'
+                           data-validate="{required:true, 'validate-email': true, 'validate-async-company-email': true}"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field is_dba ">
+                <span class="label">
+                    <?= $block->escapeHtml(__('Does your company have a DBA Name?')) ?>
+                </span><br role="presentation" /><br role="presentation" />
+                <div class="field control radiobtn-inline">
+                    <input type="radio"
+                           name="company[is_dba]"
+                           id="is_dba1"
+                           value = "yes"
+                        <?php if ($company->getIsDba() == 'yes'): ?> checked="checked"<?php endif; ?>
+                           class="checkbox"/>
+                    <label for="is_dba1">
+                        <span><?= $block->escapeHtml(__('Yes')) ?></span>
+                    </label>&nbsp;&nbsp;
+                </div>
+                <div class="field control radiobtn-inline">
+                    <input type="radio"
+                           name="company[is_dba]"
+                           id="is_dba2"
+                           value = "no"
+                        <?php if ($company->getIsDba() == 'no'): ?> checked="checked"<?php endif; ?>
+                           class="checkbox"/>
+                    <label for="is_dba2">
+                        <span><?= $block->escapeHtml(__('No')) ?></span>
+                    </label>
+                </div>
+            </div>
+            <div class="field dba_name" <?php if ($company->getIsDba() == 'no'): ?>style="display: none;"<?php endif; ?>>
+                <label class="label" for="dba_name">
+                    <span><?= $block->escapeHtml(__('DBA Name')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[dba_name]" id="dba_name"
+                           value="<?= $block->escapeHtmlAttr($company->getDbaName()) ?>"
+                           autocomplete="on"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field resale_certificate_number">
+                <label class="label" for="resale_certificate_number">
+                    <span><?= $block->escapeHtml(__('Resale Certificate Number')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[resale_certificate_number]" id="resale_certificate_number"
+                           autocomplete="on"
+                           value="<?= $block->escapeHtmlAttr($company->getResaleCertificateNumber()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field website_address">
+                <label class="label" for="website_address">
+                    <span><?= $block->escapeHtml(__('Website Address')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[website_address]" id="website_address"
+                           autocomplete="on"
+                           value="<?= $block->escapeHtmlAttr($company->getWebsiteAddress()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field social_media_site">
+                <label class="label" for="social_media_site">
+                    <span><?= $block->escapeHtml(__('Social Media Site')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[social_media_site]" id="social_media_site"
+                           autocomplete="on"
+                           value="<?= $block->escapeHtmlAttr($company->getSocialMediaSite()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field business_info required">
+                <label class="label" for="business_info">
+                    <span><?= $block->escapeHtml(__('Business Type')) ?></span>
+                </label>
+                <div class="control _required">
+                    <select name="company[business_type]" id="business_info"
+                            autocomplete="on"
+                            class="select"
+                            data-validate="{required:true}">
+                        <option value=""><?= $block->escapeHtml(__('Select Business Type')) ?></option>
+                        <?php $options = $viewModel->getBusinessType(); ?>
+                        <?php foreach ($options as $value): ?>
+                            <option value="<?= $block->escapeHtmlAttr($value['value']) ?>"
+                                <?= ($company->getBusinessType() == $value['value']) ? ' selected' : ''; ?>>
+                                <?= $block->escapeHtml($value['label']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field no_of_stores">
+                <label class="label" for="no_of_stores">
+                    <span><?= $block->escapeHtml(__('Number of Stores')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[no_of_stores]" id="no_of_stores"
+                           autocomplete="on"
+                           value="<?= $block->escapeHtmlAttr($company->getNoOfStores()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field sq_ft_per_store">
+                <label class="label" for="sq_ft_per_store">
+                    <span><?= $block->escapeHtml(__('Square Footage per Store')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[sq_ft_per_store]" id="sq_ft_per_store"
+                           autocomplete="on"
+                           value="<?= $block->escapeHtmlAttr($company->getSqFtPerStore()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field type_of_projects">
+                <label class="label" for="type_of_projects">
+                    <span><?= $block->escapeHtml(__('Types of Projects')) ?></span>
+                </label>
+                <div class="control _required">
+                    <select name="company[type_of_projects][]" id="type_of_projects"
+                            class="select"
+                            multiple="multiple">
+                        <?php $options = $viewModel->getProjects(); ?>
+                        <?php foreach ($options as $option): ?>
+                            <optgroup data-type="<?= $block->escapeHtmlAttr($option['type']) ?>" label="<?= $block->escapeHtmlAttr($option['label']) ?>">
+                                <?php foreach ($option['value'] as $value): ?>
+                                    <option value="<?= $block->escapeHtmlAttr($value['value']) ?>"
+                                        <?= (in_array($value['value'], $getTypeOfProjectsArray)) ? ' selected' : ''; ?>>
+                                        <?= $block->escapeHtml($value['label']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field no_of_jobs_per_year">
+                <label class="label" for="no_of_jobs_per_year">
+                    <span><?= $block->escapeHtml(__('Number of Jobs per Year')) ?></span>
+                </label>
+                <div class="control">
+                    <select name="company[no_of_jobs_per_year]" id="no_of_jobs_per_year"
+                            autocomplete="on"
+                            class="select">
+                        <option value=""><?= $block->escapeHtml(__('Select Number of Jobs per Year')) ?></option>
+                        <?php $options = $viewModel->getNumberOfJobsPerYear(); ?>
+                        <?php foreach ($options as $value): ?>
+                            <option value="<?= $block->escapeHtmlAttr($value['value']) ?>"
+                                <?= ($company->getNoOfJobsPerYear() == $value['value']) ? ' selected' : ''; ?>>
+                                <?= $block->escapeHtml($value['label']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    <?php endif; ?>
+    <?php if ($block->isEditAddressAllowed()): ?>
+        <fieldset class="fieldset info">
+            <legend class="legend no-display"><span><?= $block->escapeHtml(__('Billing Address')) ?></span></legend>
+            <h2 class="legend heading-l2"><span><?= $block->escapeHtml(__('Billing Address')) ?></span></h2>
+            <?php $street = $company->getStreet(); ?>
+            <div class="field street _required">
+                <label class="label" for="street0">
+                    <span><?= $block->escapeHtml(__('Street Address')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="street[0]" id="street0"
+                           value="<?= (!empty($street[0])) ? $block->escapeHtmlAttr($street[0]) : ''; ?>"
+                           autocomplete="address-line1"
+                           class="input-text" data-validate="{required:true, maxlength:40}">
+                </div>
+            </div>
+            <div class="field street">
+                <label class="label" for="street1">
+                    <span><?= $block->escapeHtml(__('Street Address 2')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="street[1]" id="street1"
+                           autocomplete="address-line2"
+                           value="<?= (!empty($street[1])) ? $block->escapeHtmlAttr($street[1]) : ''; ?>"
+                           class="input-text"
+                           data-validate="{maxlength:40}">
+                </div>
+            </div>
+            <div class="field city _required">
+                <label class="label" for="city">
+                    <span><?= $block->escapeHtml(__('City')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="city" id="city"
+                           autocomplete="address-level2"
+                           value="<?= $block->escapeHtmlAttr($company->getCity()) ?>"
+                           class="input-text" data-validate="{required:true}">
+                </div>
+            </div>
+            <div class="field country_id required">
+                <label class="label" for="country_id">
+                    <span><?= $block->escapeHtml(__('Country')) ?></span>
+                </label>
+                <div class="control _required">
+                    <?php $countryValue = $company->getCountryId(); ?>
+                    <select name="country_id" id="country_id"
+                            autocomplete="country-name"
+                            data-validate="{required:true}">
+                        <option value=""></option>
+                        <?php foreach ($countries as $countryCode => $country): ?>
+                            <option value="<?= $block->escapeHtmlAttr($countryCode) ?>"
+                                <?= ($countryCode == $countryValue) ? ' selected' : ''; ?>>
+                                <?= $block->escapeHtml($country) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field region-id required">
+                <label class="label" for="region_id">
+                    <span><?= $block->escapeHtml(__('State/Province')) ?></span>
+                </label>
+                <div class="control _required">
+                    <select name="region_id" id="region_id" data-validate="{required:true}"
+                        autocomplete="address-level1" >
+                        <option value="">
+                            <?= $block->escapeHtml(__('Please select a region, state or province.')) ?>
+                        </option>
+                    </select>
+                    <label class="no-display" for="region"><span><?= $block->escapeHtmlAttr(__('State/Province')) ?></span></label>
+                    <input type="text" id="region" name="region"
+                           value="<?= $block->escapeHtmlAttr($company->getRegion()) ?>"
+                           class="input-text no-display">
+                </div>
+            </div>
+            <div class="field postcode required">
+                <label class="label" for="postcode">
+                    <span><?= $block->escapeHtml(__('ZIP/Postal Code')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="postcode" id="postcode"
+                           autocomplete="postal-code"
+                           value="<?= $block->escapeHtmlAttr($company->getPostcode()) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field telephone _required">
+                <label class="label" for="telephone">
+                    <span><?= $block->escapeHtml(__('Phone Number')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="telephone" id="telephone"
+                           autocomplete="tel"
+                           value="<?= $block->escapeHtmlAttr($company->getTelephone()) ?>"
+                           class="input-text" data-validate="{required:true}">
+                </div>
+            </div>
+        </fieldset>
+    <?php endif; ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary">
+                <span><?= $block->escapeHtml(__('Save')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "perficient_company":{}
+        }
+    }
+</script>
+
+<?php
+$regionValue = ((int)$company->getRegionId()) ? (int)$company->getRegionId() : '';
+/* @var Magento\Directory\Helper\Data $directoryDataHelper */
+$directoryDataHelper = $block->getData('directoryDataHelper');
+$regionJson = $directoryDataHelper->getRegionJson();
+$countriesList = $directoryDataHelper->getCountriesWithOptionalZip(true);
+?>
+<script type="text/x-magento-init">
+    {
+        "#company-edit-form": {
+            "validation": {}
+        },
+        "#country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": "true",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#postcode",
+                "form": "#company-edit-form",
+                "regionJson": <?= /* @noEscape */ $regionJson ?>,
+                "defaultRegion": "<?= /* @noEscape */ $regionValue ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $countriesList ?>
+            }
+        }
+    }
+</script>

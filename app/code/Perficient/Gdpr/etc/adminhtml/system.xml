@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Flatrate shipping addition fields
+* @category: Magento
+* @package: Perficient/Shipping
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Tahir Aziz<tahir.aziz@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Shipping
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_gdpr">
+            <group id="customer_access_control">
+                <field id="show_wendover_contact_block" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Show Wendover Contact Block</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="wendover_contact_block" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Wendover Contact Block Identifier</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Remove Gift Options
+ * @category: Magento
+ * @package: Perficient/Checkout
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Checkout
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="giftCardAccount" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="discount" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="popUpForm" xsi:type="array">
+                                                            <item name="options" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">New Shipping Address</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="footer_static_links" remove="true"/>
+        <move element="copyright" destination="footer-container"/>
+        <referenceBlock name="footer" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * This module is used to add class in page and changes in structure
+ * @category: Magento
+ * @package: Perficient/magento Wishlist
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Wishlist
+ */
+?>
+<input id="check-box<?= /* @noEscape */ $block->getItem()->getId()*1 ?>" type="checkbox" class="checkbox product-item-checkbox" name="selected[<?= /* @noEscape */ $block->getItem()->getId()*1 ?>]" data-role="select-product" />
+<label class="checkbox-label" for="check-box<?= /* @noEscape */ $block->getItem()->getId()*1 ?>">
+    Checkbox
+</label>

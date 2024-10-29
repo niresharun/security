@@ -1,0 +1,246 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/* @var $block \Magento\MultipleWishlist\Block\Customer\Wishlist\Management */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
+$helper = $this->helper('Perficient\Mycatalog\Helper\Data');
+$wishlistHelper = $this->helper('Perficient\WishlistSet\Helper\Data');
+$isCreateAllow = $wishlistHelper->actionStatus();
+$getCurrentUserRole= $helper->getCurrentUserRole();
+$isAllowedMyCatalog = $helper->isAllowMyCatalog();
+$galleryList = $helper->getGalleryNamesLists();
+if($getCurrentUserRole == true && strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)){ ?>
+    <div class="button-container">
+        <!--Button for add by sku-->
+        <button id="add-by-sku" data-toggle="modal"  class="create-new-catalog action primary">
+            <span><?= /* @escapeNotVerified */ __('Add Products By SKU') ?></span>
+        </button>
+        <!--Button for add by sku-->
+        <?php if(!empty($isCreateAllow)): ?>
+            <button class="action primary" id="click-me" type="button" data-toggle="modal"
+                    data-target="#popup-modal" data-mage-init='{"quick-catalog": {}}'><?= $escaper->escapeHtml(__('Create Quick Catalog')) ?>
+            </button>
+        <?php endif;?>
+        <?php if ($isAllowedMyCatalog): ?>
+            <?php if(!empty($isCreateAllow)): ?>
+                <button id="createnew-catalog" data-toggle="modal"  class="create-new-catalog">
+                    <span><?= /* @escapeNotVerified */ __('Create New Catalog') ?></span>
+                </button>
+            <?php endif;?>
+            <div class="catalog-popup" id="catalog-popup" style="display: none;">
+                <div class="modal-inner-content">
+                    <h2><?= __('Create New Catalog'); ?></h2>
+                    <p><?= __('Which project will this catalog belong to?'); ?></p>
+                    <?php if($galleryList): ?>
+                        <ul>
+                            <?php
+                            $i = 0;
+                            foreach($galleryList as $gallery): ?>
+                                <?php if(strtolower($gallery['name']) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)) { ?>
+                                    <li>
+                                        <a href="#" class="<?php echo ($i == 0 ? 'active-gallery' : ''); ?> gallery-list-item"
+                                           data-href="<?= $this->getUrl('mycatalog/index/edit/', ['wishlist_id' => $gallery['wishlist_id']]); ?>">
+                                            <?= $gallery['name']; ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                    $i++;
+                                }
+                                ?>
+                            <?php
+
+                            endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+?>
+<?php if ($block->getCurrentWishlist()) : ?>
+    <div class="block-wishlist-management">
+        <div class="wishlist-select">
+            <?php if(strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)) { ?>
+                <span class="wishlist-name" data-mage-init='{"toggleAdvanced": {"toggleContainers": "#wishlists-select", "selectorsToggleClass": "active"}}' >
+                    <span class="wishlist-name-label"><?= $escaper->escapeHtml(__('Projects')) ?></span>
+                    <span class="wishlist-name-current">
+                        <?= $escaper->escapeHtml($block->getCurrentWishlist()->getName()) ?>
+                    </span>
+                </span>
+            <?php } ?>
+            <ul class="wishlist-select-items" data-target="dropdown" id="wishlists-select" role="list">
+                <?php if(strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)) { ?>
+                    <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                        <?php if(strtolower($wishlist->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)) { ?>
+                            <?php if ($wishlist->getId() == $block->getCurrentWishlist()->getId()) : ?>
+                                <li class="current item" role="listitem">
+                                    <span tabindex="0">
+                                        <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                                    </span>
+                                </li>
+                            <?php else : ?>
+                                <li class="item" role="listitem">
+                                    <a href="<?= $escaper->escapeUrl($block->getWishlistManagementUrl($wishlist)) ?>">
+                                        <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        <?php } ?>
+                    <?php endforeach;?>
+                <?php } ?>
+                <?php if ($block->canCreateWishlists($block->getWishlists())) : ?>
+                    <li class="item wishlist-add" role="listitem">
+                        <a href="#"
+                           id="wishlist-create-button"
+                           data-action-keypress="true"
+                           data-wishlist-create='{
+                                "url":"<?= $escaper->escapeUrl($block->getCreateUrl()) ?>",
+                                "title":"<?= $escaper->escapeHtmlAttr(__('Create Wish List')) ?>",
+                                "formKey": "<?= $escaper->escapeHtmlAttr($block->getFormkey()) ?>"
+                                }'
+                           class="action add wishlist">
+                            <span><?= $escaper->escapeHtml(__('Create New Wish List')) ?></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <div class="wishlist-title">
+            <?php if(strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)): ?>
+                <h2><?= $escaper->escapeHtml($block->getCurrentWishlist()->getName()) ?></h2>
+            <?php endif; ?>
+            <?php if(strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)): ?>
+                <a href="#" data-wishlist-edit='{
+                    "url":"<?= $escaper->escapeUrl($block->getEditUrl($block->getCurrentWishlist()->getId())) ?>",
+                    "name":"<?= $escaper->escapeHtmlAttr($escaper->escapeHtml($block->getCurrentWishlist()->getName())) ?>",
+                    "title":"<?= $escaper->escapeHtmlAttr(__('Edit Wish List')) ?>",
+                    "isPublic":<?= /* @noEscape */ $block->getCurrentWishlist()->getVisibility() ? 'true' : 'false' ?>,
+                    "formKey": "<?= $escaper->escapeHtmlAttr($block->getFormkey()) ?>"
+                }'  class="action edit">
+                    <?= $escaper->escapeHtml(__('Edit')) ?>
+                </a>
+            <?php endif; ?>
+        </div>
+
+
+        <div class="wishlist-info">
+            <?php if ($block->getCurrentWishlist()->getVisibility()) : ?>
+                <div class="wishlist-notice public"><?= $escaper->escapeHtml(__('Public Wish List')) ?></div>
+            <?php else : ?>
+                <div class="wishlist-notice private"><?= $escaper->escapeHtml(__('Private Wish List')) ?></div>
+            <?php endif; ?>
+            <span class="counter qty">
+                <?= $escaper->escapeHtml($block->getItemCount($block->getCurrentWishlist())) ?>
+            </span>
+        </div>
+
+        <?php if ($block->getCurrentWishlist()->getItemsCount()) : ?>
+            <div class="wishlist-toolbar">
+                <div class="wishlist-toolbar-select">
+                    <input type="checkbox" name="" id="wishlist-select-all" data-role="select-all" />
+                    <label class="label" for="wishlist-select-all"><?= $escaper->escapeHtml(__('Select all')) ?></label>
+                </div>
+                <div class="wishlist-toolbar-actions">
+                    <div id="wishlists-move"
+                         class="wishlist-dropdown move"
+                         data-wishlist-move='{"moveSelectedUrl":"<?= $escaper->escapeUrl($block->getMoveSelectedUrl()) ?>", "moveItemUrl":"<?= $block->escapeUrl($block->getMoveItemUrl()) ?>"}'>
+                        <span class="action toggle"
+                              data-mage-init='{"dropdown":{}}'
+                              data-toggle="dropdown"
+                              data-trigger-keypress-button="true"
+                              <?php if ($block->getCurrentWishlist()->getId() != $block->getDefaultWishlist()->getId()) : ?>data-wishlist-move-selected='{"wishlistId":"<?= $block->escapeHtmlAttr($block->getDefaultWishlist()->getId()) ?>"}'<?php endif;?>>
+                            <span><?= $escaper->escapeHtml(__('Move Selected to Wish List')) ?></span>
+                        </span>
+                        <ul class="items dropdown" data-target="dropdown" role="list">
+                            <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                                <?php if ($wishlist->getId() !== $block->getCurrentWishlist()->getId()) : ?>
+                                    <li class="item" role="listitem">
+                                        <span role="button"
+                                              tabindex="0"
+                                              data-action-keypress="true"
+                                              data-wishlist-move-selected='{"wishlistId":"<?= $escaper->escapeHtmlAttr($wishlist->getId()) ?>"}'>
+                                            <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                                        </span>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach;?>
+                            <?php if ($block->canCreateWishlists($block->getWishlists())) : ?>
+                                <li class="item" role="listitem">
+                                    <span role="button"
+                                          tabindex="0"
+                                          class="action new"
+                                          data-action-keypress="true"
+                                          data-wishlist-move-selected='{"new":true}'>
+                                        <span><?= $escaper->escapeHtml(__('Create New Wish List')) ?></span>
+                                    </span>
+                                </li>
+                            <?php endif;?>
+                        </ul>
+                    </div>
+                    <div id="wishlists-copy"
+                         class="wishlist-dropdown copy"
+                         data-wishlist-copy='{"copySelectedUrl":"<?= $escaper->escapeHtmlAttr($block->getCopySelectedUrl()) ?>", "copyItemUrl":"<?= $escaper->escapeHtmlAttr($block->getCopyItemUrl()) ?>"}'>
+                        <span class="action toggle"
+                              data-mage-init='{"dropdown":{}}'
+                              data-trigger-keypress-button="true"
+                              data-toggle="dropdown"
+                              <?php if ($block->getCurrentWishlist()->getId() != $block->getDefaultWishlist()->getId()) : ?>data-wishlist-copy-selected='{"wishlistId":"<?= $escaper->escapeHtmlAttr($block->getDefaultWishlist()->getId()) ?>"}'<?php endif;?>>
+                            <span><?= $escaper->escapeHtml(__('Copy Selected to Wish List')) ?></span>
+                        </span>
+                        <ul class="items dropdown" data-target="dropdown" role="list">
+                            <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                                <?php if ($wishlist->getId() !== $block->getCurrentWishlist()->getId()) : ?>
+                                    <li class="item" role="listitem">
+                                        <span role="button"
+                                              tabindex="0"
+                                              data-action-keypress="true"
+                                              data-wishlist-copy-selected='{"wishlistId":"<?= $escaper->escapeHtmlAttr($wishlist->getId()) ?>"}'>
+                                            <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                                        </span>
+                                    </li>
+                                <?php endif;?>
+                            <?php endforeach;?>
+                            <?php if ($block->canCreateWishlists($block->getWishlists())) : ?>
+                                <li class="item" role="listitem">
+                                    <span role="button"
+                                          tabindex="0"
+                                          class="action new"
+                                          data-action-keypress="true"
+                                          data-wishlist-copy-selected='{"new":true}'>
+                                        <span><?= $escaper->escapeHtml(__('Create New Wish List')) ?></span>
+                                    </span>
+                                </li>
+                            <?php endif;?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <?php endif;?>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "[data-role='select-all']": {
+            "Magento_MultipleWishlist/js/select-all-change": {}
+        }
+    }
+</script>
+<?php if(strtolower($block->getCurrentWishlist()->getName()) != strtolower($wishlistHelper::DEFAULT_WISHLIST_NAME)) { ?>
+    <script>
+        require(['jquery', 'domReady!'], function ($) {
+            $("li.my-favorites").removeClass('current');
+            $("li.my-favorites").html('<a href="<?=$block->getUrl("wishlist")?>">My Favorites</a>');
+            $("li.my-projects").addClass('current');
+            $("li.my-projects").html('<strong>My Projects</strong>');
+        });
+    </script>
+<?php } ?>

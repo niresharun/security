@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Tahir Aziz <tahir.aziz@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_ViewInRoom
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Perficient\ViewInRoom\Controller\Adminhtml\Category\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Magento\Catalog\CategoryImageUpload</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Catalog\CategoryImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">catalog/category</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="Magento\Catalog\Model\Category\DataProvider" type="Perficient\ViewInRoom\Model\Category\DataProvider" />
+
+</config>

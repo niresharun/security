@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Modify catalog product search
+ * @category: Magento
+ * @package: Perficient/Search
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Search
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogSearch\Controller\Advanced\Index">
+        <plugin name="perficient_advance_search_index"
+                type="Perficient\Search\Plugin\AdvanceSearch"/>
+    </type>
+    <type name="Magento\CatalogSearch\Controller\Advanced\Result">
+        <plugin name="perficient_advance_search_result"
+                type="Perficient\Search\Plugin\AdvanceSearchResult"/>
+    </type>
+    <type name="Amasty\Xsearch\Block\Search\Product">
+        <plugin name="update_simple_product_url"
+                type="Perficient\Search\Plugin\Block\Search\ProductPlugin"/>
+    </type>
+
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="Amasty_Xsearch::result-count" disabled="true"/>
+        <plugin name="Amasty_Xsearch::result-count-wendover"
+                type="Perficient\Search\Plugin\CatalogSearch\Block\Result" />
+    </type>
+</config>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Make Company Name Role un-editable
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <!-- Orders -->
+            <block class="Magento\Company\Block\Link\OrdersLink"
+                   name="customer-account-navigation-shipped-order-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Shipped Orders</argument>
+                    <argument name="path" xsi:type="string">sales/order/shipped</argument>
+                    <argument name="sortOrder" xsi:type="number">218</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="company-customer-account-navigation-orders-link">
+            <arguments>
+                <argument name="sortOrder" xsi:type="number">219</argument>
+                <argument name="label" translate="true" xsi:type="string">Open Orders</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

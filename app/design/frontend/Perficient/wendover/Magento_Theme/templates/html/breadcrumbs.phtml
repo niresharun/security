@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php if ($crumbs && is_array($crumbs)) : ?>
+
+<?php
+$data_crumbs = $data_crumbs_id = '';
+$product_page = 0;
+foreach ($crumbs as $crumbName => $crumbInfo) :
+	if (str_starts_with($crumbName, 'category')) {
+		$str_id = substr($crumbName, strlen('category'));
+		$data_crumbs .= $block->escapeHtml($crumbInfo['label']).'|';
+		$data_crumbs_id .= $str_id.'|';            
+	}
+	if (str_starts_with($crumbName, 'product')) {
+		$product_page = 1;
+	}
+endforeach;
+$data_crumbs = substr($data_crumbs, 0, -1);
+$data_crumbs_id = substr($data_crumbs_id, 0, -1);
+$qucikShippParam = 'is_quick_ship';
+?>
+<?php if ($data_crumbs != '' && $data_crumbs_id != '' && !$product_page) : ?>
+<nav aria-label="Breadcrumb" class="breadcrumbs" data-crumbs="<?=$data_crumbs?>" data-crumbs_id="<?=$data_crumbs_id?>">
+<?php else: ?>
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+<?php endif; ?>
+	<?php $params = $block->getRequest()->getParams(); ?>
+	<ol class="items">
+		<?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+			<?php if ('search' == $crumbName && isset($params['q']) && $qucikShippParam == $params['q']): ?>
+				<li class="item quickship">
+					<strong aria-current="page" tabindex="0">
+						<?= __('Quick ship') ?>
+					</strong>
+				</li>
+			<?php else: ?>
+			<li class="item <?= $block->escapeHtmlAttr($crumbName) ?>">
+			<?php if ($crumbInfo['link']) : ?>
+				<a href="<?= $block->escapeUrl($crumbInfo['link']) ?>"
+				   aria-label="<?= $block->escapeHtmlAttr($crumbInfo['title']) ?>">
+					<?= $block->escapeHtml($crumbInfo['label']) ?>
+				</a>
+			<?php elseif ($crumbInfo['last']) : ?>
+				<strong
+				   aria-current="page" tabindex="0">
+					<?= $block->escapeHtml($crumbInfo['label']) ?>
+				</strong>
+			<?php else : ?>
+				<?= $block->escapeHtml($crumbInfo['label']) ?>
+			<?php endif; ?>
+			</li>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</ol>
+</nav>
+<?php endif; ?>

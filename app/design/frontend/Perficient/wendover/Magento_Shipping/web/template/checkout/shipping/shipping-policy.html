@@ -1,0 +1,20 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="shipping-policy-block field-tooltip shipping-policy-tooltip-section"
+     data-bind="visible: config.isEnabled">
+    <a  class="field-tooltip-action shipping-policy-tooltip"
+          tabindex="0"
+          data-toggle="dropdown"
+          data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}" data-trigger-keypress-button="true" role="button">
+        <!-- ko i18n: 'See our Shipping Policy' --><!-- /ko -->
+    </a>
+    <div role="dialog" class="field-tooltip-content"
+         data-target="dropdown">
+        <a tabindex="0" class="close-icon" aria-label="Close" data-action-keypress="true" role="button"></a>
+        <span data-bind="html: config.shippingPolicyContent"></span>
+    </div>
+</div>

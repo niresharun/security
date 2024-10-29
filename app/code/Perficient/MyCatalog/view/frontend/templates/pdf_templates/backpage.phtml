@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var $block \Perficient\MyCatalog\Block\Pdf
+ */
+?>
+<?php
+    $catalogName = $block->getData('catalogName');
+    $catalogPhone = $block->getData('catalogPhone');
+    $catalogUrl = $block->getData('catalogUrl');
+    $catalogCompany =$block->getData('catalogCompany');
+?>
+
+<hr style="margin-top: 525px;">
+<div class="pdf-last-page">
+    <?php if(isset($catalogName) && strlen($catalogName)): ?>
+        <?= $block->escapeHtml($catalogName) ?><br/>
+    <?php endif; ?>
+
+    <?php if(isset($catalogPhone) && strlen($catalogPhone)): ?>
+        <?= $block->escapeHtml($catalogPhone) ?><br/>
+    <?php endif; ?>
+
+    <?php if(isset($catalogUrl) && strlen($catalogUrl)): ?>
+        <?= $block->escapeHtml($catalogUrl); ?><br/>
+    <?php endif; ?>
+
+    <?php if(isset($catalogCompany) && strlen($catalogCompany)): ?>
+        <?= $block->escapeHtml($catalogCompany) ?><br/>
+    <?php endif; ?>
+</div>

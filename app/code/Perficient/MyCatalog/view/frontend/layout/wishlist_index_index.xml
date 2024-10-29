@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer.wishlist">
+            <block class="Magento\MultipleWishlist\Block\Customer\Wishlist\Management" name="customer.wishlist.management" as="top" template="Perficient_MyCatalog::view/management.phtml" cacheable="false">
+                <arguments>
+                    <argument name="wendover_model" xsi:type="object">Wendover\Catalog\ViewModel\WendoverViewModel</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template"
+                   template="Perficient_MyCatalog::quick_catalog_link.phtml"
+                   name="before_body_add_hidden_popup">
+                <arguments>
+                    <argument name="wendover_model" xsi:type="object">Wendover\Catalog\ViewModel\WendoverViewModel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

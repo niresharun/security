@@ -1,0 +1,33 @@
+//  Wendover theme overrides
+//  _____________________________________________
+
+//  Theme file should contain declarations (overrides) ONLY OF EXISTING variables
+//  Otherwise this theme won't be available for parent nesting
+//  All new variables should be placed in local theme lib or local theme files
+.page-print {
+  .col.qty {
+    text-align: center;
+  }
+  .col.subtotal {
+    text-align: right;
+  }
+  tfoot {
+    td {
+      text-align: right;
+    }
+  }
+}
+
+@media print {
+  .table-heading-background {
+    background-color: #d6d6d6 !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .sales-order-printshipment{
+      .order-details-items.shipments{
+          th.col.price{
+              text-align: center;
+          }
+      }
+  }
+}

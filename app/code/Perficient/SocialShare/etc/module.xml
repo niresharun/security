@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configure Social Share
+ * @category: Magento
+ * @package: Perficient/SocialShare
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_SocialShare
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_SocialShare" setup_version="1.0.0">
+        <sequence>
+            <module name="Mageplaza_Core"/>
+            <module name="Mageplaza_SocialShare"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Admin configuration for Gdpr
+* @category: Magento
+* @package: Perficient/Gdpr
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Trupti Bobde<trupti.bobde@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Gdpr
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Gdpr" setup_version="1.0.0">
+        <sequence>
+            <module name="Amasty_Gdpr"/>
+        </sequence>
+    </module>
+</config>

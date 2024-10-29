@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="content">
+        <field name="brand_messaging_ad">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Category\Attribute\Source\Page</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" translate="true" xsi:type="string">CMS Block for Brand Messaging Ads</item>
+                </item>
+            </argument>
+        </field>
+        <field name="seo_content_block">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Category\Attribute\Source\Page</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">200</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" translate="true" xsi:type="string">Display SEO Content in PLP</item>
+                    <item name="notice" xsi:type="string" translate="true">This will display below the product listing</item>
+                </item>
+            </argument>
+        </field>
+        <field name="top_block_content">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Category\Attribute\Source\Page</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">300</item>
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" translate="true" xsi:type="string">Display PLP Banner</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

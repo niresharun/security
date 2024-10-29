@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="find_your_rep_main" resource="default" engine="innodb" comment="Find Your Rep Main Table">
+        <column xsi:type="int"  name="id" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="Firstname"/>
+        <column xsi:type="varchar" name="lastname" nullable="false" length="255" comment="Lastname"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="phone1" nullable="false" length="255" comment="Phone1"/>
+        <column xsi:type="varchar" name="phone2" nullable="true" length="255" comment="Phone2"/>
+        <column xsi:type="text" name="notes" nullable="true" comment="Notes"/>
+        <column xsi:type="varchar" name="postal_code" nullable="false" length="255" comment="Postal Code"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" comment="Type"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <!--Representative grid page search result-->
+        <index referenceId="FIND_YOUR_REP_MAIN_ALL_COLUMN" indexType="fulltext">
+            <column name="firstname"/>
+            <column name="lastname"/>
+            <column name="email"/>
+            <column name="postal_code"/>
+            <column name="type"/>
+        </index>
+    </table>
+</schema>

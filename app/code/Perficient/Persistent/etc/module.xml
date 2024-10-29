@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Enable Persistent Shopping Cart
+ * @category: Magento
+ * @package: Perficient/Persistent
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Persistent
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Persistent" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Persistent"/>
+            <module name="Magento_PersistentHistory"/>
+        </sequence>
+    </module>
+</config>

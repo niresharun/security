@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Captcha Event.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Trupti Bobde <trupti.bobde@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Restrict to access Cart Page for Customer`s Customer Role -->
+    <event name="controller_action_predispatch_checkout_cart_index">
+        <observer name="lifesharp_product_restict_cart_page"
+                  instance="Perficient\Company\Observer\RestrictCartCheckoutObserver"/>
+    </event>
+    <!-- Restrict to access Checkout Page for Customer`s Customer Role -->
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="lifesharp_product_restict_checkout_page"
+                  instance="Perficient\Company\Observer\RestrictCartCheckoutObserver"/>
+    </event>
+</config>

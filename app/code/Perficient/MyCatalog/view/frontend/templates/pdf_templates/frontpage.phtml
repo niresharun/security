@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var $block \Perficient\MyCatalog\Block\Pdf
+ */
+?>
+<?php
+	$catalogLogoImage = $block->getData('catalogLogoImage');
+	$catalogImage = $block->getData('catalogImage');
+	$catalogTitle = $block->getData('catalogTitle');
+	$catalogName = $block->getData('catalogName');
+?>
+<style>
+    <?php echo $block->getFileContents('css/pdf.css'); ?>
+</style>
+
+<div class="pdf-first-page">
+    <?php if (!empty($catalogLogoImage)): ?>
+	<img class="pdf-logo" width="350px" src="<?= $catalogImage ?>"/>
+	<hr/>
+    <?php endif; ?>
+	<div class="title">
+		<?= $escaper->escapeHtml($catalogTitle) ?>
+	</div>
+	<div class="additional_information name">
+			<?= $escaper->escapeHtml($block->getData('additional_info_1')) ?>
+	</div>
+	<div class="additional_information name">
+			<?= $escaper->escapeHtml($block->getData('additional_info_2')) ?>
+	</div>
+	<br/>
+</div>
+<div style="page-break-before:always"></div>

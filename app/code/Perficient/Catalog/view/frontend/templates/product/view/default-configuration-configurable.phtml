@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * Product list template
+ *
+ *
+ * @var $escaper Escaper
+ */
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\Framework\Escaper;
+use Perficient\Catalog\ViewModel\CatalogViewModel;
+
+/** @var ProductInterface $_product */
+$_product = $block->getProduct();
+/** @var CatalogViewModel $viewModel */
+$viewModel = $block->getData('viewModel');
+$imgSpecPath = 'catalog/product/specifications';
+$imgDefaultConfPath = 'catalog/product/default_configuration';
+$excludeLabels = $viewModel->skipLabelDirectDisplay();
+
+$reqParams = $block->getRequest()->getParams();
+$moduleName = $block->getRequest()->getModuleName();
+$sideMark = '';
+$sideMarkFlag = 0;
+
+if(isset($reqParams['id']) && !empty($reqParams['id']) && isset($reqParams['product_id']) && !empty($reqParams['product_id'])) {
+    if(!empty($moduleName) && $moduleName == 'wishlist') {
+        $sideMarkFlag = 1;
+        $sideMark = $viewModel->getSideMark((int)$reqParams['id']);
+    }
+
+    if(!empty($moduleName) && $moduleName == 'checkout') {
+        $sideMarkFlag = 1;
+        $sideMark = $viewModel->getCartSideMark((int)$reqParams['id']);
+    }
+}
+$isCustomiser = $_product->getData('product_customizer');
+$wallCovering = $_product->getData('available_as_wc');
+list('jsonStr' => $jsonObj) = $viewModel->getDefaultConfigurationJson($_product);
+
+$productWeight = !empty($_product->getData('weight')) ?
+    (float)$_product->getData('weight') : null;
+?>
+
+<?php if($_product->getTypeId() === Configurable::TYPE_CODE) : ?>
+    <div class="weight field  configurable">
+        <span class="label"><?= $escaper->escapeHtml(__('Weight: ')) ?></span>
+        <span id="product-weight-text"></span>
+    </div>
+    <div class="hardware field  configurable">
+        <span class="label"><?= $escaper->escapeHtml(__('Hardware: ')) ?></span>
+        <span>ZBar</span>
+    </div>
+<?php endif; ?>
+
+<div class="art-configurator-desc">
+    <?php if ($viewModel->isMirrorProduct($_product)) : ?>
+        <?= $block->getChildHtml('custom_mirror_content'); ?>
+    <?php elseif (!empty($wallCovering) && $wallCovering == 1 ) : ?>
+        <?= $block->getChildHtml('wall_covering_content'); ?>
+    <?php elseif (!empty($isCustomiser) && $isCustomiser == 1) : ?>
+        <p class="pdp_art_customizer hide">
+            <i>Default product specifications may be changed using our <a href="#" onClick="" id="pdp_art_configurator_link">art customizer.</a></i>
+        </p>
+    <?php endif; ?>
+</div>
+<div class="sidemark-container">
+    <span>
+        <input type="checkbox" name="side-mark" id="side-mark" checked="checked">
+        <label for="side-mark" class="label"><strong><?=$escaper->escapeHtml(__('Side Mark'))?></strong></label>
+    </span>
+    <div class="side_mark_box">
+        <label for="side-mark-input" class="no-label"><?=$escaper->escapeHtml(__('Side Mark'))?></label>
+        <input type="text" name="side-mark-input" id="side-mark-input" maxlength="250">
+        <div for="side-mark-input" class="max-len-note-div">
+            <?= $escaper->escapeHtml(__('Maximum 250 characters'))?>
+        </div>
+    </div>
+</div>
+<?php if (empty($isCustomiser) || $isCustomiser == 0) { ?>
+    <!--pz_cart_properties needs to be dynamic-->
+    <input type="hidden" name="pz_cart_properties" id="pz_cart_properties" value=''/>
+<?php } ?>
+
+<script>
+    require(['jquery', 'underscore'], function ($, _) {
+        $(document).ready(function() {
+            const sideMarkCheckBox = $('input#side-mark');
+            const sideMarkInput = $('input#side-mark-input');
+            const jsonObj = <?= $jsonObj ?: '{}' ?>;
+
+            const sideMarkFlag = <?= $sideMarkFlag ?>;
+            const sideMark = <?='"'.$sideMark.'"'?>;
+
+            var jsonStr = JSON.stringify(jsonObj);
+            $("input#pz_cart_properties").val(jsonStr);
+
+            if(sideMarkFlag == 1 && sideMark) {
+                $('input[name=side-mark-input]').val(sideMark);
+                if(jsonObj) {
+                    jsonObj['Side Mark'] = sideMark;
+                }
+                updateWishlistData();
+            }
+
+            sideMarkCheckBox.on('change', event => {
+                sideMarkInput.val(null);
+                if ($(event.target).is(':checked')) {
+                    $('div.side_mark_box').show();
+                } else {
+                    $('div.side_mark_box').hide();
+                }
+            });
+
+            sideMarkInput.on('blur', () => {
+                const sideMarkValue = sideMarkInput.val();
+                const pzCartProperties = JSON.parse($("input#pz_cart_properties").val());
+                // update side-mark on existing pz-cart-properties
+                _.extend(pzCartProperties, {'Side Mark' : sideMarkValue})
+                $("input#pz_cart_properties").val(JSON.stringify(pzCartProperties));
+
+                updateWishlistData();
+            });
+
+            //Add to wishlist
+            function updateWishlistData() {
+                const wishLists = $('[data-action="add-to-wishlist"]');
+                _.each(wishLists, function (wishList) {
+                    // Check if wishlist DOM element has post attribute
+                    const wishListJSONData =
+                        $(wishList).data('ajax-post') ||
+                        $(wishList).data('post-new-wishlist') ||
+                        $(wishList).data('post');
+
+                    if (_.isEmpty(wishListJSONData?.data)) {
+                        return;
+                    }
+
+                    // update pz_cart_properties
+                    const pzCartProperties = $('#pz_cart_properties').val();
+                    wishListJSONData.data.pz_cart_properties = _.isEmpty(pzCartProperties) ? '{}' : pzCartProperties ;
+
+                    if (wishList.hasAttribute('data-post')) {
+                        $(wishList).data('post', wishListJSONData);
+                    } else if (wishList.hasAttribute('data-ajax-post')) {
+                        $(wishList).data('ajax-post', wishListJSONData);
+                    } else if (wishList.hasAttribute('data-post-new-wishlist')) {
+                        $(wishList).data('post-new-wishlist', wishListJSONData);
+                    }
+                });
+            }
+
+            $("input#pz_cart_properties").on('update_pz_cart_properties', () => updateWishlistData());
+        });
+    });
+</script>

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Blueship Shipping System Configuration
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Blueship Shipping
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="blueship" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>BlueGrace BlueShip</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="service_mode" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Blueship Api Service Mode</label>
+                    <source_model>Perficient\BlueshipShipping\Model\Config\Source\ServiceMode</source_model>
+                </field>
+                <field id="api_url" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Blueship API Url</label>
+                    <comment>Blueship Shipping Rate Rest API Url (Ex: 'https://integration.myblueship.com/api/v1/Quote')</comment>
+                </field>
+                <field id="client_id" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Client Id</label>
+                    <comment>API Client ID</comment>
+                </field>
+                <field id="secret_key" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Secret Key</label>
+                    <comment>API Secret</comment>
+                </field>
+                <field id="mode" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Mode</label>
+                    <source_model>Perficient\BlueshipShipping\Model\Config\Source\Mode</source_model>
+                    <comment>Blueship Shipping Mode (Ex: 'LTL')</comment>
+                </field>
+                <field id="business_unit" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Business Unit</label>
+                    <comment>Blueship Shipping Business Unit</comment>
+                </field>
+                <field id="allowed_carriers" translate="label" type="multiselect" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allowed Carriers</label>
+                    <source_model>Perficient\BlueshipShipping\Model\Config\Source\ShippingCarriers</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Shipping Method Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                    <comment>Name of shipping method</comment>
+                </field>
+                <field id="handling_charges" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Handling Charges</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>Enter Standard Handling Charges (default 2.5 per Order)</comment>
+                </field>
+                <field id="time_out_limit" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Api Call Time Out Limit</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>Enter api call time out limit (Ex. 60 (in seconds))</comment>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="account_number" translate="label" type="text" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Account Number</label>
+                    <comment>Account Number the shipment should be quoted for</comment>
+                </field>
+                <field id="carrier_name" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Carrier Name</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * PriceMultiplier module for multiplier price .
+ *
+ * @category:  JS
+ * @package:   Perficient/PriceMultiplier
+ * @copyright:
+ * See COPYING.txt for license details.
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords:  Module Perficient_PriceMultiplier
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceBlock name="render.product.prices">
+        <arguments>
+            <argument name="default" xsi:type="array">
+                <item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_template" xsi:type="string">Perficient_PriceMultiplier::product/price/final_price.phtml</item>
+                    </item>
+                </item>
+                <item name="default_amount_render_template" xsi:type="string">Perficient_PriceMultiplier::product/price/amount/default.phtml</item>
+            </argument>
+        </arguments>
+    </referenceBlock>
+</layout>

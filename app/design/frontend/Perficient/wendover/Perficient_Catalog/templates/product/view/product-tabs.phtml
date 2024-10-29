@@ -1,0 +1,18 @@
+<?php
+/**
+ * Product list template
+ * @var Magento\Catalog\Block\Product\View $block
+ */
+$_product = $block->getProduct();
+
+if (!empty($_product->getShortDescription())):?>
+    <div class="product info detailed">
+        <?php if (!empty($block->stripTags($_product->getShortDescription()))): ?>
+            <div id="short-description" class="data item content" role="tabpanel"
+                 aria-labelledby="tab-label-short-description" data-role="content">
+                <?= $_product->getShortDescription() ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+

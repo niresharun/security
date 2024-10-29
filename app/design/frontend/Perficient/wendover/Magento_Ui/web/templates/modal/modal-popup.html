@@ -1,0 +1,67 @@
+<!--
+/**
+ *
+ * This file used to change structure of Popup
+ *
+ * @category: Magento
+ * @package: Perficient/UI
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient UI
+ */
+-->
+
+<div role="dialog"
+       class="modal-<%- data.type %> <%- data.modalClass %>
+               <% if(data.responsive){ %><%- data.responsiveClass %><% } %>
+               <% if(data.innerScroll){ %><%- data.innerScrollClass %><% } %>"
+       <% if(data.title){ %> aria-labelledby="modal-title-<%- data.id %>"<% } %>
+       aria-describedby="modal-content-<%- data.id %>"
+       data-role="modal"
+       data-type="<%- data.type %>"
+       tabindex="0">
+    <div data-role="focusable-start" tabindex="0"></div>
+    <div class="modal-inner-wrap"
+         data-role="focusable-scope">
+        <div class="modal-header">
+            <% if(data.title || data.subTitle){ %>
+            <div id="modal-title-<%- data.id %>" class="modal-title"
+                data-role="title">
+                <% if(data.title){ %>
+                    <%= data.title %>
+                <% } %>
+
+                <% if(data.subTitle){ %>
+                <span class="modal-subtitle"
+                      data-role="subtitle">
+                    <%= data.subTitle %>
+                </span>
+                <% } %>
+            </div>
+            <% } %>
+            <button
+                class="action-close"
+                data-role="closeBtn"
+                type="button">
+                <span><%= data.closeText %></span>
+            </button>
+        </div>
+        <div id="modal-content-<%- data.id %>"
+            class="modal-content"
+            data-role="content"></div>
+        <% if(data.buttons.length > 0){ %>
+        <div class="modal-footer">
+            <% _.each(data.buttons, function(button) { %>
+            <button
+                class="<%- button.class %>"
+                type="button"
+                data-role="action"><span><%= button.text %></span></button>
+            <% }); %>
+        </div>
+        <% } %>
+    </div>
+    <div data-role="focusable-end" tabindex="0"></div>
+</div>

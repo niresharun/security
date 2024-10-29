@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Flatrate config provider
+* @category: Magento
+* @package: Perficient/Shipping
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Tahir Aziz<tahir.aziz@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Shipping
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="perficient_shipping_flatrate_custom_fields" xsi:type="object">Perficient\Shipping\Model\FlatrateConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

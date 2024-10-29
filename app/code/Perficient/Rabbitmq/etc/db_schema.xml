@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Custom Table Data Management
+ * @category: Magento
+ * @package: Perficient/Rabbitmq
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Rabbitmq
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="media" resource="default" engine="innodb" comment="Media Table">
+        <column xsi:type="int" name="media_id" identity="true" unsigned="true" padding="10" nullable="false"
+                comment="Media ID"/>
+        <column xsi:type="varchar" name="sku" nullable="true" length="255" comment="sku"/>
+        <column xsi:type="varchar" name="base_cost_media" nullable="true" length="255" comment="base cost media"/>
+        <column xsi:type="varchar" name="display_name" nullable="true" length="255" comment="display name"/>
+        <column xsi:type="boolean" name="display_to_customer" nullable="true" comment="display to customer" disabled="true"/>
+        <column xsi:type="decimal" name="min_image_size_short" scale="4" precision="20" nullable="true"
+                default="0" comment="min image size short"/>
+        <column xsi:type="decimal" name="min_image_size_long" scale="4" precision="20" nullable="true"
+                default="0" comment="min image size long"/>
+        <column xsi:type="decimal" name="max_image_size_short" scale="4" precision="20" nullable="true"
+                default="0" comment="max image size short"/>
+        <column xsi:type="decimal" name="max_image_size_long" scale="4" precision="20" nullable="true"
+                default="0" comment="max image size long"/>
+        <column xsi:type="timestamp" name="updated_at"  nullable="true" default="0"
+                comment="Last Update Timestamp"/>
+        <column xsi:type="smallint" name="status" nullable="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="media_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="MEDIA_SKU_ID">
+            <column name="sku"/>
+        </constraint>
+</table>
+    <table name="treatment" resource="default" engine="innodb" comment="Treatment Table">
+        <column xsi:type="int" name="treatment_id" identity="true" unsigned="true" padding="10" nullable="false"
+                comment="Treatment ID"/>
+        <column xsi:type="varchar" name="treatment_sku" nullable="true" length="255" comment="treatment sku"/>
+        <column xsi:type="varchar" name="base_cost_treatment" nullable="true" length="255"
+                comment="base cost treatment"/>
+        <column xsi:type="varchar" name="display_name" nullable="true" length="255" comment="display name"/>
+        <column xsi:type="boolean" name="requires_top_mat" nullable="false" default="false"
+                comment="requires_top_mat"/>
+        <column xsi:type="boolean" name="requires_bottom_mat" nullable="false" default="false"
+                comment="requires_bottom_mat"/>
+        <column xsi:type="decimal" name="requires_liner" scale="4" precision="20" nullable="true"
+                default="0" comment="requires_liner"/>
+        <column xsi:type="decimal" name="min_glass_size_short" scale="4" precision="20" nullable="true"
+                default="0" comment="min_glass_size_short"/>
+        <column xsi:type="decimal" name="min_glass_size_long" scale="4" precision="20" nullable="true"
+                default="0" comment="min_glass_size_long"/>
+        <column xsi:type="decimal" name="max_glass_size_short" scale="4" precision="20" nullable="true"
+                default="0" comment="max_glass_size_short"/>
+        <column xsi:type="decimal" name="max_glass_size_long" scale="4" precision="20" nullable="true"
+                default="0" comment="max_glass_size_long"/>
+        <column xsi:type="decimal" name="min_rabbet_depth" scale="4" precision="20" nullable="true"
+                default="0" comment="min_rabbet_depth"/>
+        <column xsi:type="varchar" name="image_edge_treatment" nullable="true" length="255" comment="image_edge_treatment"/>
+        <column xsi:type="decimal" name="new_top_mat_size_left" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_top_mat_size_left"/>
+        <column xsi:type="decimal" name="new_top_mat_size_top" scale="4" precision="20" nullable="true"
+                default="0" comment="new_top_mat_size_top"/>
+        <column xsi:type="decimal" name="new_top_mat_size_right" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_top_mat_size_right"/>
+        <column xsi:type="decimal" name="new_top_mat_size_bottom" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_top_mat_size_bottom"/>
+        <column xsi:type="decimal" name="new_bottom_mat_size_left" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_bottom_mat_size_left"/>
+        <column xsi:type="decimal" name="new_bottom_mat_size_top" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_bottom_mat_size_top"/>
+        <column xsi:type="decimal" name="new_bottom_mat_size_right" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_bottom_mat_size_right"/>
+        <column xsi:type="decimal" name="new_bottom_mat_size_bottom" scale="4" precision="20"
+                nullable="true"
+                default="0" comment="new_bottom_mat_size_bottom"/>
+        <column xsi:type="int" name="liner_depth_check" padding="10" nullable="false" comment="liner_depth_check"/>
+        <column xsi:type="timestamp" name="updated_at"  nullable="true" default="0"
+                comment="Last Update Timestamp"/>
+        <column xsi:type="smallint" name="status" nullable="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="treatment_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="MEDIA_SKU_ID">
+            <column name="treatment_sku"/>
+        </constraint>
+        <column xsi:type="decimal" name="treatment_weight_per_sqFt_upto_threshold" scale="4" precision="20" nullable="true"
+                default="0" comment="treatment_weight_per_sqFt_upto_threshold"/>
+        <column xsi:type="decimal" name="treatment_weight_per_sqFt_over_threshold" scale="4" precision="20" nullable="true"
+                default="0" comment="treatment_weight_per_sqFt_over_threshold"/>                
+       </table>
+    <table name="media_treatment" resource="default" engine="innodb" comment="Media Treatment Table">
+        <column xsi:type="int" name="media_treatment_id" identity="true" unsigned="true" padding="10" nullable="false"
+                comment="Media ID"/>
+        <column xsi:type="varchar" name="media_sku" nullable="true" length="255" comment="media_sku"/>
+        <column xsi:type="varchar" name="treatment_sku" nullable="true" length="255" comment="treatment_sku"/>
+        <column xsi:type="boolean" name="display_to_customer" comment="display to customer"/>
+        <column xsi:type="timestamp" name="updated_at"  nullable="true" default="0"
+                comment="Last Update Timestamp"/>
+        <column xsi:type="smallint" name="status" nullable="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="media_treatment_id"/>
+        </constraint>
+    </table>
+    <table name="frame_treatment" resource="default" engine="innodb" comment="Frame Treatment Table">
+        <column xsi:type="int" name="frame_treatment_id" identity="true" unsigned="true" padding="10" nullable="false"
+                comment="Media ID"/>
+        <column xsi:type="varchar" name="treatment_sku" nullable="true" length="255" comment="media_sku"/>
+        <column xsi:type="varchar" name="frame_type" nullable="true" length="255" comment="treatment_sku"/>
+        <column xsi:type="timestamp" name="updated_at"  nullable="true" default="0"
+                comment="Last Update Timestamp"/>
+        <column xsi:type="smallint" name="status" nullable="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="frame_treatment_id"/>
+        </constraint>
+    </table>
+    <table name="base_cost" resource="default" engine="innodb" comment="Base Cost Table">
+        <column xsi:type="int" name="base_cost_id" identity="true" unsigned="true" padding="10" nullable="false"
+                comment="Media ID"/>
+        <column xsi:type="varchar" name="base_cost_media" nullable="true" length="255" comment="base_cost_media"/>
+        <column xsi:type="varchar" name="base_cost_treatment" nullable="true" length="255"
+                comment="base_cost_treatment"/>
+        <column xsi:type="decimal" name="glass_size_short" scale="4" precision="20" nullable="true"
+                default="0" comment="glass_size_short"/>
+        <column xsi:type="decimal" name="glass_size_long" scale="4" precision="20" nullable="true"
+                default="0" comment="glass_size_long"/>
+        <column xsi:type="decimal" name="base_cost" scale="4" precision="20" nullable="true"
+                default="0" comment="base_cost"/>
+        <column xsi:type="timestamp" name="updated_at"  nullable="true" default="0"
+                comment="Last Update Timestamp"/>
+        <column xsi:type="smallint" name="status" nullable="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="base_cost_id"/>
+        </constraint>
+    </table>
+
+    <table name="sales_order">
+        <column xsi:type="smallint" name="has_dummy_product" nullable="true"
+                comment="Has Dummy Product In Order?"/>
+        <column xsi:type="int" name="web_company_id" nullable="true" comment="Web Company Id"/>
+        <column xsi:type="int" name="syspro_salesrep_id" nullable="true" comment="Syspro Salesrep Id"/>
+        <column xsi:type="datetime" name="syspro_order_entry_date" nullable="true"
+                comment="Syspro Order Entry Date"/>
+        <column xsi:type="datetime" name="requested_delivery_date" nullable="true"
+                comment="Requested Delivery Date"/>
+        <column xsi:type="datetime" name="expected_ship_date" nullable="true" comment="Expected Ship Date"/>
+        <column xsi:type="smallint" name="source_flag" nullable="true" comment="Source Flag"/>
+    </table>
+
+    <table name="sales_order_item">
+        <column xsi:type="varchar" name="avatax_nsavtx" nullable="true" comment=""/>
+        <column xsi:type="varchar" name="avatax_entusecodlin" nullable="true" comment=""/>
+        <column xsi:type="varchar" name="avatax_nstkwh" nullable="true" comment=""/>
+        <column xsi:type="varchar" name="avatax_mscavx" nullable="true" comment=""/>
+        <column xsi:type="varchar" name="syspro_item_id" nullable="true" comment=""/>
+    </table>
+
+    <table name="sales_shipment">
+        <column xsi:type="varchar" name="carton_count" nullable="true" comment="Carton Count"/>
+        <column xsi:type="varchar" name="pallet_count" nullable="true" comment="Pallet Count"/>
+        <column xsi:type="varchar" name="shipment_weight" nullable="true" comment="Shipment Weight"/>
+        <column xsi:type="varchar" name="shipper_number" nullable="true" comment="Shipment Number"/>
+    </table>
+
+    <table name="sales_invoice">
+        <column xsi:type="decimal" name="invoice_amount" scale="4" precision="20" nullable="true"
+                comment="Invoice Amount"/>
+        <column xsi:type="decimal" name="balance_due" scale="4" precision="20" nullable="true"
+                comment="Balance Due"/>
+    </table>
+
+    <table name="quote" resource="checkout" comment="Sales Flat Quote">
+        <column xsi:type="varchar" name="syspro_order_id" nullable="true" length="32"
+                comment="Syspro Order Id"/>
+        <column xsi:type="varchar" name="syspro_customer_id" length="255" nullable="true"
+                default="0" comment="Syspro Customer Id"/>
+        <column xsi:type="varchar" name="syspro_salesrep" nullable="true" length="255" comment="Sales Representative"/>
+        <column xsi:type="datetime" name="customer_due_date" on_update="false" nullable="true" comment="Customer Due Date"/>
+        <column xsi:type="smallint" name="has_dummy_product" nullable="true"
+                comment="Has Dummy Product In Order?"/>
+        <column xsi:type="varchar" name="web_company_id" nullable="true" comment="Web Company Id"/>
+        <column xsi:type="int" name="syspro_salesrep_id" nullable="true" comment="Syspro Salesrep Id"/>
+        <column xsi:type="datetime" name="syspro_order_entry_date" nullable="true"
+                comment="Syspro Order Entry Date"/>
+        <column xsi:type="datetime" name="requested_delivery_date" nullable="true"
+                comment="Requested Delivery Date"/>
+        <column xsi:type="datetime" name="expected_ship_date" nullable="true" comment="Expected Ship Date"/>
+        <column xsi:type="smallint" name="source_flag" nullable="true" comment="Source Flag"/>
+    </table>
+    <table name="quote_item">
+        <column xsi:type="text" name="syspro_item_id" nullable="true" comment="Syspro Item Id"/>
+    </table>
+</schema>

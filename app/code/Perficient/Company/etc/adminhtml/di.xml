@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Custom Fields.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Model\Company\DataProvider">
+        <plugin name="data_provider_after_plugin"
+                type="Perficient\Company\Plugin\DataProviderPlugin"/>
+    </type>
+    <type name="Magento\Customer\Controller\Adminhtml\Index\Save">
+        <plugin name="adminnewslettercompanyupdate" type="Perficient\Company\Plugin\Adminhtml\Index\Save" sortOrder="10"
+                disabled="false"/>
+    </type>
+    <preference for="Magento\Company\Model\CompanyManagement" type="Perficient\Company\Model\CompanyManagement"/>
+    <type name="Magento\Company\Controller\Adminhtml\Index\Save">
+        <plugin name="employeeroleupdateforpreviousadmin" type="Perficient\Company\Plugin\Adminhtml\Index\SaveCompany"
+                sortOrder="15" disabled="false"/>
+    </type>
+    <preference for="Magento\Company\Model\ResourceModel\Company\Grid\Collection"
+                type="Perficient\Company\Model\Company\Grid\Collection"/>
+</config>

@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/* @var $block \Magento\MultipleWishlist\Block\Customer\Wishlist\Management */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php if ($block->getCurrentWishlist()) : ?>
+    <div class="block-wishlist-management">
+        <div class="wishlist-select">
+            <span class="wishlist-name" data-mage-init='{"toggleAdvanced": {"toggleContainers": "#wishlists-select", "selectorsToggleClass": "active"}}' >
+                <span class="wishlist-name-label"><?= $escaper->escapeHtml(__('Wish List')) ?></span>
+                <span class="wishlist-name-current">
+                    <?= $escaper->escapeHtml($block->getCurrentWishlist()->getName()) ?>
+                </span>
+            </span>
+            <ul class="wishlist-select-items" data-target="dropdown" id="wishlists-select">
+                <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                    <?php if ($wishlist->getId() == $block->getCurrentWishlist()->getId()) : ?>
+                        <li class="current item">
+                            <span>
+                                <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                            </span>
+                        </li>
+                    <?php else : ?>
+                        <li class="item">
+                            <a href="<?= $escaper->escapeUrl($block->getWishlistManagementUrl($wishlist)) ?>">
+                                <?= $escaper->escapeHtml($wishlist->getName()) ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach;?>
+            </ul>
+        </div>
+
+
+        <div class="wishlist-title">
+            <?php if ($block->getCurrentWishlist()->getName() != '') : ?>
+            <h2><?= $escaper->escapeHtml($block->getCurrentWishlist()->getName()) ?></h2>
+            <?php endif; ?>
+        </div>
+
+        <div class="wishlist-info">
+            <?php if ($block->getCurrentWishlist()->getVisibility()) : ?>
+                <div class="wishlist-notice public"><?= $escaper->escapeHtml(__('Public Wish List')) ?></div>
+            <?php else : ?>
+                <div class="wishlist-notice private"><?= $escaper->escapeHtml(__('Private Wish List')) ?></div>
+            <?php endif; ?>
+            <span class="counter qty">
+                <?= $escaper->escapeHtml($block->getItemCount($block->getCurrentWishlist())) ?>
+            </span>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "[data-role='select-all']": {
+            "Magento_MultipleWishlist/js/select-all-change": {}
+        }
+    }
+</script>

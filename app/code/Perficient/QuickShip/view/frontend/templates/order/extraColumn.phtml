@@ -1,0 +1,22 @@
+<?php
+/**
+* Inventory for Quickship
+* @category: Magento
+* @package: Perficient/QuickShip
+* @copyright: Copyright 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <Sandeep.mude@perficient.com>
+* @keywords: Module Perficient_QuickShip
+*/
+
+/* @var $block \Magento\Sales\Block\Order\History\Container */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+<?php
+
+$shippingData = $block->getOrder()->getShippingAddress()->getData();
+?>
+<td data-th="<?= $escaper->escapeHtmlAttr(__('Quick Ship')) ?>" class="col">
+    <?= $shippingData['firstname'].' '.$shippingData['lastname'] ?>
+</td>

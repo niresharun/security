@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file used to display quick ship category banner on search result
+ *
+ * @category: Magento
+ * @package: Perficient/magento catalog
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: harshal dantalwar <harshal.dantalwar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient Search
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Magento_Wishlist::js/add-ajax-wishlist.js" />
+    </head>
+    <body>
+        <referenceContainer name="columns.top">
+            <!-- <block class="Perficient\Bloomreach\Block\Result" name="custom.block" template="Magento_Search::category/quick_ship.phtml" /> -->
+        </referenceContainer>
+        <!--<move element="page.main.title" destination="columns.top" after="custom.block" />-->
+        <move element="page.messages" destination="columns.top" after="-" />
+        <referenceBlock name="search_result_list">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Wendover\Catalog\ViewModel\BrandMessagingAds</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

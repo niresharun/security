@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to update all company roles if the roles has changed
+ *
+ * @category: Magento
+ * @package: Perficient/RolesPermission
+ * @copyright: Copyright - 2020 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sreedevi Selvaraj <sreedevi.selvaraj@perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_RolesPermission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="rolespermission_update_group">
+        <job name="rolepermission_update_cron_settings"
+             instance="Perficient\RolesPermission\Cron\UpdateRolesPermission" method="execute">
+            <config_path>rolespermissions/cron_settings/cron_schedule</config_path>
+        </job>
+    </group>
+</config>

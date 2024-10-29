@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Price Multiplier
+ *
+ * @category: PHP
+ * @package: Perficient/PriceMultiplier
+ * @copyright: Copyright  2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Module Perficient_PriceMultiplier
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="company_users_columns">
+        <column name="price_multiplier" class="Perficient\PriceMultiplier\Ui\Component\Listing\Column\PriceMultiplier" sortOrder="6">
+            <settings>
+                <label translate="true">Multiplier</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

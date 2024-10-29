@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Override grid actions
+ *
+ * @category: Perficient's Modules
+ * @package: Perficient\RolesPermission
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@Perficient.com>
+ * @keywords: Override grid actions
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="grid.buttons" remove="true"/>
+    </body>
+</page>

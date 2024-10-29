@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+* This module is used by employee who can add/update his personal information which needs to display his customers
+* @category: Magento
+* @package: Perficient/MyDisplayInformation
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_MyDisplayInformation
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Display Information</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Perficient\MyDisplayInformation\Block\Index" name="my_display_information_tab"
+                   template="Perficient_MyDisplayInformation::my_display_information.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

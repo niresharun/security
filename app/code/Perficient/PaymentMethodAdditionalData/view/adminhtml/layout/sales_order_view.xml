@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Custom Module to store Additional Payment Data to Quote and Order in Payment Tables
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sachin Badase <sachin.badase@perficient.com>
+ * @keywords: Payment Data to Quote and Order in Payment Tables
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="payment_additional_info">
+            <block class="Perficient\PaymentMethodAdditionalData\Block\Info\BanktransferInfo" name="prft_payments" template="Perficient_PaymentMethodAdditionalData::info/banktransferinfo.phtml" />
+        </referenceContainer>
+    </body>
+</page>

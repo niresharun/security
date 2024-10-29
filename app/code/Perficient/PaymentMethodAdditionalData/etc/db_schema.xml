@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:schema:Magento\Framework:Db\Schema:db_schema.xsd">
+    <table name="quote_payment">
+        <column xsi:type="text" name="customer_po_number" nullable="true"  comment="customer_po_number"/>
+    </table>
+    <table name="sales_order_payment">
+        <column xsi:type="text" name="customer_po_number" nullable="true"  comment="customer_po_number"/>
+    </table>
+</schema>

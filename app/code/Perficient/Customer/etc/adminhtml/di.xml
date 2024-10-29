@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plugin to disable M1 customer attributes for admin
+ * @category: Magento
+ * @package: Perficient/Customer
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Megha Ghadge<megha.ghadge@Perficient.com>
+ * @keywords: Module Perficient_Customer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\AttributeMetadataResolver">
+        <plugin disabled="false" name="perficient_disable_m1_attributes" sortOrder="10"
+                type="Perficient\Customer\Plugin\Model\AttributeMetadataResolverPlugin"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="customer_grid_userrole_column" type="Perficient\Customer\Plugin\Model\UserRoleFilter" sortOrder="10" disabled="false" />
+    </type>
+	<type name="Magento\Customer\Controller\Adminhtml\Index\Save">
+        <plugin name="updateUserActualParentId" type="Perficient\Customer\Plugin\Adminhtml\Index\SavePlugin" sortOrder="20" disabled="false" />
+    </type>
+    <preference for="Magento\Customer\Model\ResourceModel\Grid\Collection"
+                type="Perficient\Customer\Model\Customer\Grid\Collection"/>
+</config>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Inventory for Quick Ship
+ * @category: Magento
+ * @package: Perficient/QuickShip
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_QuickShip
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="intercept_add_product_to_cart" type="Perficient\QuickShip\Plugin\Cart\AddProduct" sortOrder="20" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="intercept_remove_product_to_cart" type="Perficient\QuickShip\Plugin\Cart\RemoveProduct" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="quick_ship_edit_cart_load" type="Perficient\QuickShip\Plugin\Cart\EditCart" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="quick_ship_checkout_cart_load" type="Perficient\QuickShip\Plugin\Cart\Checkout" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Perficient\Checkout\Controller\Product\AddToCollection">
+        <plugin name="quick_ship_add_to_collection" type="Perficient\QuickShip\Plugin\Cart\AddToCollection" sortOrder="10" disabled="false"/>
+    </type>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid"
+                 type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="quick_ship" xsi:type="string">sales_order.quick_ship</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

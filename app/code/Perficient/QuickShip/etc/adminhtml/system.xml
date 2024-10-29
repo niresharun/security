@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Inventory for Quick Ship
+ * @category: Magento
+ * @package: Perficient/QuickShip
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_QuickShip
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="quickship" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quick Ship Settings</label>
+            <tab>wendover</tab>
+            <resource>Perficient_QuickShip::perficient_quickship</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Configuration</label>
+                <field id="quick_ship_category_name" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Category Name</label>
+                </field>
+                <field id="quick_ship_category_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Category ID</label>
+                </field>
+                <field id="add_to_cart_regular_restrict_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Add to cart restrict message when cart contains regular product</label>
+                    <comment><![CDATA[This message will be shown when quick ship product is added and cart contains regular product.]]></comment>
+                </field>
+                <field id="add_to_cart_restrict_message" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Add to cart restrict message</label>
+                    <comment><![CDATA[This message will be shown when regular product is added and cart contains quick ship product.]]></comment>
+                </field>
+                <field id="quickship_qty_restrict_message" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Quickship qty restrict message</label>
+                    <comment><![CDATA[This message will be shown when quick ship product qty is 0.]]></comment>
+                </field>
+                <field id="quickship_over_purchase_restrict_message" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Quickship Over Purchase restrict message</label>
+                    <comment><![CDATA[%s is required in message to display available qty of product. This message will be shown when user tries to place order more than available qty.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

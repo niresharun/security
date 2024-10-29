@@ -1,0 +1,71 @@
+<?php
+/**
+ * @var \Magento\Catalog\Block\Product\View $block
+ */
+$_product = $block->getProduct();
+$defaultFrameSku = $_product->getData('frame_default_sku');
+$isProductCustomize = $_product->getData('product_customizer');
+$croppedImage = $_product->getCropped();
+$viewModel = $block->getData('viewModel');
+$checkFrameStockUrl = $viewModel->getFrameStockAjaxUrl();
+$stockNotifyUrl = $viewModel->getStockNotifyUrl($defaultFrameSku);
+$isStockAlertAllowed = $viewModel->isStockAlertAllowed();
+?>
+<div id="frame-stock-status">
+    <div class="noti-wrap-cont <?= (!empty($isProductCustomize) && $isProductCustomize == 1
+        && !empty($croppedImage) && $croppedImage != "no_selection") ? "cust-prod-con" : "non-cust-prod-con" ?>"
+         style="display: none;" id="frame-stock-status-main">
+        <div class="bis_main">
+            <div class="bis_main_colone bis_main_colone_hide">
+                <p class="stock-status-text" id="bis_one_mess_one">
+                    <?= $block->escapeHtml(__('This moulding will be in stock in')); ?>
+                </p>
+            </div>
+            <div class="bis_main_coltwo bis_main_colone_hide">
+                <p class="back-in-stock-days" id="bis_one_mess_two"></p>
+            </div>
+            <div class="bis_main_colone" id="bis_main_two">
+                <p class="stock-status-text" id="bis_two_mess_one">
+                    <?= $block->escapeHtml(__('This moulding is currently out of stock')); ?>
+                </p>
+            </div>
+        </div>
+        <?php if ($isStockAlertAllowed && !empty($stockNotifyUrl)) : ?>
+        <div class="notify_main" id="notify_main">
+            <div class="notify_main_col_one">
+                <p class="bis_text">
+                    <?= $block->escapeHtml(__('When back in stock')); ?>
+                </p>
+                <a href="<?= $stockNotifyUrl ?>"
+                   title="<?= $block->escapeHtml(__('Notify me')); ?>" class="btn btn-danger">
+                    <?= $block->escapeHtml(__('Notify me')); ?>
+                </a>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="cust_mess_main" id="cust_mess_main">
+            <?php if (!empty($isProductCustomize) && $isProductCustomize == 1
+            && !empty($croppedImage) && $croppedImage != "no_selection") : ?>
+                <div class="cust_mess_main_colone">
+                    <p class="more-opt-text">
+                        <span>
+                            <?= $block->escapeHtml(__('Click customize button below to explore more options')); ?>
+                        </span>
+                        <img src="<?= $block->getViewFileUrl('images/arrow-cursor.png'); ?>"
+                             class="arrow-img" alt="<?= $block->escapeHtml(__('Customized Arrow')); ?>">
+                    </p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+        {
+            "#frame-stock-status": {
+                "Perficient_Catalog/js/framestockstatus": {
+                    "AjaxUrl": "<?php echo $checkFrameStockUrl; ?>",
+                    "defaultFrameSku": "<?php echo $defaultFrameSku; ?>"
+                }
+            }
+        }
+</script>

@@ -1,0 +1,25 @@
+{
+    "name": "perficient/module-quick-ship",
+    "description": "Inventory for quick ship",
+    "require": {
+        "php": "~7.1.3||~7.2.0||~7.3.0",
+        "magento/module-store": "101.0.*",
+        "magento/module-backend": "101.2.*",
+        "magento/framework": "102.0.*",
+        "magento/module-checkout": "100.4.*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Perficient\\QuickShip\\": ""
+        }
+    }
+}

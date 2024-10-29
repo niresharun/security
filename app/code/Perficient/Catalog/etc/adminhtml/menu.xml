@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Perficient_Catalog::retailers" title="Product Image Bulk Feature" translate="title"
+             module="Perficient_Catalog" sortOrder="60" parent="Magento_Catalog::catalog"
+             resource="Magento_Catalog::catalog_products"/>
+
+        <add id="Perficient_Catalog::manage" title="Product Image Bulk Import" translate="title"
+             module="Perficient_Catalog" sortOrder="30" parent="Perficient_Catalog::retailers"
+             resource="Magento_Catalog::catalog_products" action="productbulkupload/index/index"/>
+
+        <add id="Perficient_Catalog::disassociate" title="Product Image Bulk Disassociate" translate="title"
+             module="Perficient_Catalog" sortOrder="40" parent="Perficient_Catalog::retailers"
+             resource="Magento_Catalog::catalog_products" action="productbulkupload/index/disassociate"/>
+    </menu>
+</config>

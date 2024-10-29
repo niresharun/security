@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category: Magento
+ * @package: Perficient/Seo
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ankita Bodhankar <ankita.bodhankar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Seo
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\MageWorx\SeoMarkup\Block\Head\Json\Product" type="Perficient\Seo\Block\Head\Json\Product" />
+</config>

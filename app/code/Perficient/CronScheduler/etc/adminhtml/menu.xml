@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Prepare the Menu structure in the Admin Panel
+ *
+ * @category: Perficient's Extension
+ * @package: Perficient\CronScheduler
+ * @copyright: Copyright © 2018 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandip Titarmare<sandip.titarmare@perficient.com>
+ * @keywords: cron list, enables and disables specific crons
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add 
+            id="Perficient_CronScheduler::menu" 
+            title="Cron Scheduler" 
+            module="Perficient_CronScheduler" 
+            sortOrder="100000" 
+            parent="Perficient_Base::main_menu_item"
+            resource="Perficient_CronScheduler::menu"/>
+        <add 
+            id="Perficient_CronScheduler::job_listing" 
+            title="Jobs Configuration" 
+            module="Perficient_CronScheduler" 
+            sortOrder="10"
+            parent="Perficient_CronScheduler::menu"
+            action="cronscheduler/job/listing" 
+            resource="Perficient_CronScheduler::job_listing"/>
+        <add 
+            id="Perficient_CronScheduler::task_listing" 
+            title="Tasks List" 
+            module="Perficient_CronScheduler" 
+            sortOrder="20"
+            parent="Perficient_CronScheduler::menu"
+            action="cronscheduler/task/listing" 
+            resource="Perficient_CronScheduler::task_listing"/>
+        <add 
+            id="Perficient_CronScheduler::task_timeline" 
+            title="Tasks Timeline" 
+            module="Perficient_CronScheduler" 
+            sortOrder="30"
+            parent="Perficient_CronScheduler::menu"
+            action="cronscheduler/task/timeline" 
+            resource="Perficient_CronScheduler::task_timeline"/>
+    </menu>
+</config>

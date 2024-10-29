@@ -1,0 +1,76 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $_item = $block->getItem() ?>
+<?php $_order = $block->getItem()->getOrder(); ?>
+<?php
+$buyRequest = $_item->getOrderItem()->getBuyRequest()->getData();
+$viewModel = $block->getViewModel();
+$productimizeHelper = $viewModel->getProductimizeHelper();
+$imageUrl = $productimizeHelper->getImageurlfrombuyrequestdata($buyRequest);
+$customizedDataArray = [];
+$options = $_item->getProductOptions();
+$product = $block->getItem()->getOrderItem()->getProduct();
+
+if (!empty($options['info_buyRequest']) && isset($options['info_buyRequest']['edit_id'])) {
+    $customizeEditId = $options['info_buyRequest']['edit_id'];
+}
+$catalogHelper = $this->helper('Perficient\Catalog\Helper\Data');
+if(isset($buyRequest['pz_cart_properties']) && $buyRequest['pz_cart_properties']) {
+    $customizedDataArray = $catalogHelper->getValidCustomizedOptions($buyRequest['pz_cart_properties']);
+}
+?>
+<tr>
+    <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
+        <p class="product-name">
+            <?= $block->escapeHtml($_item->getName()) ?>
+            <?php if (isset($customizeEditId)) :?>
+                <span class="customized-name" style="margin-left: 1rem;"><?= $block->escapeHtml(__('Customized')) ?></span>
+            <?php endif; ?>
+        </p>
+        <p class="sku"><?= $block->escapeHtml(__('SKU')) ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p>
+        <?php if (!empty($customizedDataArray['dataArray'])) : ?>
+            <dl class="item-options">
+                <?php foreach ($customizedDataArray['dataArray'] as $labelKey => $labelValue) :?>
+                    <dt><?= $block->escapeHtml($labelKey) ?></dt>
+                    <dd>
+                        <?= $labelValue ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php elseif ($block->getItemOptions()) : ?>
+            <dl>
+                <?php foreach ($block->getItemOptions() as $option) : ?>
+                    <dt><strong><em><?= $block->escapeHtml($option['label']) ?></em></strong></dt>
+                    <dd>
+                        <?= /* @noEscape */  nl2br($block->escapeHtml($option['value'])) ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) : ?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+        <?php if($imageUrl != ''): ?>
+            <img width="140" height="140" style="display: block" src="<?=$imageUrl?>" />
+        <?php else:
+            $imgUrl = $this->helper('Magento\Catalog\Helper\Image')->init($product, 'product_thumbnail_image')
+                ->constrainOnly(TRUE)
+                ->keepAspectRatio(TRUE)
+                ->keepTransparency(TRUE)
+                ->keepFrame(FALSE)
+                ->resize(100, 100)->getUrl();
+            ?>
+            <img width="100" height="100" alt="" style="display: block;" src="<?=$imgUrl?>" />
+        <?php endif; ?>
+    </td>
+    <td class="item-qty"><?= (float) $_item->getQty() ?></td>
+    <td class="item-price">
+        <?= /* @noEscape */ $block->getItemPrice($_item->getOrderItem()) ?>
+    </td>
+</tr>

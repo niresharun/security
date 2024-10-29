@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.bottom.container">
+            <block class="Wendover\Catalog\Block\View" name="seo_content_block" before="-" template="Wendover_Catalog::category_content.phtml">
+                <arguments>
+                    <argument name="attribute" xsi:type="string">seo_content_block</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="category.view.container">
+            <block class="Wendover\Catalog\Block\View" name="top_content_block" before="category.image" template="Wendover_Catalog::category_content.phtml">
+                <arguments>
+                    <argument name="attribute" xsi:type="string">top_block_content</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

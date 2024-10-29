@@ -1,0 +1,46 @@
+<?php
+/** @var Wendover\FindYourRep\Block\Frontend\Rep\Index $block */
+
+?>
+<div class="rep-title">
+    <span class="rep-title-sub">Use the form below</span>
+</div>
+
+<form id="find_your_rep_form" method="POST" name="find_your_rep_form">
+    <div class="rep-address-type">
+        <div class="rep-type-radio-div">
+            <input type="radio" id="residential" name="rep_type" value="R" checked="checked"/>
+            <label for="residential">RESIDENTIAL</label><br>
+            <input type="radio" id="commercial" name="rep_type" value="C" />
+            <label for="commercial">COMMERCIAL</label>
+        </div>
+        <div class="rep-country-code">
+            <div class="rep-regions-div">
+                <label> Country  <span>*</span> </label>
+                <select name="rep-regions" id="rep-regions">
+                    <option value="us" selected>United States</option>
+                    <option value="ca">Canada</option>
+                    <option value="mx">Mexico</option>
+                    <option value="car">Caribbean</option>
+                    <option value="cam">Central America</option>
+                    <option value="sam">South America</option>
+                </select>
+            </div>
+            <div class="rep-postal-code-div">
+                <label>Zip/Postal Code <span>*</span></label>
+                <input type="text" id="postal_code" name="postal_code" maxlength="6"/><span class="require-field-msg" style="display: none">Required field</span>
+            </div>
+        </div>
+    </div>
+    <button id="submitbtn" type="button" class="primary">FIND MY REP</button>
+</form>
+<div id="rep-info-div"></div>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Wendover_FindYourRep/js/search-form" : {
+                    "repURL" : "<?= $block->getRepURL(); ?>"
+                }
+            }
+        }
+</script>

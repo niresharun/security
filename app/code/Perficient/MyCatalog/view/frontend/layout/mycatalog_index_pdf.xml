@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs.
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Create Catalog Pages</title>
+        <css src="Perficient_MyCatalog::css/pdf.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf" template="Perficient_MyCatalog::pdf_templates/main.phtml" cacheable="false">
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.front" template="Perficient_MyCatalog::pdf_templates/frontpage.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template1" template="Perficient_MyCatalog::pdf_templates/template1.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template2" template="Perficient_MyCatalog::pdf_templates/template2.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template3" template="Perficient_MyCatalog::pdf_templates/template3.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template4" template="Perficient_MyCatalog::pdf_templates/template4.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template5" template="Perficient_MyCatalog::pdf_templates/template5.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template6" template="Perficient_MyCatalog::pdf_templates/template6.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template7" template="Perficient_MyCatalog::pdf_templates/template7.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.template8" template="Perficient_MyCatalog::pdf_templates/template8.phtml" />
+                <block class="Perficient\MyCatalog\Block\Pdf" name="mycatalog.pdf.back" template="Perficient_MyCatalog::pdf_templates/backpage.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

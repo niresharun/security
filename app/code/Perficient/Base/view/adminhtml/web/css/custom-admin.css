@@ -1,0 +1,10 @@
+
+#menu-perficient-base-main-menu-item > a:before{
+    content: '';
+    background: url('../images/wag_admin_logo.png') no-repeat;
+    background-size: contain;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    margin: 0 auto;
+}

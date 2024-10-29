@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="freight_estimator" translate="label" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Freight Estimator</label>
+            <tab>wendover</tab>
+            <resource>Wendover_FreightEstimator::wendover_freightestimator</resource>
+            <group id="parcel_box_config" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>ParcelBox Configuration</label>
+                <field id="max_size_parcel_box" translate="label" type="text" canRestore="1" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max size for parcel box</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_items_per_parcel_box" translate="label" type="text" canRestore="1" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max items per parcel box for Art</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_items_per_parcel_box_mirror" translate="label" type="text" canRestore="1" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max items per parcel box for Mirror</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_count_parcel_boxes_per_shipment" translate="label" type="text" canRestore="1" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max count parcel boxes per shipment</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_weight_per_parcel_box" translate="label" type="text" canRestore="1" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max weight per parcel box</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_long_side_for_banding_box" translate="label" type="text" canRestore="1" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max long side for banding box</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_long_side_for_foam_box" translate="label" type="text" canRestore="1" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max long side for foam box</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="item_depth_without_frame" translate="label" type="text" canRestore="1" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Item depth without frame</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+            </group>
+            <group id="Pack_materials_size" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pack Materials Size Configuration</label>
+                <field id="pack_materials_size_bubble_toLongSide" translate="label" type="text" sortOrder="1" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size bubble ToLongSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_bubble_toShortSide" translate="label" type="text" sortOrder="2" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size bubble ToShortSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_bubble_toDepth" translate="label" type="text" sortOrder="3" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size bubble ToDepth</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_bubble_betweenPieces" translate="label" type="text" sortOrder="4" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size bubble BetweenPieces</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_banding_toLongSide" translate="label" type="text" sortOrder="5" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size banding ToLongSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_banding_toShortSide" translate="label" type="text" sortOrder="6" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size banding ToShortSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_banding_toDepth" translate="label" type="text" sortOrder="7" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size banding ToDepth</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_banding_betweenPieces" translate="label" type="text" sortOrder="8" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size banding BetweenPieces</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="pack_materials_size_foam_toLongSide" translate="label" type="text" sortOrder="9" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size foam ToLongSide</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="pack_materials_size_foam_toShortSide" translate="label" type="text" sortOrder="10" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size foam ToShortSide</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="pack_materials_size_foam_toDepth" translate="label" type="text" sortOrder="11" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size foam ToDepth</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="pack_materials_size_foam_betweenPieces" translate="label" type="text" sortOrder="12" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack materials size foam BetweenPieces</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+
+            </group>
+            <group id="max_size_diff" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Max Size Differences of pieces Configuration</label>
+                <field id="max_size_diff_bubble_longSide" translate="label" type="text" sortOrder="1" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences Bubble LongSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_size_diff_bubble_shortSide" translate="label" type="text" sortOrder="2" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences Bubble ShortSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_size_diff_banding_longSide" translate="label" type="text" sortOrder="3" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences banding LongSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_size_diff_banding_shortSide" translate="label" type="text" sortOrder="4" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences banding ShortSide</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="max_size_diff_foam_longSide" translate="label" type="text" sortOrder="5" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences Foam LongSide</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="max_size_diff_foam_shortSide" translate="label" type="text" sortOrder="6" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Size Differences Foam ShortSide</label>
+                    <validate>required-entry validate-number validate-not-negative-number </validate>
+                </field>
+                <field id="glass_size_threshold_item_weights" translate="label" type="text" sortOrder="7" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Glass Size Threshold for Item Weights</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+            </group>
+            <group id="canada_freight" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Canadian freight quotes Configuration</label>
+                <field id="canada_central_region" translate="label" type="text" sortOrder="1" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada central region</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="canada_eastern_region" translate="label" type="text" sortOrder="2" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada eastern region</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="canada_western_region" translate="label" type="text" sortOrder="3" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada western region</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="canada_freight_upcharge_order_threshold" translate="label" type="text" canRestore="1" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada Freight Upcharge Order Threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_central_regional_free_freight_limit" translate="label" type="text" canRestore="1" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada central regional Free Freight Limit</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_eastern_regional_free_freight_limit" translate="label" type="text" canRestore="1" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada eastern regional Free Freight Limit</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_western_regional_free_freight_limit" translate="label" type="text" canRestore="1" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada western regional Free Freight Limit</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_central_flat_rate_upToThreshold" translate="label" type="text" canRestore="1" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada central flat rate UpToThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_central_flat_rate_overThreshold" translate="label" type="text" canRestore="1" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada central flat rate OverThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_eastern_flat_rate_upToThreshold" translate="label" type="text" canRestore="1" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada eastern flat rate UpToThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_eastern_flat_rate_overThreshold" translate="label" type="text" canRestore="1" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada eastern flat rate OverThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_western_flat_rate_upToThreshold" translate="label" type="text" canRestore="1" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada western flat rate UpToThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="canada_western_flat_rate_overThreshold" translate="label" type="text" canRestore="1" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canada western flat rate OverThreshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+            </group>
+            <group id="us_freight" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>United States freight quotes Configuration</label>
+                <field id="us_region_1" translate="label" type="text" sortOrder="1" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US Region 1</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="us_region_2" translate="label" type="text" sortOrder="2" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US Region 2</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="us_region_3" translate="label" type="textarea" sortOrder="3" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US Region 3 (Contiguous Region)</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="us_region_4" translate="label" type="text" sortOrder="4" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US Region 4 (US Territories)</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="us_region_5" translate="label" type="text" sortOrder="5" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US Region 5 </label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="us_free_freight_limit_region_1" translate="label" type="text" canRestore="1" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US free freight limit for region 1</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="us_free_freight_limit_region_2" translate="label" type="text" canRestore="1" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US free freight limit for region 2</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                  <field id="us_free_freight_limit_region_3" translate="label" type="text" canRestore="1" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US free freight limit for region 3 (Contiguous Region)</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                 <field id="us_free_freight_limit_region_4" translate="label" type="text" canRestore="1" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US free freight limit for region 4 (US Territories)</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+
+               <field id="us_free_freight_limit_region_5" translate="label" type="text" canRestore="1" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>US free freight limit for region 5</label>
+                   <validate>required-entry validate-number</validate>
+               </field>
+                <field id="parcel_residential_costThreshold" translate="label" type="text" canRestore="1" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Parcel residential cost threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="parcel_residential_upcharge_factor_upToThreshold" translate="label" type="text" sortOrder="12" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Parcel residential upcharge factor up to threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="parcel_commercial_costThreshold" translate="label" type="text" sortOrder="13" showInDefault="1" canRestore="1" showInWebsite="1" showInStore="1">
+                    <label>Parcel commercial cost threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="parcel_commercial_upcharge_factor_upToThreshold" translate="label" type="text" sortOrder="14" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Parcel commercial upcharge factor up to threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_residential_order_threshold" translate="label" type="text" sortOrder="15" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL residential order threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_residential_upcharge_factor_upToThreshold" translate="label" type="text" sortOrder="16" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL residential upcharge factor up to threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_residential_upcharge_factor_OverThreshold" translate="label" type="text" sortOrder="17" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL residential upcharge factor over threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_commercial_order_threshold" translate="label" type="text" sortOrder="18" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL commercial order threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_commercial_upcharge_factor_upToThreshold" translate="label" type="text" sortOrder="19" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL commercial upcharge factor up to threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="LTL_commercial_upcharge_factor_OverThreshold" translate="label" type="text" sortOrder="20" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LTL commercial upcharge factor over threshold</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                 <field id="Weight_limit_for_left_gate_eligiblity" translate="label" type="text" sortOrder="20" canRestore="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Item Weight limit for left gate eligiblity</label>
+                    <validate>required-entry validate-number</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

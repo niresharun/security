@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_MyCatalog" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Wishlist"/>
+            <module name="Perficient_Productimize"/>
+        </sequence>
+    </module>
+</config>

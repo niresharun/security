@@ -1,0 +1,18 @@
+diff --git a/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js b/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js
+index ab8a6063f29..4b416a00f0c 100644
+--- a/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js
++++ b/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js
+@@ -27,6 +27,13 @@ define([
+     });
+ 
+     $('.panel.header > .header.links').clone().appendTo('#store\\.links');
++    $('#store\\.links li a').each(function () {
++        var id = $(this).attr('id');
++
++        if (id !== undefined) {
++            $(this).attr('id', id + '_mobile');
++        }
++    });
+ 
+     keyboardHandler.apply();
+ });

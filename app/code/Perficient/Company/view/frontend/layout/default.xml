@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+        <body>
+            <referenceBlock name="register-link" remove="true"/>
+            <referenceBlock name="register.link.container" remove="true"/>
+
+            <!--Show Create Company Account on Header without dropdown-->
+            <referenceBlock name="header.links">
+                <referenceBlock  name="register.customer.link" remove="true"/>
+                <block class="Magento\Company\Block\Company\Register\Link"
+                       name="register.company.link"
+                       ifconfig="company/general/allow_company_registration">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Create New Account</argument>
+                        <argument name="path" xsi:type="string">company/account/create</argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+
+            <!-- Remove Magento Logo-->
+            <referenceContainer name="after.body.start">
+                <referenceBlock name="login-as-customer-notice" template="Perficient_Company::html/notices.phtml"/>
+            </referenceContainer>
+
+            <referenceBlock name="top.links">
+                <referenceBlock  name="register-link" remove="true"/>
+            </referenceBlock>
+			<referenceContainer name="content">
+                <referenceBlock  name="customer.new"  remove="true"/>
+            </referenceContainer>
+            <move element="register.company.link" destination="header.links" before="authorization-link" />
+        </body>
+</page>

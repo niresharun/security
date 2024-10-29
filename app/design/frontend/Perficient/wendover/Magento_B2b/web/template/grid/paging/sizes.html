@@ -1,0 +1,29 @@
+<!--
+/**
+ *
+ * This file used to changes in add id in label(WCAG Changes)
+ *
+ * @category: Magento
+ * @package: Perficient/B2b
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: purushottam rathi <purushottam.rathi@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module B2b change for, id
+ */
+-->
+
+<div class="limiter">
+    <label for="show-per-page" class="label" translate="'Show'"></label>
+    <div class="control">
+        <select id="show-per-page" data-role="limiter" class="limiter-options"
+                data-bind="
+                options: optionsArray,
+                optionsText: 'label',
+                optionsValue:'value',
+                value: value
+            "></select>
+    </div>
+    <span class="limiter-text" translate="'per page'" ></span>
+</div>

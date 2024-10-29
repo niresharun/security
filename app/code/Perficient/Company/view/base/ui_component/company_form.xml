@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Company Custom Fields.
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Company
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="information" sortOrder="20">
+        <field name="legal_name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">legal_name</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <label translate="true">Company Legal Name</label>
+            </settings>
+        </field>
+        <field name="vat_tax_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">vat_tax_id</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <label translate="true">VAT / TAX ID</label>
+            </settings>
+        </field>
+        <field name="reseller_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reseller_id</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <label translate="true">Reseller ID</label>
+            </settings>
+        </field>
+        <field name="is_dba" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Perficient_Company/js/is_dba</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Does your company have a DBA Name?</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">no</map>
+                            <map name="true" xsi:type="string">yes</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="dba_name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">dba_name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="dba-custom-validation" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">DBA Name</label>
+            </settings>
+        </field>
+        <field name="resale_certificate_number" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">resale_certificate_number</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Resale Certificate Number</label>
+            </settings>
+        </field>
+        <field name="website_address" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">website_address</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Website Address</label>
+            </settings>
+        </field>
+        <field name="social_media_site" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">social_media_site</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Social Media Site</label>
+            </settings>
+        </field>
+        <field name="mark_pos" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">mark_pos</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Marketing Position</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="business_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Perficient\Company\Model\Config\Source\BusinessType</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Perficient_Company/js/company_admin_registration</item>
+                    <item name="elementTmpl" xsi:type="string">Perficient_Company/form/element/business_type</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Business Type</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                    <item name="dataScope" xsi:type="string">business_type</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="no_of_stores" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">no_of_stores</item>
+                    <item name="sortOrder" xsi:type="number">91</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="no-of-stores-validation" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Number of Stores</label>
+            </settings>
+        </field>
+        <field name="sq_ft_per_store" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">sq_ft_per_store</item>
+                    <item name="sortOrder" xsi:type="number">92</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="sq-ft-per-store-validation" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Square Footage per Store</label>
+            </settings>
+        </field>
+        <field name="type_of_projects">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Perficient\Company\Model\Config\Source\Projects</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Types of Projects</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">93</item>
+                    <item name="dataScope" xsi:type="string">type_of_projects</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="type-of-projects-validation" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="no_of_jobs_per_year">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Perficient\Company\Model\Config\Source\NumberOfJobsPerYear</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Number of Jobs per Year</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">94</item>
+                    <item name="dataScope" xsi:type="string">no_of_jobs_per_year</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="no-of-jobs-per-year-validation" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="discount_rate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Discount Rate</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">95</item>
+                    <item name="dataScope" xsi:type="string">discount_rate</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="discount_markup">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Perficient\Company\Model\Config\Source\DiscountMarkup</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Discount Markup</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">96</item>
+                    <item name="dataScope" xsi:type="string">discount_markup</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="discount_application_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Perficient\Company\Model\Config\Source\DiscountApplicationType
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Discount Application Type</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">98</item>
+                    <item name="dataScope" xsi:type="string">discount_application_type</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="discount_value">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Discount Value</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="dataScope" xsi:type="string">discount_value</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="syspro_customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Syspro Customer Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="dataScope" xsi:type="string">syspro_customer_id</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="validate-number" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="designer_type" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">designer_type</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Designer Type</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="des_comm" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">des_comm</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">What type of commercial job do you work on?</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="no_of_designers" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">no_of_designers</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">No. of designers on staff</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="percent_of_design" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">percent_of_design</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">What % of your business is design?</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+        <field name="annual_revenue" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">annual_revenue</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Annual Revenue</label>
+                <disabled>1</disabled>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="address" sortOrder="30">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Billing Address</label>
+            <dataScope>address</dataScope>
+        </settings>
+    </fieldset>
+    <fieldset name="company_admin" sortOrder="40">
+        <field name="gender" sortOrder="90" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">gender</item>
+                    <item name="value" xsi:type="string">3</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <label translate="true">Gender</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Company\Model\Company\Source\Gender"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="job_title" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">job_title</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <label translate="true">Job Title</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>

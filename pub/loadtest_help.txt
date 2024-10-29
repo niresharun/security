@@ -1,0 +1,44 @@
+Steps for Companies/Users Createion for Load testing
+----------------------------------------------------- 
+
+1. Create table by Executing folloing script
+
+CREATE TABLE `grandriver_cc_designers_loadtest` (
+  `customer_id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telephone_count` int(11) DEFAULT NULL,
+  `import_status` int(11) DEFAULT NULL,
+  `company_name` varchar(255) DEFAULT NULL,
+  `cleaned_company_name` varchar(255) DEFAULT NULL,
+  `company_name_count` int(11) DEFAULT NULL,
+  `footer_contact_name` varbinary(255) DEFAULT NULL,
+  `telephone` varchar(255) DEFAULT NULL,
+  `cleaned_telephone` varchar(255) DEFAULT NULL,
+  `telephone_mobile` varchar(255) DEFAULT NULL,
+  `fax` varchar(255) DEFAULT NULL,
+  `cleaned_street` varchar(255) DEFAULT NULL,
+  `address_line_1` varchar(255) DEFAULT NULL,
+  `address_line_2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `postal_code` varchar(255) DEFAULT NULL,
+  `welcome_message` text,
+  `default_price_multiplier` float DEFAULT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+2. Execute below command from SSH 
+php -d memory_limit=-1 pub/loadtest.php
+
+3. Verify data is set in table: grandriver_cc_designers_loadtest and Individual customers are created in Magento.
+
+4. Change table name for constant DESIGNER_TABLE_NAME to 'grandriver_cc_designers_loadtest' from 'grandriver_cc_designers' in file 
+app/code/Perficient/DataMigration/Model/Company/AccountCreation.php
+
+5. Execute following command from SSH
+php -d memory_limit=-1 bin/magento perficient_data_migration:custom-data --type company
+
+6. Execute following sql script by changing entity_id WHERE condition
+UPDATE `company` SET resale_certificate_number = '123456', business_type = 'Designer', no_of_jobs_per_year = '1-5', type_of_projects='Residential' WHERE entity_id >= 755;
+
+7. Thats's it ! Verify company, super user and employee users are created in Magento2

@@ -1,0 +1,33 @@
+<?php
+/**
+ * Price Multiplier
+ *
+ * @category: PHP
+ * @package: Perficient/PriceMultiplier
+ * @copyright: Copyright  2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude <sandeep.mude@perficient.com>
+ * @keywords: Module Perficient_PriceMultiplier
+ */
+?>
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+$productId = $block->getSaleableItem()->getId();
+$productPrice = $block->getPLPPrice($productId);
+?>
+<?php if($block->isCustomerLoggedIn()){?>
+<div class="price-container price-final_price">
+    <ul class="prices" data-product-type="<?= $block->getSaleableItem()->getTypeId() ?>">
+        <?php if ($productPrice[$productId]['strikeout_price'] !== "") { ?>
+            <li>
+                <span class="strikeout-price-wrapper strikeout-price-wrapper-<?php echo $productId?>" data-price-id = "<?php echo $productId; ?>" style="text-decoration: line-through"><?=$productPrice[$productId]['strikeout_price']?></span>
+            </li>
+        <?php } ?>
+        <li>
+            <label><?=/* @noEscape */ __('Your Price:')?></label>
+            <span class="price trigger-product-price price-wrapper-<?php echo $productId; ?>" data-price-id = "<?php echo $productId; ?>"><?=$productPrice[$productId]['display_price']?></span>
+        </li>
+    </ul>
+</div>
+<?php } ?>

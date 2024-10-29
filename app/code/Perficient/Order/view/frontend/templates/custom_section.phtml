@@ -1,0 +1,30 @@
+<?php
+/**
+ * Added to handle product surcharge if minimum order amount not met by customer
+ * @category: Magento
+ * @package: Perficient/Order
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sachin Badase <Sachin.Badase@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Order
+ */
+?>
+<div role="alert" class="aureatelabs-custom-section" data-bind="scope: 'section'">
+    <p data-bind="html: customsection().customdata"></p>
+</div>
+<script type="text/x-magento-init">
+    {
+    	"*": {
+        	"Magento_Ui/js/core/app": {
+            	"components": {
+                	"section": {
+                    	"component": "Perficient_Order/js/section"
+                	}
+            	}
+        	}
+    	}
+    }
+</script>
+

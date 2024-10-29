@@ -1,0 +1,19 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php
+$viewModel = $block->getData('viewInRoom_model');
+$_product = $block->getProduct();
+$jsonConfig = $viewModel->getJsonConfig($_product);
+$priceClass = 'no-price';
+if($viewModel->isLoggedInCustomer()){
+    $priceClass = 'has-price';
+}
+?>
+<?php if(!$viewModel->isProductCustomizer($_product)) :?>
+
+<div class="vir-button-container <?php echo $priceClass; ?>">
+    <button type="button" class="active disabled" id="vir_button" >
+        <i class="fa fa-eye" aria-hidden="true"></i>
+        <?= $block->escapeHtml(__('View in Room')); ?>
+    </button>
+</div>
+<?php endif; ?>

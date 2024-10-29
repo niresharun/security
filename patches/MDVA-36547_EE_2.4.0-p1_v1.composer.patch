@@ -1,0 +1,93 @@
+diff --git a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_creditmemo_grid.xml b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_creditmemo_grid.xml
+index 6ca0b7d8fdf..b98b9a84c0c 100644
+--- a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_creditmemo_grid.xml
++++ b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_creditmemo_grid.xml
+@@ -55,15 +55,13 @@
+             </filterSelect>
+         </filters>
+         <massaction name="listing_massaction">
+-            <settings>
+-                <actions>
+-                    <action name="pdfcreditmemos_order">
+-                        <url path="sales/creditmemo/pdfcreditmemos"/>
+-                        <type>pdfcreditmemos_order</type>
+-                        <label translate="true">PDF Credit Memos</label>
+-                    </action>
+-                </actions>
+-            </settings>
++            <action name="pdfcreditmemos_order">
++                <settings>
++                    <url path="sales/creditmemo/pdfcreditmemos"/>
++                    <type>pdfcreditmemos_order</type>
++                    <label translate="true">PDF Credit Memos</label>
++                </settings>
++            </action>
+         </massaction>
+         <paging name="listing_paging"/>
+     </listingToolbar>
+diff --git a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_invoice_grid.xml b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_invoice_grid.xml
+index a11e4c65abc..3e8d49b5bfa 100644
+--- a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_invoice_grid.xml
++++ b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_invoice_grid.xml
+@@ -55,15 +55,13 @@
+             </filterSelect>
+         </filters>
+         <massaction name="listing_massaction">
+-            <settings>
+-                <actions>
+-                    <action name="pdfinvoices_order">
+-                        <url path="sales/invoice/pdfinvoices"/>
+-                        <type>pdfinvoices_order</type>
+-                        <label translate="true">PDF Invoices</label>
+-                    </action>
+-                </actions>
+-            </settings>
++            <action name="pdfinvoices_order">
++                <settings>
++                    <url path="sales/invoice/pdfinvoices"/>
++                    <type>pdfinvoices_order</type>
++                    <label translate="true">PDF Invoices</label>
++                </settings>
++            </action>
+         </massaction>
+         <paging name="listing_paging"/>
+     </listingToolbar>
+diff --git a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_shipment_grid.xml b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_shipment_grid.xml
+index 7b2c1e7ff02..dc4d211ef00 100644
+--- a/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_shipment_grid.xml
++++ b/vendor/magento/module-sales-archive/view/adminhtml/ui_component/sales_archive_order_shipment_grid.xml
+@@ -55,20 +55,20 @@
+             </filterSelect>
+         </filters>
+         <massaction name="listing_massaction">
+-            <settings>
+-                <actions>
+-                    <action name="pdfshipments_order">
+-                        <url path="sales/shipment/pdfshipments"/>
+-                        <type>pdfshipments_order</type>
+-                        <label translate="true">PDF Shipments</label>
+-                    </action>
+-                    <action name="print_shipping_label">
+-                        <url path="adminhtml/shipment/massPrintShippingLabel"/>
+-                        <type>print_shipping_label</type>
+-                        <label translate="true">Print Shipping Labels</label>
+-                    </action>
+-                </actions>
+-            </settings>
++            <action name="pdfshipments_order">
++                <settings>
++                    <url path="sales/shipment/pdfshipments"/>
++                    <type>pdfshipments_order</type>
++                    <label translate="true">PDF Shipments</label>
++                </settings>
++            </action>
++            <action name="print_shipping_label">
++                <settings>
++                    <url path="adminhtml/shipment/massPrintShippingLabel"/>
++                    <type>print_shipping_label</type>
++                    <label translate="true">Print Shipping Labels</label>
++                </settings>
++            </action>
+         </massaction>
+         <paging name="listing_paging"/>
+     </listingToolbar>

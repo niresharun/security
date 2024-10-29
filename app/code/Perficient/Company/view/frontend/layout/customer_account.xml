@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Make Company Name Role un-editable
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Vikramraj Sahu<vikramraj.sahu@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+
+            <!-- Account Details -->
+            <block class="Perficient\Company\Block\Account\HeaderDelimiter"
+                   name="perficient-customer-account-navigation-delimiter-0"
+                   before="customer-account-navigation-account-link"
+                   template="Perficient_Company::account/navigation-header.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">250</argument>
+                    <argument name="label" translate="true" xsi:type="string">Account Details</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="customer-account-navigation-account-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">245</argument>
+                    <argument name="label" translate="true" xsi:type="string">Your Account</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="customer-account-navigation-account-edit-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">240</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="customer-account-navigation-address-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">235</argument>
+                </arguments>
+            </referenceBlock>
+
+            <referenceBlock name="customer-account-navigation-payment-data-link" remove="true" />
+            <referenceBlock name="customer-account-navigation-my-credit-cards-link">
+                <arguments>
+                    <argument name="label" xsi:type="string">Payment Options</argument>
+                    <argument name="path" xsi:type="string">customer/paymentinfo</argument>
+                    <argument name="sortOrder" xsi:type="number">230</argument>
+                </arguments>
+            </referenceBlock>
+
+            <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">225</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="customer-account-navigation-delimiter-1" remove="true"/>
+
+            <!-- Orders -->
+            <block class="Perficient\Company\Block\Account\HeaderDelimiter"
+                   name="perficient-customer-account-navigation-delimiter-1"
+                   before="customer-account-navigation-account-link"
+                   template="Perficient_Company::account/navigation-header.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">220</argument>
+                    <argument name="label" translate="true" xsi:type="string">Orders</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="company-customer-account-navigation-orders-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">219</argument>
+                    <argument name="label" translate="true" xsi:type="string">Your Orders</argument>
+                </arguments>
+            </referenceBlock>
+
+            <!-- Customer -->
+            <block class="Perficient\Company\Block\Account\HeaderDelimiter"
+                   name="perficient-customer-account-navigation-delimiter-2"
+                   before="customer-account-navigation-account-link"
+                   template="Perficient_Company::account/navigation-header.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">210</argument>
+                    <argument name="label" translate="true" xsi:type="string">Customers</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="customer-account-navigation-company-profile-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">209</argument>
+                </arguments>
+            </referenceBlock>
+
+            <referenceBlock name="customer-account-navigation-company-users-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">200</argument>
+                </arguments>
+            </referenceBlock>
+
+            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="resource_type-emp-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/users?resource_type=emp</argument>
+                    <argument name="label" translate="true" xsi:type="string">Employee Logins</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::users_view</argument>
+                    <argument name="sortOrder" xsi:type="number">180</argument>
+                </arguments>
+            </block>
+
+            <!-- Gallery -->
+            <block class="Perficient\Company\Block\Account\HeaderDelimiter"
+                   name="perficient-customer-account-navigation-delimiter-3"
+                   before="customer-account-navigation-account-link"
+                   template="Perficient_Company::account/navigation-header.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">170</argument>
+                    <argument name="label" translate="true" xsi:type="string">Gallery</argument>
+                </arguments>
+            </block>
+
+            <referenceBlock name="customer-account-navigation-wish-list-link">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">160</argument>
+                    <argument name="label" translate="true" xsi:type="string">Your Favorites</argument>
+                </arguments>
+            </referenceBlock>
+
+            <block class="Magento\Customer\Block\Account\SortLinkInterface"
+                   name="customer-account-navigation-my-projects"
+                   after="customer-account-navigation-wish-list-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Your Projects</argument>
+                    <argument name="path" xsi:type="string">wishlist/myprojects</argument>
+                    <argument name="sortOrder" xsi:type="number">155</argument>
+                </arguments>
+            </block>
+
+            <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-customer-balance-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-gift-card-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-reward-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-giftregistry-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-company-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-magento-invitation-link-container" remove="true"/>
+            <referenceBlock name="customer-account-navigation-company-credit-history-link" remove="true"/>
+            <referenceBlock name="customer-account-navigation-delimiter-2" remove="true"/>
+            <referenceBlock name="customer-account-navigation-delimiter-b2b" remove="true"/>
+            <referenceBlock name="customer-account-navigation-delimiter-b2b" remove="true"/>
+            <referenceBlock name="company-credit-customer-account-navigation-delimiter-b2b" remove="true"/>
+        </referenceBlock>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <!--To Remove Account Information link-->
+        <referenceBlock name="customer-account-navigation-account-edit-link" remove="true"/>
+    </body>
+</page>

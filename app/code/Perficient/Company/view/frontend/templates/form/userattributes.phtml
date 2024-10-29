@@ -1,0 +1,40 @@
+<?php
+/**
+ *
+ * This file used to get custom address attribute
+ *
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Ankita Bodhankar <ankita.bodhankar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Company
+ */
+?>
+<?php
+/**
+ * To get custom address attribute
+ *
+ * @see \Magento\CustomerCustomAttributes\Block\Form
+ */
+/* @var $block \Magento\CustomerCustomAttributes\Block\Form */
+?>
+<?php if ($block->hasUserDefinedAttributes()) : ?>
+    <?php if ($block->isShowContainer()) : ?>
+        <fieldset class="fieldset">
+        <legend class="no-display"><?= $block->escapeHtml(__('Legend')) ?></legend>
+    <?php endif;?>
+    <?php foreach ($block->getUserDefinedAttributes() as $attribute) :?>
+        <?php if ($attribute->getAttributeCode() != 'order_shipping_notes') : ?>
+            <?php $attributeContent = $block->getAttributeHtml($attribute);?>
+            <?php if ($attributeContent) : ?>
+                <?= /* @noEscape */ $attributeContent ?>
+            <?php endif;?>
+        <?php endif;?>
+    <?php endforeach;?>
+    <?php if ($block->isShowContainer()) : ?>
+        </fieldset>
+    <?php endif;?>
+<?php endif; ?>

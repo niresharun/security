@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs.
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="3columns" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Create Catalog Pages</title>
+        <css src="Perficient_MyCatalog::css/mycatalog.css"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+           <action method="setPageTitle">
+              <argument translate="true" name="title" xsi:type="string">Create Catalog Pages</argument>
+           </action>
+            <block class="Perficient\MyCatalog\Block\MyPages" name="mycatalog.pages.top" template="pages-top.phtml" />
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Perficient\MyCatalog\Block\MyPages" name="mycatalog.pages" template="pages.phtml" cacheable="false"/>
+            <block class="Perficient\MyCatalog\Block\MyPages" name="mycatalog.pages.bottom" template="pages-bottom.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="sidebar.main">
+            <block class="Perficient\MyCatalog\Block\MyPages" name="mycatalog.pages.left" template="pages-left.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="sidebar.additional">
+            <block class="Perficient\MyCatalog\Block\MyPages" name="mycatalog.pages.right" template="pages-right.phtml" />
+        </referenceContainer>
+
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true"/>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+
+        <move element="page.main.title" destination="columns" before="-"/>
+        <!--<referenceBlock name="sidebar.additional" remove="true" />-->
+    </body>
+</page>

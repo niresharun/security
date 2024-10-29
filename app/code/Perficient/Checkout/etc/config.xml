@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Max items in shopping cart default configurations values
+* @category: Magento
+* @package: Perficient/Checkout
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Amin Akhtar
+* @project: Wendover
+* @keywords: Module Perficient_Checkout
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <checkout>
+            <cart>
+                <max_items_in_cart_message>You have exceeded the limit for maximum number of items in your cart.</max_items_in_cart_message>
+            </cart>
+        </checkout>
+    </default>
+</config>

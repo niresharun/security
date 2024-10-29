@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Productimize Default Config Value.
+* @category: Magento
+* @package: Perficient/Productimize
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Productimize
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <productimize>
+            <pricing>
+                <is_enabled>1</is_enabled>
+                <customization_markup_pct>5</customization_markup_pct>
+            </pricing>
+        </productimize>
+    </default>
+</config>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * File to create front template.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Perficient\MyCatalog\Block\MyPages */
+?>
+<?php
+$catalog = $block->getCatalogData();
+$catalogName = $catalog->getName();
+$catalogPhone = $catalog->getPhoneNumber();
+$catalogUrl = $catalog->getWebsiteUrl();
+$catalogCompany = $catalog->getCompanyName();
+?>
+
+<div class="cover-last-page">
+	<hr/>
+    <?php if($catalogName && strlen($catalogName)): ?>
+	    <?= $escaper->escapeHtml($catalogName) ?><br/>
+    <?php endif; ?>
+    <?php if($catalogPhone && strlen($catalogPhone)): ?>
+	    <?= $escaper->escapeHtml($catalogPhone) ?><br/>
+    <?php endif; ?>
+    <?php if($catalogUrl && strlen($catalogUrl)): ?>
+	    <?= $escaper->escapeHtml($catalogUrl) ?><br/>
+    <?php endif; ?>
+    <?php if($catalogCompany && strlen($catalogCompany)): ?>
+	    <?= $escaper->escapeHtml($catalogCompany) ?><br/>
+    <?php endif; ?>
+</div>

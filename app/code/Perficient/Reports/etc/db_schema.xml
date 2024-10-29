@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Log Company Change Information
+ * @category: Magento
+ * @package: Perficient/Reports
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Reports
+ */
+ -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="perficient_logging_event" resource="default" engine="innodb" comment="Event Logging table">
+        <column xsi:type="int" name="log_id" identity="true" padding="10" unsigned="true" nullable="false" comment="Log Id"/>
+        <column xsi:type="bigint" name="ip" unsigned="true" nullable="false" comment="IP"/>
+        <column xsi:type="bigint" name="x_forwarded_ip" unsigned="true" nullable="false" comment="X forwarded IP"/>
+        <column xsi:type="varchar" name="event_code" length="100" nullable="true" comment="Event Code"/>
+        <column xsi:type="timestamp" name="time" nullable="true" comment="Time"/>
+        <column xsi:type="int" name="entity_id" nullable="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="entity_model" length="150" nullable="true" comment="Entity Model"/>
+        <column xsi:type="varchar" name="entity_name" length="150" nullable="true" comment="Entity Name"/>
+        <column xsi:type="varchar" name="status" length="15" nullable="true" comment="Status"/>
+        <column xsi:type="varchar" name="user" length="40" nullable="true" comment="User"/>
+        <column xsi:type="int" name="user_id" unsigned="true" nullable="true" comment="User Id"/>
+        <column xsi:type="varchar" name="fullaction" length="200" nullable="true" comment="Full Action"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="log_id"/>
+        </constraint>
+    </table>
+    <table name="perficient_logging_event_changes" resource="default" engine="innodb" comment="Change Event Logging table">
+        <column xsi:type="int" name="id" identity="true" padding="10" unsigned="true" nullable="false" comment="Id"/>
+        <column xsi:type="varchar" name="source_name" length="150" nullable="true" comment="Source Name"/>
+        <column xsi:type="int" name="event_id" nullable="true" comment="Event Id"/>
+        <column xsi:type="int" name="source_id" nullable="true" comment="Source Id"/>
+        <column xsi:type="text" name="original_data" nullable="true" comment="Original Data"/>
+        <column xsi:type="text" name="result_data" nullable="true" comment="Result Data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

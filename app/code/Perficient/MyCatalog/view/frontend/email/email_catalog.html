@@ -1,0 +1,30 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "%subject" subject=$subject}} @-->
+<!--@vars {
+"var subject":"Subject",
+"var message":"Message",
+"var content":"Content",
+"var from":"From",
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>{{var content|escape|nl2br}}</p>
+
+
+<p>
+    Hello, <br>
+    Please
+    <a style="color:#a82b19" target="_blank"  href="{{var download_url}}">Click here</a>
+    to download my catalog.
+</p>
+<br>
+<p> From, {{var from}}</p>
+<p>{{var message|escape|nl2br}}</p>
+
+{{template config_path="design/email/footer_template"}}

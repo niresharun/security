@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Company Custom Fields.
+* @category: Magento
+* @package: Perficient/Company
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sreedevi Selvaraj <Sreedevi.Selvaraj@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Company
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="b2c_customer_attribute_update" type="Perficient\Company\Plugin\Customer\AccountManagement"
+                sortOrder="20"/>
+    </type>
+</config>

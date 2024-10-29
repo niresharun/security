@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Base module to provide admin configuration menu
+*
+* @category: PHP
+* @package: Perficient/Base
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <sandeep.mude@perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Base
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Perficient_Base::main_menu_item" title="Wendover Base Module" sortOrder="100"/>
+            </resource>
+        </resources>
+    </acl>
+</config>

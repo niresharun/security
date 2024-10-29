@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs.
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Suhas Dhoke <Suhas.Dhoke@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="wendover" translate="label" sortOrder="1000">
+            <label>Wendover</label>
+        </tab>
+        <section id="perficient_mycatalog" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="1" showInStore="0">
+            <label>My Catalog Settings</label>
+            <tab>wendover</tab>
+
+
+            <group id="email" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Catalog Settings</label>
+                <field id="sender" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subject" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Subject</label>
+                    <comment><![CDATA[Email subject.]]></comment>
+                </field>
+                <field id="no_of_days_to_expire_link" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label> No of days to expire my catalog download link</label>
+                    <comment><![CDATA[ No of days to expire my catalog download link.]]></comment>
+                </field>
+                <field id="attachment_size" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Maximum Size of File in Attachment</label>
+                    <comment><![CDATA[Mycatalog email will be trigger within the above-mentioned PDF file size]]></comment>
+                    <validate>validate-number validate-digits validate-not-negative-number</validate>
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

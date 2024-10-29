@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Display Shipping policy on checkout page
+* @category: Magento
+* @package: Perficient/Shipping
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Shipping
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Shipping" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Shipping"/>
+            <module name="Magento_OfflineShipping"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Frontend Router
+ *
+ * @category: Magento
+ * @package: Perficient/Company
+ * @copyright: Copyright © 2021 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+ * @keywords: Module Perficient_Company
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="perficientcompany" frontName="perficientcompany">
+            <module name="Perficient_Company"/>
+        </route>
+    </router>
+</config>

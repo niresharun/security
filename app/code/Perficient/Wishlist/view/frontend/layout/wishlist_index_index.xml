@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+* block template for collaboration
+* @category: Magento
+* @package: Perficient/Wishlist
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude<sandeep.mude@perficient.com>
+* @keywords: Module Perficient_Wishlist
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="customer.wishlist">
+            <container name="customer.wishlist.buttons" as="control_buttons" label="Wishlist Control Buttons">
+                <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.button.toCart" template="Magento_Wishlist::button/tocart.phtml" cacheable="false"/>
+                <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.button.update" template="Magento_Wishlist::button/update.phtml" cacheable="false"/>
+                <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.button.share" template="Magento_Wishlist::button/share.phtml" cacheable="false"/>
+                <block class="Perficient\Wishlist\Block\Customer\Wishlist\Button\Collaborate" name="customer.wishlist.button.collaborate" template="Perficient_Wishlist::button/collaborate.phtml"/>
+                <block class="Magento\MultipleWishlist\Block\Customer\Wishlist\Button\Delete" name="customer.wishlist.button.delete" template="Magento_MultipleWishlist::button/delete.phtml"/>
+            </container>
+        </referenceBlock>
+        <referenceBlock name="customer.wishlist.item.image">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Perficient_Wishlist::wishlist/item/column/image.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template"
+                   template="Perficient_Wishlist::add_by_sku.phtml"
+                   name="before_body_add_sku_hidden_popup"/>
+        </referenceContainer>
+    </body>
+</page>

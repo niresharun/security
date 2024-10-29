@@ -1,0 +1,57 @@
+diff --git a/vendor/magento/module-catalog/view/frontend/templates/product/list.phtml b/vendor/magento/module-catalog/view/frontend/templates/product/list.phtml
+index e0bb6b62f0b..3aeb5792fca 100644
+--- a/vendor/magento/module-catalog/view/frontend/templates/product/list.phtml
++++ b/vendor/magento/module-catalog/view/frontend/templates/product/list.phtml
+@@ -155,7 +155,7 @@ $_helper = $block->getData('outputHelper');
+             <?php endforeach; ?>
+         </ol>
+     </div>
+-    <?= $block->getToolbarHtml() ?>
++    <?= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
+     <?php if (!$block->isRedirectToCartEnabled()):?>
+         <script type="text/x-magento-init">
+         {
+diff --git a/vendor/magento/module-catalog/view/frontend/templates/product/list/toolbar.phtml b/vendor/magento/module-catalog/view/frontend/templates/product/list/toolbar.phtml
+index 76ef6baf499..3c8687d090b 100644
+--- a/vendor/magento/module-catalog/view/frontend/templates/product/list/toolbar.phtml
++++ b/vendor/magento/module-catalog/view/frontend/templates/product/list/toolbar.phtml
+@@ -10,27 +10,23 @@
+  *
+  * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+  */
+-
+-// phpcs:disable Magento2.Security.IncludeFile.FoundIncludeFile
+-// phpcs:disable PSR2.Methods.FunctionCallSignature.SpaceBeforeOpenBracket
+ ?>
+ <?php if ($block->getCollection()->getSize()) :?>
+     <?php $widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($block->getWidgetOptionsJson());
+         $widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['productListToolbarForm']);
+     ?>
+     <div class="toolbar toolbar-products" data-mage-init='{"productListToolbarForm":<?= /* @noEscape */ $widgetOptions ?>}'>
+-        <?php if ($block->isExpanded()) :?>
+-            <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
+-        <?php endif; ?>
+-
+-        <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
+-
+-        <?= $block->getPagerHtml() ?>
+-
+-        <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/limiter.phtml')) ?>
+-
+-        <?php if ($block->isExpanded()) :?>
+-            <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/sorter.phtml')) ?>
+-        <?php endif; ?>
++        <?php if ($block->getIsBottom()): ?>
++            <?= $block->getPagerHtml() ?>
++            <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/limiter.phtml')) ?>
++        <?php else: ?>
++            <?php if ($block->isExpanded()): ?>
++                <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
++            <?php endif ?>
++            <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
++            <?php if ($block->isExpanded()): ?>
++                <?= $block->fetchView($block->getTemplateFile('Magento_Catalog::product/list/toolbar/sorter.phtml')) ?>
++            <?php endif ?>
++        <?php endif ?>
+     </div>
+ <?php endif ?>

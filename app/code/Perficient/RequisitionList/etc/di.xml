@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Sachin Badase <sachin.badase@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_RequisitionList
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\RequisitionList\Model\Action\RequestValidator">
+        <plugin name="plugin_requestvalidator" type="Perficient\RequisitionList\Plugin\Action\RequestValidator"
+                sortOrder="15" disabled="false"/>
+    </type>
+    <type name="Magento\Customer\Block\Account\Navigation">
+        <plugin name="account_tab_plugin_requisitionlist" type="Perficient\RequisitionList\Plugin\LinkTitle"
+                sortOrder="16" disabled="false"/>
+    </type>
+    <type name="Magento\RequisitionList\Controller\Item\AddToCart">
+        <plugin name="fsfsggs" type="Perficient\RequisitionList\Plugin\AddToRequisitionListPlugin" sortOrder="4443"
+                disabled="false"/>
+    </type>
+    <preference for="Magento\RequisitionList\Model\RequisitionList" type="Perficient\RequisitionList\Model\RequisitionList"/>
+    <preference for="Magento\RequisitionList\Block\Requisition\View\Item" type="Perficient\RequisitionList\Block\Requisition\View\Item" />
+
+</config>

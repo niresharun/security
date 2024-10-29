@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<referenceContainer name="product.info.main">-->
+        <referenceContainer name="product.info.form.content">
+            <block class="Magento\Catalog\Block\Product\View" name="product.view.default.configuration" as="default.configuration.view"  template="Perficient_Catalog::product/view/default-configuration.phtml" before="product.info.addtocart">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Perficient\Catalog\ViewModel\CatalogViewModel</argument>
+                </arguments>
+            </block>
+            <!--<block class="Magento\Catalog\Block\Product\View" name="product.view.default.configuration" as="default.configuration.view"  template="Perficient_Catalog::product/view/default-configuration.phtml"/>-->
+        </referenceContainer>
+        <referenceContainer name="product.info.media">
+            <block class="Magento\Catalog\Block\Product\View" name="product.tag.view" as="product.tag.view"  template="Perficient_Catalog::product/view/category-tags.phtml" after="product.info.media.image">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Perficient\Catalog\ViewModel\CatalogViewModel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block before="content" class="Magento\Catalog\Block\Product\View"
+                   name="head.components.requisition"
+                   template="Perficient_Catalog::product/view/product-tabs.phtml"/>
+        </referenceContainer>
+        <move element="content.aside" destination="content" after="head.components.requisition" />
+        <referenceBlock name="product.attributes" remove="true" />
+        <referenceContainer name="content">
+            <block after="content.aside" class="Magento\Cms\Block\Block"
+                   name="customize-contact-block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">customize-pdp-contact-block</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="reviews.tab" remove="true" />
+        <referenceBlock name="product.review.form" remove="true" />
+        <referenceBlock name="product.info.description" remove="true" />
+        <referenceBlock name="product.info.review" remove="true" />
+
+        <move element="product.price.final" destination="product.info.main" after="product.info.price"/>
+        <move element="product.info.media" destination="content" before="-" />
+        <!--Start fix for WENDOVER-553: Out of Stock Frame Features-->
+        <referenceContainer name="columns.top">
+            <block class="Magento\Catalog\Block\Product\View" name="frame_stocks_info"
+                   template="Perficient_Catalog::product/view/frame_stocks_info.phtml" after="page.messages">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Perficient\Catalog\ViewModel\CatalogViewModel</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="productalert.stock" remove="true"/>
+        <!--End fix for WENDOVER-553: Out of Stock Frame Features-->
+    </body>
+</page>

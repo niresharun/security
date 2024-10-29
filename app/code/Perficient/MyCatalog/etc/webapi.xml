@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to create custom artwork catalogs
+ *
+ * @category: Magento
+ * @package: Perficient/MyCatalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Kartikey Pali <Kartikey.Pali@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_MyCatalog
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- My Catalog API -->
+    <route url="/V1/mycatalog/get/:id" method="GET">
+        <service class="Perficient\MyCatalog\Api\MyCatalogRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+
+    <route url="/V1/mycatalog/delete/:id" method="DELETE">
+        <service class="Perficient\MyCatalog\Api\MyCatalogRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+
+    <route url="/V1/mycatalog/save" method="POST">
+        <service class="Perficient\MyCatalog\Api\MyCatalogRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+
+    <!-- My Catalog Page API -->
+    <route url="/V1/mycatalog_page/get/:id" method="GET">
+        <service class="Perficient\MyCatalog\Api\PageRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+
+    <route url="/V1/mycatalog_page/delete/:id" method="DELETE">
+        <service class="Perficient\MyCatalog\Api\PageRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+
+    <route url="/V1/mycatalog_page/save" method="POST">
+        <service class="Perficient\MyCatalog\Api\PageRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Perficient_MyCatalog::mycatalog_api" />
+        </resources>
+    </route>
+</routes>

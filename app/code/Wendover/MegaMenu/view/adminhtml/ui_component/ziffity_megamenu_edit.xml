@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">ziffity_megamenu_edit.ziffity_megamenu_edit_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Menu</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save</item>
+                <item name="class" xsi:type="string">save primary</item>
+                <item name="url" xsi:type="string">*/index/save</item>
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Wendover\MegaMenu\Block\Adminhtml\Form\BackButton" />
+            <button name="delete" class="Wendover\MegaMenu\Block\Adminhtml\Form\DeleteButton" />
+            <button name="save_and_continue" class="Wendover\MegaMenu\Block\Adminhtml\Form\SaveAndContinueButton" />
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>ziffity_megamenu_edit.ziffity_megamenu_edit_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="ziffity_megamenu_edit_data_source" component="Magento_Ui/js/form/provider" >
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Wendover\MegaMenu\Ui\DataProvider\MainMenuDataProvider" name="ziffity_megamenu_edit_data_source">
+            <settings>
+                <primaryFieldName>menu_id</primaryFieldName>
+                <requestFieldName>menu_id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="main_menu">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Main Menu</item>
+            </item>
+        </argument>
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">is_active</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="label" xsi:type="string" translate="true">Enabled</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="menu_title" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">menu</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+                <dataScope>menu_title</dataScope>
+            </settings>
+        </field>
+        <field name="menu_url" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">menu</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Menu URL</label>
+                <dataScope>menu_url</dataScope>
+            </settings>
+        </field>
+        <field name="sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Sort Order</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">menu</item>
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+                </item>
+            </argument>
+        </field>
+        <field name="menu_class" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">menu</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Menu Class</label>
+                <dataScope>menu_class</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="sub_menu">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Sub Menu</item>
+            </item>
+        </argument>
+        <container name="submenu_container" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <block name="block" class="Wendover\MegaMenu\Block\Adminhtml\SubMenu\BlockGrid"> </block>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

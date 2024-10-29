@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Rabbitmq email template
+ *
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Sandeep Mude <sandeep.mude@Perficient.com>
+ * @project: Wendover
+ * @keywords: Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="rabbitmq_general_email_template" label="RabbitMQ Error" file="rabbitmq_error.html" type="html"
+              module="Perficient_Rabbitmq" area="adminhtml"/>
+</config>

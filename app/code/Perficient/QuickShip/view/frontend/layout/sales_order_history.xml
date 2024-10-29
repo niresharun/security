@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Inventory for Quickship
+* @category: Magento
+* @package: Perficient/QuickShip
+* @copyright: Copyright 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude <Sandeep.mude@perficient.com>
+* @keywords: Module Perficient_QuickShip
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- This will add additional column header to order list -->
+        <referenceBlock name="sales.order.history.extra.column.header">
+            <block name="quickship.additional.column.header" template="Perficient_QuickShip::order/extraColumnHeader.phtml"/>
+        </referenceBlock>
+
+        <!-- You can access current order using $this->getOrder() inside the template "-->
+        <referenceBlock name="sales.order.history.extra.container">
+            <block name="quickship.additional.column.data" template="Perficient_QuickShip::order/extraColumn.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,45 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @api
+ */
+
+define([
+    'Magento_Tax/js/view/checkout/summary/shipping',
+    'Magento_Checkout/js/model/quote'
+], function (Component, quote) {
+    'use strict';
+
+    return Component.extend({
+        /**
+         * @override
+         */
+        isCalculated: function () {
+            return !!quote.shippingMethod();
+        },
+
+        /**
+         * @override
+         */
+        getShippingMethodTitle: function () {
+            return '(' + this._super() + ')';
+        },
+
+        isHideFlatRate: function () {
+            if(quote.shippingMethod()['carrier_code'] == 'flatrate') {
+                return 0;
+            }
+            else{
+                return 0;
+            }
+        },
+
+        flatrateDisabledNotice: function () {
+            return window.checkoutConfig.flatrate_disabled_notice;
+        }
+
+    });
+});

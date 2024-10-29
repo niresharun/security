@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ * @var $wendoverModel \Wendover\Catalog\ViewModel\WendoverViewModel
+ */
+?>
+<?php
+$wendoverModel = $block->getData('wendover_model');
+if($wendoverModel->getIsLoggedIn()) { ?>
+    <div id="popup-modal" style="display: none;" role="dialog">
+        <?php
+        $childBlock = $block->getLayout()->createBlock("Perficient\MyCatalog\Block\MyCatalog");
+        $childBlock->setTemplate("Perficient_MyCatalog::pre_define_quick_catalog.phtml"); ?>
+        <?= $childBlock->toHtml(); ?>
+
+    </div>
+    <?php     // customer login action
+}
+?>

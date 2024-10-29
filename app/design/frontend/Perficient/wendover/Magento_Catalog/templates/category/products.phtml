@@ -1,0 +1,18 @@
+<?php
+/**
+ * Render Sub-categories
+ * @category: Magento
+ * @package: Perficient/Perficient_Catalog
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Vikramraj Sahu<Vikramraj.Sahu@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Catalog
+ */
+?>
+<?php if (!$block->isContentMode() || $block->isMixedMode()) :?>
+    <?= $block->getProductListHtml() ?>
+<?php else: ?>
+    <?= $block->getChildBlock('subcategory_grid')->toHtml()?>
+<?php endif; ?>

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Error reporting pages
+ *
+ * @category: Perficient's Error pages theme
+ * @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+ * @license: Perficient, Inc.
+ * @author: Harshal Dantalwar <harshal.dantalwar@perficient.com>
+ * @keywords: Error reporting pages theme
+ */
+?>
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title><?= $this->pageTitle ?></title>
+    <base href="<?= $this->getViewFileUrl() ?>" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Art, Interior Design, Hospitality, Healthcare" />
+    <meta name="description" content="Wendover Art Group is a manufacturer of distinctive wall decor serving retail, interior design, hospitality and healthcare customers. Learn more today."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="*"/>
+     <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link src="https://use.typekit.net/psr7fuo.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+        <img src="images/logo.png" title="" alt="Wendover logo" >
+</header>
+    <main class="page-main">
+        <?php require_once $contentTemplate; ?>
+    </main>
+    <footer>
+        <small class="copyright"><span>© Wendover Art Group. All Rights Reserved.</span></small>
+    </footer>
+</body>
+</html>

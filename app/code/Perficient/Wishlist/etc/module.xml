@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Override for Wishlist module
+* @category: Magento
+* @package: Perficient/Wishlist
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+* @keywords: Module Perficient_Wishlist
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_Wishlist" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_MultipleWishlist" />
+        </sequence>
+    </module>
+</config>

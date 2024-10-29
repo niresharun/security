@@ -1,0 +1,19 @@
+<?php
+/**
+ * Add products by sku.
+ *
+ * @category: PHP HTML
+ * @package: Perficient/Wishlist
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Amin Akhtar <Amin.Akhtar@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Wishlist
+ */
+?>
+<div id="add-by-sku-popup" style="display:none;">
+    <?php echo $block->getLayout()->createBlock("Magento\MultipleWishlist\Block\Customer\Wishlist\Management")
+        ->setTemplate("Perficient_Wishlist::form_add_by_sku.phtml")->toHtml();?>
+</div>
+

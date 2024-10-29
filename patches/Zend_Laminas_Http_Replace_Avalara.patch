@@ -1,0 +1,15 @@
+diff --git a/vendor/avalara/avatax-magento/Controller/Adminhtml/Address/Region.php b/vendor/avalara/avatax-magento/Controller/Adminhtml/Address/Region.php
+index 9d7fcfba..becdff95 100644
+--- a/vendor/avalara/avatax-magento/Controller/Adminhtml/Address/Region.php
++++ b/vendor/avalara/avatax-magento/Controller/Adminhtml/Address/Region.php
+@@ -70,8 +70,8 @@ class Region extends \Magento\Framework\App\Action\Action
+                 $this->regions = $this->directoryHelper->getRegionData();
+             } catch (\Exception $e) {
+                 $resultJson->setStatusHeader(
+-                    \Zend\Http\Response::STATUS_CODE_400,
+-                    \Zend\Http\AbstractMessage::VERSION_11,
++                    \Laminas\Http\Response::STATUS_CODE_400,
++                    \Laminas\Http\AbstractMessage::VERSION_11,
+                     'Bad Request'
+                 );
+                 $this->regions = ['message' => $this->escaper->escapeHtml($e->getMessage())];

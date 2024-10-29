@@ -1,0 +1,22 @@
+{
+  "name": "wendover/module-send-friend",
+  "version": "1.0.0",
+  "description": "To send share variation of the product selected on configurable pdp",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-catalog": "104.0.*",
+    "magento/module-send-friend": "100.4.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Wendover\\SendFriend\\": ""
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This module is used to update all the roles in company roles table when roles and permission get updated
+ *
+ * @category: Magento
+ * @package: Perficient/RolesPermission
+ * @copyright: Copyright  - 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sreedevi Selvaraj <Sreedevi.Selvaraj@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_RolesPermission
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="rolespermissions" translate="label" type="text" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Roles and Permissions</label>
+            <tab>wendover</tab>
+            <resource>Perficient_RolesPermission::perficient_rolespermission</resource>
+            <!--cron submission-->
+            <group id="cron_settings" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Cron Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable Company Roles Update Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cron_schedule" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Cron Schedule</label>
+                    <source_model>Perficient\Catalog\Model\Config\Source\ListMode</source_model>
+                    <comment>Set up scheduler for cron to update company roles and permissions</comment>
+                    <depends>
+                        <field id="rolespermissions/cron_settings/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

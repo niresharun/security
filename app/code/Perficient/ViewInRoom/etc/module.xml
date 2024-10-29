@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* RequisitionList Converted to Market Scans with project specific configurations
+* @copyright: Copyright © 2020 Perficient, Inc. All rights reserved.
+* @license: Perficient, Inc.
+* @author: Tahir Aziz <tahir.aziz@perficient.com>
+* @project: Wendover
+* @keywords:  Module Perficient_ViewInRoom
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Perficient_ViewInRoom" setup_version="1.0.0">
+        <sequence></sequence>
+    </module>
+</config>

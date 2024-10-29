@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * RabbitMq Observer Events
+ * @category: Magento
+ * @package: Perficient/Rabbitmq
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Manish Bhojwani <Manish.Bhojwani@Perficient.com>
+ * @project: Wendover
+ * @keywords: Module Perficient_Rabbitmq
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--Temp disabled to disable syspro ordr sync-->
+    <event name="checkout_submit_all_after">
+        <observer name="perficient_create_order_magento_syspro_observer" instance="Perficient\Rabbitmq\Observer\CreateOrderMagentoToSyspro" />
+    </event>
+
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="perficient_rabbitmq_sales_model_quote_submit_before"
+                  instance="Perficient\Rabbitmq\Observer\QuoteFieldsToOrder" />
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="deduct_source_item_quantity_on_refund" instance="Magento\InventorySales\Observer\SalesInventory\DeductSourceItemQuantityOnRefundObserver" disabled="true" />
+    </event>
+    <event name="sales_model_service_quote_submit_success">
+        <observer name="sendEmail" instance="Perficient\Rabbitmq\Observer\ChangeEmailFlagObserver"/>
+    </event>
+</config>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Added to handle product surcharge if minimum order amount not met by customer
+* @category: Magento
+* @package: Perficient/Order
+* @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+* @license: Magento Enterprise Edition (MEE) license
+* @author: Sachin Badase <Sachin.Badase@Perficient.com>
+* @project: Wendover
+* @keywords: Module Perficient_Order
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_item_price_renderers"/>
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers.default">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Perficient_Order::cart/item/default.phtml</argument>
+            </action>
+            <arguments>
+                <argument name="wendover_model" xsi:type="object">Wendover\Theme\ViewModel\WendoverViewModel</argument>
+            </arguments>
+            <referenceBlock name="checkout.cart.item.renderers.default.actions">
+                <block class="Perficient\Checkout\Block\Cart\Item\Renderer\Actions\AddToCollection"
+                       name="checkout.cart.item.renderers.default.actions.collection"
+                       template="Perficient_Checkout::cart/item/renderer/actions/add_to_collection.phtml"
+                       />
+            </referenceBlock>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.item.renderers.simple">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Perficient_Order::cart/item/default.phtml</argument>
+            </action>
+            <arguments>
+                <argument name="wendover_model" xsi:type="object">Wendover\Theme\ViewModel\WendoverViewModel</argument>
+            </arguments>
+            <referenceBlock name="checkout.cart.item.renderers.simple.actions">
+                <block class="Perficient\Checkout\Block\Cart\Item\Renderer\Actions\AddToCollection"
+                       name="checkout.cart.item.renderers.default.actions.collection"
+                       template="Perficient_Checkout::cart/item/renderer/actions/add_to_collection.phtml"
+                       />
+            </referenceBlock>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.item.renderers.configurable">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Perficient_Order::cart/item/default.phtml</argument>
+            </action>
+
+            <arguments>
+                <argument name="wendover_model" xsi:type="object">Wendover\Theme\ViewModel\WendoverViewModel</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

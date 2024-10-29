@@ -1,0 +1,21 @@
+<?php
+/**
+ * Add sets to My Projects (Wishlist)
+ * @category: Magento
+ * @package: Perficient/WishlistSet
+ * @copyright: Copyright © 2020 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ * @license: Magento Enterprise Edition (MEE) license
+ * @author: Sandeep Mude<Sandeep.mude@Perficient.com>
+ * @keywords: Module Perficient_WishlistSet
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+
+<?= $escaper->escapeHtmlAttr(__('You added %1 to your shopping cart.', $block->getData('product_name'))) ?>
+<?= $escaper->escapeHtml(__('<a href="#"
+        id="product-set-cart"        
+        class="action product-set-cart"
+        >ADD COLLECTION TO SHOPPING CART</a>'), ['a']);?>
