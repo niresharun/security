@@ -1,0 +1,147 @@
+{
+    "name": "magento/project-enterprise-edition",
+    "description": "eCommerce Platform for Growth (Enterprise Edition)",
+    "type": "project",
+    "license": [
+        "proprietary"
+    ],
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "magento/composer-dependency-version-audit-plugin": true,
+            "magento/magento-composer-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "magento/composer-root-update-plugin": true,
+            "magento/inventory-composer-installer": true
+        }
+    },
+    "require": {
+        "amasty/base": "^1.10",
+        "amasty/gdpr-cookie": "^2.9.5",
+        "amasty/instagram-feed": "^3.0",
+        "amasty/label": "^2.3.5",
+        "amasty/module-ccpa": "^1.3.7",
+        "amasty/module-gdpr": "^2.9.4",
+        "amasty/module-improved-layered-navigation-page": "^2.7.18",
+        "amasty/module-mage-2.4.5-fix": "^1.0",
+        "amasty/module-magento-custom-form": "^1.18.7",
+        "amasty/module-shop-by-base": "^2.13",
+        "amasty/module-shop-by-brand": "^2.14.1",
+        "amasty/shopby": "^2.21.0",
+        "amasty/shopby-seo": "^2.11",
+        "amasty/xsearch": "^1.22",
+        "avalara/avatax-magento": "^2.6.0",
+        "creativestyle/magesuite-magepack": "^1.1",
+        "cweagans/composer-patches": "^1.7.3",
+        "ebizmarts/mailchimp-lib": "^3.0.37",
+        "magento/composer-root-update-plugin": "^2.0.3",
+        "magento/extension-b2b": "^1.4.0",
+        "magento/module-re-captcha-company": "^1.0.3-beta1",
+        "magento/product-enterprise-edition": "2.4.6-p6",
+        "magento/quality-patches": "^1.1",
+        "magento/security-package-b2b": "^1.0.4-beta1",
+        "magento/services-id": "^3.2",
+        "magepal/magento2-gmailsmtpapp": "^2.9",
+        "mageplaza/module-core": "^1.5.3",
+        "mageplaza/module-social-share": "^4.0",
+        "mageworx/module-seosuiteultimate": "^2.36",
+        "mailchimp/mc-magento2": "^103.4",
+        "olegkoval/magento2-regenerate-url-rewrites": "^1.6",
+        "paradoxlabs/authnetcim": "^4.5.2"
+    },
+    "replace": {
+        "amasty/mega-menu": "*",
+        "amasty/mega-menu-page-builder": "*",
+        "amasty/aminvisiblecaptcha": "*",
+        "magento/data-migration-tool": "*",
+        "paypal/module-braintree": "*",
+        "magento/module-paypal": "*",
+        "magento/module-paypal-captcha": "*",
+        "magento/module-paypal-graph-ql": "*",
+        "aws/aws-crt-php": "*",
+        "aws/aws-sdk-php": "*"
+    },
+    "require-dev": {
+        "allure-framework/allure-phpunit": "^2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "lusitanian/oauth": "^0.8",
+        "magento/magento-coding-standard": "*",
+        "magento/magento2-functional-testing-framework": "^4.2.1",
+        "pdepend/pdepend": "^2.12",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpmd/phpmd": "^2.13",
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "^9.5",
+        "sebastian/phpcpd": "^6.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "symfony/finder": "^5.4"
+    },
+    "conflict": {
+        "gene/bluefoot": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magento\\Framework\\": "lib/internal/Magento/Framework/",
+            "Magento\\Setup\\": "setup/src/Magento/Setup/",
+            "Magento\\": "app/code/Magento/",
+            "Zend\\Mvc\\Controller\\": "setup/src/Zend/Mvc/Controller/"
+        },
+        "psr-0": {
+            "": [
+                "app/code/",
+                "generated/code/"
+            ]
+        },
+        "files": [
+            "app/etc/NonComposerComponentRegistration.php"
+        ],
+        "exclude-from-classmap": [
+            "**/dev/**",
+            "**/update/**",
+            "**/Test/**"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Magento\\Sniffs\\": "dev/tests/static/framework/Magento/Sniffs/",
+            "Magento\\Tools\\": "dev/tools/Magento/Tools/",
+            "Magento\\Tools\\Sanity\\": "dev/build/publication/sanity/Magento/Tools/Sanity/",
+            "Magento\\TestFramework\\Inspection\\": "dev/tests/static/framework/Magento/TestFramework/Inspection/",
+            "Magento\\TestFramework\\Utility\\": "dev/tests/static/framework/Magento/TestFramework/Utility/",
+            "Magento\\PhpStan\\": "dev/tests/static/framework/Magento/PhpStan/"
+        }
+    },
+    "version": "2.4.6-p6",
+    "minimum-stability": "stable",
+    "repositories": {
+        "0": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        },
+        "amasty": {
+            "type": "composer",
+            "url": "https://composer.amasty.com/enterprise/"
+        },
+        "mageworx_packages": {
+            "type": "composer",
+            "url": "https://packages.mageworx.com/"
+        }
+    },
+    "extra": {
+        "magento-force": "override",
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "magento/module-eav": {
+                "ENCODE_DIACRITICS_BREAKS_ON_RP": "patches/GITHUB-37326_Ignore_secure_attribute_encode_diacritics__v1.composer.patch"
+            },
+            "avalara/avatax-magento": {
+                "Zend_Serializer_Replaced_With_Laminas_serializer": "patches/ZEND_LAMINAS_REPLACE.patch",
+                "Zend_Validator_NotEmpty_Replaced_With_Laminas": "patches/Zend_Laminas_NotEmpty_Replace.patch",
+                "Zend_Http_Replace_With_Laminas": "patches/Zend_Laminas_Http_Replace_Avalara.patch"
+            }
+        }
+    }
+}
